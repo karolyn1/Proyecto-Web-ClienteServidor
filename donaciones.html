@@ -12,8 +12,27 @@
 </head>
 
 <body>
-    
-   
+    <nav id="navbar-contenido"></nav>
+    <footer id="footer-contenido"></footer>
+
+
+    <script>
+        async function cargarFragmentos() {
+            const response = await fetch('fragmentos.html');
+            const text = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+
+            const headerTemplate = doc.querySelector('#navbar-template').content.cloneNode(true);
+            document.getElementById('navbar-contenido').appendChild(headerTemplate);
+
+            // Insertar el footer
+            const footerTemplate = doc.querySelector('#footer-template').content.cloneNode(true);
+            document.getElementById('footer-contenido').appendChild(footerTemplate);
+        }
+        cargarFragmentos();
+    </script>
+
 </body>
 
 </html>
