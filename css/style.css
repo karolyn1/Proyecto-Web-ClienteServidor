@@ -1,0 +1,189 @@
+body {
+    font-family: 'Paytone One', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-align: start;
+    
+}
+
+
+.logo span {
+    font-size: 30px;
+    font-weight: bold;
+    color: #062D3E;
+}
+
+.logo .highlight {
+    color: #FFC107;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    flex-grow: 1;
+    
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #062D3E;
+}
+
+.nav-links li a:hover {
+    color: #FFC107;
+}
+
+.login-button {
+    background-color: #FFC107;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.login-button:hover {
+    background-color: #e0a800;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        color: #062D3E;
+        top: 60px;
+        right: 20px;
+        background-color: #fff;
+        width: 200px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links li {
+        text-align: center;
+        margin: 0px 0;
+        color: #062D3E;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .menu-toggle.active+.nav-links {
+        display: flex;
+    }
+}
+
+.footer {
+    background-color: #062D3E;
+    color: white;
+    padding: 40px 20px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 25px;
+}
+
+.footer-title {
+    font-size: 24px;
+    color: white;
+    display: inline-block;
+    text-align: center;
+}
+
+.footer-title a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-title .patrocinio {
+    color: white;
+}
+
+.footer-title .animal {
+    color: yellow;
+    display: block;
+}
+
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color:#FFC107 ;
+}
+
+.footer-animal {
+    color: #FFC107;
+}
+
+.footer-info{
+    display: flex;
+    flex-direction: column;
+}
+
+.social-media {
+    text-align: start;
+  
+}
+
+.social-icons {
+    display: flex;
+   justify-content: start;
+    gap: 15px;
+}
+
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    transition: filter 0.3s;
+}
+
+.social-icons img:hover {
+    filter: brightness(1.5) saturate(1.5) hue-rotate(20deg) drop-shadow(0px 0px 5px yellow);
+}
+
+.img{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: baseline;
+}

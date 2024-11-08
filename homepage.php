@@ -6,94 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CasaNatura - Menu</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
     <style>
         body {
             background-color: white;
-            padding: 20px;
+            
         }
 
-        .navbar {
-            padding: 0 40px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #fff;
-            /* Color predeterminado de los enlaces */
-            font-size: 1.4em;
-        }
-
-        /* Color para "Casa" */
-        nav a .patrocinio {
-            color: #062D3E;
-            /* Color para "Casa" */
-        }
-
-        /* Color para "Natura" */
-        nav a .animal {
-            color: #FFDA79;
-            /* Color amarillo para "Natura" */
-        }
-
-        /* Hover para cambiar el color al pasar el cursor sobre el texto */
-        nav a:hover .patrocinio {
-            color: #4C6A80;
-            /* Color más claro cuando el cursor pasa sobre "Casa" */
-        }
-
-        nav a:hover .animal {
-            color: #F1C40F;
-            /* Color más brillante cuando el cursor pasa sobre "Natura" */
-        }
-
-        .navbar-brand {
-            font-family: 'Paytone One', sans-serif;
-            font-size: 48px;
-            color: #FBBC05;
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-brand img {
-            width: 50px;
-            /* Ajusta el tamaño de la imagen según sea necesario */
-            height: 50px;
-            margin-right: 10px;
-            /* Espacio entre la imagen y el texto */
-        }
-
-        .nav-link {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 20px;
-            color: #062D3E !important;
-            margin: 0 20px;
-        }
-
-        .nav-link:hover {
-            color: #FBBC05 !important;
-        }
-
-        .login-btn {
-            font-family: 'Open Sans', sans-serif;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            background-color: #FBBC05;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            white-space: nowrap;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .login-btn:hover {
-            background-color: white;
-            color: #FBBC05;
-        }
-
+        
         .text-container {
             text-align: left;
             width: 50%;
@@ -296,139 +216,17 @@
             vertical-align: middle;
         }
 
-        .footer {
-            background-color: #062D3E;
-            color: white;
-            padding: 40px 20px;
-            text-align: left;
-            margin-top: 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .footer-logo {
-            display: inline-block;
-            margin-right: -360px;
-            /* Espaciado entre el logo y el texto */
-        }
-
-        .footer-logo img {
-            height: 80px;
-            /* Ajusta el tamaño del logo */
-        }
-
-        .footer-title {
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .footer-title h2 {
-            margin: 0;
-            font-size: 1.8em;
-            color: #fff;
-        }
-
-        .footer-title a {
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-title .patrocinio {
-            color: white;
-        }
-
-        .footer-title .animal {
-            color: yellow;
-            display: block;
-        }
-
-        .footer-title a:hover .patrocinio {
-            color: yellow;
-        }
-
-        .footer-title a:hover .animal {
-            color: white;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: yellow;
-        }
-
-        .footer-animal {
-            color: yellow;
-        }
-
-
-
-        .social-media {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .social-icons img {
-            width: 30px;
-            height: 30px;
-            transition: filter 0.3s;
-        }
-
-        .social-icons img:hover {
-            filter: brightness(1.5) saturate(1.5) hue-rotate(20deg) drop-shadow(0px 0px 5px yellow);
-        }
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
-        <a class="navbar-brand" href="#">
-            <img src="imagenes/logo.png" alt="Logo Casa Natura">
-            <span class="patrocinio">Casa</span><span class="animal">Natura</span>
-        </a>
-        <div class="collapse navbar-collapse justify-content-center">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Donaciones</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Apadrinar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Tours</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Eventos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contacto</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Nosotros</a>
-                </li>
-            </ul>
-        </div>
-        <button class="login-btn">Iniciar Sesión</button>
-    </nav>
+    
+        <?php 
+        include("fragmentos.php");
+        echo $navbar;        
+        ?>
+    
 
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div class="text-container">
@@ -527,36 +325,10 @@
         </div>
     </div>
 
-    <div class="footer">
-        <div class="footer-logo">
-            <img src="imagenes/logo.png" alt="Logo Casa Natura">
-        </div>
-        <div class="footer-title">
-            <h2 class="footer-title">
-                <a href="#">
-                    <span class="patrocinio">Casa</span>
-                    <span class="animal">Natura</span>
-                </a>
-            </h2>
-        </div>
-        <div class="footer-links">
-            <a href="#">Nosotros</a>
-            <a href="#">Donar</a>
-            <a href="#">Apadrinar</a>
-            <a href="#">Eventos</a>
-            <a href="#">Tours</a>
-            <a href="#">Contáctanos</a>
-        </div>
-        <div class="social-media">
-            <p>Síguenos:</p>
-            <div class="social-icons">
-                <a href="#"><img src="imagenes/face.png" alt="Facebook" /></a>
-                <a href="#"><img src="imagenes/twitter.png" alt="Twitter" /></a>
-                <a href="#"><img src="imagenes/instagram.webp" alt="Instagram" /></a>
-            </div>
-        </div>
-    </div>
-
+    <?php 
+    include("fragmentos.php");
+    echo $footer;
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
