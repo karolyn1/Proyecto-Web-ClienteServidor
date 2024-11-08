@@ -26,45 +26,30 @@
 
         /* Estilos del banner */
         .banner-container {
-            position: relative;
-            overflow: hidden;
             margin-top: 30px;
+            text-align: center;
         }
 
         .banner-img {
             width: 80%;
-            /* Reduce el ancho de la imagen */
             height: 350px;
-            /* Mantiene la altura que prefieres */
             object-fit: cover;
-            /* Ajusta la imagen sin deformarla */
             display: block;
-            /* Hace que la imagen sea un bloque */
             margin: 0 auto;
-            /* Centra la imagen horizontalmente */
         }
 
         .banner-title {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            /* Centra el título horizontalmente */
-            width: 95%;
-            /* Aumenta el ancho del título */
-            background-color: rgba(255, 255, 255, 0.8);
-            /* Fondo blanco con opacidad */
+            background-color: white;
             color: #062D3E;
             font-weight: bold;
             text-align: center;
             padding: 15px;
             font-size: 40px;
-            max-width: 800px;
-            /* Permite que el título ocupe más espacio */
-            border-top-left-radius: 15px;
-            /* Redondea el borde superior izquierdo */
-            border-top-right-radius: 15px;
-            /* Redondea el borde superior derecho */
+            max-width: 80%;
+            margin: 0 auto;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            /* Alinea con la imagen */
         }
 
         /* Estilos de la sección de contenido */
@@ -81,16 +66,17 @@
         /* Estilos de los links */
         .section-link {
             color: #0000FF;
-            /* Color azul para los hipervínculos */
             font-weight: bold;
             text-decoration: none;
             display: inline-block;
             margin-top: 10px;
             text-align: center;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
         .section-link:hover {
             color: #FBBC05;
+            transform: scale(1.1);
         }
 
         /* Centrar links */
@@ -98,19 +84,15 @@
             display: flex;
             justify-content: center;
         }
-
-        /* Animaciones */
-        .section-link {
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .section-link:hover {
-            transform: scale(1.1);
-        }
     </style>
 </head>
 
 <body>
+
+    <?php 
+        include("fragmentos.php");
+        echo $navbar;        
+    ?>
 
     <!-- Banner con título -->
     <div class="banner-container">
@@ -154,6 +136,11 @@
         </div>
     </div>
 
+    <?php 
+    include("fragmentos.php");
+    echo $footer;
+    ?>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

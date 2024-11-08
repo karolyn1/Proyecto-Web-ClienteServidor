@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Menú Principal</title>
 
     <!-- Importar fuentes de Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&family=Paytone+One&family=Public+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
     <style>
         /* Estilos para el menú vertical con fondo gris claro */
         .sidebar {
             height: 100vh;
             width: 250px;
             background-color: #f0f0f0;
-            /* Gris claro */
             padding-top: 20px;
             position: fixed;
         }
@@ -31,7 +31,6 @@
 
         .navbar-brand img {
             margin-right: 10px;
-            /* Espacio entre el logo y el texto */
         }
 
         .logo-text {
@@ -55,7 +54,6 @@
             font-weight: bold;
             color: #062D3E;
             background-color: #f0f0f0;
-            /* Gris claro */
             padding: 20px;
             margin-top: 20px;
             margin-bottom: 30px;
@@ -69,23 +67,30 @@
         }
 
         .sidebar .submenu a {
-            padding: 10px 20px;
-            display: block;
+            font-weight: normal; /* Sin negrita por defecto */
+            color: black; /* Color normal del texto */
+            display: flex;
+            align-items: center;
+            padding: 10px;
             text-decoration: none;
-            color: #333;
-            border-radius: 5px;
-            margin-left: 20px;
+            border-radius: 8px; /* Bordes redondeados */
+            transition: all 0.3s ease; /* Transición suave */
         }
 
+/* Estilos al pasar el cursor (hover) sobre el enlace */
         .sidebar .submenu a:hover {
-            background-color: #062D3E;
-            color: #fff;
+            font-weight: bold; /* Negrita en hover */
+            background-color: #062D3E; /* Fondo del recuadro azul oscuro */
+            color: white; /* Texto blanco en hover */
+            border: 2px solid #062D3E; /* Borde del recuadro */
+            border-radius: 8px; /* Bordes redondeados */
         }
 
-        .sidebar .submenu a.active {
-            background-color: #062D3E;
-            color: #fff;
+        /* Estilo para el icono dentro del enlace en hover */
+        .sidebar .submenu a:hover i {
+            color: white; /* Cambia el color del icono a blanco */
         }
+
 
         .content {
             margin-left: 270px;
@@ -94,7 +99,6 @@
 
         .menu-link {
             color: #062D3E;
-            /* Color de texto inicial */
             text-decoration: none;
             display: flex;
             align-items: center;
@@ -102,35 +106,24 @@
             transition: color 0.3s ease;
         }
 
-        /* Estilo para el icono en cada enlace del menú */
         .menu-link i {
             margin-right: 8px;
-            /* Espacio entre el icono y el texto */
             color: #062D3E;
-            /* Color inicial del icono */
             font-size: 1.1rem;
             transition: color 0.3s ease;
         }
 
-        /* Cambiar el color a blanco al pasar el cursor sobre el enlace */
-        .menu-link:hover {
-            color: #FFFFFF;
-            /* Cambia el color del texto a blanco */
-        }
-
-        /* Cambiar el color del icono a blanco también al pasar el cursor sobre el enlace */
+        .menu-link:hover,
         .menu-link:hover i {
             color: #FFFFFF;
-            /* Cambia el color del icono a blanco */
         }
 
-        /* Alineación horizontal y centrado de los cuadros */
+        /* Alineación horizontal de los cuadros */
         .counter-box-container {
             display: flex;
             justify-content: center;
             gap: 30px;
             margin-bottom: 80px;
-            /* Más margen con la tabla */
         }
 
         .counter-box,
@@ -144,6 +137,7 @@
             width: 300px;
             height: 180px;
             text-align: center;
+            font-family: 'Public Sans', sans-serif;
         }
 
         .counter-box {
@@ -154,7 +148,6 @@
             background-color: #EAF7E9;
         }
 
-        /* Tamaño de fuente del número */
         .counter-box p,
         .counter-box-second p {
             font-size: 3.5rem;
@@ -162,7 +155,6 @@
             margin: 0;
         }
 
-        /* Tamaño de fuente y ajuste de texto en una línea */
         .counter-box small,
         .counter-box-second small {
             font-size: 1.4rem;
@@ -180,6 +172,7 @@
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
+            font-family: 'Public Sans', sans-serif;
         }
 
         .donation-table th,
@@ -193,17 +186,14 @@
             color: #fff;
         }
 
-        /* Colores alternados en las filas */
         .donation-table tbody tr:nth-child(even) {
             background-color: #f8f8f8;
-            /* Gris claro */
         }
 
         .donation-table tbody tr:nth-child(odd) {
             background-color: #ffffff;
         }
 
-        /* Estilo para el cuadro con el total de donaciones */
         .total-donations-box {
             background-color: #f8f9fa;
             color: #333;
@@ -218,7 +208,7 @@
             justify-content: center;
             text-align: center;
             margin-top: -40px;
-            /* Aproxima el cuadro a la tabla */
+            font-family: 'Public Sans', sans-serif;
         }
 
         .total-donations-box .total-title {
@@ -234,12 +224,12 @@
 </head>
 
 <body>
-
+    
     <div class="sidebar">
         <a class="navbar-brand" href="#">
             <img src="imagenes/logo.png" alt="Logo Casa Natura" width="40" height="40">
             <span class="logo-text">
-                <span class="casa">Casa</span><span class="natura">Natura</span>
+                <span class="casa">CASA</span><span class="natura">NATURA</span>
             </span>
         </a>
 
@@ -326,6 +316,29 @@
             </div>
         </div>
     </div>
+
+    <?php 
+    include("fragmentos.php");
+    echo $footer;
+    ?>
+
+
+
+    <!-- JavaScript directo en HTML -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuLinks = document.querySelectorAll('.sidebar .submenu a');
+            menuLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.fontWeight = 'bold';
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.fontWeight = 'normal';
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>

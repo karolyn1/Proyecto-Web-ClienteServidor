@@ -188,7 +188,7 @@
             width: 54%;
             background-color: #062D3E;
             color: white;
-            padding: 114px 20px;
+            padding: 99px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
