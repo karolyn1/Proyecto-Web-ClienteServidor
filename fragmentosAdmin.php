@@ -42,22 +42,6 @@ $sitebarAdmin = '
     </div>
 ';
 ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
- <!-- JavaScript directo en HTML -->
- <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const menuLinks = document.querySelectorAll('.sidebar .submenu a');
-            menuLinks.forEach(link => {
-                link.addEventListener('mouseenter', () => {
-                    link.style.fontWeight = 'bold';
-                });
-                link.addEventListener('mouseleave', () => {
-                    link.style.fontWeight = 'normal';
-                });
-            });
-        });
-    </script>
 
 </body>
 
