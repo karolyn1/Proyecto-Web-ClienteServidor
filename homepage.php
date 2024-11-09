@@ -21,10 +21,10 @@
         }
 
         .title {
-            font-family: 'Josefin Sans', sans-serif;
             font-weight: bold;
-            font-size: 36px;
+            font-size: 50px;
             text-align: left;
+            color: #062D3E;
         }
 
         .welcome-text {
@@ -65,6 +65,7 @@
             font-size: 36px;
             text-align: center;
             margin-top: 40px;
+            color: #062D3E;
         }
 
         h2 {
@@ -138,7 +139,7 @@
         .cta-btn {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #062D3E;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
@@ -146,7 +147,7 @@
         }
 
         .cta-btn:hover {
-            background-color: #0056b3;
+            background-color: #e0a800;
         }
 
         /* Estilos de navegación del carrusel */
@@ -232,8 +233,8 @@
         <div class="text-container">
             <h1 class="title">SE PARTE DE <br> NUESTRA FAMILIA</h1>
             <p class="welcome-text">
-                ¡Bienvenido a Patrocinio Animal! Aquí puedes marcar la diferencia en la vida de los animales que más lo
-                necesitan.
+            ¡Bienvenido a Casa Natura! Aquí puedes marcar la diferencia en la vida de los animales que más lo necesitan. Nuestra misión es conectar corazones con causas nobles, facilitando el patrocinio de animales rescatados. 
+            Te invitamos a conocer más de nosotros, y ¿por qué no formar parte de nuestra comunidad?
             </p>
             <button class="about-btn">Acerca de Nosotros</button>
         </div>

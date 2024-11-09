@@ -25,7 +25,7 @@
                         <li><a href="formularioDonaciones.php">Formulario</a></li>
                     </ul>
                 </li>
-                <li><a href="#apadrinar">Apadrinar</a></li>
+                <li><a href="listadoAnimalesDisponibles.php">Apadrinar</a></li>
                 <li><a href="#tours">Tours</a></li>
                 <li><a href="#eventos">Eventos</a></li>
                 <li><a href="#contacto">Contacto</a></li>
@@ -38,6 +38,7 @@
                 <a href="#registro">Registro</a>
                 <hr>
                 <a href="#mi-perfil">Mi Perfil</a>
+                <a href="dashboardAdmin.php">Administrador</a>
             </div>
         </div>
         <button class="menu-toggle">☰</button>
