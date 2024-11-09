@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="./css/style.css" rel="stylesheet">
     <style>
-      /* 
-       Estilos para el menú vertical con fondo gris claro 
+      /* Estilos para el menú vertical con fondo gris claro */
         .sidebar {
             height: 100vh;
             width: 250px;
@@ -93,6 +92,7 @@
         }
         */
 
+        
         .content {
             margin-left: 270px;
             padding: 20px;
@@ -117,7 +117,7 @@
         .menu-link:hover,
         .menu-link:hover i {
             color: #FFFFFF;
-        }
+        } 
 
         /* Alineación horizontal de los cuadros */
         .counter-box-container {
@@ -162,7 +162,7 @@
             color: #666;
             margin-top: 10px;
             white-space: nowrap;
-        }
+        } */
 
         /* Estilo para la tabla de donaciones */
         .donation-table-container {
@@ -220,7 +220,7 @@
         .total-donations-box .total-amount {
             font-size: 2.5rem;
             margin-top: 10px;
-        }
+        } 
     </style>
 </head>
 
@@ -332,7 +332,7 @@
 
 
 
-    <!-- JavaScript directo en HTML -->
+    <!--JavaScript directo en HTML-->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const menuLinks = document.querySelectorAll('.sidebar .submenu a');
@@ -346,7 +346,7 @@
             });
         });
     </script>
-
+ 
 </body>
 
 </html>

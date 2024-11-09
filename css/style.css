@@ -187,3 +187,210 @@ body {
     display: flex;
     align-items: baseline;
 }
+
+ /* Estilos para el menú vertical con fondo gris claro */
+ .sidebar {
+    height: 100vh;
+    width: 250px;
+    background-color: #f0f0f0;
+    padding-top: 20px;
+    position: fixed;
+}
+
+/* Estilo para el logo */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+}
+
+.logo-text {
+    font-family: 'Paytone One', sans-serif;
+    font-size: 1.6rem;
+    margin-right: 10px;
+}
+
+.logo-text .casa {
+    color: #062D3E;
+}
+
+.logo-text .natura {
+    color: #FBBC05;
+}
+
+/* Estilo del título principal Dashboard */
+.main-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #062D3E;
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.sidebar .title {
+    font-size: 1.2rem;
+    padding: 20px 20px;
+    color: #062D3E;
+}
+
+.sidebar .submenu a {
+    font-weight: normal; /* Sin negrita por defecto */
+    color: black; /* Color normal del texto */
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 8px; /* Bordes redondeados */
+    transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Estilos al pasar el cursor (hover) sobre el enlace */
+.sidebar .submenu a:hover {
+    font-weight: bold; /* Negrita en hover */
+    background-color: #062D3E; /* Fondo del recuadro azul oscuro */
+    color: white; /* Texto blanco en hover */
+    border: 2px solid #062D3E; /* Borde del recuadro */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Estilo para el icono dentro del enlace en hover */
+.sidebar .submenu a:hover i {
+    color: white; /* Cambia el color del icono a blanco */
+}
+
+.content {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+.menu-link {
+    color: #062D3E;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.menu-link i {
+    margin-right: 8px;
+    color: #062D3E;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.menu-link:hover,
+.menu-link:hover i {
+    color: #FFFFFF;
+}
+
+/* Alineación horizontal de los cuadros */
+.counter-box-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 80px;
+}
+
+.counter-box,
+.counter-box-second {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    height: 180px;
+    text-align: center;
+    font-family: 'Public Sans', sans-serif;
+}
+
+.counter-box {
+    background-color: #FFF3EB;
+}
+
+.counter-box-second {
+    background-color: #EAF7E9;
+}
+
+.counter-box p,
+.counter-box-second p {
+    font-size: 3.5rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.counter-box small,
+.counter-box-second small {
+    font-size: 1.4rem;
+    color: #666;
+    margin-top: 10px;
+    white-space: nowrap;
+}
+
+/* Estilo para la tabla de donaciones */
+.donation-table-container {
+    margin-top: 20px;
+}
+
+.donation-table {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: 'Public Sans', sans-serif;
+}
+
+.donation-table th,
+.donation-table td {
+    padding: 15px;
+    text-align: center;
+}
+
+.donation-table th {
+    background-color: #062D3E;
+    color: #fff;
+}
+
+.donation-table tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.donation-table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.total-donations-box {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: -40px;
+    font-family: 'Public Sans', sans-serif;
+}
+
+.total-donations-box .total-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.total-donations-box .total-amount {
+    font-size: 2.5rem;
+    margin-top: 10px;
+}

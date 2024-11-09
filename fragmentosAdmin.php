@@ -7,10 +7,11 @@
     <title>PAnimal - Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
+    
 </head>
 
 <body>
+
 <?php
 $sitebarAdmin = '
     <div class="sidebar">
@@ -21,7 +22,6 @@ $sitebarAdmin = '
             </span>
         </a>
 
-        <!-- Main Menu -->
         <div class="title">Main Menu</div>
         <div class="submenu">
             <a href="#" class="menu-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
@@ -33,7 +33,6 @@ $sitebarAdmin = '
             <a href="#" class="menu-link"><i class="fas fa-calendar-alt"></i> Gestión de eventos</a>
         </div>
 
-        <!-- Genera -->
         <div class="title">Genera</div>
         <div class="submenu">
             <a href="#" class="menu-link"><i class="fas fa-cog"></i> Ajustes</a>
@@ -42,8 +41,24 @@ $sitebarAdmin = '
         </div>
     </div>
 ';
+?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+ <!-- JavaScript directo en HTML -->
+ <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuLinks = document.querySelectorAll('.sidebar .submenu a');
+            menuLinks.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.fontWeight = 'bold';
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.fontWeight = 'normal';
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
