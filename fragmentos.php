@@ -17,19 +17,19 @@
         </div>
         <div>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
+                <li><a href="homepage.php">Home</a></li>
                 <li>
                     <a href="#donaciones">Donaciones</a>
                     <ul class="submenu">
                         <li><a href="#info">Información</a></li>
-                        <li><a href="#formulario">Formulario</a></li>
+                        <li><a href="formularioDonaciones.php">Formulario</a></li>
                     </ul>
                 </li>
                 <li><a href="#apadrinar">Apadrinar</a></li>
                 <li><a href="#tours">Tours</a></li>
                 <li><a href="#eventos">Eventos</a></li>
                 <li><a href="#contacto">Contacto</a></li>
-                <li><a href="#nosotros">Nosotros</a></li>
+                <li><a href="quienessomos.php">Nosotros</a></li>
             </ul>
         </div>
         <div class="menu-container">
