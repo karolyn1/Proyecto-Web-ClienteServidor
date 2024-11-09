@@ -10,12 +10,6 @@
 </head>
 <style>
 
-    .title-formulario{
-        text-align: center;
-        color: #062D3E;
-        margin-top: 5px;
-        font-weight: 700;
-    }
     .formulario{
         align-items: center;
     }

@@ -1,12 +1,13 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 
-    "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont,
+        "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-weight: bold;
 }
 
+/* Styles para el navbar */
 .navbar {
     display: flex;
     align-items: center;
@@ -14,13 +15,15 @@ body {
     padding: 10px 20px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Paytone One', sans-serif;
+    font-weight: 100;
 }
 
 .logo {
     display: flex;
     align-items: center;
     text-align: start;
-    
+
 }
 
 .logo span {
@@ -38,7 +41,7 @@ body {
     list-style: none;
     margin: 0;
     flex-grow: 1;
-    
+
 }
 
 .nav-links li {
@@ -61,6 +64,8 @@ body {
     border-radius: 10px;
     text-decoration: none;
     font-size: 15px;
+    cursor: pointer;
+    position: relative;
 }
 
 .login-button:hover {
@@ -104,6 +109,93 @@ body {
     }
 }
 
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav li {
+    position: relative;
+    font-size: 20px;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: #fff;
+    background-color: #fff;
+    min-width: 160px;
+    z-index: 1;
+    border-radius: 2px;
+}
+
+.submenu a {
+    color: #fff;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+}
+
+.submenu a:hover {
+    color: #e0a800;
+}
+
+.nav-links li:hover .submenu {
+    display: block;
+}
+
+.submenu-login {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    right: 0%;
+    color: #062D3E;
+    background-color: #fff;
+    min-width: 160px;
+    z-index: 1;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: auto;
+    padding: 0;
+}
+
+.menu-container:hover .submenu-login {
+    display: block;
+}
+
+.menu-container{
+    position: relative;
+}
+
+
+.submenu-login a {
+    color: #062D3E;
+    padding: 10px;
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.submenu-login a:hover {
+   color: #e0a800;
+}
+
+.submenu-login hr {
+    margin: 5px 0;
+    border: 0;
+    border-top: 2px solid #062D3E;
+}
+
+/* --------------------------------------------------------------------------------- */
+
+
+/* Style para el footer */
 .footer {
     background-color: #062D3E;
     color: white;
@@ -112,6 +204,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Paytone One', sans-serif;
+    font-weight: 100;
 }
 
 .footer-links {
@@ -149,26 +243,26 @@ body {
 }
 
 .footer-links a:hover {
-    color:#FFC107 ;
+    color: #FFC107;
 }
 
 .footer-animal {
     color: #FFC107;
 }
 
-.footer-info{
+.footer-info {
     display: flex;
     flex-direction: column;
 }
 
 .social-media {
     text-align: start;
-  
+
 }
 
 .social-icons {
     display: flex;
-   justify-content: start;
+    justify-content: start;
     gap: 15px;
 }
 
@@ -182,16 +276,15 @@ body {
     filter: brightness(1.5) saturate(1.5) hue-rotate(20deg) drop-shadow(0px 0px 5px yellow);
 }
 
-.img{
+.img {
     width: 100px;
     height: 100px;
     display: flex;
     align-items: baseline;
 }
 
-<<<<<<< Updated upstream
- /* Estilos para el menú vertical con fondo gris claro */
- .sidebar {
+/* Estilos para el menú vertical con fondo gris claro */
+.sidebar {
     height: 100vh;
     width: 250px;
     background-color: #f0f0f0;
@@ -244,28 +337,38 @@ body {
 }
 
 .sidebar .submenu a {
-    font-weight: normal; /* Sin negrita por defecto */
-    color: black; /* Color normal del texto */
+    font-weight: normal;
+    /* Sin negrita por defecto */
+    color: black;
+    /* Color normal del texto */
     display: flex;
     align-items: center;
     padding: 10px;
     text-decoration: none;
-    border-radius: 8px; /* Bordes redondeados */
-    transition: all 0.3s ease; /* Transición suave */
+    border-radius: 8px;
+    /* Bordes redondeados */
+    transition: all 0.3s ease;
+    /* Transición suave */
 }
 
 /* Estilos al pasar el cursor (hover) sobre el enlace */
 .sidebar .submenu a:hover {
-    font-weight: bold; /* Negrita en hover */
-    background-color: #062D3E; /* Fondo del recuadro azul oscuro */
-    color: white; /* Texto blanco en hover */
-    border: 2px solid #062D3E; /* Borde del recuadro */
-    border-radius: 8px; /* Bordes redondeados */
+    font-weight: bold;
+    /* Negrita en hover */
+    background-color: #062D3E;
+    /* Fondo del recuadro azul oscuro */
+    color: white;
+    /* Texto blanco en hover */
+    border: 2px solid #062D3E;
+    /* Borde del recuadro */
+    border-radius: 8px;
+    /* Bordes redondeados */
 }
 
 /* Estilo para el icono dentro del enlace en hover */
 .sidebar .submenu a:hover i {
-    color: white; /* Cambia el color del icono a blanco */
+    color: white;
+    /* Cambia el color del icono a blanco */
 }
 
 .content {
@@ -396,12 +499,11 @@ body {
     font-size: 2.5rem;
     margin-top: 10px;
 }
-=======
+
+/* ESTILOS PARA PAGINA DE FORMULARIO DONACIONES */
 .title-formulario{
     text-align: center;
-    color: #062D3E;
+    color: #e0a800;
     margin-top: 5px;
     font-weight: 700;
 }
-
->>>>>>> Stashed changes
