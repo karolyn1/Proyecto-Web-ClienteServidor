@@ -11,9 +11,10 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    
+    <link href="./css/style.css" rel="stylesheet">
     <style>
-        /* Estilos para el menú vertical con fondo gris claro */
+      /* 
+       Estilos para el menú vertical con fondo gris claro 
         .sidebar {
             height: 100vh;
             width: 250px;
@@ -22,7 +23,7 @@
             position: fixed;
         }
 
-        /* Estilo para el logo */
+        Estilo para el logo 
         .navbar-brand {
             display: flex;
             align-items: center;
@@ -47,7 +48,7 @@
             color: #FBBC05;
         }
 
-        /* Estilo del título principal Dashboard */
+        Estilo del título principal Dashboard 
         .main-title {
             font-family: 'Josefin Sans', sans-serif;
             font-size: 2rem;
@@ -67,30 +68,30 @@
         }
 
         .sidebar .submenu a {
-            font-weight: normal; /* Sin negrita por defecto */
-            color: black; /* Color normal del texto */
+            font-weight: normal; 
+            color: black; 
             display: flex;
             align-items: center;
             padding: 10px;
             text-decoration: none;
-            border-radius: 8px; /* Bordes redondeados */
-            transition: all 0.3s ease; /* Transición suave */
+            border-radius: 8px; 
+            transition: all 0.3s ease; 
         }
 
-/* Estilos al pasar el cursor (hover) sobre el enlace */
+ Estilos al pasar el cursor (hover) sobre el enlace 
         .sidebar .submenu a:hover {
-            font-weight: bold; /* Negrita en hover */
-            background-color: #062D3E; /* Fondo del recuadro azul oscuro */
-            color: white; /* Texto blanco en hover */
-            border: 2px solid #062D3E; /* Borde del recuadro */
-            border-radius: 8px; /* Bordes redondeados */
+            font-weight: bold; 
+            background-color: #062D3E; 
+            color: white; 
+            border: 2px solid #062D3E;
+            border-radius: 8px; 
         }
 
-        /* Estilo para el icono dentro del enlace en hover */
+        Estilo para el icono dentro del enlace en hover 
         .sidebar .submenu a:hover i {
-            color: white; /* Cambia el color del icono a blanco */
+            color: white; 
         }
-
+        */
 
         .content {
             margin-left: 270px;
@@ -224,34 +225,41 @@
 </head>
 
 <body>
-    
+    <!--  
     <div class="sidebar">
         <a class="navbar-brand" href="#">
             <img src="imagenes/logo.png" alt="Logo Casa Natura" width="40" height="40">
             <span class="logo-text">
                 <span class="casa">CASA</span><span class="natura">NATURA</span>
             </span>
-        </a>
+        </a> -->
 
         <!-- Main Menu -->
-        <div class="title">Main Menu</div>
+        <!--  <div class="title">Main Menu</div>
         <div class="submenu">
             <a href="#" class="menu-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
             <a href="#" class="menu-link"><i class="fas fa-paw"></i> Gestión de animales</a>
             <a href="#" class="menu-link"><i class="fas fa-hand-holding-usd"></i> Gestión de donaciones</a>
             <a href="#" class="menu-link"><i class="fas fa-heart"></i> Gestión de apadrinamientos</a>
             <a href="#" class="menu-link"><i class="fas fa-route"></i> Gestión de tours</a>
+            <a href="#" class="menu-link"><i class="fas fa-route"></i> Gestión de usuarios</a>
             <a href="#" class="menu-link"><i class="fas fa-calendar-alt"></i> Gestión de eventos</a>
-        </div>
+        </div> -->
 
         <!-- Genera -->
-        <div class="title">Genera</div>
+       <!--  <div class="title">Genera</div>
         <div class="submenu">
             <a href="#" class="menu-link"><i class="fas fa-cog"></i> Ajustes</a>
             <a href="#" class="menu-link"><i class="fas fa-headset"></i> Soporte</a>
             <a href="#" class="menu-link"><i class="fas fa-sign-out-alt"></i> Salir de la sesión</a>
         </div>
-    </div>
+    </div> 
+    -->
+
+    <?php 
+        include("fragmentosAdmin.php");
+        echo $sitebarAdmin;
+    ?>
 
     <div class="content">
         <!-- Título principal Dashboard -->
