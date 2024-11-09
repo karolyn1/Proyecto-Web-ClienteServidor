@@ -16,6 +16,14 @@
     include("fragmentos.php");
     echo $navbar;
     ?></nav>
+    <main>
+        
+
+
+
+
+
+    </main>
 
     <footer>
         <?php
