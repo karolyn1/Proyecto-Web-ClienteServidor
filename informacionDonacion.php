@@ -54,10 +54,31 @@
                 <h3>Transparencia Garantizada</h3>
                 <p>Casa Natura se compromete a mantenerte informado sobre el uso de los fondos y el impacto de tu apoyo.</p>
             </div>
+        </div>        
+    </div>
+
+    <hr>
+    <div class="d-flex  align-items-center mt-4 p-5">
+    <div class="image-container">
+            <img src="imagenes/animales.png" alt="Descripción de la imagen" class="img-fluid">
+        </div>
+        <div class="text-container">
+            <h1 class="title">¿POR QUÉ <br>DONAR A CASA NATURA?</h1>
+            <p class="welcome-text">
+            Apoyo a los Animales: Tus donaciones nos ayudan a seguir proporcionando un refugio adecuado, nutrición y atención médica a nuestros animales.
+            </p>
+            <p class="welcome-text">
+            Fortalecimiento de la Institución: Con tu ayuda, Casa Natura puede mantener y mejorar sus instalaciones y expandir sus programas de rescate y educación.
+            </p>
+            <p class="welcome-text">
+            Confianza y Compromiso: Tu contribución se gestiona de manera responsable, asegurando que cada centavo se utilice en beneficio de los animales.
+            </p>
+            <button class="about-btn">Quiero Donar</button>
         </div>
 
-        
+       
     </div>
+
 </body>
 </html>
 

@@ -616,16 +616,43 @@ nav li {
     font-size: 16px;
     color: #555;
 }
-.image-container {
-    width: 100%;
-    max-width: 600px;
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
+
+.text-container {
+    text-align: left;
+    width: 50%;
+    margin-left: 40px;
 }
-.image-container img {
-    border-radius: 10px;
-    width: 100%;
-    max-height: 400px;
-    object-fit: cover;
+
+.title {
+    font-weight: bold;
+    font-size: 50px;
+    text-align: left;
+    color: #062D3E;
+}
+
+.welcome-text {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.about-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    color: white;
+    background-color: #FBBC05;
+    border: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.about-btn:hover {
+    background-color: white;
+    color: #FBBC05;
+}
+
+.image-container {
+    float: left;
+    width: 40%;
 }
