@@ -19,9 +19,8 @@
             <ul class="nav-links">
                 <li><a href="homepage.php">Home</a></li>
                 <li>
-                    <a href="#donaciones">Donaciones</a>
+                    <a href="informacionDonacion.php">Donaciones</a>
                     <ul class="submenu">
-                        <li><a href="#info">Información</a></li>
                         <li><a href="formularioDonaciones.php">Formulario</a></li>
                     </ul>
                 </li>
@@ -62,9 +61,9 @@
         </div>
         <div class="footer-info">
             <div class="footer-links">
-            <a href="#">Nosotros</a>
-            <a href="#">Donar</a>
-            <a href="#">Apadrinar</a>
+            <a href="quienessomos.php">Nosotros</a>
+            <a href="informacionDonacion.php">Donar</a>
+            <a href="lostadoAnimalesDisponibles.php">Apadrinar</a>
             <a href="#">Eventos</a>
             <a href="#">Tours</a>
             <a href="#">Contáctanos</a>

@@ -57,7 +57,7 @@
         </div>        
     </div>
 
-    <hr>
+
     <div class="d-flex  align-items-center mt-4 p-5">
     <div class="image-container">
             <img src="imagenes/animales.png" alt="Descripción de la imagen" class="img-fluid">
@@ -73,7 +73,7 @@
             <p class="welcome-text">
             Confianza y Compromiso: Tu contribución se gestiona de manera responsable, asegurando que cada centavo se utilice en beneficio de los animales.
             </p>
-            <button class="about-btn">Quiero Donar</button>
+            <button class="about-btn"><a href="formularioDonaciones.php">Quiero Donar</a></button>
         </div>
 
        

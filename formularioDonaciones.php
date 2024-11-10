@@ -43,7 +43,7 @@
             Selecciona la cantidad y la frecuencia de tu donación, elige un animal o causa que te gustaría apoyar, y completa los detalles para hacer tu contribución. 
             Cada aporte es valioso y ayuda a mejorar la vida de estos animales. 
             ¡Gracias por ser parte del cambio!</p>
-<div class="container>
+    <div class="container">
     <form action="donacion.php" method="post">
     <div class="mb-3">
     <label for="nombre">Nombre completo del donador</label>

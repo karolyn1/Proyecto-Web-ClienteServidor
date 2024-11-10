@@ -647,6 +647,10 @@ nav li {
     transition: background-color 0.3s, color 0.3s;
 }
 
+.about-btn a {
+    color: #062D3E;
+    font-weight: bold;
+}
 .about-btn:hover {
     background-color: white;
     color: #FBBC05;
@@ -655,4 +659,62 @@ nav li {
 .image-container {
     float: left;
     width: 40%;
+}
+
+/*LISTADO DE ANIMALES STYLE*/
+ /* Estilos personalizados */
+ .animales-apadrinar-title {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #e0a800;
+}
+.animales-apadrinar-subtitle {
+    margin-bottom: 50px; /* Mayor espacio debajo del subtítulo */
+    text-align: center;
+    color: #555;
+}
+.animales-apadrinar-list-title {
+    text-align: center;
+    color: #062D3E; /* Azul específico */
+    font-weight: bold;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.animal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+.animal-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+.animal-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.animal-card a {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #062D3E;
+    text-decoration: none;
+}
+.animal-card a:hover {
+    text-decoration: underline;
+}
+
+/*ESTILOS DETALLE ANIMALES*/
+
+.detalleAnimal-title{
+    color:#062D3E;
+    margin-top: 10px;
 }
