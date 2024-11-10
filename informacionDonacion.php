@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAnimal - Menu</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <?php
+    include("fragmentos.php");
+        echo $navbar;
+    ?>
+    <main>
+    <div class="container-donacion">
+        <div class="row">
+            <div class="texto-section col-sm">
+            <h1>APOYA A CASA NATURA: TUS DONACIONES, NUESTRA FUERZA PARA EL BIENESTAR ANIMAL</h1>
+            <p><span>Casa Natura</span> es un 
+                refugio dedicado a proporcionar un hogar seguro y cuidado a animales necesitados. Tu apoyo permite que sigamos cumpliendo nuestra misión de cuidar y proteger a los animales, cubriendo necesidades esenciales como alimentación, atención 
+                veterinaria y mantenimiento de las instalaciones.</p>
+        </div>
+        <div class="imagen-section col-sm">
+            <img src="./imagenes/donaciones1.jpeg">
+        </div>
+    </div>
+    <br>
+    <hr>
+    
+        
+    <div class="container-comoFunciona">
+        <header class="donacion">
+            <h1>¿CUÁL ES EL PROCESO DE DONACIÓN?</h1>
+            <p>¿Listo para traer a donar por una buena causa?</p>
+        </header>
+       
+        <div class="pasos">
+            <div class="paso">
+                <i class="fas fa-paw"></i>
+                <h3>Fácil y Seguro</h3>
+                <p>Realiza tu donación a través de nuestra plataforma de manera rápida y segura.</p>
+            </div>
+            <div class="paso">
+                <i class="fas fa-handshake"></i>
+                <h3>Donaciones Únicas o Recurrentes</h3>
+                <p>Elige cómo deseas contribuir, ya sea con un aporte puntual o de forma periódica.</p>
+            </div>
+            <div class="paso">
+                <i class="fas fa-pen"></i>
+                <h3>Transparencia Garantizada</h3>
+                <p>Casa Natura se compromete a mantenerte informado sobre el uso de los fondos y el impacto de tu apoyo.</p>
+            </div>
+        </div>
+
+        
+    </div>
+</body>
+</html>
+
+
+
+
+    </main>
+
+
+
+
+
+
+
+
+
+     <?php
+     include("fragmentos.php");
+        echo $footer;
+    ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

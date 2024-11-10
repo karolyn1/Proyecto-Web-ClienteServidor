@@ -14,7 +14,8 @@ body {
     justify-content: space-between;
     padding: 10px 20px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
     font-family: 'Paytone One', sans-serif;
     font-weight: 100;
 }
@@ -508,4 +509,123 @@ nav li {
     color: #e0a800;
     margin-top: 5px;
     font-weight: 700;
+}
+
+/* ESTILOS PARA PAGINA DE INFORMACION DONACIONES */
+
+.container-donacion {
+    display: grid;
+    max-width: 100vw; 
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+}
+
+.texto-section {
+    background-color: #062D3E;
+    padding: 40px; 
+    color: #f0f0f0;
+    margin: 0;
+    height: 100%; 
+    align-content: center;
+
+}
+
+.texto-section h1 {
+    font-size: 50px;
+
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.texto-section p {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #f8f9fa;
+}
+
+.texto-section span {
+    color: #e0a800;
+    font-size: 20px;
+}
+
+.imagen-section {
+    padding: 0;
+    margin: 0;
+    height: 100%; 
+}
+
+.imagen-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    padding: 0;
+    margin: 0;
+}
+
+.container-comoFunciona {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+.container-comoFunciona header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.container-comoFunciona header h1 {
+    font-size: 30px;
+    color: #062D3E;
+    font-weight: bold;
+}
+.container-comoFunciona header p {
+    font-size: 18px;
+    color: #062D3E;
+}
+.pasos {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 40px;
+}
+.paso {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    text-align: center;
+}
+
+.paso:hover {
+    box-shadow: 0 4px 15px rgba(47, 109, 121, 0.5), 0 0 10px rgba(47, 109, 121, 0.4);
+}
+.paso i {
+    font-size: 40px;
+    color: #FBBC05;
+    margin-bottom: 15px;
+}
+.paso h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+}
+.paso p {
+    font-size: 16px;
+    color: #555;
+}
+.image-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+.image-container img {
+    border-radius: 10px;
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
 }
