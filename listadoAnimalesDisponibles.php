@@ -70,7 +70,7 @@
             <!-- Ejemplo de tarjeta de animal 1 -->
             <div class="animal-card">
                 <img src="https://via.placeholder.com/200x200.png?text=Animal+1" alt="Foto de Animal 1">
-                <a href="animal.php?id=1">Animal 1</a>
+                <a href="vistaDetalleAnimal.php">Animal 1</a>
             </div>
 
             <!-- Ejemplo de tarjeta de animal 2 -->
