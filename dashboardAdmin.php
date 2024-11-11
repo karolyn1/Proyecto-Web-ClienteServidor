@@ -257,8 +257,8 @@
     -->
 
     <?php 
-        include("fragmentosAdmin.php");
-        echo $sitebarAdmin;
+        include("sidebar.php");
+        echo $sidebarAdmin2;
     ?>
 
     <div class="content">
@@ -326,8 +326,8 @@
     </div>
 
     <?php 
-    include("fragmentos.php");
-    echo $footer;
+    include("sidebar.php");
+    echo $footerAdmin;
     ?>
 
 
