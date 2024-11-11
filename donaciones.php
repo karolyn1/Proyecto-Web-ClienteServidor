@@ -173,10 +173,10 @@
         </header>
 
         <main>
-            <h1>MIS DONACIONES FUTURAS</h1>
+            <h1>Sesion de Donaciones Futuras :)</h1>
         </main>
     </div>
-
+/////
     <footer>
         <?php 
         include("fragmentos.php");
