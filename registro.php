@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - Casa Natura</title>
     <style>
-        
-
         .navbar {
             display: flex;
             justify-content: center;
@@ -25,22 +24,18 @@
         .container {
             display: flex;
             width: 100%;
-            max-width: 1200px; 
+            max-width: 100%; /* Se ajusta al 100% de la pantalla */
             background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-            
+            padding: 0; /* Quitamos el padding extra */
         }
 
         .form-container {
             width: 50%;
-            padding: 100px;
-            margin-left: 3%; 
+            padding: 40px;
+            margin-left: 0; /* Eliminamos el margen izquierdo */
         }
 
         .form-container h2 {
-           
             font-size: 28px;
             margin-bottom: 20px;
         }
@@ -85,11 +80,10 @@
         }
 
         .image-container img {
-            width: 100%; height: auto 
-            max-width: 600px; 
+            width: 100%;
+            max-width: 600px;
             height: auto;
         }
-
 
         .login-link {
             text-align: center;
@@ -105,7 +99,6 @@
             text-decoration: underline;
         }
 
-
         .checkbox-container {
             margin-top: 10px;
         }
@@ -118,7 +111,6 @@
             font-size: 14px;
         }
 
-        /* Footer */
         footer {
             background-color: #003049;
             color: white;
@@ -128,17 +120,16 @@
             width: 100%;
             bottom: 0;
         }
-
     </style>
 </head>
+
 <body>
-<?php 
+    <?php 
     include("fragmentos.php");
-    echo $navbar;        
-?>
+    echo $navbar;
+    ?>
 
     <div class="container">
-
         <div class="form-container">
             <h2>Registro</h2>
             <form action="registro.php" method="POST">
@@ -151,23 +142,18 @@
                 <input type="text" name="direccion" placeholder="Dirección" required>
                 <input type="email" name="correo" placeholder="Correo Electrónico" required>
                 <input type="password" name="contraseña" placeholder="Contraseña" required>
-                <input type="password" name="confirmar_contraseña" placeholder="Confirmar Contraseña" required>
 
                 <div class="checkbox-container">
                     <input type="checkbox" name="voluntario" id="voluntario">
                     <label for="voluntario">¿Te gustaría ser voluntario?</label>
                 </div>
-
                 <button type="submit" name="registrar">Registrarme</button>
             </form>
-
-         
             <div class="login-link">
                 <p>¿Ya tienes una cuenta? <a href="login.php">Inicia sesión</a></p>
             </div>
         </div>
 
-       
         <div class="image-container">
             <img src="imagenes/img3.png" alt="Casa Natura">
         </div>
@@ -175,10 +161,6 @@
 
     <?php
     if (isset($_POST['registrar'])) {
-        
-        include("conexion.php");
-
-       
         $nombre = $_POST['nombre'];
         $primer_apellido = $_POST['primer_apellido'];
         $segundo_apellido = $_POST['segundo_apellido'];
@@ -188,35 +170,21 @@
         $direccion = $_POST['direccion'];
         $correo = $_POST['correo'];
         $contraseña = $_POST['contraseña'];
-        $confirmar_contraseña = $_POST['confirmar_contraseña'];
         $voluntario = isset($_POST['voluntario']) ? 1 : 0;
 
-    
-        if ($contraseña === $confirmar_contraseña) {
-            ///////////////////// Hashear la contraseña
-            $hash_contraseña = password_hash($contraseña, PASSWORD_DEFAULT);
+        $hash_contraseña = password_hash($contraseña, PASSWORD_DEFAULT);
 
-            //////////////////// Insertar el nuevo usuario en la base de datos
-            $query = "INSERT INTO usuarios (nombre, primer_apellido, segundo_apellido, provincia, cantpn, distrito, direccion, correo, contraseña, voluntario) 
-                      VALUES ('$nombre', '$primer_apellido', '$segundo_apellido', '$provincia', '$cantpn', '$distrito', '$direccion', '$correo', '$hash_contraseña', '$voluntario')";
-            
-            if (mysqli_query($conexion, $query)) {
-                echo "<p>¡Registro exitoso! Ahora puedes <a href='login.php'>iniciar sesión</a>.</p>";
-            } else {
-                echo "<p style='color: red;'>Error al registrar. Intenta nuevamente.</p>";
-            }
+        if (mysqli_query($conexion, $query)) {
+            echo "<p>¡Registro exitoso! Ahora puedes <a href='login.php'>iniciar sesión</a>.</p>";
         } else {
-            echo "<p style='color: red;'>Las contraseñas no coinciden.</p>";
+            echo "<p style='color: red;'>Error al registrar. Intenta nuevamente.</p>";
         }
     }
     ?>
-
 </body>
 
-
-
 <?php 
-    include("fragmentos.php");
-    echo $footer;
-    ?>
+include("fragmentos.php");
+echo $footer;
+?>
 </html>

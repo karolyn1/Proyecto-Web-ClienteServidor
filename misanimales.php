@@ -1,5 +1,5 @@
 <?php
-// Aquí iría la conexión a la base de datos y la lógica PHP si fuera necesario
+
 ?>
 
 <!DOCTYPE html>
@@ -11,18 +11,18 @@
     <style>
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
+
 
         .container {
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
-
 
         .sidebar {
             width: 250px;
@@ -55,12 +55,19 @@
         }
 
         .sidebar ul li a:hover {
-            background-color: #d6eaf8; 
+            background-color: #d6eaf8;
         }
 
-        
-        .sidebar ul li a.donaciones:active {
-            color: #2980b9; 
+        .sidebar ul li a.misanimales {
+            color: black; 
+        }
+
+        .sidebar ul li a.misanimales:hover {
+            color: #27ae60; 
+        }
+
+        .sidebar ul li a.misanimales:active {
+            color: #2980b9;
             background-color: #f39c12; 
             cursor: pointer; 
         }
@@ -129,12 +136,12 @@
             width: 100%;
         }
 
-
         main {
             margin-left: 270px;
             padding: 20px;
         }
 
+        
         .sidebar ul li a {
             padding: 10px;
         }
@@ -149,11 +156,11 @@
             </div>
             <ul>
                 <li><a href="donaciones.php" class="donaciones">Ver donaciones</a></li>
-                <li><a href="misanimales.php">Mis animales</a></li>
+                <li><a href="misanimales.php" class="misanimales">Mis animales</a></li>
                 <li><a href="misboletos.php">Mis boletos</a></li>
                 <li><a href="editarperfil.php">Editar Perfil</a></li>
-                <li><a href="soporte.php">Soporte</a></li> 
-                <li><a href="logout.php">Salir</a></li> 
+                <li><a href="soporte.php">Soporte</a></li> <!-- Soporte agregado -->
+                <li><a href="logout.php">Salir</a></li> <!-- Salir agregado -->
             </ul>
         </div>
 
@@ -173,7 +180,7 @@
         </header>
 
         <main>
-            <h1>MIS DONACIONES FUTURAS</h1>
+            <h1>MIS ANIMALES</h1>
         </main>
     </div>
 

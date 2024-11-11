@@ -34,9 +34,9 @@
         <div class="menu-container">
             <a href="#login" class="login-button">Iniciar Sesión</a>
             <div class="submenu-login">
-                <a href="#registro">Registro</a>
+                <a href="registro.php">Registro</a>
                 <hr>
-                <a href="#mi-perfil">Mi Perfil</a>
+                <a href="login.php">Mi Perfil</a>
                 <a href="dashboardAdmin.php">Administrador</a>
             </div>
         </div>

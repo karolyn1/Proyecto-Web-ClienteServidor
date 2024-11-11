@@ -1,5 +1,5 @@
 <?php
-// Aquí iría la conexión a la base de datos y la lógica PHP si fuera necesario
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +23,6 @@
             min-height: 100vh;
         }
 
-
         .sidebar {
             width: 250px;
             background-color: #2f8b3b;
@@ -42,6 +41,7 @@
             text-align: center;
         }
 
+
         .sidebar ul li a {
             color: black; 
             text-decoration: none;
@@ -56,13 +56,6 @@
 
         .sidebar ul li a:hover {
             background-color: #d6eaf8; 
-        }
-
-        
-        .sidebar ul li a.donaciones:active {
-            color: #2980b9; 
-            background-color: #f39c12; 
-            cursor: pointer; 
         }
 
         .sidebar .logo img {
@@ -129,7 +122,6 @@
             width: 100%;
         }
 
-
         main {
             margin-left: 270px;
             padding: 20px;
@@ -148,7 +140,7 @@
                 <img src="imagenes/logo.png" alt="Casa Natura Logo">
             </div>
             <ul>
-                <li><a href="donaciones.php" class="donaciones">Ver donaciones</a></li>
+                <li><a href="donaciones.php">Ver donaciones</a></li>
                 <li><a href="misanimales.php">Mis animales</a></li>
                 <li><a href="misboletos.php">Mis boletos</a></li>
                 <li><a href="editarperfil.php">Editar Perfil</a></li>
@@ -171,9 +163,8 @@
                 </ul>
             </nav>
         </header>
-
         <main>
-            <h1>MIS DONACIONES FUTURAS</h1>
+            <h1>Sesion para editar mi perfil</h1>
         </main>
     </div>
 
