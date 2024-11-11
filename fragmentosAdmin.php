@@ -2,12 +2,11 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PAnimal - Menu</title>
+    <link href="./css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
 </head>
 
 <body>
@@ -33,7 +32,7 @@ $sitebarAdmin = '
             <a href="#" class="menu-link"><i class="fas fa-calendar-alt"></i> Gestión de eventos</a>
         </div>
 
-        <div class="title">Genera</div>
+        <div class="title">General</div>
         <div class="submenu">
             <a href="#" class="menu-link"><i class="fas fa-cog"></i> Ajustes</a>
             <a href="#" class="menu-link"><i class="fas fa-headset"></i> Soporte</a>
@@ -43,6 +42,9 @@ $sitebarAdmin = '
 ';
 ?>
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

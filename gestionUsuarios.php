@@ -21,8 +21,8 @@
 
 <body>
     <?php 
-        include("fragmentosAdmin.php");
-        echo $sitebarAdmin;
+        include("sidebar.php");
+        echo $sidebarAdmin2;
     ?>
 
     <div class="content">
@@ -45,6 +45,7 @@
                 </div>
             </div>
         </div>
+ 
 
         <!-- Tabla de usuarios -->
         <table class="table table-striped">
@@ -59,7 +60,6 @@
                 <?php
                 // Conectar a la base de datos
                 $conexion = new mysqli("localhost", "usuario", "contraseña", "base_datos");
-
                 // Verificar conexión
                 if ($conexion->connect_error) {
                     die("Conexión fallida: " . $conexion->connect_error);
@@ -91,17 +91,12 @@
         </table>
     </div>
 
-   
-
     <?php 
-    include("fragmentos.php");
-    echo $footer;
+    include("sidebar.php");
+    echo $footerAdmin;
     ?>
 
-     <!-- Bootstrap y Font Awesome JavaScript -->
-     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 
 </body>
 

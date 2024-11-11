@@ -60,7 +60,7 @@ body {
 }
 
 .login-button {
-    background-color: #FFC107;
+    background-color: #000000;
     color: #fff;
     padding: 10px 20px;
     border-radius: 10px;
@@ -326,7 +326,7 @@ nav li {
     font-size: 2rem;
     font-weight: bold;
     color: #062D3E;
-    background-color: #f0f0f0;
+    background-color: #f7b500;
     padding: 20px;
     margin-top: 20px;
     margin-bottom: 30px;
@@ -821,3 +821,5 @@ nav li {
 .botonApadrinar:hover {
     background-color: #e0a400;
 }
+
+

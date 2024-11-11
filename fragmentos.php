@@ -32,9 +32,9 @@
             </ul>
         </div>
         <div class="menu-container">
-            <a href="#login" class="login-button">Iniciar Sesión</a>
+            <a href="login.php" class="login-button">Iniciar Sesión</a>
             <div class="submenu-login">
-                <a href="#registro">Registro</a>
+                <a href="registro.php">Registro</a>
                 <hr>
                 <a href="#mi-perfil">Mi Perfil</a>
                 <a href="dashboardAdmin.php">Administrador</a>
@@ -79,11 +79,8 @@
  
     </footer>';
 
-    ?>
-
-
-
-
+?>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
