@@ -198,7 +198,7 @@
         </header>
 
         <main>
-            <h1>MIS BOLETOS</h1>
+            <h1>Sesion de mis boletos :)</h1>
         </main>
     </div>
 

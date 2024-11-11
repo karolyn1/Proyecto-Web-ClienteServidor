@@ -180,7 +180,7 @@
         </header>
 
         <main>
-            <h1>MIS ANIMALES</h1>
+            <h1>Sesion de mis animales :)</h1>
         </main>
     </div>
 
