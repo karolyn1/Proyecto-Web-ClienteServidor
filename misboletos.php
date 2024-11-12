@@ -1,5 +1,5 @@
 <?php
-// Detectar la página actual
+
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -129,7 +129,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 </head>
 <body>
     <div class="container">
-        <!-- Menú Lateral -->
+
         <div class="sidebar">
             <div class="logo">
                 <img src="imagenes/logo.png" alt="Casa Natura Logo">
@@ -145,7 +145,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </ul>
         </div>
 
-        <!-- Encabezado -->
         <header>
             <h1><span>CASA</span> NATURA</h1>
             <nav>
@@ -161,13 +160,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </nav>
         </header>
 
-        <!-- Contenido Principal -->
         <main>
             <h1>Sesión de mis boletos :)</h1>
         </main>
     </div>
 
-    <!-- Pie de Página -->
     <footer>
         <?php 
         include("fragmentos.php");

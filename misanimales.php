@@ -1,5 +1,4 @@
 <?php
-// Detectar la página actual
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -9,6 +8,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa Natura</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
@@ -55,9 +56,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
             cursor: pointer; 
         }
 
-        /* Estilo para el enlace activo */
         .sidebar ul li a.active {
-            background-color: #f1c40f; /* Fondo naranja */
+            background-color: #f1c40f; 
             color: black;
             border-radius: 5px;
         }
@@ -125,12 +125,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
         main {
             margin-left: 270px;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-container {
+            display: flex;
+            gap: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Menú Lateral -->
         <div class="sidebar">
             <div class="logo">
                 <img src="imagenes/logo.png" alt="Casa Natura Logo">
@@ -146,7 +152,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </ul>
         </div>
 
-        <!-- Encabezado -->
         <header>
             <h1><span>CASA</span> NATURA</h1>
             <nav>
@@ -162,18 +167,37 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </nav>
         </header>
 
-        <!-- Contenido Principal -->
         <main>
-            <h1>Sesión de mis animales :)</h1>
+            <div class="card-container">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">IMAGEN</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">ver</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">IMAGEN</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn btn-primary">ver</a>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
-    <!-- Pie de Página -->
     <footer>
         <?php 
         include("fragmentos.php");
         echo $footer;
         ?>
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
