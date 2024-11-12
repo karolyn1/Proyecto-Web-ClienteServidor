@@ -1,5 +1,4 @@
 <?php
-
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -55,9 +54,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
             cursor: pointer;
         }
 
-        /* Estilo para el enlace activo */
         .sidebar ul li a.active {
-            background-color: #f1c40f; /* Fondo amarillo */
+            background-color: #f1c40f;
             color: black;
             border-radius: 5px;
         }
@@ -126,17 +124,68 @@ $current_page = basename($_SERVER['PHP_SELF']);
             margin-left: 270px;
             padding: 20px;
         }
+
+        /* Card styles */
+        .card-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .card img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+
+        .card button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .card button:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Menú Lateral -->
         <div class="sidebar">
             <div class="logo">
                 <img src="imagenes/logo.png" alt="Casa Natura Logo">
             </div>
             <ul>
-                <li><a ="dashboarduser.php" class="dashboarduser">Mi Perfil</a></li>
+                <li><a href="dashboarduser.php" class="dashboarduser">Mi Perfil</a></li>
                 <li><a href="donaciones.php" class="donaciones">Ver donaciones</a></li>
                 <li><a href="misanimales.php" class="misanimales">Mis animales</a></li>
                 <li><a href="misboletos.php" class="misboletos">Mis boletos</a></li>
@@ -163,6 +212,29 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         <main>
             <h1>Sesión para editar mi perfil</h1>
+            
+            <div class="card-container">
+                <!-- Tarjeta de Información de la Cuenta -->
+                <div class="card">
+                    <img src="imagenes/user.png" alt="User Profile Picture">
+                    <h2>Información de la Cuenta</h2>
+                    <p><strong>Nombre:</strong> User Ejemplo</p>
+                    <p><strong>Región:</strong> Región - País</p>
+                    <p><strong>Email:</strong> emailtest@gmail.com</p>
+                    <p><strong>Teléfono:</strong> +1-000-000-0000</p>
+                    <button onclick="editarCuenta()">Editar Cuenta</button>
+                </div>
+
+                <!-- Tarjeta de Dirección de User -->
+                <div class="card">
+                    <h2>Dirección de User</h2>
+                    <p><strong>Ejemplo:</strong> Dirección de Cliente Ejemplo</p>
+                    <p><strong>Provincia:</strong> Provincia, Cantón, Distrito</p>
+                    <p><strong>Teléfono:</strong> +1-000-000-0000</p>
+                    <p><strong>Email:</strong> emailtest@gmail.com</p>
+                    <button onclick="editarDireccion()">Editar Dirección</button>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -172,5 +244,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
         echo $footer;
         ?>
     </footer>
+
+    <script>
+        function editarCuenta() {
+            // Lógica para editar la cuenta
+            alert('Editar cuenta');
+        }
+
+        function editarDireccion() {
+            // Lógica para editar la dirección
+            alert('Editar dirección');
+        }
+    </script>
 </body>
 </html>
+

@@ -1,6 +1,35 @@
+<?php
+
+include('conexion.php'); 
+
+if (isset($_POST['registrar'])) {
+    $nombre = $_POST['nombre'];
+    $primer_apellido = $_POST['primer_apellido'];
+    $segundo_apellido = $_POST['segundo_apellido'];
+    $provincia = $_POST['provincia'];
+    $cantpn = $_POST['cantpn'];
+    $distrito = $_POST['distrito'];
+    $direccion = $_POST['direccion'];
+    $correo = $_POST['correo'];
+    $contraseña = $_POST['contraseña'];
+    $voluntario = isset($_POST['voluntario']) ? 1 : 0;
+
+    $hash_contraseña = password_hash($contraseña, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO usuarios (nombre, primer_apellido, segundo_apellido, provincia, cantpn, distrito, direccion, correo, contraseña, voluntario) 
+              VALUES ('$nombre', '$primer_apellido', '$segundo_apellido', '$provincia', '$cantpn', '$distrito', '$direccion', '$correo', '$hash_contraseña', '$voluntario')";
+
+    if (mysqli_query($conexion, $query)) {
+        header("Location: editarperfil.php");
+        exit();
+    } else {
+        echo "<p style='color: red;'>Error al registrar. Intenta nuevamente.</p>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,15 +53,14 @@
         .container {
             display: flex;
             width: 100%;
-            max-width: 100%; /* Se ajusta al 100% de la pantalla */
+            max-width: 100%;
             background-color: #ffffff;
-            padding: 0; /* Quitamos el padding extra */
+            padding: 0;
         }
 
         .form-container {
             width: 50%;
             padding: 40px;
-            margin-left: 0; /* Eliminamos el margen izquierdo */
         }
 
         .form-container h2 {
@@ -122,11 +150,11 @@
         }
     </style>
 </head>
-
 <body>
+
     <?php 
-    include("fragmentos.php");
-    echo $navbar;
+    include("fragmentos.php"); 
+    echo $navbar; 
     ?>
 
     <div class="container">
@@ -147,8 +175,10 @@
                     <input type="checkbox" name="voluntario" id="voluntario">
                     <label for="voluntario">¿Te gustaría ser voluntario?</label>
                 </div>
+                
                 <button type="submit" name="registrar">Registrarme</button>
             </form>
+
             <div class="login-link">
                 <p>¿Ya tienes una cuenta? <a href="login.php">Inicia sesión</a></p>
             </div>
@@ -159,32 +189,9 @@
         </div>
     </div>
 
-    <?php
-    if (isset($_POST['registrar'])) {
-        $nombre = $_POST['nombre'];
-        $primer_apellido = $_POST['primer_apellido'];
-        $segundo_apellido = $_POST['segundo_apellido'];
-        $provincia = $_POST['provincia'];
-        $cantpn = $_POST['cantpn'];
-        $distrito = $_POST['distrito'];
-        $direccion = $_POST['direccion'];
-        $correo = $_POST['correo'];
-        $contraseña = $_POST['contraseña'];
-        $voluntario = isset($_POST['voluntario']) ? 1 : 0;
-
-        $hash_contraseña = password_hash($contraseña, PASSWORD_DEFAULT);
-
-        if (mysqli_query($conexion, $query)) {
-            echo "<p>¡Registro exitoso! Ahora puedes <a href='login.php'>iniciar sesión</a>.</p>";
-        } else {
-            echo "<p style='color: red;'>Error al registrar. Intenta nuevamente.</p>";
-        }
-    }
+    <?php 
+    include("fragmentos.php"); 
+    echo $footer; 
     ?>
 </body>
-
-<?php 
-include("fragmentos.php");
-echo $footer;
-?>
 </html>
