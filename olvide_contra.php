@@ -13,12 +13,13 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #ffffff; /* Fondo blanco */
             height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            color: #333;
         }
 
         .navbar {
@@ -44,69 +45,51 @@
             align-items: center;
             width: 100%;
             padding: 20px;
+            background-color: #ffffff;
         }
 
         .form-container {
             background-color: white;
             width: 100%;
-            max-width: 600px;
+            max-width: 550px;
             padding: 40px;
-            box-sizing: border-box;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
-        }
-
-        .form-container img {
-            position: absolute;
-            top: -50px;
-            width: 120px;
-            height: auto;
         }
 
         .form-container h1 {
             color: #FFC107;
-            margin-bottom: 10px;
-            font-size: 30px;
+            margin-bottom: 15px;
+            font-size: 32px; /* Tamaño de título más grande */
         }
 
         .form-container h2 {
-            color: black;
-            margin-bottom: 20px;
+            color: #333;
+            margin-bottom: 25px;
             font-size: 20px;
-        }
-
-        .form-container p {
-            color: black;
-            font-size: 16px;
-            margin-bottom: 20px;
+            font-weight: normal;
         }
 
         .form-container input[type="email"] {
-            width: 80%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid #cccccc;
+            width: 100%;
+            padding: 15px; /* Aumenta el padding */
+            margin: 15px 0;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 18px; /* Tamaño de texto más grande */
         }
 
         .form-container .buttons {
             display: flex;
             justify-content: space-between;
-            width: 80%;
             margin-top: 20px;
         }
 
         .form-container button {
             width: 48%;
-            padding: 15px;
-            font-size: 16px;
+            padding: 12px; /* Aumenta el padding */
+            font-size: 18px; /* Tamaño de texto más grande */
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -133,7 +116,7 @@
         .footer {
             background-color: #003049;
             color: white;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
             width: 100%;
             position: fixed;
@@ -150,10 +133,8 @@
 
     <div class="main-container">
         <div class="form-container">
-            <img src="imagenes/imagen.png" alt="Imagen Casa Natura">
-            <h1>Hola,</h1>
-            <h2>¿Olvidaste tu contraseña?</h2>
-            <p>Para restaurar tu contraseña, ingresa el correo electrónico asociado.</p>
+            <h1>¿Olvidaste tu contraseña?</h1>
+            <h2>Ingresa tu correo electrónico para restablecer tu contraseña</h2>
             
             <form action="olvide_contraseña.php" method="POST">
                 <input type="email" name="correo" placeholder="Correo electrónico" required>
@@ -172,6 +153,59 @@
             echo $footer;
         ?>
     </div>
+    <?php
+include("conexion.php"); 
+
+if (isset($_POST['enviar'])) {
+    $correo = $_POST['correo'];
+    $token = bin2hex(random_bytes(50)); // Genera un token aleatorio
+
+
+    $sql = "SELECT * FROM usuarios WHERE correo = '$correo'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+       
+        $update = "UPDATE usuarios SET reset_token='$token', reset_expiration=DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE correo='$correo'";
+        if ($conn->query($update) === TRUE) {
+           
+            $link = "http://tu_dominio.com/restablecer_contraseña.php?token=$token";
+
+            
+            $subject = "Restablecimiento de contraseña - Casa Natura";
+            $message = "
+                <html>
+                <head>
+                    <title>Restablecimiento de contraseña</title>
+                </head>
+                <body>
+                    <p>Hola,</p>
+                    <p>Recibimos una solicitud para restablecer tu contraseña en Casa Natura. Haz clic en el siguiente enlace para crear una nueva contraseña:</p>
+                    <p><a href='$link'>Restablecer mi contraseña</a></p>
+                    <p>Este enlace expirará en 1 hora.</p>
+                </body>
+                </html>
+            ";
+
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+            $headers .= "From: no-reply@tu_dominio.com" . "\r\n";
+
+            if (mail($correo, $subject, $message, $headers)) {
+                echo "<p style='color: green; text-align: center;'>Correo de restablecimiento enviado. Revisa tu bandeja de entrada.</p>";
+            } else {
+                echo "<p style='color: red; text-align: center;'>Error al enviar el correo. Inténtalo de nuevo.</p>";
+            }
+        } else {
+            echo "<p style='color: red; text-align: center;'>Error al generar el token. Inténtalo de nuevo.</p>";
+        }
+    } else {
+        echo "<p style='color: red; text-align: center;'>Correo no registrado.</p>";
+    }
+}
+
+$conn->close();
+?>
 
 </body>
 </html>
