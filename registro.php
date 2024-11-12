@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Casa Natura</title>
+    <title>Registrarse - Casa Natura</title>
     <style>
-            <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             background-color: #ffffff;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             min-height: 100vh;
+            align-items: center; 
         }
 
         .navbar {
@@ -22,6 +20,7 @@
             justify-content: center;
             background-color: #003049;
             padding: 10px 0;
+            width: 100%;
         }
 
         .navbar a {
@@ -32,24 +31,25 @@
         }
 
         .container {
-            width: 100%;
             display: flex;
-            flex-direction: row;
             justify-content: center;
             align-items: center;
-            box-sizing: border-box;
             padding: 20px;
+            gap: 40px;
+            max-width: 800px; 
+            width: 100%;
             flex: 1;
+        }
+
+        .form-container, .image-container {
+            flex: 1;
+            max-width: 400px;
+            box-sizing: border-box;
             text-align: center;
-            gap: 20px; 
         }
 
         .form-container {
-            width: 100%;
-            max-width: 400px;
-            padding: 40px;
-            box-sizing: border-box;
-            text-align: left;
+            padding: 20px;
         }
 
         .form-container h2 {
@@ -58,7 +58,8 @@
         }
 
         .form-container input[type="text"],
-        .form-container input[type="password"] {
+        .form-container input[type="password"],
+        .form-container input[type="email"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -85,45 +86,27 @@
             background-color: #FFA000;
         }
 
-        .remember {
+        .image-container {
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: space-between;
-            margin-top: 10px;
+            padding: 20px;
         }
 
-        .remember input {
-            margin-right: 5px;
-        }
-
-        .remember a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .remember a:hover {
-            text-decoration: underline;
-        }
-
-        .animal-images {
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .animal-images img {
-            width: 100%;
+        .image-container img {
+            width: 200%;
+            max-width: 400px; 
             height: auto;
             border-radius: 8px;
         }
 
         footer {
             background-color: #003049;
-            color: white;
+            color: #ffffff;
             text-align: center;
             padding: 20px 0;
             width: 100%;
         }
-    </style>
     </style>
 </head>
 <body>
@@ -131,36 +114,60 @@
     include("fragmentos.php");
     echo $navbar;
     ?>
-<?php
 
-include('conexion.php'); 
+    <div class="container">
+        <div class="form-container">
+            <h2>Registrarse</h2>
+            <form method="POST" action="">
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="text" name="primer_apellido" placeholder="Primer Apellido" required>
+                <input type="text" name="segundo_apellido" placeholder="Segundo Apellido" required>
+                <input type="text" name="provincia" placeholder="Provincia" required>
+                <input type="text" name="cantpn" placeholder="Cantón" required>
+                <input type="text" name="distrito" placeholder="Distrito" required>
+                <input type="text" name="direccion" placeholder="Dirección" required>
+                <input type="email" name="correo" placeholder="Correo" required>
+                <input type="password" name="contraseña" placeholder="Contraseña" required>
+                <label><input type="checkbox" name="voluntario"> ¿Quieres ser voluntario?</label>
+                <button type="submit" name="registrar">Registrarse</button>
+            </form>
+        </div>
+        
+        <div class="image-container">
+            <img src="imagenes/img1.png"" alt="Imagen descriptiva">
+        </div>
+    </div>
 
-if (isset($_POST['registrar'])) {
-    $nombre = $_POST['nombre'];
-    $primer_apellido = $_POST['primer_apellido'];
-    $segundo_apellido = $_POST['segundo_apellido'];
-    $provincia = $_POST['provincia'];
-    $cantpn = $_POST['cantpn'];
-    $distrito = $_POST['distrito'];
-    $direccion = $_POST['direccion'];
-    $correo = $_POST['correo'];
-    $contraseña = $_POST['contraseña'];
-    $voluntario = isset($_POST['voluntario']) ? 1 : 0;
+    <?php
+    include('conexion.php'); 
 
-    $hash_contraseña = password_hash($contraseña, PASSWORD_DEFAULT);
+    if (isset($_POST['registrar'])) {
+        $nombre = $_POST['nombre'];
+        $primer_apellido = $_POST['primer_apellido'];
+        $segundo_apellido = $_POST['segundo_apellido'];
+        $provincia = $_POST['provincia'];
+        $cantpn = $_POST['cantpn'];
+        $distrito = $_POST['distrito'];
+        $direccion = $_POST['direccion'];
+        $correo = $_POST['correo'];
+        $contraseña = $_POST['contraseña'];
+        $voluntario = isset($_POST['voluntario']) ? 1 : 0;
 
-    $query = "INSERT INTO usuarios (nombre, primer_apellido, segundo_apellido, provincia, cantpn, distrito, direccion, correo, contraseña, voluntario) 
-              VALUES ('$nombre', '$primer_apellido', '$segundo_apellido', '$provincia', '$cantpn', '$distrito', '$direccion', '$correo', '$hash_contraseña', '$voluntario')";
+        $hash_contraseña = password_hash($contraseña, PASSWORD_DEFAULT);
 
-    if (mysqli_query($conn, $query)) { // Cambia $conexion por $conn
-        header("Location: editarperfil.php");
-        exit();
-    } else {
-        echo "<p style='color: red;'>Error al registrar. Intenta nuevamente.</p>";
+        $query = "INSERT INTO usuarios (nombre, primer_apellido, segundo_apellido, provincia, cantpn, distrito, direccion, correo, contraseña, voluntario) 
+                  VALUES ('$nombre', '$primer_apellido', '$segundo_apellido', '$provincia', '$cantpn', '$distrito', '$direccion', '$correo', '$hash_contraseña', '$voluntario')";
+
+        if (mysqli_query($conn, $query)) {
+            header("Location: editarperfil.php");
+            exit();
+        } else {
+            echo "<p style='color: red;'>Error al registrar. Intenta nuevamente.</p>";
+        }
     }
-}
-?>
- <footer>
+    ?>
+
+    <footer>
         <?php 
         include("fragmentos.php");
         echo $footer;

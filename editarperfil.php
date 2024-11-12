@@ -247,12 +247,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <script>
         function editarCuenta() {
-            // Lógica para editar la cuenta
+            
             alert('Editar cuenta');
         }
 
         function editarDireccion() {
-            // Lógica para editar la dirección
+            
             alert('Editar dirección');
         }
     </script>

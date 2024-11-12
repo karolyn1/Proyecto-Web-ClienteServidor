@@ -7,15 +7,17 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Mis animales - Casa Natura</title>
+    
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .container {
@@ -51,13 +53,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
         }
 
         .sidebar ul li a:hover {
-            background-color: #d6eaf8;
+            background-color: antiquewhite;
             color: #3498db; 
-            cursor: pointer; 
+            cursor: pointer;
         }
 
         .sidebar ul li a.active {
-            background-color: #f1c40f; 
+            background-color: #f1c40f;
             color: black;
             border-radius: 5px;
         }
@@ -76,7 +78,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             padding: 20px;
             color: black;
             text-align: center;
-            margin-left: 250px; 
+            margin-left: 250px;
         }
 
         header h1 {
@@ -121,17 +123,22 @@ $current_page = basename($_SERVER['PHP_SELF']);
             bottom: 0;
             width: 100%;
         }
-
         main {
             margin-left: 270px;
             padding: 20px;
-            display: flex;
-            justify-content: center;
+            flex: 1;
         }
 
         .card-container {
             display: flex;
+            flex-wrap: wrap;
             gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            max-width: 300px;
+            flex: 1 1 300px;
         }
     </style>
 </head>
@@ -142,12 +149,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <img src="imagenes/logo.png" alt="Casa Natura Logo">
             </div>
             <ul>
-                <li><a ="dashboarduser.php" class="dashboarduser">Mi Perfil</a></li>
+                <li><a href="dashboarduser.php" class="dashboarduser">Mi Perfil</a></li>
                 <li><a href="donaciones.php" class="donaciones">Ver donaciones</a></li>
                 <li><a href="misanimales.php" class="misanimales <?php echo ($current_page == 'misanimales.php') ? 'active' : ''; ?>">Mis animales</a></li>
                 <li><a href="misboletos.php" class="misboletos">Mis boletos</a></li>
                 <li><a href="editarperfil.php">Editar Perfil</a></li>
-                <li><a href="soporte.php">Soporte</a></li>
+                <li><a href="soporte.php">Soporte</a></li> 
                 <li><a href="logout.php">Salir</a></li> 
             </ul>
         </div>
@@ -166,23 +173,22 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </ul>
             </nav>
         </header>
-
         <main>
             <div class="card-container">
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">IMAGEN</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">ver</a>
+                        <p class="card-text">Texto de ejemplo para la tarjeta de imagen.</p>
+                        <a href="#" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
-                <div class="card" style="width: 18rem;">
+                <div class="card">
                     <img src="https://via.placeholder.com/150" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">IMAGEN</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">ver</a>
+                        <p class="card-text">Texto de ejemplo para la tarjeta de imagen.</p>
+                        <a href="#" class="btn btn-primary">Ver</a>
                     </div>
                 </div>
             </div>
@@ -195,9 +201,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
         echo $footer;
         ?>
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

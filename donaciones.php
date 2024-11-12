@@ -1,4 +1,5 @@
 <?php
+
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -7,12 +8,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Mis boletos- Casa Natura</title>
+    
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
@@ -51,7 +51,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         }
 
         .sidebar ul li a:hover {
-            background-color: #d6eaf8; 
+            background-color: antiquewhite;
             color: #3498db; 
             cursor: pointer;
         }
@@ -137,9 +137,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </div>
             <ul>
                 <li><a ="dashboarduser.php" class="dashboarduser">Mi Perfil</a></li>
-                <li><a href="donaciones.php" class="donaciones <?php echo ($current_page == 'donaciones.php') ? 'active' : ''; ?>">Ver donaciones</a></li>
+                <li><a href="donaciones.php" class="donaciones">Ver donaciones</a></li>
                 <li><a href="misanimales.php" class="misanimales">Mis animales</a></li>
-                <li><a href="misboletos.php" class="misboletos">Mis boletos</a></li>
+                <li><a href="misboletos.php" class="misboletos <?php echo ($current_page == 'misboletos.php') ? 'active' : ''; ?>">Mis boletos</a></li>
                 <li><a href="editarperfil.php">Editar Perfil</a></li>
                 <li><a href="soporte.php">Soporte</a></li> 
                 <li><a href="logout.php">Salir</a></li> 
@@ -193,6 +193,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </tbody>
             </table>
         </main>
+        </main>
     </div>
 
     <footer>
@@ -201,9 +202,5 @@ $current_page = basename($_SERVER['PHP_SELF']);
         echo $footer;
         ?>
     </footer>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
