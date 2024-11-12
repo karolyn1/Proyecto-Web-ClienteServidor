@@ -112,7 +112,7 @@ th, td{
         <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
             
-            <a class="agregarAnimal btn d-flex align-items-center" href="#agregar">
+            <a class="agregarAnimal btn d-flex align-items-center" href="agregarAnimal.php">
             <i class="fas fa-plus p-1"></i> AGREGAR ANIMAL
             </a>
            
@@ -168,7 +168,7 @@ th, td{
                 <td>Cliente</td>
                 <td>ace.fo@yahoo.com</td>
                 <td class="actions">
-                    <button class="edit"><i class="fas fa-pen"></i></button>
+                    <button class="edit" href="editarAnimal.php"><i class="fas fa-pen"><a href="editarAnimal.php"></a></i></button>
                     <button class="delete"><i class="fas fa-trash"></i></button>
                 </td>
             </tr>

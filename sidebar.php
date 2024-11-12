@@ -153,8 +153,8 @@
         <div class="generalSidebar">
             <p>General</p>
             <ul>
-                <li><i class="icon-settings"></i> Ajustes</li>
-                <li><i class="icon-logout"></i> Logout</li>
+                <li><i class="icon-settings"></i><a href="ajustesAdmin.php"> Ajustes</a></li>
+                <li><i class="icon-logout"></i><a href="login.php"> Logout</a></li>
             </ul>
         </div>
     </div>';
