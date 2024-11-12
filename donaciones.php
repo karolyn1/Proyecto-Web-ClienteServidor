@@ -1,5 +1,6 @@
 <?php
-// Aquí iría la conexión a la base de datos y la lógica PHP si fuera necesario
+// Detectar la página actual
+$current_page = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa Natura</title>
     <style>
-
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -22,7 +22,6 @@
             flex-direction: column;
             min-height: 100vh;
         }
-
 
         .sidebar {
             width: 250px;
@@ -47,22 +46,20 @@
             text-decoration: none;
             font-weight: bold;
             display: block;
-        }
-
-        .sidebar ul li a:hover {
-            color: #3498db; 
-            cursor: pointer; 
+            padding: 10px;
         }
 
         .sidebar ul li a:hover {
             background-color: #d6eaf8; 
+            color: #3498db; 
+            cursor: pointer;
         }
 
-        
-        .sidebar ul li a.donaciones:active {
-            color: #2980b9; 
-            background-color: #f39c12; 
-            cursor: pointer; 
+        /* Estilo para el enlace activo */
+        .sidebar ul li a.active {
+            background-color: #f1c40f;
+            color: black;
+            border-radius: 5px;
         }
 
         .sidebar .logo img {
@@ -92,10 +89,6 @@
 
         header h1 span {
             color: #f1c40f; 
-        }
-
-        header nav {
-            margin-top: 15px;
         }
 
         header nav ul {
@@ -129,14 +122,9 @@
             width: 100%;
         }
 
-
         main {
             margin-left: 270px;
             padding: 20px;
-        }
-
-        .sidebar ul li a {
-            padding: 10px;
         }
     </style>
 </head>
@@ -148,15 +136,17 @@
                 <img src="imagenes/logo.png" alt="Casa Natura Logo">
             </div>
             <ul>
-                <li><a href="donaciones.php" class="donaciones">Ver donaciones</a></li>
-                <li><a href="misanimales.php">Mis animales</a></li>
-                <li><a href="misboletos.php">Mis boletos</a></li>
+                <li><a ="dashboarduser.php" class="dashboarduser">Mi Perfil</a></li>
+                <li><a href="donaciones.php" class="donaciones <?php echo ($current_page == 'donaciones.php') ? 'active' : ''; ?>">Ver donaciones</a></li>
+                <li><a href="misanimales.php" class="misanimales">Mis animales</a></li>
+                <li><a href="misboletos.php" class="misboletos">Mis boletos</a></li>
                 <li><a href="editarperfil.php">Editar Perfil</a></li>
                 <li><a href="soporte.php">Soporte</a></li> 
                 <li><a href="logout.php">Salir</a></li> 
             </ul>
         </div>
 
+        <!-- Encabezado -->
         <header>
             <h1><span>CASA</span> NATURA</h1>
             <nav>
@@ -172,11 +162,13 @@
             </nav>
         </header>
 
+        <!-- Contenido Principal -->
         <main>
-            <h1>Sesion de Donaciones Futuras :)</h1>
+            <h1>Sesión de Donaciones Futuras :)</h1>
         </main>
     </div>
-/////
+
+    <!-- Pie de Página -->
     <footer>
         <?php 
         include("fragmentos.php");
