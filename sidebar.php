@@ -9,13 +9,19 @@
 <style>
     /* ESTILOS PARA EL SIDEBAR DE ADMINISTRADOR */
     .sidebar2 {
-        width: 200px;
-        height: 100vh;
+        z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 250px;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
         background-color: #ffffff;
-        color: #333;
-        padding: 20px;
-        position: fixed;
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        color:#062D3E;
+
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
     }
     
     .logoSidebar {
@@ -45,9 +51,9 @@
     }
     
     .menuSidebar p, .generalSidebar p {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: bold;
-        color: #666;
+        color:#062D3E;
         margin-bottom: 10px;
     }
     
@@ -61,25 +67,29 @@
         padding: 10px 0;
         display: flex;
         align-items: center;
-        color: #888;
+        color:#062D3E;
         cursor: pointer;
         transition: color 0.3s ease;
     }
+
     
     .menuSidebar li i, .generalSidebar li i {
         margin-right: 10px;
-        color: #888;
+        color:#062D3E;
         text-decoration:none;
     }
     .menuSidebar li a, .generalSidebar li a {
        text-decoration: none;
-       color: #888;
+       color:#062D3E;
     }
     
     .menuSidebar li:hover, .generalSidebar li:hover {
-        color: #333;
+        color: #FFC107;
     }
     
+    .menuSidebar li a:hover, .generalSidebar li a:hover {
+        color: #FFC107;
+    }
     .menuSidebar .active {
         background-color: #062D3E;
         color: #fff;
@@ -131,7 +141,7 @@
         <div class="menuSidebar">
             <p>Main Menu</p>
             <ul>
-                <li class="active"><i class="icon-dashboard"></i><a href="dashboardAdmin.php"> Dashboard</a></li>
+                <li ><i class="icon-dashboard"></i><a href="dashboardAdmin.php"> Dashboard</a></li>
                 <li><i class="icon-animals"></i><a href="gestionAnimales.php">  Gestión de Animales</a></li>
                 <li><i class="icon-donations"></i> Gestión de Donaciones</li>
                 <li><i class="icon-users"></i><a href="gestionUsuarios.php">  Gestión de Usuarios</a></li>
@@ -144,7 +154,6 @@
             <p>General</p>
             <ul>
                 <li><i class="icon-settings"></i> Ajustes</li>
-                <li><i class="icon-support"></i> Support</li>
                 <li><i class="icon-logout"></i> Logout</li>
             </ul>
         </div>
@@ -174,7 +183,6 @@
     
     
     ';
-
 
 
 ?>
