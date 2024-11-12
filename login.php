@@ -41,7 +41,7 @@
             padding: 20px;
             flex: 1;
             text-align: center;
-            gap: 20px; /* Espacio entre el formulario y la imagen */
+            gap: 20px; 
         }
 
         .form-container {
@@ -126,7 +126,6 @@
     </style>
     </style>
 </head>
-
 <body>
     <?php 
     include("fragmentos.php");
@@ -147,7 +146,7 @@
 
                 <button type="submit" name="login">INICIAR SESIÓN</button>
             </form>
-            <p>¿No Tienes Usuario? <a href="registro.php">Crear Usuario</a></p>
+            <p>¿No tienes usuario? <a href="registro.php">Crear Usuario</a></p>
         </div>
 
         <div class="animal-images">
@@ -163,15 +162,12 @@
     </footer>
 
     <?php
-    
-    include("conexion.php");
+    include("conexion.php"); 
 
-    
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
-        $password = md5($_POST['password']); // Encriptar la contraseña ingresada para comparación
+        $password = md5($_POST['password']); 
 
-        
         $sql = "SELECT * FROM usuarios WHERE (username = '$username' OR email = '$username') AND password = '$password'";
         $result = $conn->query($sql);
 
@@ -185,5 +181,4 @@
     $conn->close();
     ?>
 </body>
-
 </html>
