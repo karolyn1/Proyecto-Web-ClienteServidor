@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Usuarios</title>
     <!-- Bootstrap CSS -->
@@ -33,7 +33,8 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
             <!-- Botón para agregar usuario -->
             <h2 class="d-flex align-items-center">
-                <i class="fas fa-plus-circle mr-2"></i>Agregar Usuario
+                <i class="fas fa-plus-circle mr-2"></i>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarUsuario">Agregar Usuario</button>
             </h2>
             <!-- Campo de búsqueda -->
             <div class="input-group" style="width: 250px;">
@@ -45,7 +46,6 @@
                 </div>
             </div>
         </div>
- 
 
         <!-- Tabla de usuarios -->
         <table class="table table-striped">
@@ -91,13 +91,45 @@
         </table>
     </div>
 
+    <!-- Modal para agregar usuario -->
+    <div class="modal fade" id="modalAgregarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalAgregarUsuarioLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAgregarUsuarioLabel">Agregar Nuevo Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="procesar_usuario.php" method="post">
+                        <div class="form-group">
+                            <label for="nombreUsuario">Nombre del Usuario</label>
+                            <input type="text" class="form-control" id="nombreUsuario" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rolUsuario">Rol</label>
+                            <select class="form-control" id="rolUsuario" name="rol" required>
+                                <option value="admin">Administrador</option>
+                                <option value="user">Usuario</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar Usuario</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php 
     include("sidebar.php");
     echo $footerAdmin;
     ?>
 
-    
-
+    <!-- Scripts de Bootstrap y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
