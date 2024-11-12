@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - Casa Natura</title>
     <style>
+            <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -33,19 +34,22 @@
         .container {
             width: 100%;
             display: flex;
-            justify-content: center; 
-            align-items: center; 
-            height: calc(100vh - 140px);
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
             box-sizing: border-box;
-            padding: 0 20px; 
+            padding: 20px;
+            flex: 1;
+            text-align: center;
+            gap: 20px; /* Espacio entre el formulario y la imagen */
         }
 
         .form-container {
             width: 100%;
             max-width: 400px;
             padding: 40px;
-            text-align: center;
             box-sizing: border-box;
+            text-align: left;
         }
 
         .form-container h2 {
@@ -62,11 +66,6 @@
             border-radius: 5px;
             font-size: 16px;
             color: #555;
-        }
-
-        .form-container input[type="text"]::placeholder,
-        .form-container input[type="password"]::placeholder {
-            color: #999;
         }
 
         .form-container button {
@@ -109,8 +108,6 @@
         .animal-images {
             width: 100%;
             max-width: 600px;
-            text-align: center;
-            margin-top: 20px;
         }
 
         .animal-images img {
@@ -124,10 +121,9 @@
             color: white;
             text-align: center;
             padding: 20px 0;
-            position: fixed;
             width: 100%;
-            bottom: 0;
         }
+    </style>
     </style>
 </head>
 
@@ -140,7 +136,7 @@
     <div class="container">
         <div class="form-container">
             <h2>Iniciar Sesión</h2>
-            <form action="login.php" method="POST">
+            <form action="" method="POST">
                 <input type="text" id="username" name="username" placeholder="Email o Usuario" required>
                 <input type="password" id="password" name="password" placeholder="Contraseña" required>
 
@@ -167,16 +163,26 @@
     </footer>
 
     <?php
+    
+    include("conexion.php");
+
+    
     if (isset($_POST['login'])) {
         $username = $_POST['username'];
-        $password = $_POST['password'];
+        $password = md5($_POST['password']); // Encriptar la contraseña ingresada para comparación
 
-        if ($username === "usuario" && $password === "contraseña") {
+        
+        $sql = "SELECT * FROM usuarios WHERE (username = '$username' OR email = '$username') AND password = '$password'";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
             echo "<p style='text-align:center; color: green;'>Inicio de sesión exitoso.</p>";
         } else {
             echo "<p style='text-align:center; color: red;'>Usuario o contraseña incorrectos.</p>";
         }
     }
+
+    $conn->close();
     ?>
 </body>
 
