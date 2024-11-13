@@ -83,7 +83,11 @@
         .link-container {
             display: flex;
             justify-content: center;
+            color:#062D3E; 
+    
         }
+
+        
     </style>
 </head>
 

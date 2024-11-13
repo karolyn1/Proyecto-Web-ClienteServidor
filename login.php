@@ -15,19 +15,6 @@
             min-height: 100vh;
         }
 
-        .navbar {
-            display: flex;
-            justify-content: center;
-            background-color: #003049;
-            padding: 10px 0;
-        }
-
-        .navbar a {
-            color: #ffffff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
 
         .container {
             width: 100%;
@@ -118,13 +105,6 @@
             border-radius: 8px;
         }
 
-        footer {
-            background-color: #003049;
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            width: 100%;
-        }
 
         .toggle-section {
             text-align: center;

@@ -25,9 +25,9 @@
                     </ul>
                 </li>
                 <li><a href="listadoAnimalesDisponibles.php">Apadrinar</a></li>
-                <li><a href="#tours">Tours</a></li>
+                <li><a href="tourDisponible.php">Tours</a></li>
                 <li><a href="#eventos">Eventos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="contactenos.php">Contacto</a></li>
                 <li><a href="quienessomos.php">Nosotros</a></li>
             </ul>
         </div>
