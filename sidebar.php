@@ -147,7 +147,7 @@
                 <li><i class="icon-users"></i><a href="gestionUsuarios.php">  Gestión de Usuarios</a></li>
                 <li><i class="icon-sponsorship"></i> Gestión de Apadrinamientos</li>
                 <li><i class="icon-tours"></i> Gestión de Tours</li>
-                <li><i class="icon-events"></i> Gestión de Eventos</li>
+                <li><i class="icon-events"></i><a href="gestionEventos.php">  Gestión de Eventos</a></li>
             </ul>
         </div>
         <div class="generalSidebar">
