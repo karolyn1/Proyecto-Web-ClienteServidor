@@ -143,10 +143,10 @@
             <ul>
                 <li ><i class="icon-dashboard"></i><a href="dashboardAdmin.php"> Dashboard</a></li>
                 <li><i class="icon-animals"></i><a href="gestionAnimales.php">  Gestión de Animales</a></li>
-                <li><i class="icon-donations"></i> Gestión de Donaciones</li>
+                <li><i class="icon-donations"></i><a href="gestionDonaciones.php"> Gestión de Donaciones</a></li>
                 <li><i class="icon-users"></i><a href="gestionUsuarios.php">  Gestión de Usuarios</a></li>
-                <li><i class="icon-sponsorship"></i> Gestión de Apadrinamientos</li>
-                <li><i class="icon-tours"></i> Gestión de Tours</li>
+                <li><i class="icon-sponsorship"></i><a href="gestionPadrinos.php"> Gestión de Apadrinamientos</a></li>
+                <li><i class="icon-tours"></i><a href="gestionTours.php"> Gestión de Tours</a></li>
                 <li><i class="icon-events"></i><a href="gestionEventos.php">  Gestión de Eventos</a></li>
             </ul>
         </div>
