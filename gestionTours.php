@@ -4,105 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Eventos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <style>
-        #viewport {
-            padding-left: 250px;
-            -webkit-transition: all 0.5s ease;
-            -moz-transition: all 0.5s ease;
-            -o-transition: all 0.5s ease;
-            transition: all 0.5s ease;
-        }
-        #content {
-            width: 100%;
-            position: relative;
-            margin-right: 0;
-        }
-        .titulo {
-            color: #062D3E;
-            font-weight: bold;
-            padding: 20px;
-        }
-        .user {
-            background-color: #f0f0f0;
-        }
-        .agregarEvento {
-            font-weight: bold;
-            color: #062D3E;
-            border: 0.2px solid #062D3E;
-        }
-        .agregarEvento:hover {
-            color: #fff;
-            background-color: #FFC107;
-        }
-        table {
-            color: #062D3E;
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th {
-            background-color: #f9f9f9;
-        }
-        td {
-            font-weight: 200;
-        }
-        th, td {
-            color: #062D3E;
-            padding: 12px;
-            text-align: left;
-        }
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-        .actions button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-        .actions .edit, .actions .delete {
-            color: #062D3E;
-            border: 0.5px solid;
-            border-radius: 5px;
-            padding: 5px;
-            width: 40px;
-        }
-        .actions button:hover {
-            color: #FFC107;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
     <?php 
         include("sidebar.php");
         echo $sidebarAdmin2;
     ?>
+    <main>
     <div id="viewport">
         <div id="content">
-            <nav class="navbar navbar-default user">
+            <nav class="navbar">
                 <div class="container-fluid">
-                    <h2 class="nav navbar-nav navbar-right titulo">Gestión de Tours</h2>
+                    <h2 class="titulo">Gestión de Tours</h2>
                 </div>
             </nav>
-            <div class="container-fluid">
-                <div class="container mt-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <a class="agregarEvento btn d-flex align-items-center" href="agregarTour.php">
-                            <i class="fas fa-plus p-1"></i> AGREGAR TOUR
-                        </a>
-                        <div class="input-group" style="width: 250px;">
-                            <input type="text" class="form-control" placeholder="Buscar tour...">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button">
-                                    <i class="fas fa-search"></i>
+            <div class="contenedor">
+                    <div class="fila-header">
+
+                        <div class="boton-agregar">
+                            <a class="btn-agregar" href="agregarTour.php">
+                                <i class="fas fa-plus icono-agregar"></i> AGREGAR TOUR
+                            </a>
+                        </div>
+                        <div class="buscador">
+                            <div class="input-grupo">
+                                <input type="text" class="campo-buscar" placeholder="Buscar Tour...">
+                                <button class="btn-buscar">
+                                    <i class="fas fa-search icono-buscar"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
+                </div>
                     <!-- Tabla de eventos -->
-                    <table>
+                     <div class="container contenedor-tabla">
+                    <table class="tabla">
                         <thead>
                             <tr>
                                 <th>Nombre del Tour</th>
@@ -110,11 +52,12 @@
                                 <th>Descripción</th>
                                 <th>Costo Boleto</th>
                                 <th>Boletos Disponibles</th>
+                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
+                            <!--
                             $conexion = new mysqli("localhost", "usuario", "contraseña", "base_datos");
                             if ($conexion->connect_error) {
                                 die("Conexión fallida: " . $conexion->connect_error);
@@ -139,13 +82,15 @@
                                 echo "<tr><td colspan='4'>No se encontraron eventos</td></tr>";
                             }
                             $conexion->close();
-                            ?>
+                            ?>-->
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    </main>
     <?php 
         include("sidebar.php");
         echo $footerAdmin;

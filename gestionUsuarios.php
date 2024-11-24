@@ -1,122 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Gestión de Usuarios</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
+    <title>Casa Natura - Donacioens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 </head>
-<style>
-    #viewport {
-        padding-left: 250px;
-        transition: all 0.5s ease;
-    }
-
-    #content {
-        width: 100%;
-        position: relative;
-    }
-
-    .titulo {
-        color: #062D3E;
-        font-weight: bold;
-        padding: 20px;
-    }
-
-    .user {
-        background-color: #f0f0f0;
-    }
-
-    .agregarUsuario {
-        font-weight: bold;
-        color: #062D3E;
-        border: 0.2px solid #062D3E;
-    }
-
-    .agregarUsuario:hover {
-        color: #fff;
-        background-color: #FFC107;
-    }
-
-    table {
-        color: #062D3E;
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    th {
-        background-color: #f9f9f9;
-    }
-
-    th, td {
-        color: #062D3E;
-        padding: 12px;
-        text-align: left;
-    }
-
-    .actions {
-        display: flex;
-        gap: 10px;
-    }
-
-    .actions button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
-
-    .actions .edit, .actions .delete {
-        color: #062D3E;
-        border: 0.5px solid;
-        border-radius: 5px;
-        padding: 5px;
-        width: 40px;
-    }
-
-    .actions button:hover {
-        color: #FFC107;
-    }
-</style>
 <body>
-    <?php 
-        include("sidebar.php");
-        echo $sidebarAdmin2;
+    <?php
+    include("sidebar.php");
+    echo $sidebarAdmin2;
     ?>
-    <div id="viewport">
-        <div id="content">
-            <nav class="navbar navbar-default user">
-                <div class="container-fluid">
-                    <h2 class="nav navbar-nav navbar-right titulo">Gestión de Usuarios</h2>
-                </div>
-            </nav>
-            <div class="container-fluid">
-                <div class="container mt-4">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <a class="agregarUsuario btn d-flex align-items-center" href="agregarUsuario.php">
-                            <i class="fas fa-plus p-1"></i> AGREGAR USUARIO
-                        </a>
-                        <div class="input-group" style="width: 250px;">
-                            <input type="text" class="form-control" placeholder="Buscar usuario...">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button">
-                                    <i class="fas fa-search"></i>
+    <main>
+        <div id="viewport">
+            <div id="content">
+                <nav class="navbar ">
+                    <div class="container-fluid">
+                        <h2 class="titulo">Gestión de Usuarios</h2>
+                    </div>
+                </nav>
+
+                <div class="contenedor">
+                    <div class="fila-header">
+
+                        <div class="boton-agregar">
+                            <a class="btn-agregar" href="agregarUsuario.php">
+                                <i class="fas fa-plus icono-agregar"></i> AGREGAR USUARIO
+                            </a>
+                        </div>
+                        <div class="buscador">
+                            <div class="input-grupo">
+                                <input type="text" class="campo-buscar" placeholder="Buscar usuario...">
+                                <button class="btn-buscar">
+                                    <i class="fas fa-search icono-buscar"></i>
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Nombre</th>
-                                <th>Rol</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
+                </div>
+                <div class="container contenedor-tabla">
+                <table class="tabla text-center">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 
                                 $conexion = new mysqli("localhost", "usuario", "contraseña", "base_datos");
                                 if ($conexion->connect_error) {
                                     die("Conexión fallida: " . $conexion->connect_error);
@@ -141,16 +81,18 @@
                                     echo "<tr><td colspan='4'>No se encontraron usuarios</td></tr>";
                                 }
                                 $conexion->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
+                             -->
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
-    <?php 
-        include("sidebar.php");
-        echo $footerAdmin;
+        </div>
+        </div>
+    </main>
+    <?php
+    include("sidebar.php");
+    echo $footerAdmin;
     ?>
 </body>
+
 </html>

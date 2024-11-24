@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa Natura - Eventos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css" >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
@@ -18,12 +20,12 @@
             echo $navbar;
         ?>
     </nav>
-
+<main>
     <div class="container">
-        <h1 class="eventos-title">Eventos Disponibles</h1>
-        <p class="eventos-subtitle">Únete a nuestras actividades y eventos exclusivos. Cada evento está diseñado para ofrecerte una experiencia única y enriquecedora.</p>
+        <h1 class="animales-apadrinar-title">Eventos Disponibles</h1>
+        <p class="animales-apadrinar-subtitle">Únete a nuestras actividades y eventos exclusivos. Cada evento está diseñado para ofrecerte una experiencia única y enriquecedora.</p>
 
-        <h3 class="eventos-list-title">Lista de Eventos Disponibles</h3>
+        <h3 class="animales-apadrinar-list-title">Lista de Eventos Disponibles</h3>
 
         <!-- Grid de eventos -->
         <div class="animal-grid">
@@ -63,7 +65,7 @@
             </div>
         </div>
     </div>
-
+</main>
     <footer>
         <?php
          include("fragmentos.php");

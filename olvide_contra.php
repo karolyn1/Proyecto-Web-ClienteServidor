@@ -1,54 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olvidé mi Contraseña - Casa Natura</title>
+    <title>Casa Natura - Donacioens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff; /* Fondo blanco */
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: #333;
-        }
-
-        .navbar {
-            background-color: #003049;
-            padding: 10px;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-        }
-
-        .main-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            padding: 20px;
-            background-color: #ffffff;
-        }
-
-        .form-container {
+        .form-olvide-contra {
             background-color: white;
             width: 100%;
             max-width: 550px;
@@ -58,20 +24,20 @@
             text-align: center;
         }
 
-        .form-container h1 {
+        .form-olvide-contra h1 {
             color: #FFC107;
             margin-bottom: 15px;
             font-size: 32px; /* Tamaño de título más grande */
         }
 
-        .form-container h2 {
+        .form-olvide-contra h2 {
             color: #333;
             margin-bottom: 25px;
             font-size: 20px;
             font-weight: normal;
         }
 
-        .form-container input[type="email"] {
+        .form-olvide-contrar input[type="email"] {
             width: 100%;
             padding: 15px; /* Aumenta el padding */
             margin: 15px 0;
@@ -80,13 +46,13 @@
             font-size: 18px; /* Tamaño de texto más grande */
         }
 
-        .form-container .buttons {
+        .form-olvide-contra .buttons {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
 
-        .form-container button {
+        .form-olvide-contra button {
             width: 48%;
             padding: 12px; /* Aumenta el padding */
             font-size: 18px; /* Tamaño de texto más grande */
@@ -95,33 +61,24 @@
             cursor: pointer;
         }
 
-        .form-container .submit-button {
+        .form-olvide-contra .submit-button {
             background-color: #FFC107;
             color: white;
         }
 
-        .form-container .submit-button:hover {
+        .form-olvide-contra .submit-button:hover {
             background-color: #FFA000;
         }
 
-        .form-container .cancel-button {
+        .form-olvide-contra .cancel-button {
             background-color: #d9534f;
             color: white;
         }
 
-        .form-container .cancel-button:hover {
+        .form-olvide-contra .cancel-button:hover {
             background-color: #c9302c;
         }
 
-        .footer {
-            background-color: #003049;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            width: 100%;
-            position: fixed;
-            bottom: 0;
-        }
     </style>
 </head>
 <body>
@@ -130,9 +87,9 @@
         include("fragmentos.php");
         echo $navbar;        
     ?>
-
-    <div class="main-container">
-        <div class="form-container">
+<main>
+    <div class="container mt-5">
+        <div class="form-olvide-contra">
             <h1>¿Olvidaste tu contraseña?</h1>
             <h2>Ingresa tu correo electrónico para restablecer tu contraseña</h2>
             
@@ -146,14 +103,15 @@
             </form>
         </div>
     </div>
-
+    </div>
+    </main>
     <div class="footer">
         <?php 
             include("fragmentos.php");
             echo $footer;
         ?>
     </div>
-    <?php
+    <!-- 
 include("conexion.php"); 
 
 if (isset($_POST['enviar'])) {
@@ -205,7 +163,7 @@ if (isset($_POST['enviar'])) {
 }
 
 $conn->close();
-?>
+ -->
 
 </body>
 </html>

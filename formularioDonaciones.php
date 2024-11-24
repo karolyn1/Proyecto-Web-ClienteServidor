@@ -4,39 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa Natura - Donacioens</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<style>
 
-    .formulario{
-        align-items: center;
-       
-    }
-    label{
-        font-weight:bold;
-    }
-    .container{
-    justify-items: center;
-    }
-    
-    input, select, button {
-        width: 100%;
-        margin-bottom: 15px;
-        padding: 8px;
-        border-radius: 3px;
-        border: 1px solid #ccc;
-    }
-    .btn {
-    background-color: #062D3E;
-    color: #fff;
-   }
-    .btn:hover{
-        background-color: #e0a800; 
-    }
-   
-</style>
 <body>
     <?php
         include("fragmentos.php");
@@ -45,12 +20,12 @@
     <main>
         <div class="p-5">
         <h1 class="title-formulario">APOYA CON TU DONACIÓN</h1>
-        <p>A través de este formulario, puedes contribuir al bienestar de los animales que más lo necesitan. 
+        <p class="textoFormDonar">A través de este formulario, puedes contribuir al bienestar de los animales que más lo necesitan. 
             Selecciona la cantidad y la frecuencia de tu donación, elige un animal o causa que te gustaría apoyar, y completa los detalles para hacer tu contribución. 
             Cada aporte es valioso y ayuda a mejorar la vida de estos animales. 
             ¡Gracias por ser parte del cambio!</p>
     <div class="container">
-    <form action="donacion.php" method="post">
+    <form action="donacion.php" class="formDonaciones" method="post">
     <div class="mb-3">
     <label for="nombre">Nombre completo del donador</label>
     <input type="text" id="nombre" name="nombre" required>
@@ -89,7 +64,7 @@
         <option value="paypal">PayPal</option>
     </select>
 </div>
-<button type="submit" class="btn btn-dark">Donar</button>
+<button type="submit" class="btnDonar">Donar</button>
 </form>
 </div>
 </div>

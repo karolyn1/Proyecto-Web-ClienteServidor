@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PAnimal - Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css" >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -18,13 +20,14 @@
     <main>
     <div class="container-donacion">
         <div class="row">
-            <div class="texto-section col-sm">
+            
+            <div class="texto-section col">
             <h1>APOYA A CASA NATURA: TUS DONACIONES, NUESTRA FUERZA PARA EL BIENESTAR ANIMAL</h1>
             <p><span>Casa Natura</span> es un 
                 refugio dedicado a proporcionar un hogar seguro y cuidado a animales necesitados. Tu apoyo permite que sigamos cumpliendo nuestra misión de cuidar y proteger a los animales, cubriendo necesidades esenciales como alimentación, atención 
                 veterinaria y mantenimiento de las instalaciones.</p>
         </div>
-        <div class="imagen-section col-sm">
+        <div class="imagen-section col">
             <img src="./imagenes/donaciones1.jpeg">
         </div>
     </div>
@@ -81,20 +84,6 @@
 
 </body>
 </html>
-
-
-
-
-    </main>
-
-
-
-
-
-
-
-
-
      <?php
      include("fragmentos.php");
         echo $footer;

@@ -1,161 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Agregar Usuario</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
+    <title>Casa Natura - Donacioens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 </head>
-<style>
-    #viewport {
-        padding-left: 250px;
-        -webkit-transition: all 0.5s ease;
-        -moz-transition: all 0.5s ease;
-        -o-transition: all 0.5s ease;
-        transition: all 0.5s ease;
-    }
-
-    #content {
-        width: 100%;
-        position: relative;
-        margin-right: 0;
-    }
-
-    .titulo {
-        color: #062D3E;
-        font-weight: bold;
-        padding: 20px;
-    }
-
-    form {
-        padding: 10px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    .form-group input[type="text"],
-    .form-group input[type="email"],
-    .form-group select {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .profile-pic {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 20px;
-    }
-
-    .profile-pic img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-bottom: 10px;
-        border: 1px solid #ddd;
-    }
-
-    .profile-pic input[type="file"] {
-        display: none;
-    }
-
-    .profile-pic label {
-        cursor: pointer;
-        color: #062D3E;
-        font-weight: bold;
-    }
-
-    .submit-btn {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        font-weight: bold;
-        color: #fff;
-        background-color: #062D3E;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .submit-btn:hover {
-        background-color: #FFC107;
-    }
-
-    .container {
-        width: 1000px;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        justify-items: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .container h1 {
-        font-size: 20px;
-        color: #062D3E;
-        margin-bottom: 20px;
-    }
-
-    .container-fluid {
-        color: #062D3E;
-        padding: 10px;
-    }
-</style>
 <body>
 <?php 
   include("sidebar.php");
   echo $sidebarAdmin2;
 ?>
+<main>
 <div id="viewport">
   <div id="content">
-        <nav class="navbar navbar-default user">
+        <nav class="navbar ">
             <div class="container-fluid">
-                <h2 class="nav navbar-nav navbar-right titulo">Gestión de Usuarios</h2>
+                <h2 class="titulo">Gestión de Usuarios</h2>
             </div>
         </nav>
         <div class="container-fluid">
-            <div class="container mt-4">
+            <div class="container container-animales-agregar mt-4">
                 <h1><b>CREAR NUEVO USUARIO</b></h1>
                 <div class="profile-pic">
                     <img id="profileImage" src="https://via.placeholder.com/100" alt="Foto de perfil">
                     <input type="file" id="imageUpload" accept="image/*" onchange="loadFile(event)">
                     <label for="imageUpload">Subir foto</label>
                 </div>
-                <form action="agregarUsuario.php" method="POST">
-                    <div class="form-group mb-3">
-                        <label for="full-name">Nombre Completo</label>
-                        <input type="text" id="full-name" name="full-name" placeholder="Nombre completo del usuario" required>
+                <form action="agregarUsuario.php" method="POST" class="form-agregar-animal">
+                    <div class="row">
+                    <div class="col form-group-agregar-animal mb-3">
+                        <label for="full-name">Nombre</label>
+                        <input type="text" id="full-name" name="full-name" placeholder="Nombre" required>
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" name="email" placeholder="Correo electrónico del usuario" required>
+                    <div class="col form-group-agregar-animal mb-3">
+                        <label for="full-name">Primer Apellido</label>
+                        <input type="text" id="full-name" name="full-name" placeholder="Primer Apellido" required>
                     </div>
-                    <div class="form-group mb-3">
+                    </div>
+                    <div class="row">
+                    <div class="col form-group-agregar-animal mb-3">
+                        <label for="full-name">Segundo Apellido</label>
+                        <input type="text" id="full-name" name="full-name" placeholder="Segundo Apellido" required>
+                    </div>
+                    <div class="col form-group-agregar-animal mb-3">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    </div>
+                    <div class="form-group-agregar-animal mb-3">
+                        <label for="email">Teléfono</label>
+                        <input type="phone" id="email" name="email" placeholder="Teléfono" required>
+                    </div>
+                    <div class="form-group-agregar-animal mb-3">
+                        <label for="email">Contraseña</label>
+                        <input type="password" id="email" name="email" placeholder="Contraseña" required>
+                    </div>
+                    <div class="form-group-agregar-animal mb-3">
                         <label for="role">Rol</label>
                         <select id="role" name="role" required>
                             <option value="">Seleccione un rol</option>
                             <option value="admin">Administrador</option>
-                            <option value="editor">Editor</option>
-                            <option value="viewer">Visualizador</option>
+                            <option value="cliente">Cliente</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn submit-btn">GUARDAR</button>
+                    <button type="submit" class="submit-btn">GUARDAR</button>
                 </form>
             </div>
         </div>
   </div>
 </div>
+</main>
 <?php 
   include("sidebar.php");
   echo $footerAdmin;

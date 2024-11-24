@@ -1,36 +1,42 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont,
-        "San Francisco", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
+    display: flex;
+    flex-direction: column;
     padding: 0;
     box-sizing: border-box;
     font-weight: bold;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 /* Styles para el navbar */
 .navbar {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
     padding: 10px 20px;
     background-color: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-    font-family: 'Paytone One', sans-serif;
-    font-weight: 100;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
 }
 
 .logo {
     display: flex;
     align-items: center;
     text-align: start;
-
+    font-family: 'Montserrat', sans-serif;
 }
 
 .logo span {
     font-size: 30px;
     font-weight: bold;
     color: #062D3E;
+
 }
 
 .logo .highlight {
@@ -68,7 +74,7 @@ body {
     font-size: 15px;
     cursor: pointer;
     position: relative;
-  
+
 }
 
 .login-button:hover {
@@ -149,7 +155,8 @@ nav li {
     color: #e0a800;
 }
 
-.nav-links li:hover .submenu {
+.nav-links li:hover .submenu,
+.nav-links li:hover .submenu-login {
     display: block;
 }
 
@@ -157,28 +164,14 @@ nav li {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0%;
-    right: 0%;
-    color: #062D3E;
     background-color: #fff;
     min-width: 160px;
     z-index: 1;
+    right: 0%;
+    color: #062D3E;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: auto;
-    padding: 0;
 }
-
-.menu-container:hover .submenu-login {
-    display: block;
-}
-
-
-
-.menu-container{
-    position: relative;
-}
-
 
 .submenu-login a {
     color: #062D3E;
@@ -189,7 +182,7 @@ nav li {
 }
 
 .submenu-login a:hover {
-   color: #e0a800;
+    color: #e0a800;
 }
 
 .submenu-login hr {
@@ -200,13 +193,163 @@ nav li {
 
 /* --------------------------------------------------------------------------------- */
 
+/* Style para el HP */
+
+.about-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    max-width: fit-content;
+    color: white;
+    background-color: #FBBC05;
+    border: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.family-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    text-align: center;
+    margin-top: 40px;
+    color: #062D3E;
+}
+
+/* Contenedor principal del carrusel */
+#animalCarouselHP {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* Contenido del carrusel */
+.carousel-contentHP {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.image-containerHP img {
+    max-width: 300px;
+    border-radius: 15px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor de texto */
+.text-container-carouselHP {
+    flex: 1;
+    max-width: 500px;
+    text-align: left;
+}
+
+.text-container-carouselHP h3 {
+    font-size: 1.8rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #062D3E;
+}
+
+.text-container-carouselHP p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.text-container-carouselHP .cta-btnHP {
+    display: inline-block;
+    background-color: #ffc107;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.text-container-carouselHP .cta-btnHP:hover {
+    background-color: #e0a800;
+}
+
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .carousel-contentHP {
+        flex-direction: column;
+    }
+
+    .text-container-carouselHP {
+        text-align: center;
+    }
+}
+
+.bottom-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin: 60px 0;
+}
+
+.left-image {
+    width: 70%;
+    padding: 0;
+}
+
+.img-fluid {
+    width: 100%;
+    height: auto;
+}
+
+.img-fluid-info {
+    width: 100%;
+    height: 500px;
+}
+
+.right-box {
+    width: 54%;
+    background-color: #062D3E;
+    color: white;
+    padding: 99px 20px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    align-items: center;
+    text-align: center;
+    margin-left: -20px;
+    height: 422px;
+}
+
+/* Enlace en el cuadro */
+.right-box a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    display: inline-block;
+    margin: 0;
+    transition: color 0.3s;
+}
+
+.right-box a:hover {
+    color: #FBBC05;
+}
+
+.right-box .arrow {
+    margin-left: 10px;
+    vertical-align: middle;
+}
 
 /* Style para el footer */
 .footer {
     background-color: #062D3E;
     color: white;
     padding: 40px 20px;
-    margin-top: 40px;
+    position: sticky;
+    font-family: 'Montserrat', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -217,10 +360,14 @@ nav li {
 .footer-links {
     display: flex;
     margin-bottom: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 13px;
     gap: 25px;
 }
 
 .footer-title {
+    font-family: 'Montserrat', sans-serif;
     font-size: 24px;
     color: white;
     display: inline-block;
@@ -291,6 +438,7 @@ nav li {
 
 /* Estilos para el menú vertical con fondo gris claro */
 .sidebar {
+    font-family: 'Montserrat', sans-serif;
     height: 100vh;
     width: 250px;
     background-color: #f0f0f0;
@@ -426,15 +574,17 @@ nav li {
 }
 
 .counter-box {
-    background-color: #FFF3EB;
+    background-color:#003049;
+    color: #FFFFFF;
 }
 
 .counter-box-second {
-    background-color: #EAF7E9;
+    background-color:#003049;
 }
 
 .counter-box p,
 .counter-box-second p {
+    color: #FFFFFF;
     font-size: 3.5rem;
     font-weight: bold;
     margin: 0;
@@ -443,7 +593,7 @@ nav li {
 .counter-box small,
 .counter-box-second small {
     font-size: 1.4rem;
-    color: #666;
+    color: #FFFFFF;
     margin-top: 10px;
     white-space: nowrap;
 }
@@ -456,14 +606,19 @@ nav li {
 .donation-table {
     width: 100%;
     max-width: 800px;
+    color: #003049;
     margin: 0 auto;
-    font-family: 'Public Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .donation-table th,
 .donation-table td {
     padding: 15px;
     text-align: center;
+}
+
+.donation-table h3{
+    color: #003049;
 }
 
 .donation-table th {
@@ -481,7 +636,7 @@ nav li {
 
 .total-donations-box {
     background-color: #f8f9fa;
-    color: #333;
+    color: #003049;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -507,9 +662,10 @@ nav li {
 }
 
 /* ESTILOS PARA PAGINA DE FORMULARIO DONACIONES */
-.title-formulario{
+.title-formulario {
     text-align: center;
     color: #e0a800;
+    font-family: 'Montserrat', sans-serif;
     margin-top: 5px;
     font-weight: 700;
 }
@@ -518,32 +674,39 @@ nav li {
 
 .container-donacion {
     display: grid;
-    max-width: 100vw; 
+    grid-gap: 0;
+    max-width: 100vw;
     overflow: hidden;
     padding: 0;
     margin: 0;
     gap: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .texto-section {
+    font-family: 'Montserrat', sans-serif;
     background-color: #062D3E;
-    padding: 40px; 
+    padding: 50px;
     color: #f0f0f0;
     margin: 0;
-    height: 100%; 
+    height: 100%;
     align-content: center;
 
 }
+.container-donacion .texto-section.col,
+.container-donacion .imagen-section.col {
+    padding-left: 0px; /* Elimina el padding a la izquierda */
+}
 
 .texto-section h1 {
-    font-size: 50px;
-
+    font-size: 36px;
     font-weight: bold;
+    margin: 30px;
     color: #ffffff;
 }
 
 .texto-section p {
-    margin-top: 10px;
+    margin: 30px;
     font-size: 18px;
     color: #f8f9fa;
 }
@@ -555,16 +718,26 @@ nav li {
 
 .imagen-section {
     padding: 0;
+    max-width: 100%;
     margin: 0;
-    height: 100%; 
+    object-fit: fill;
+    display: block;
+    height: 100%;
+}
+
+.image-section .col {
+    padding-left: 0px;
 }
 
 .imagen-section img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    max-width: 100%;
+    object-fit: cover;
+    display: block;
     padding: 0;
     margin: 0;
+    gap: 0;
 }
 
 .container-comoFunciona {
@@ -573,19 +746,23 @@ nav li {
     align-items: center;
     padding: 20px;
 }
+
 .container-comoFunciona header {
     text-align: center;
     margin-bottom: 30px;
 }
+
 .container-comoFunciona header h1 {
     font-size: 30px;
     color: #062D3E;
     font-weight: bold;
 }
+
 .container-comoFunciona header p {
     font-size: 18px;
     color: #062D3E;
 }
+
 .pasos {
     display: flex;
     justify-content: space-around;
@@ -593,31 +770,36 @@ nav li {
     max-width: 1200px;
     margin-bottom: 40px;
 }
+
 .paso {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 220px;
+    color: #062D3E;
     text-align: center;
 }
 
 .paso:hover {
     box-shadow: 0 4px 15px rgba(47, 109, 121, 0.5), 0 0 10px rgba(47, 109, 121, 0.4);
 }
+
 .paso i {
     font-size: 40px;
     color: #FBBC05;
     margin-bottom: 15px;
 }
+
 .paso h3 {
     font-size: 20px;
-    color: #333;
+    color: #062D3E;
     margin-bottom: 10px;
 }
+
 .paso p {
     font-size: 16px;
-    color: #555;
+    color: #062D3E;
 }
 
 .text-container {
@@ -631,29 +813,23 @@ nav li {
     font-size: 50px;
     text-align: left;
     color: #062D3E;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .welcome-text {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 300;
+    color: #062D3E;
     font-size: 18px;
     margin-top: 10px;
 }
 
-.about-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border-radius: 30px;
-    color: white;
-    background-color: #FBBC05;
-    border: none;
-    transition: background-color 0.3s, color 0.3s;
-}
 
 .about-btn a {
     color: #062D3E;
     font-weight: bold;
 }
+
 .about-btn:hover {
     background-color: white;
     color: #FBBC05;
@@ -665,32 +841,42 @@ nav li {
 }
 
 /*LISTADO DE ANIMALES STYLE*/
- /* Estilos personalizados */
- .animales-apadrinar-title {
+/* Estilos personalizados */
+.animales-apadrinar-title {
     margin-top: 20px;
     margin-bottom: 30px;
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
     font-weight: bold;
     color: #e0a800;
 }
+
 .animales-apadrinar-subtitle {
-    margin-bottom: 50px; /* Mayor espacio debajo del subtítulo */
+    margin-bottom: 50px;
+    /* Mayor espacio debajo del subtítulo */
+    font-family: 'Montserrat', sans-serif;
     text-align: center;
-    color: #555;
+    font-size: 20px;
+    color: #062D3E;
 }
+
 .animales-apadrinar-list-title {
     text-align: center;
-    color: #062D3E; /* Azul específico */
+    color: #062D3E;
+    font-family: 'Montserrat', sans-serif;
+    /* Azul específico */
     font-weight: bold;
     margin-top: 40px;
     margin-bottom: 20px;
 }
+
 .animal-grid {
-    display: grid;
+    display: flex;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
+
 .animal-card {
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -698,29 +884,33 @@ nav li {
     text-align: center;
     background-color: #f9f9f9;
 }
+
 .animal-card img {
     width: 100%;
     height: auto;
     border-radius: 10px;
     object-fit: cover;
 }
+
 .animal-card a {
     display: block;
     margin-top: 10px;
     font-size: 16px;
     color: #062D3E;
+    font-family: 'Montserrat', sans-serif;
     text-decoration: none;
 }
+
 .animal-card a:hover {
     text-decoration: underline;
 }
 
 /*ESTILOS DETALLE ANIMALES*/
 
-.detalleAnimal-title h1{
-    color:#062D3E;
+.detalleAnimal-title h1 {
+    color: #062D3E;
     margin-top: 50px;
-   
+
     font-weight: bold;
 }
 
@@ -735,6 +925,7 @@ nav li {
 
 .container-animal .header {
     display: flex;
+    font-family: 'Montserrat', sans-serif;
     align-items: center;
     gap: 20px;
 }
@@ -742,6 +933,7 @@ nav li {
 .container-animal .header img {
     width: 200px;
     height: 200px;
+    font-family: 'Montserrat', sans-serif;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -750,6 +942,7 @@ nav li {
     background-color: #f7b500;
     padding: 10px;
     border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
     color: #000;
     font-weight: bold;
     text-align: center;
@@ -758,41 +951,50 @@ nav li {
 .container-animal .title h1 {
     margin: 0;
     font-size: 24px;
+    font-family: 'Montserrat', sans-serif;
     color: #062D3E;
     font-weight: bold;
 }
 
 .container-animal .title p {
     margin: 5px 0 0;
+    font-family: 'Montserrat', sans-serif;
     font-size: 16px;
 }
 
 .container-animal .seccion {
     margin-top: 20px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .tituloSeccion {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 5px;
-    color:#f7b500 ;
+    font-family: 'Montserrat', sans-serif;
+    color: #f7b500;
 }
 
 .seccion p {
     margin: 0;
     font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
     line-height: 1.5;
 
 }
 
 .seccion .texto {
     color: #062D3E;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .seccion ul {
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding-left: 20px;
     font-size: 16px;
+    font-weight: 600;
     color: #062D3E;
 }
 
@@ -802,6 +1004,7 @@ nav li {
     text-align: center;
     margin-top: 20px;
     color: #062D3E;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .container-boton {
@@ -813,6 +1016,7 @@ nav li {
     background-color: #f7b500;
     color: white;
     padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
     font-weight: bold;
     font-size: 18px;
     border: none;
@@ -824,11 +1028,6 @@ nav li {
 .botonApadrinar:hover {
     background-color: #e0a400;
 }
-
-
-
-
-
 
 .contact-section {
     display: flex;
@@ -848,7 +1047,8 @@ nav li {
 }
 
 /* Logo */
-.contact-logo, .contact-form {
+.contact-logo,
+.contact-form {
     background-color: #f5f5f5;
     padding: 100px;
     flex: 1;
@@ -876,7 +1076,9 @@ nav li {
     gap: 10px;
 }
 
-.contact-form input[type="text"], .contact-form input[type="email"], .contact-form textarea {
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -892,6 +1094,7 @@ nav li {
 .contact-form button {
     background-color: #FFBF00;
     color: #fff;
+    font-family: 'Montserrat', sans-serif;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -906,7 +1109,8 @@ nav li {
     display: flex;
     justify-content: space-around;
     padding: 40px;
-    background-color: #f9f9f9;
+    font-family: 'Montserrat', sans-serif;
+
 }
 
 .info-location h2 {
@@ -914,7 +1118,13 @@ nav li {
     text-align: center;
 }
 
-.contact-info, .location-map {
+.contacto-title-form {
+    font-family: 'Montserrat', sans-serif;
+    color: #062D3E;
+}
+
+.contact-info,
+.location-map {
     width: 45%;
 }
 
@@ -936,19 +1146,20 @@ nav li {
 .registro-section {
     display: flex;
     justify-content: center;
-    align-items: stretch; 
-    height: 100vh; 
+    align-items: stretch;
+    height: 100vh;
     background-color: #f9f9f9;
     width: 100%;
 }
 
-.registro-form, .cregistro-form {
-    flex: 1;  
-    height: 100%; 
+.registro-form,
+.cregistro-form {
+    flex: 1;
+    height: 100%;
 }
 
 .registro-form {
-    background-size: cover; 
+    background-size: cover;
     background-position: center;
     display: flex;
     justify-content: center;
@@ -966,10 +1177,11 @@ nav li {
 
 form {
     width: 100%;
-    max-width: 450px; 
+    max-width: 450px;
 }
 
-input, textarea {
+input,
+textarea {
     margin-bottom: 15px;
     padding: 10px;
     border-radius: 5px;
@@ -978,7 +1190,6 @@ input, textarea {
 }
 
 button {
-    background-color: #FFBF00; 
     color: white;
     padding: 10px 20px;
     border: none;
@@ -991,9 +1202,6 @@ button:hover {
     background-color: #f5bb0d;
 }
 
-
-
-
 .evento-section {
     display: flex;
     justify-content: center;
@@ -1003,7 +1211,8 @@ button:hover {
     width: 100%;
 }
 
-.evento-form, .cevento-form {
+.evento-form,
+.cevento-form {
     flex: 1;
     height: 100%;
 }
@@ -1030,7 +1239,8 @@ form {
     max-width: 450px;
 }
 
-input, textarea {
+input,
+textarea {
     margin-bottom: 15px;
     padding: 10px;
     border-radius: 5px;
@@ -1039,7 +1249,6 @@ input, textarea {
 }
 
 button {
-    background-color: #FFBF00;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -1048,6 +1257,815 @@ button {
     width: 100%;
 }
 
-button:hover {
+/*ESTILOS PARA PAGINA DE FORMULARIO DONACIONES*/
+
+.formDonaciones {
+    align-items: center;
+    color: #062D3E;
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.textoFormDonar {
+    font-size: 20px;
+    text-align: center;
+    margin: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: #062D3E;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.container {
+    justify-items: center;
+}
+
+input,
+select,
+button {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.btnDonar {
+    background-color: #062D3E;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.btnDonar:hover {
     background-color: #f5bb0d;
 }
+
+/*ESTILOS PARA VISTA DETALLE TOUR*/
+.container-tour-detalle {
+    color: #062D3E;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container-informacion-adicional {
+    color: #062D3E;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/*ESTILOS PARA PAGINA DE CONTACTO*/
+
+.banner-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    /* Altura ajustable */
+    overflow: hidden;
+}
+
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Asegura que la imagen se ajuste al contenedor */
+    filter: brightness(0.7);
+}
+
+.banner-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    /* Alinea con la imagen */
+}
+
+/* Estilos de la sección de contenido */
+.texto-quienessomos {
+    color: #003049;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.8;
+    font-size: 14px;
+    gap: 20px;
+    justify-content: center;
+
+}
+
+.texto-quienessomos-principal {
+    color: #003049;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.8;
+    font-size: 20px;
+    gap: 20px;
+    justify-content: center;
+
+}
+
+.texto-quienessomos-principal strong {
+    color: #f5bb0d; }
+
+  .col-md-3 {
+    background-color: #f8f9fa; 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .col-md-3:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+  }
+
+/* Estilos de los links */
+.section-link {
+    display: inline-block;
+    color: #003049;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: all 0.3s;
+  }
+
+.section-link:hover {
+    color: #FBBC05;
+    transform: scale(1.1);
+}
+
+/* Centrar links */
+.link-container {
+    display: flex;
+    justify-content: center;
+    color: #062D3E;
+
+}
+
+/*ESTILOS PARA LOGIN*/
+
+/* Contenedor principal */
+.container-login {
+    color: #003049;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Ocupa toda la altura de la pantalla */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Imagen de fondo */
+.animal-images img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra todo el contenedor */
+    filter: brightness(0.20); /* Oscurece ligeramente la imagen */
+    z-index: 1;
+}
+
+
+.form-container {
+    color: #003049;
+    position: absolute;
+    z-index: 2; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 400px;
+    background-color: rgba(255, 255, 255, 0.9); 
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.form-container h2 {
+    font-size: 24px;
+    color: #003049;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+.form-container input{
+    margin-bottom: 3px;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #FFC107;
+    color: #ffffff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.form-container button:hover {
+    background-color: #003049;
+    color: #FFFFFF;
+}
+
+
+.remember {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.remember input {
+    margin-right: 5px;
+}
+
+.remember a {
+    color: #007bff;
+    text-decoration: none;
+    text-align: right;
+}
+
+.remember a:hover {
+    text-decoration: underline;
+}
+
+.animal-images {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.animal-images img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.5);
+}
+
+.toggle-section {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.toggle-section a {
+    color: #003049;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.toggle-section a:hover {
+    color: #f5bb0d;
+}
+
+/*SIDEBAR ADMINISTRADOR*/
+    /* ESTILOS PARA EL SIDEBAR DE ADMINISTRADOR */
+    .sidebar2 {
+        z-index: 1000;
+  position: fixed;
+  left: 250px;
+  width: 250px;
+  height: 100%;
+  margin-left: -250px;
+  overflow-y: auto;
+        background-color: #ffffff;
+        color:#062D3E;
+
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+    }
+    
+    .logoSidebar {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+    
+    .logoSidebar img {
+        width: 100px;
+        height: 100px;
+        margin-right: 5px;
+    }
+    
+    .logoSidebar h1 {
+        font-size: 25px;
+        font-weight: bold;
+        color: #062D3E ;
+    }
+    
+    .logoSidebar span {
+        color: #FFA500; /* Color para "NATURA" */
+    }
+    
+    .menuSidebar, .generalSidebar {
+        margin-top: 20px;
+    }
+    
+    .menuSidebar p, .generalSidebar p {
+        font-size: 16px;
+        font-weight: bold;
+        color:#062D3E;
+        margin-bottom: 10px;
+    }
+    
+    .menuSidebar ul, .generalSidebar ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .menuSidebar li, .generalSidebar li {
+        font-size: 16px;
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        color:#062D3E;
+        cursor: pointer;
+        transition: color 0.3s ease;
+    }
+
+    
+    .menuSidebar li i, .generalSidebar li i {
+        margin-right: 10px;
+        color:#062D3E;
+        text-decoration:none;
+    }
+    .menuSidebar li a, .generalSidebar li a {
+       text-decoration: none;
+       color:#062D3E;
+    }
+    
+    .menuSidebar li:hover, .generalSidebar li:hover {
+        color: #FFC107;
+    }
+    
+    .menuSidebar li a:hover, .generalSidebar li a:hover {
+        color: #FFC107;
+    }
+    .menuSidebar .active {
+        background-color: #062D3E;
+        color: #fff;
+        border-radius: 8px;
+    }
+
+    .active a {
+        color:#fff;
+    }
+    
+    .menuSidebar .active i {
+        color: #fff;
+    }
+    
+    /* Iconos para el dashboard */
+    .icon-dashboard::before { content: "📂"; }
+    .icon-animals::before { content: "🐾"; }
+    .icon-donations::before { content: "💰"; }
+    .icon-sponsorship::before { content: "🤝"; }
+    .icon-tours::before { content: "📅"; }
+    .icon-events::before { content: "🎉"; }
+    .icon-settings::before { content: "⚙️"; }
+    .icon-support::before { content: "🆘"; }
+    .icon-logout::before { content: "🔌"; }
+    .icon-users::before { content: "🫂"; }
+    
+
+    .footerAdmin {
+    background-color: #062D3E;
+    color: white;
+    padding: 40px 20px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Paytone One', sans-serif;
+    font-weight: 100;
+}
+
+/*ESTILOS ADMIN*/
+
+#viewport {
+    padding-left: 250px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  
+  #content {
+    width: 100%;
+    position: relative;
+    margin-right: 0;
+  }
+  
+  
+  .titulo{
+      color:#062D3E;
+      font-weight:bold;
+      padding:20px;
+      font-family: "Monserrat", sans-serif;
+    
+  }
+  .user{
+      background-color:#f0f0f0;
+  
+  }
+  
+  .agregarAnimal {
+    background-color: #ffc107;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.agregarAnimal:hover {
+    background-color: #ffb300;
+    color: white;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+}
+
+.input-group input {
+    border-radius: 5px 0 0 5px;
+}
+
+.input-group .btn {
+    border-radius: 0 5px 5px 0;
+}
+  table{
+ color:#062D3E;
+  width: 100%;
+  border-collapse:collapse;
+  
+  }
+  th{
+      background-color: #f9f9f9;
+  }
+  td{
+      font-weight: 200;
+  }
+  th, td{
+      color:#062D3E;
+      padding:12px;
+      text-align:left;
+  }
+      .actions {
+              display: flex;
+              gap: 10px;
+          }
+          .actions button {
+              background-color: transparent;
+              border: none;
+              cursor: pointer;
+          }
+          .actions .edit {
+              color:#062D3E;
+              border: 0.5px solid;
+              border-radius:5px;
+              padding:5px;
+              width: 40px;
+          }
+          .actions .delete {
+              color:#062D3E;
+              border: 0.5px solid;
+              border-radius:5px;
+              padding:5px;
+              width: 40px;
+          }
+  
+          .actions button:hover{
+              color: #FFC107;
+          }
+  
+          .row-custom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }  
+
+        /* Estilo General */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Título */
+.titulo {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Fila de encabezado */
+.fila-header {
+    margin: 10px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Botón Agregar */
+.boton-agregar {
+    flex-shrink: 0;
+    justify-self: start;
+}
+
+.btn-agregar {
+    display: flex;
+    align-items: center;
+    background-color: #003049;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn-agregar:hover {
+    background-color: #f5bb0d;
+    color: #FFFFFF;
+}
+
+.icono-agregar {
+    margin-right: 5px;
+}
+
+/* Buscador */
+.buscador {
+    flex-shrink: 0;
+}
+
+.input-grupo {
+    display: flex;
+    align-items: center;
+}
+
+.campo-buscar {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+}
+
+.btn-buscar {
+    background-color: #003049;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-buscar:hover {
+    background-color: #f5bb0d;
+    color: #FFFFFF;
+}
+
+.icono-buscar {
+    font-size: 16px;
+}
+
+/* Contenedor de la tabla */
+.contenedor-tabla {
+    overflow-x: auto; /* Para manejar el desplazamiento en pantallas pequeñas */
+    margin-top: 20px;
+}
+
+/* Estilos generales de la tabla */
+/* Contenedor para la tabla (responsivo) */
+.contenedor-tabla {
+    overflow-x: auto; /* Desplazamiento horizontal en pantallas pequeñas */
+    margin-top: 20px;
+}
+
+/* Tabla moderna */
+.tabla {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden;
+    font-family: "Monserrat", sans-serif;
+    font-size: 15px;
+    color: #003049;
+}
+
+/* Estilos del encabezado */
+.tabla thead {
+    background-color: #4A90E2; /* Azul moderno */
+    color: white;
+}
+
+.tabla thead th {
+    text-transform: uppercase;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 3px solid #ffffff; /* Divisor */
+}
+
+/* Cuerpo de la tabla */
+.tabla tbody tr {
+    transition: background-color 0.3s ease; /* Efecto hover */
+}
+
+.tabla tbody tr:nth-child(even) {
+    background-color: #f8f9fa; /* Fondo gris claro para filas pares */
+}
+
+.tabla tbody tr:nth-child(odd) {
+    background-color: #ffffff; /* Fondo blanco para filas impares */
+}
+
+.tabla tbody tr:hover {
+    background-color: #eaf4fc; /* Fondo azul claro al pasar el mouse */
+}
+
+/* Celdas */
+.tabla tbody td {
+    padding: 14px;
+    border-bottom: 1px solid #dee2e6; /* Línea divisoria suave */
+}
+
+/* Botones de acción */
+.tabla tbody td.actions {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaciado entre botones */
+}
+
+.btn-accion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s ease;
+    color: #fff;
+}
+
+.btn-accion:hover {
+    transform: scale(1.05); /* Efecto de agrandamiento */
+}
+
+.btn-editar {
+    margin-bottom: 2px;
+    border-radius: 10px;
+    background-color: #f5bb0d; /* Verde */
+}
+
+.btn-editar a{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.btn-editar:hover {
+    background-color: #e0a400;
+}
+
+.btn-eliminar {
+    border-radius: 10px;
+    background-color: #dc3545; /* Rojo */
+}
+
+.btn-eliminar:hover {
+    background-color: #c82333;
+}
+.buscador-donaciones {
+    flex-shrink: 0;
+    margin: 10px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+.form-agregar-animal {
+    font-family: "Monserrat", sans-serif;
+    padding: 10px;
+}
+
+.form-agregar-animal .form-group {
+    display: flex;
+    font-family: "Monserrat", sans-serif;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.form-agregar-animal .form-group div {
+    flex: 1 1 45%;
+}
+
+.form-agregar-animal .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-agregar-animal .form-group input[type="text"],
+.form-agregar-animal .form-group input[type="date"],
+.form-agregar-animal .form-group select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.profile-pic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+}
+
+.profile-pic input[type="file"] {
+    display: none;
+}
+
+.profile-pic label {
+    cursor: pointer;
+    color: #062D3E;
+    ;
+    font-weight: bold;
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #062D3E;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #FFC107;
+}
+
+.container-animales-agregar {
+    width: 1000px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: "Monserrat", sans-serif;
+    justify-items: center;
+
+}
+
+.container-animales-agregar h1 {
+    font-size: 20px;
+    color: #062D3E;
+    font-family: "Monserrat", sans-serif;
+    margin-bottom: 20px;
+}
+

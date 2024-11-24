@@ -2,13 +2,15 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Donaciones</title>
+    <title>Casa Natura - Donacioens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 </head>
 
     <body>
@@ -18,7 +20,7 @@
                 echo $navbar;
             ?>
         </nav>
-
+<main>
     <div class="container">
         <h1 class="animales-apadrinar-title">Animales Disponibles para Apadrinar</h1>
         <p class="animales-apadrinar-subtitle">Apadrinar un animal es una forma maravillosa de apoyar a los seres más vulnerables, ayudándolos a obtener cuidado, alimentación y atención médica que necesitan.</p>
@@ -98,10 +100,10 @@
             </div>
         </div>
     </div>
-
+</main>
     <footer>
         <?php
-         include("fragmentos.php");
+         include "fragmentos.php";
          echo $footer;
          ?>
     </footer>

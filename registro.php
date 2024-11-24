@@ -1,35 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrarse - Casa Natura</title>
+    <title>Casa Natura - Donacioens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
     <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            background-color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            align-items: center; 
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: center;
-            background-color: #003049;
-            padding: 10px 0;
-            width: 100%;
-        }
-
-        .navbar a {
-            color: #ffffff;
-            margin: 0 15px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
+        
         .container {
             display: flex;
             justify-content: center;
@@ -41,72 +24,8 @@
             flex: 1;
         }
 
-        .form-container, .image-container {
-            flex: 1;
-            max-width: 400px;
-            box-sizing: border-box;
-            text-align: center;
-        }
 
-        .form-container {
-            padding: 20px;
-        }
-
-        .form-container h2 {
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .form-container input[type="text"],
-        .form-container input[type="password"],
-        .form-container input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #cccccc;
-            border-radius: 5px;
-            font-size: 16px;
-            color: #555;
-        }
-
-        .form-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #FFC107;
-            color: #ffffff;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-
-        .form-container button:hover {
-            background-color: #FFA000;
-        }
-
-        .image-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .image-container img {
-            width: 200%;
-            max-width: 400px; 
-            height: auto;
-            border-radius: 8px;
-        }
-
-        footer {
-            background-color: #003049;
-            color: #ffffff;
-            text-align: center;
-            padding: 20px 0;
-            width: 100%;
-        }
+       
     </style>
 </head>
 <body>
@@ -114,7 +33,7 @@
     include("fragmentos.php");
     echo $navbar;
     ?>
-
+<main>
     <div class="container">
         <div class="form-container">
             <h2>Registrarse</h2>
@@ -137,8 +56,8 @@
             <img src="imagenes/img1.png"" alt="Imagen descriptiva">
         </div>
     </div>
-
-    <?php
+</main>
+    <!-- <--
     include('conexion.php'); 
 
     if (isset($_POST['registrar'])) {
@@ -165,7 +84,7 @@
             echo "<p style='color: red;'>Error al registrar. Intenta nuevamente.</p>";
         }
     }
-    ?>
+  -->
 
     <footer>
         <?php 

@@ -1,45 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAnimal - Menu</title>
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&display=swap" rel="stylesheet">
-</head>
-<body>
 <?php
-    $navbar='<nav class="navbar">
+    $navbar=
+    '<nav class="navbar">
         <div class="logo">
             <img class="img" src="./imagenes/logo.png" alt="Logo">
             <span>CASA<span class="highlight">NATURA</span></span>
+            
         </div>
-        <div>
+       
+        <div class="menu-container">
+         <div>
             <ul class="nav-links">
-                <li><a href="homepage.php">Home</a></li>
+                <li><a href="homepage.php">HOME</a></li>
                 <li>
-                    <a href="informacionDonacion.php">Donaciones</a>
+                    <a href="informacionDonacion.php">DONACIONES</a>
                     <ul class="submenu">
-                        <li><a href="formularioDonaciones.php">Formulario</a></li>
+                        <li><a href="formularioDonaciones.php">FORMULARIO</a></li>
                     </ul>
                 </li>
-                <li><a href="listadoAnimalesDisponibles.php">Apadrinar</a></li>
-                <li><a href="tourDisponible.php">Tours</a></li>
-                <li><a href="#eventos">Eventos</a></li>
-                <li><a href="contactenos.php">Contacto</a></li>
-                <li><a href="quienessomos.php">Nosotros</a></li>
+                <li><a href="listadoAnimalesDisponibles.php">APADRINAR</a></li>
+                <li><a href="tourDisponible.php">TOURS</a></li>
+                <li><a href="eventosDisponibles.php">EVENTOS</a></li>
+                <li><a href="contactenos.php">CONTACTO</a></li>
+                <li><a href="quienessomos.php">NOSOTROS</a></li>
+                <li><a href="login.php"><i class="fas fa-user"></i></a>
+                    <ul class="submenu-login">
+                    <a href="login.php">Mi Perfil</a>
+                    <a href="dashboardAdmin.php">Administrador</a>
+                    </ul>
+                </li>
+                
             </ul>
-        </div>
-        <div class="menu-container">
-            <a href="login.php" class="login-button">Iniciar Sesión</a>
-            <div class="submenu-login">
-                <a href="registro.php">Registro</a>
-                <hr>
-                <a href="login.php">Mi Perfil</a>
-                <a href="dashboardAdmin.php">Administrador</a>
             </div>
-        </div>
+    </div>
         <button class="menu-toggle">☰</button>
     </nav>';
 
@@ -61,12 +53,12 @@
         </div>
         <div class="footer-info">
             <div class="footer-links">
-            <a href="quienessomos.php">Nosotros</a>
-            <a href="informacionDonacion.php">Donar</a>
-            <a href="lostadoAnimalesDisponibles.php">Apadrinar</a>
-            <a href="#">Eventos</a>
-            <a href="#">Tours</a>
-            <a href="#">Contáctanos</a>
+            <a href="quienessomos.php">NOSOTROS</a>
+            <a href="informacionDonacion.php">DONAR</a>
+            <a href="lostadoAnimalesDisponibles.php">APADRINAR</a>
+            <a href="#">EVENTOS</a>
+            <a href="#">TOURS</a>
+            <a href="#">CONTÁCTANOS</a>
         </div>
         <div class="row social-media">
             <div class="col social-icons">
@@ -81,7 +73,3 @@
 
 ?>
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>

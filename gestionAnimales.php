@@ -1,186 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Donaciones</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
+    <title>Casa Natura - Donacioens</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 </head>
-<style>
 
-
-#viewport {
-  padding-left: 250px;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-#content {
-  width: 100%;
-  position: relative;
-  margin-right: 0;
-}
-
-
-.titulo{
-    color:#062D3E;
-    font-weight:bold;
-    padding:20px;
-  
-}
-.user{
-    background-color:#f0f0f0;
-
-}
-
-.agregarAnimal{
-    font-weight: bold;
-    color:#062D3E;
-    border: 0.2px solid #062D3E;
-
-}
-
-.agregarAnimal:hover{
-    color:#fff;
-    background-color: #FFC107;
-}
-
-table{
-    color:#062D3E;
-width: 100%;
-border-collapse:collapse;
-
-}
-th{
-    background-color: #f9f9f9;
-}
-td{
-    font-weight: 200;
-}
-th, td{
-    color:#062D3E;
-    padding:12px;
-    text-align:left;
-}
-    .actions {
-            display: flex;
-            gap: 10px;
-        }
-        .actions button {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-        }
-        .actions .edit {
-            color:#062D3E;
-            border: 0.5px solid;
-            border-radius:5px;
-            padding:5px;
-            width: 40px;
-        }
-        .actions .delete {
-            color:#062D3E;
-            border: 0.5px solid;
-            border-radius:5px;
-            padding:5px;
-            width: 40px;
-        }
-
-        .actions button:hover{
-            color: #FFC107;
-        }
-
-
-</style>
 <body>
-<?php 
-  include("sidebar.php");
-  echo $sidebarAdmin2;?>
-  </div>
-<div id="viewport">
-  <div id="content">
-        <nav class="navbar navbar-default user">
-      <div class="container-fluid">
-        <h2 class="nav navbar-nav navbar-right titulo">Gestión de Animales</h2>
-      </div>
-        </nav>
-        <div class="container-fluid">
-        <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            
-            <a class="agregarAnimal btn d-flex align-items-center" href="agregarAnimal.php">
-            <i class="fas fa-plus p-1"></i> AGREGAR ANIMAL
-            </a>
-           
-            <div class="input-group" style="width: 250px;">
-                <input type="text" class="form-control" placeholder="Buscar animal...">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">
-                        <i class="fas fa-search"></i>
-                    </button>
+    <?php
+    include("sidebar.php");
+    echo $sidebarAdmin2; ?>
+
+    <main>
+        <div id="viewport">
+            <div id="content">
+                <!-- Navbar -->
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <h2 class="titulo">Gestión de Animales</h2>
+                    </div>
+                </nav>
+
+                <!-- Contenido principal -->
+                <div class="contenedor">
+                    <!-- Encabezado con botón y búsqueda -->
+                    <div class="fila-header">
+                        <!-- Botón Agregar Animal -->
+                        <div class="boton-agregar">
+                            <a class="btn-agregar" href="agregarAnimal.php">
+                                <i class="fas fa-plus icono-agregar"></i> AGREGAR ANIMAL
+                            </a>
+                        </div>
+
+                        <!-- Input de búsqueda -->
+                        <div class="buscador">
+                            <div class="input-grupo">
+                                <input type="text" class="campo-buscar" placeholder="Buscar animal...">
+                                <button class="btn-buscar">
+                                    <i class="fas fa-search icono-buscar"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabla -->
+                    <div class="container contenedor-tabla">
+                        <table class="tabla text-center">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Raza</th>
+                                    <th>Especie</th>
+                                    <th>Apadrinado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Alyvia Kelley</td>
+                                    <td>Alyvia Kelley</td>
+                                    <td>Cliente</td>
+                                    <td>a.kelley@gmail.com</td>
+                                    <td>
+                                        <button class="btn-editar"><a href="editarAnimal.php"><i class="fas fa-pen"></i></></a></button> 
+                                        <button class="btn-eliminar"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Jaiden Nixon</td>
+                                    <td>Jaiden Nixon</td>
+                                    <td>Cliente</td>
+                                    <td>jaiden.n@gmail.com</td>
+                                    <td>
+                                    <button class="btn-editar"><a href="editarAnimal.php"><i class="fas fa-pen"></i></></a></button> 
+                                        <button class="btn-eliminar"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Ace Foley</td>
+                                    <td>Ace Foley</td>
+                                    <td>Cliente</td>
+                                    <td>ace.fo@yahoo.com</td>
+                                    <td>
+                                    <button class="btn-editar"><a href="editarAnimal.php"><i class="fas fa-pen"></i></></a></button> 
+                                        <button class="btn-eliminar"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+    </main>
 
-      <!-- REALIZACION DE TABLA DE EJEMPLO -->
-      <table>
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Raza</th>
-                <th>Especie</th>
-                <th>Apadrinado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Alyvia Kelley</td>
-                <td>Alyvia Kelley</td>
-                <td>Cliente</td>
-                <td>a.kelley@gmail.com</td>
-                <td class="actions">
-                    <button class="edit"><i class="fas fa-pen"></i></button>
-                    <button class="delete"><i class="fas fa-trash"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Jaiden Nixon</td>
-                <td>Jaiden Nixon</td>
-                <td>Cliente</td>
-                <td>jaiden.n@gmail.com</td>
-                <td class="actions">
-                    <button class="edit"><i class="fas fa-pen"></i></button>
-                    <button class="delete"><i class="fas fa-trash"></i></button>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Ace Foley</td>
-                <td>Ace Foley</td>
-                <td>Cliente</td>
-                <td>ace.fo@yahoo.com</td>
-                <td class="actions">
-                    <button class="edit" href="editarAnimal.php"><i class="fas fa-pen"><a href="editarAnimal.php"></a></i></button>
-                    <button class="delete"><i class="fas fa-trash"></i></button>
-                </td>
-            </tr>
-        </tbody>
-    </table>  
-      
-    </div>
-  </div>
-</div>
-<?php 
-  include("sidebar.php");
-  echo $footerAdmin;?>
-  </div>
+    <?php
+    include("sidebar.php");
+    echo $footerAdmin; ?>
+
 </body>
 <html>
