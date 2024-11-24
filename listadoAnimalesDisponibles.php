@@ -27,77 +27,37 @@
 
         <h3 class="animales-apadrinar-list-title">Lista de Animales Disponibles</h3>
 
-        
-        <!--     Grid de animales con BD 
-             
-            <div class="animal-grid"> --> 
-            <?php
-
-            /*
-                //Conectar a la base de datos 
-                //$conexion = new mysqli("localhost", "usuario", "contraseña", "base_datos");
-
-                // Verificar conexión
-                 if ($conexion->connect_error) {
-                    die("Conexión fallida: " . $conexion->connect_error);
-                }
-
-                // Consultar animales disponibles
-                $sql = "SELECT id, nombre, foto FROM animales WHERE disponible = 1";
-                $resultado = $conexion->query($sql);
-
-                if ($resultado->num_rows > 0) {
-                    // Mostrar cada animal en una tarjeta
-                    while ($animal = $resultado->fetch_assoc()) {
-                        echo '<div class="animal-card">';
-                        echo '<img src="ruta_a_imagenes/' . $animal['foto'] . '" alt="Foto de ' . htmlspecialchars($animal['nombre']) . '">';
-                        echo '<a href="animal.php?id=' . $animal['id'] . '">' . htmlspecialchars($animal['nombre']) . '</a>';
-                        echo '</div>';
-                    }
-                } else {
-                    echo "<p>No hay animales disponibles para apadrinar en este momento.</p>";
-                }
-
-                $conexion->close();
-
-            */
-                ?>
-            <!-- </div>
-            </div>
-            Final de vista con conexion a BD --> 
-  
-
-        <!-- Grid de animales -->
         <div class="animal-grid">
-            <!-- Ejemplo de tarjeta de animal 1 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Animal+1" alt="Foto de Animal 1">
-                <a href="vistaDetalleAnimal.php">Animal 1</a>
-            </div>
+            <?php
+                // Incluir archivo de conexión a la base de datos
+                include("conexion.php");
 
-            <!-- Ejemplo de tarjeta de animal 2 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Animal+2" alt="Foto de Animal 2">
-                <a href="animal.php?id=2">Animal 2</a>
-            </div>
+                try {
+                    // Consulta para obtener animales sin usuario asociado
+                    $sql = "
+                        SELECT a.id_animal, a.nombre, a.foto 
+                        FROM animal a
+                        LEFT JOIN animal_usuario au ON a.id_animal = au.id_animal
+                        WHERE au.id_usuario IS NULL AND a.activo = 1";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                    $animales = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            <!-- Ejemplo de tarjeta de animal 3 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Animal+3" alt="Foto de Animal 3">
-                <a href="animal.php?id=3">Animal 3</a>
-            </div>
-
-            <!-- Ejemplo de tarjeta de animal 4 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Animal+4" alt="Foto de Animal 4">
-                <a href="animal.php?id=4">Animal 4</a>
-            </div>
-
-            <!-- Ejemplo de tarjeta de animal 5 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Animal+5" alt="Foto de Animal 5">
-                <a href="animal.php?id=5">Animal 5</a>
-            </div>
+                    if (!empty($animales)) {
+                        // Mostrar cada animal como una tarjeta
+                        foreach ($animales as $animal) {
+                            echo '<div class="animal-card">';
+                            echo '<img src="./ruta_a_imagenes/' . htmlspecialchars($animal['foto']) . '" alt="Foto de ' . htmlspecialchars($animal['nombre']) . '">';
+                            echo '<a href="animal.php?id=' . $animal['id_animal'] . '">' . htmlspecialchars($animal['nombre']) . '</a>';
+                            echo '</div>';
+                        }
+                    } else {
+                        echo "<p>No hay animales disponibles para apadrinar en este momento.</p>";
+                    }
+                } catch (PDOException $e) {
+                    echo "<p>Error al cargar los animales: " . htmlspecialchars($e->getMessage()) . "</p>";
+                }
+            ?>
         </div>
     </div>
 </main>

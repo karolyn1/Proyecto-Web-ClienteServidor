@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Donacioens</title>
+    <title>Casa Natura - Gestión de Eventos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -34,27 +34,27 @@
                             <input type="file" id="imageUpload" accept="image/*" onchange="loadFile(event)">
                             <label for="imageUpload">Subir foto</label>
                         </div>
-                    <form action="agregarEvento.php" method="POST"class="form-agregar-animal">
-                        <div class="form-group">
-                            <div class="mb-3">
-                                <label for="description">Descripción</label>
-                                <input type="text" id="description" name="description" placeholder="Descripción del evento">
+                        <form action="actions/guardar_evento.php" method="POST" class="form-agregar-animal">
+                            <div class="form-group">
+                                <div class="mb-3">
+                                    <label for="descripcion">Descripción</label>
+                                    <input type="text" id="descripcion" name="descripcion" placeholder="Descripción del evento" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="fecha">Fecha</label>
+                                    <input type="date" id="fecha" name="fecha" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="hora">Hora</label>
+                                    <input type="time" id="hora" name="hora" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lugar">Lugar</label>
+                                    <input type="text" id="lugar" name="lugar" placeholder="Lugar del evento" required>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="date">Fecha</label>
-                                <input type="date" id="date" name="date">
-                            </div>
-                            <div class="mb-3">
-                                <label for="time">Hora</label>
-                                <input type="time" id="time" name="time">
-                            </div>
-                            <div class="mb-3">
-                                <label for="location">Lugar</label>
-                                <input type="text" id="location" name="location" placeholder="Lugar del evento">
-                            </div>
-                        </div>
-                        <button type="submit" class="submit-btn">GUARDAR</button>
-                    </form>
+                            <button type="submit" class="submit-btn">GUARDAR</button>
+                        </form>
                 </div>
             </div>
         </div>

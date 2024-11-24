@@ -27,42 +27,30 @@
 
         <h3 class="animales-apadrinar-list-title">Lista de Tours Disponibles</h3>
 
-        <!-- Grid de tours -->
         <div class="animal-grid">
-            <!-- Ejemplo de tarjeta de tour 1 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Tour+1" alt="Imagen del Tour 1">
-                <a href="tour.php?id=1">Tour 1</a>
-                <p>Descripción breve del Tour 1.</p>
-            </div>
+            <?php
+            // Incluir archivo de conexión a la base de datos
+            include("actions/conexion.php");
 
-            <!-- Ejemplo de tarjeta de tour 2 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Tour+2" alt="Imagen del Tour 2">
-                <a href="tour.php?id=2">Tour 2</a>
-                <p>Descripción breve del Tour 2.</p>
-            </div>
+            // Consultar tours disponibles
+            $sql = "SELECT id, nombre, descripcion, imagen FROM tours WHERE disponible = 1";
+            $resultado = $conexion->query($sql);
 
-            <!-- Ejemplo de tarjeta de tour 3 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Tour+3" alt="Imagen del Tour 3">
-                <a href="tour.php?id=3">Tour 3</a>
-                <p>Descripción breve del Tour 3.</p>
-            </div>
+            if ($resultado->num_rows > 0) {
+                // Mostrar cada tour en una tarjeta
+                while ($tour = $resultado->fetch_assoc()) {
+                    echo '<div class="animal-card">';
+                    echo '<img src="ruta_a_imagenes/' . htmlspecialchars($tour['imagen']) . '" alt="Imagen del ' . htmlspecialchars($tour['nombre']) . '">';
+                    echo '<a href="tour.php?id=' . $tour['id'] . '">' . htmlspecialchars($tour['nombre']) . '</a>';
+                    echo '<p>' . htmlspecialchars($tour['descripcion']) . '</p>';
+                    echo '</div>';
+                }
+            } else {
+                echo "<p>No hay tours disponibles en este momento.</p>";
+            }
 
-            <!-- Ejemplo de tarjeta de tour 4 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Tour+4" alt="Imagen del Tour 4">
-                <a href="tour.php?id=4">Tour 4</a>
-                <p>Descripción breve del Tour 4.</p>
-            </div>
-
-            <!-- Ejemplo de tarjeta de tour 5 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Tour+5" alt="Imagen del Tour 5">
-                <a href="tour.php?id=5">Tour 5</a>
-                <p>Descripción breve del Tour 5.</p>
-            </div>
+            $conexion->close();
+            ?>
         </div>
     </div>
 </main>

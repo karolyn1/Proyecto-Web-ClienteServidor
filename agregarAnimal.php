@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Donacioens</title>
+    <title>Casa Natura - Gestion de Animales</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -40,48 +40,37 @@
                             <input type="file" id="imageUpload" accept="image/*" onchange="loadFile(event)">
                             <label for="imageUpload">Subir foto</label>
                         </div>
-                        <form action="agregarAnimal.php" method="POST" class="form-agregar-animal">
+                        <form action="actions/guardar_animal.php" method="POST" class="form-agregar-animal">
                             <div class=" form-group">
                                 <div class="mb-3">
-                                    <label for="name">Nombre</label>
-                                    <input type="text" id="name" name="name" placeholder="Nombre del animal">
+                                <label for="nombre">Nombre</label>
+                                    <input type="text" id="nombre" name="nombre" placeholder="Nombre del animal" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="species">Especie</label>
-                                    <input type="text" id="species" name="species" placeholder="Especie">
+                                    <label for="especie">Especie</label>
+                                    <input type="text" id="especie" name="especie" placeholder="Especie" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="breed">Raza</label>
-                                    <input type="text" id="breed" name="breed" placeholder="Raza">
+                                <label for="raza">Raza</label>
+                                    <input type="text" id="raza" name="raza" placeholder="Raza" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="admission-date">Fecha Ingreso</label>
-                                    <input type="date" id="admission-date" name="admission-date"
-                                        placeholder="Fecha Ingreso">
+                                <label for="fecha_ingreso">Fecha Ingreso</label>
+                                    <input type="date" id="fecha_ingreso" name="fecha_ingreso" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="history">Historia</label>
-                                    <input type="text" id="history" name="history" placeholder="Historia">
+                                <label for="fecha_nacimiento">Fecha Nacimiento</label>
+                                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="birth-date">Fecha Nacimiento</label>
-                                    <input type="text" id="birth-date" name="birth-date" placeholder="Fecha Nacimiento">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="health-status">Estado Salud</label>
-                                    <input type="text" id="health-status" name="health-status"
-                                        placeholder="Estado Salud">
+                                <label for="estado_salud">Estado Salud</label>
+                                    <input type="text" id="estado_salud" name="estado_salud" placeholder="Estado Salud" required>
                                 </div>
                                 <input type="hidden" id="apadrinado">
                             </div>
                             <button type="submit" class="submit-btn">GUARDAR</button>
                         </form>
-
-
-
                     </div>
-
-
                 </div>
             </div>
         </div>

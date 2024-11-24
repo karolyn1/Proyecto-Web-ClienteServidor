@@ -4,20 +4,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Donacioens</title>
+    <title>Casa Natura - Donaciones</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 </head>
 
 <body>
     <?php
-    include("sidebar.php");
-    echo $sidebarAdmin2; ?>
+        include("sidebar.php");
+        echo $sidebarAdmin2;
+    ?>
+
+    <?php
+        // Incluir el archivo de conexión a la base de datos
+        include("actions/conexion.php");
+
+        // Verificar si se pasó un ID para la eliminación
+        if (isset($_GET['id'])) {
+            $id_animal = $_GET['id'];
+
+            // Consulta para verificar si el animal está apadrinado
+            $sql = "SELECT COUNT(*) FROM animal_usuario WHERE id_animal = :id_animal";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['id_animal' => $id_animal]);
+            $apadrinadoCount = $stmt->fetchColumn();
+
+            if ($apadrinadoCount == 0) {
+                // Si no está apadrinado, se puede eliminar lógicamente
+                $sql = "UPDATE animal SET activo = 0 WHERE id_animal = :id_animal";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(['id_animal' => $id_animal]);
+
+                // Redirigir a la página de gestión de animales
+                header('Location: gestionAnimales.php');
+                exit;
+            } else {
+                // Si está apadrinado, no se permite eliminar
+                echo "<script>alert('No puedes eliminar este animal porque está apadrinado.'); window.location.href = 'gestionAnimales.php';</script>";
+            }
+        }
+
+        // Consulta para obtener los animales y sus apadrinadores (si los tienen)
+        $sql = "
+            SELECT a.id_animal, a.nombre, a.raza, a.especie, u.nombre AS apadrinado
+            FROM animal a
+            LEFT JOIN animal_usuario au ON a.id_animal = au.id_animal
+            LEFT JOIN usuario u ON au.id_usuario = u.id_usuario
+            WHERE a.activo = 1"; // Filtrar solo los animales activos
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $animales = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ?>
 
     <main>
         <div id="viewport">
@@ -65,39 +107,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Alyvia Kelley</td>
-                                    <td>Alyvia Kelley</td>
-                                    <td>Cliente</td>
-                                    <td>a.kelley@gmail.com</td>
-                                    <td>
-                                        <button class="btn-editar"><a href="editarAnimal.php"><i class="fas fa-pen"></i></></a></button> 
-                                        <button class="btn-eliminar"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Jaiden Nixon</td>
-                                    <td>Jaiden Nixon</td>
-                                    <td>Cliente</td>
-                                    <td>jaiden.n@gmail.com</td>
-                                    <td>
-                                    <button class="btn-editar"><a href="editarAnimal.php"><i class="fas fa-pen"></i></></a></button> 
-                                        <button class="btn-eliminar"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Ace Foley</td>
-                                    <td>Ace Foley</td>
-                                    <td>Cliente</td>
-                                    <td>ace.fo@yahoo.com</td>
-                                    <td>
-                                    <button class="btn-editar"><a href="editarAnimal.php"><i class="fas fa-pen"></i></></a></button> 
-                                        <button class="btn-eliminar"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                <?php foreach ($animales as $index => $animal): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($index + 1) ?></td>
+                                        <td><?= htmlspecialchars($animal['nombre']) ?></td>
+                                        <td><?= htmlspecialchars($animal['raza']) ?></td>
+                                        <td><?= htmlspecialchars($animal['especie']) ?></td>
+                                        <td><?= htmlspecialchars($animal['apadrinado'] ?? 'No') ?></td>
+                                        <td class="actions">
+                                            <a class="edit btn btn-warning btn-sm" href="editarAnimal.php?id=<?= $animal['id_animal'] ?>">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
+                                            <a class="delete btn btn-danger btn-sm" href="?id=<?= $animal['id_animal'] ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar este animal?');">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -107,8 +133,9 @@
     </main>
 
     <?php
-    include("sidebar.php");
-    echo $footerAdmin; ?>
+        include("sidebar.php");
+        echo $footerAdmin;
+    ?>
 
 </body>
-<html>
+</html>

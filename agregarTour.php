@@ -33,31 +33,25 @@
                             <input type="file" id="imageUpload" accept="image/*" onchange="loadFile(event)">
                             <label for="imageUpload">Subir foto</label>
                         </div>
-                    <form action="agregarTour.php" method="POST" class="form-agregar-animal">
-                        <div class="form-group">
-                            <div class="mb-3">
-                                <label for="description">Descripción</label>
-                                <input type="text" id="description" name="description" placeholder="Descripción del evento">
+                        <form action="guardar_tour.php" method="POST" class="form-agregar-animal">
+                            <div class="form-group">
+                                <label for="descripcion">Descripción</label>
+                                <input type="text" id="descripcion" name="descripcion" placeholder="Descripción del evento" required>
+
+                                <label for="fecha">Fecha</label>
+                                <input type="date" id="fecha" name="fecha" required>
+
+                                <label for="hora">Hora</label>
+                                <input type="time" id="hora" name="hora" required>
+
+                                <label for="precio_boleto">Costo</label>
+                                <input type="number" id="precio_boleto" name="precio_boleto" placeholder="Costo" required>
+
+                                <label for="tickets_disponibles">Cantidad de Tickets</label>
+                                <input type="number" id="tickets_disponibles" name="tickets_disponibles" placeholder="Cantidad de Tickets" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="date">Fecha</label>
-                                <input type="date" id="date" name="date">
-                            </div>
-                            <div class="mb-3">
-                                <label for="time">Hora</label>
-                                <input type="time" id="time" name="time">
-                            </div>
-                            <div class="mb-3">
-                                <label for="location">Costo</label>
-                                <input type="number" id="costo" name="costo" placeholder="Costo">
-                            </div>
-                            <div class="mb-3">
-                                <label for="location">Cantidad de Tickets</label>
-                                <input type="number" id="tickets" name="tickets" placeholder="Cantidad de Tickets">
-                            </div>
-                        </div>
-                        <button type="submit" class="submit-btn">GUARDAR</button>
-                    </form>
+                            <button type="submit" class="submit-btn">GUARDAR</button>
+                        </form>
                 </div>
             </div>
         </div>

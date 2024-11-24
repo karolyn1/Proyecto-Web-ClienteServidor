@@ -18,6 +18,70 @@
     include("sidebar.php");
     echo $sidebarAdmin2;
     ?>
+
+<?php
+    include("sidebar.php");
+    echo $sidebarAdmin2;
+
+    include("actions/conexion.php"); 
+
+    // Verificar si se recibe una solicitud de eliminación
+    if (isset($_GET['eliminar'])) {
+        $idUsuario = $_GET['eliminar'];
+
+        // Comprobar si el usuario está vinculado a donaciones o apadrinamientos
+        $sqlComprobar = "
+            SELECT COUNT(*) as count 
+            FROM donaciones 
+            WHERE usuario_id = ? 
+            UNION 
+            SELECT COUNT(*) as count 
+            FROM apadrinamientos 
+            WHERE usuario_id = ?";
+        $stmtComprobar = $conn->prepare($sqlComprobar);
+        $stmtComprobar->bind_param("ii", $idUsuario, $idUsuario);
+        $stmtComprobar->execute();
+        $resultadoComprobacion = $stmtComprobar->get_result();
+
+        $existeRelacion = false;
+        while ($row = $resultadoComprobacion->fetch_assoc()) {
+            if ($row['count'] > 0) {
+                $existeRelacion = true;
+                break;
+            }
+        }
+
+        if ($existeRelacion) {
+            echo "<script>alert('No se puede eliminar el usuario porque está asociado a donaciones o apadrinamientos.');</script>";
+        } else {
+            $sqlEliminar = "DELETE FROM usuarios WHERE id = ?";
+            $stmtEliminar = $conn->prepare($sqlEliminar);
+            $stmtEliminar->bind_param("i", $idUsuario);
+            if ($stmtEliminar->execute()) {
+                echo "<script>alert('Usuario eliminado correctamente.'); window.location.href='gestionarUsuarios.php';</script>";
+            } else {
+                echo "<script>alert('Error al eliminar el usuario.');</script>";
+            }
+        }
+    }
+
+    // Verificar si se recibe una solicitud de actualización
+    if (isset($_POST['actualizar'])) {
+        $idUsuario = $_POST['id_usuario'];
+        $nombre = $_POST['nombre'];
+        $rol = $_POST['rol'];
+
+        $sqlActualizar = "UPDATE usuarios SET nombre = ?, rol = ? WHERE id = ?";
+        $stmtActualizar = $conn->prepare($sqlActualizar);
+        $stmtActualizar->bind_param("ssi", $nombre, $rol, $idUsuario);
+
+        if ($stmtActualizar->execute()) {
+            echo "<script>alert('Usuario actualizado correctamente.'); window.location.href='gestionarUsuarios.php';</script>";
+        } else {
+            echo "<script>alert('Error al actualizar el usuario.');</script>";
+        }
+    }
+    ?>
     <main>
         <div id="viewport">
             <div id="content">
@@ -47,42 +111,37 @@
                 </div>
                 <div class="container contenedor-tabla">
                 <table class="tabla text-center">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Rol</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- 
-                                $conexion = new mysqli("localhost", "usuario", "contraseña", "base_datos");
-                                if ($conexion->connect_error) {
-                                    die("Conexión fallida: " . $conexion->connect_error);
-                                }
+                <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Rol</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // Consultar los usuarios desde la base de datos
+                            $sqlUsuarios = "SELECT id, nombre, rol FROM usuarios";
+                            $resultadoUsuarios = $conn->query($sqlUsuarios);
 
-                                $sql = "SELECT id, nombre, rol FROM usuarios";
-                                $resultado = $conexion->query($sql);
-
-                                if ($resultado->num_rows > 0) {
-                                    while($fila = $resultado->fetch_assoc()) {
-                                        echo "<tr>";
-                                        echo "<td>" . $fila['id'] . "</td>";
-                                        echo "<td>" . $fila['nombre'] . "</td>";
-                                        echo "<td>" . $fila['rol'] . "</td>";
-                                        echo "<td class='actions'>";
-                                        echo "<button class='edit'><i class='fas fa-pen'></i></button>";
-                                        echo "<button class='delete'><i class='fas fa-trash'></i></button>";
-                                        echo "</td>";
-                                        echo "</tr>";
-                                    }
-                                } else {
-                                    echo "<tr><td colspan='4'>No se encontraron usuarios</td></tr>";
+                            if ($resultadoUsuarios->num_rows > 0) {
+                                while ($fila = $resultadoUsuarios->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>" . htmlspecialchars($fila['id']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($fila['nombre']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($fila['rol']) . "</td>";
+                                    echo "<td class='actions'>";
+                                    echo "<a href='editarUsuario.php?id=" . $fila['id'] . "' class='edit'><i class='fas fa-pen'></i></a>";
+                                    echo "<a href='gestionarUsuarios.php?eliminar=" . $fila['id'] . "' class='delete' onclick='return confirm(\"¿Estás seguro de eliminar este usuario?\");'><i class='fas fa-trash'></i></a>";
+                                    echo "</td>";
+                                    echo "</tr>";
                                 }
-                                $conexion->close();
-                             -->
-                    </tbody>
+                            } else {
+                                echo "<tr><td colspan='4'>No se encontraron usuarios</td></tr>";
+                            }
+                            ?>
+                        </tbody>
                 </table>
             </div>
         </div>

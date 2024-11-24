@@ -20,6 +20,25 @@
             echo $navbar;
         ?>
     </nav>
+
+    <?php
+       // Incluir archivo de conexión a la base de datos
+    include("actions/conexion.php");
+
+        // Obtener el ID del tour desde la URL
+        $id_tour = isset($_GET['id']) ? intval($_GET['id']) : 1; // Por defecto, ID = 1
+
+        // Consulta para obtener los detalles del tour
+        $sql = "SELECT nombre, descripcion, fecha, hora, precio_boleto, tickets_disponibles, imagen 
+                FROM tours WHERE id = ?";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("i", $id_tour);
+        $stmt->execute();
+        $stmt->bind_result($nombre, $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $imagen);
+        $stmt->fetch();
+        $stmt->close();
+        $conexion->close();
+    ?>
 <main>
     <div class="container mt-5">
         <div class="row">
@@ -28,23 +47,19 @@
             </div>
 
             <div class="container-tour-detalle col-md-6">
-                <h1>Tour por la Selva Tropical</h1>
-                <p class="text-muted">Explora la diversidad de la selva tropical y conoce más sobre la flora y fauna en este tour guiado.</p>
+                <h1><?php echo htmlspecialchars($nombre); ?></h1>
+                <p class="text-muted"><?php echo htmlspecialchars($descripcion); ?></p>
                 
-                <p><strong>Duración:</strong> 3 horas</p>
-                <p><strong>Costo:</strong> $50 USD por persona</p>
-                <p><strong>Disponibilidad:</strong> 10 cupos</p>
-                
-                <h3>Descripción del Tour</h3>
-                <p class="text-justify">
-                    Este tour por la selva tropical te llevará a través de un ecosistema rico en biodiversidad. Podrás observar diferentes especies de plantas y animales, aprender sobre la ecología de la región y disfrutar de la belleza natural que solo la selva puede ofrecer.
-                </p>
+                <p><strong>Fecha:</strong> <?php echo htmlspecialchars($fecha); ?></p>
+                <p><strong>Hora:</strong> <?php echo htmlspecialchars($hora); ?></p>
+                <p><strong>Costo:</strong> $<?php echo htmlspecialchars($precio_boleto); ?> USD por persona</p>
+                <p><strong>Tickets Disponibles:</strong> <?php echo htmlspecialchars($tickets_disponibles); ?></p>
 
-                <a href="reservar.php?id=1" class="about-btn">Reservar Tour</a>
+                <a href="reservarTour.php?id=<?php echo $id_tour; ?>" class="btn btn-primary">Reservar Tour</a>
             </div>
         </div>
 
-        <div class="container-informacion-adicional row mt-5">
+        <div class="row mt-5">
             <div class="col">
                 <h3>Información Adicional</h3>
                 <ul class="text-justify">

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Donacioens</title>
+    <title>Casa Natura - Eventos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -17,6 +17,27 @@
         include("sidebar.php");
         echo $sidebarAdmin2;
     ?>
+    <?php
+    // Incluir archivo de conexión
+    include("actions/conexion.php");
+
+    // Lógica para eliminar evento
+    if (isset($_GET['eliminar_id'])) {
+        $id_eliminar = $_GET['eliminar_id'];
+        $sql_eliminar = "DELETE FROM eventos WHERE id = $id_eliminar";
+        if ($conexion->query($sql_eliminar) === TRUE) {
+            echo "<script>alert('Evento eliminado correctamente');</script>";
+        } else {
+            echo "<script>alert('Error al eliminar el evento');</script>";
+        }
+    }
+
+    // Consulta para obtener los eventos
+    $sql = "SELECT id, nombre, fecha, descripcion FROM eventos";
+    $resultado = $conexion->query($sql);
+    ?>
+
+
     <main>
     <div id="viewport">
         <div id="content">
@@ -45,44 +66,38 @@
                 </div>
                     <!-- Tabla de eventos -->
                      <div class="container contenedor-tabla">
-                     <table class="tabla">
-                        <thead>
-                            <tr>
-                                <th>Nombre del Evento</th>
-                                <th>Fecha</th>
-                                <th>Descripción</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            $conexion = new mysqli("localhost", "usuario", "contraseña", "base_datos");
-                            if ($conexion->connect_error) {
-                                die("Conexión fallida: " . $conexion->connect_error);
-                            }
-
-                            $sql = "SELECT id, nombre, fecha, descripcion FROM eventos";
-                            $resultado = $conexion->query($sql);
-
-                            if ($resultado->num_rows > 0) {
-                                while($evento = $resultado->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $evento['nombre'] . "</td>";
-                                    echo "<td>" . $evento['fecha'] . "</td>";
-                                    echo "<td>" . $evento['descripcion'] . "</td>";
-                                    echo "<td class='actions'>";
-                                    echo "<button class='edit'><i class='fas fa-pen'></i></button>";
-                                    echo "<button class='delete'><i class='fas fa-trash'></i></button>";
-                                    echo "</td>";
-                                    echo "</tr>";
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nombre del Evento</th>
+                                    <th>Fecha</th>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if ($resultado->num_rows > 0) {
+                                    while($evento = $resultado->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . $evento['nombre'] . "</td>";
+                                        echo "<td>" . $evento['fecha'] . "</td>";
+                                        echo "<td>" . $evento['descripcion'] . "</td>";
+                                        echo "<td class='actions'>";
+                                        // Botón para editar (redirige a editarEvento.php con el id del evento)
+                                        echo "<a href='editarEvento.php?id=" . $evento['id'] . "' class='edit'><i class='fas fa-pen'></i></a>";
+                                        // Botón para eliminar (redirige a esta misma página con el id del evento a eliminar)
+                                        echo "<a href='?eliminar_id=" . $evento['id'] . "' class='delete'><i class='fas fa-trash'></i></a>";
+                                        echo "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='4'>No se encontraron eventos</td></tr>";
                                 }
-                            } else {
-                                echo "<tr><td colspan='4'>No se encontraron eventos</td></tr>";
-                            }
-                            $conexion->close();
-                            ?>
-                        </tbody>
-                    </table>
+                                $conexion->close();
+                                ?>
+                            </tbody>
+                        </table>
                      </div>
                     
                 </div>

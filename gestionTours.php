@@ -16,6 +16,30 @@
         include("sidebar.php");
         echo $sidebarAdmin2;
     ?>
+
+    <?php
+    include("actions/conexion.php"); // Incluir archivo de conexión
+
+    // Verificar si se ha solicitado eliminar un tour
+    if (isset($_GET['id']) && !empty($_GET['id'])) {
+        $idTour = $_GET['id'];
+        
+        // Eliminar el tour con el id especificado
+        $sqlEliminar = "DELETE FROM tours WHERE id = ?";
+        $stmt = $conexion->prepare($sqlEliminar);
+        $stmt->bind_param("i", $idTour);
+        
+        if ($stmt->execute()) {
+            echo "<script>alert('Tour eliminado con éxito'); window.location.href='gestionTours.php';</script>";
+        } else {
+            echo "<script>alert('Error al eliminar el tour'); window.location.href='gestionTours.php';</script>";
+        }
+    }
+
+    // Consulta para obtener los tours
+    $sql = "SELECT id, nombre, fecha, descripcion, precio_boleto, tickets_disponibles FROM tours";
+    $resultado = $conexion->query($sql);
+    ?>
     <main>
     <div id="viewport">
         <div id="content">
@@ -46,43 +70,39 @@
                      <div class="container contenedor-tabla">
                     <table class="tabla">
                         <thead>
+                        <thead>
                             <tr>
                                 <th>Nombre del Tour</th>
                                 <th>Fecha</th>
                                 <th>Descripción</th>
-                                <th>Costo Boleto</th>
+                                <th>Precio Boleto</th>
                                 <th>Boletos Disponibles</th>
-                                <th>Estado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!--
-                            $conexion = new mysqli("localhost", "usuario", "contraseña", "base_datos");
-                            if ($conexion->connect_error) {
-                                die("Conexión fallida: " . $conexion->connect_error);
-                            }
-
-                            $sql = "SELECT id, nombre, fecha, descripcion FROM eventos";
-                            $resultado = $conexion->query($sql);
-
+                            <?php
                             if ($resultado->num_rows > 0) {
-                                while($evento = $resultado->fetch_assoc()) {
+                                while($tour = $resultado->fetch_assoc()) {
                                     echo "<tr>";
-                                    echo "<td>" . $evento['nombre'] . "</td>";
-                                    echo "<td>" . $evento['fecha'] . "</td>";
-                                    echo "<td>" . $evento['descripcion'] . "</td>";
+                                    echo "<td>" . $tour['nombre'] . "</td>";
+                                    echo "<td>" . $tour['fecha'] . "</td>";
+                                    echo "<td>" . $tour['descripcion'] . "</td>";
+                                    echo "<td>" . $tour['precio_boleto'] . "</td>";
+                                    echo "<td>" . $tour['tickets_disponibles'] . "</td>";
                                     echo "<td class='actions'>";
-                                    echo "<button class='edit'><i class='fas fa-pen'></i></button>";
-                                    echo "<button class='delete'><i class='fas fa-trash'></i></button>";
+                                    // Botón de editar
+                                    echo "<a href='editarTour.php?id=" . $tour['id'] . "' class='edit'><i class='fas fa-pen'></i></a>";
+                                    // Botón de eliminar
+                                    echo "<a href='?id=" . $tour['id'] . "' class='delete' onclick='return confirm(\"¿Estás seguro de eliminar este tour?\");'><i class='fas fa-trash'></i></a>";
                                     echo "</td>";
                                     echo "</tr>";
                                 }
                             } else {
-                                echo "<tr><td colspan='4'>No se encontraron eventos</td></tr>";
+                                echo "<tr><td colspan='6'>No se encontraron tours</td></tr>";
                             }
                             $conexion->close();
-                            ?>-->
+                            ?>
                         </tbody>
                     </table>
                     </div>

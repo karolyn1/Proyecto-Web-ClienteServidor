@@ -17,51 +17,65 @@
 <?php
     include("fragmentos.php");
     echo $navbar;
+
+    // Incluir archivo de conexión a la base de datos
+    include("actions/conexion.php");
+// Obtener el ID del animal desde la URL
+$idAnimal = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Consultar datos del animal
+$sql = "SELECT nombre, especie, edad, estado_salud, historia, necesidades, imagen 
+        FROM animal 
+        WHERE id = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("i", $idAnimal);
+$stmt->execute();
+$resultado = $stmt->get_result();
+
+if ($resultado->num_rows > 0) {
+    $animal = $resultado->fetch_assoc();
+} else {
+    echo "<p class='text-center'>El animal solicitado no existe.</p>";
+    exit;
+}
+
+$stmt->close();
+$conexion->close();
 ?>
 <main>
-    <div class="detalleAnimal-title text-center">
-        <h1>PERFILES DE NUESTROS ANIMALES</h1>
+<div class="detalleAnimal-title text-center">
+        <h1>PERFIL DE <?php echo htmlspecialchars($animal['nombre']); ?></h1>
     </div>
 
     <div class="container-animal">
         <div class="header">
-            <img src="https://via.placeholder.com/200x200.png?text=Animal+1">
+            <img src="ruta_a_imagenes/<?php echo htmlspecialchars($animal['imagen']); ?>" alt="Imagen de <?php echo htmlspecialchars($animal['nombre']); ?>">
             <div class="title">
-                <h1>NOMBRE ANIMAL</h1>
-                <p>ESPECIE, EDAD</p>
+                <h1><?php echo htmlspecialchars($animal['nombre']); ?></h1>
+                <p><?php echo htmlspecialchars($animal['especie']) . ", " . htmlspecialchars($animal['edad']); ?> años</p>
             </div>
         </div>
 
         <div class="seccion">
             <p class="tituloSeccion">ESTADO DE SALUD</p>
-            <p class="texto">Descripción del estado de salud</p>
+            <p class="texto"><?php echo htmlspecialchars($animal['estado_salud']); ?></p>
         </div>
 
         <div class="seccion">
             <p class="tituloSeccion">HISTORIA</p>
-            <p class="texto">Descripción dee la historia del animal</p>
+            <p class="texto"><?php echo htmlspecialchars($animal['historia']); ?></p>
         </div>
 
         <div class="seccion">
-        <p class="tituloSeccion">NECESIDADES ACTUALES</p>
-        <ul>
-            <li>Tratamiento médico: Simba necesita medicamentos específicos y controles veterinarios regulares para controlar su enfermedad respiratoria.</li>
-            <li>Alimentación especial: Su dieta debe ser rica en nutrientes para ayudar a fortalecer su sistema inmunológico.</li>
-            <li>Ambiente controlado: Vive en un santuario que asegura un ambiente tranquilo y monitoreado para su bienestar.</li>
-        </ul>
-    </div>
+            <p class="tituloSeccion">NECESIDADES ACTUALES</p>
+            <p class="texto"><?php echo nl2br(htmlspecialchars($animal['necesidades'])); ?></p>
+        </div>
 
-    <div class="seccion">
-        <p class="tituloSeccion">¿CÓMO PUEDES AYUDAR?</p>
-        <p class="texto">Al patrocinar a Simba, contribuirás a cubrir los costos de su tratamiento médico y cuidados especiales. Tu donación ayudará a asegurar que reciba la atención necesaria para mejorar su calidad de vida. Recibirás actualizaciones sobre su estado de salud y progreso.</p>
-    </div>
+        <p class="highlight">¡Ayuda a <?php echo htmlspecialchars($animal['nombre']); ?> a vivir más años en mejores condiciones!</p>
 
-    <p class="highlight">¡Ayuda a Simba a vivir más años en mejores condiciones!</p>
-
-    <div class="container-boton">
-        <a href="#" class="botonApadrinar">Quiero Apadrinarlo</a>
-    </div>
-
+        <div class="container-boton">
+            <a href="formularioApadrinamiento.php?id=<?php echo $idAnimal; ?>" class="botonApadrinar">Quiero Apadrinarlo</a>
+        </div>
     </div>
 </main>
 <?php

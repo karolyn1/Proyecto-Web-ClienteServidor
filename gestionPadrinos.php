@@ -18,6 +18,36 @@
         include("sidebar.php");
         echo $sidebarAdmin2;
     ?>
+
+    <?php
+    include("actions/conexion.php"); // Incluir archivo de conexión
+
+    // Obtener los datos necesarios
+    $sql = "SELECT a.nombre AS animal_nombre, u.nombre AS usuario_nombre, u.apellido1, u.apellido2, ia.fecha_apadrinamiento, ia.cuota 
+            FROM animal_usuario ia
+            JOIN animal a ON ia.animal_id = a.id
+            JOIN usuario u ON ia.usuario_id = u.id";
+    $resultado = $conexion->query($sql);
+
+    // Eliminar la relación entre el padrino y el animal
+    if (isset($_GET['eliminar']) && isset($_GET['animal_id']) && isset($_GET['usuario_id'])) {
+        $animal_id = $_GET['animal_id'];
+        $usuario_id = $_GET['usuario_id'];
+        
+        // Eliminar la relación de apadrinamiento
+        $eliminar_sql = "DELETE FROM animal_usuario WHERE animal_id = ? AND usuario_id = ?";
+        $stmt = $conexion->prepare($eliminar_sql);
+        $stmt->bind_param("ii", $animal_id, $usuario_id);
+        $stmt->execute();
+        $stmt->close();
+        
+        // Redirigir después de la eliminación
+        header("Location: gestion_padrinos.php");
+        exit();
+    }
+
+    $conexion->close();
+    ?>
     <main>
     <div id="viewport">
         <div id="content">
@@ -48,42 +78,33 @@
                      <div class="container contenedor-tabla">
                     <table class="tabla">
                         <thead>
-                            <tr>
-                                <th>Nombre del Animal</th>
-                                <th>Padrino</th>
-                                <th>Fecha de Apadrinamiento</th>
-                                <th>Cuota</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!--
-                            $conexion = new mysqli("localhost", "usuario", "contraseña", "base_datos");
-                            if ($conexion->connect_error) {
-                                die("Conexión fallida: " . $conexion->connect_error);
-                            }
-
-                            $sql = "SELECT id, nombre, fecha, descripcion FROM eventos";
-                            $resultado = $conexion->query($sql);
-
-                            if ($resultado->num_rows > 0) {
-                                while($evento = $resultado->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $evento['nombre'] . "</td>";
-                                    echo "<td>" . $evento['fecha'] . "</td>";
-                                    echo "<td>" . $evento['descripcion'] . "</td>";
-                                    echo "<td class='actions'>";
-                                    echo "<button class='edit'><i class='fas fa-pen'></i></button>";
-                                    echo "<button class='delete'><i class='fas fa-trash'></i></button>";
-                                    echo "</td>";
-                                    echo "</tr>";
+                                <tr>
+                                    <th>Nombre del Animal</th>
+                                    <th>Padrino</th>
+                                    <th>Fecha de Apadrinamiento</th>
+                                    <th>Cuota</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                if ($resultado->num_rows > 0) {
+                                    while($row = $resultado->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['animal_nombre'] . "</td>";
+                                        echo "<td>" . $row['usuario_nombre'] . " " . $row['apellido1'] . " " . $row['apellido2'] . "</td>";
+                                        echo "<td>" . $row['fecha_apadrinamiento'] . "</td>";
+                                        echo "<td>" . $row['cuota'] . "</td>";
+                                        echo "<td class='actions'>";
+                                        echo "<a href='?eliminar=true&animal_id=" . $row['animal_id'] . "&usuario_id=" . $row['usuario_id'] . "' class='delete'><i class='fas fa-trash'></i></a>";
+                                        echo "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='5'>No se encontraron apadrinamientos</td></tr>";
                                 }
-                            } else {
-                                echo "<tr><td colspan='4'>No se encontraron eventos</td></tr>";
-                            }
-                            $conexion->close();
-                            ?>-->
-                        </tbody>
+                                ?>
+                            </tbody>
                     </table>
                     </div>
                   

@@ -1,14 +1,9 @@
-<?php
-
-$current_page = basename($_SERVER['PHP_SELF']);
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis boletos- Casa Natura</title>
+    <title>Casa Natura - Donaciones</title>
     
     <style>
         body {
@@ -162,37 +157,51 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </header>
 
         <main>
-            <table class="table">
+        <?php
+            // Conexión a la base de datos
+            include('actions/conexion.php');
+
+            // Consulta SQL para obtener los datos de las donaciones
+            $query = "
+                SELECT 
+                    usuario.nombre AS usuario_nombre,
+                    donaciones.monto,
+                    donaciones.fecha
+                FROM donaciones
+                INNER JOIN usuario ON donaciones.usuario_id = usuario.id
+            ";
+
+            // Ejecutamos la consulta
+            $result = $conexion->query($query);
+
+            // Verificamos si la consulta tuvo éxito
+            if (!$result) {
+                die("Error en la consulta: " . $conexion->error);
+            }
+        ?>        
+        
+        <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Fecha</th>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Monto</th>
+                        <th>Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>1000</td>
-                        <td>18/20/2024</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>John</td>
-                        <td>1500</td>
-                        <td>19/20/2024</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Doe</td>
-                        <td>2000</td>
-                        <td>20/20/2024</td>
-                    </tr>
+                    <?php 
+                    $index = 1;
+                    while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?php echo $index++; ?></td>
+                            <td><?php echo htmlspecialchars($row['usuario_nombre']); ?></td>
+                            <td><?php echo number_format($row['monto'], 2); ?></td>
+                            <td><?php echo htmlspecialchars($row['fecha']); ?></td>
+                        </tr>
+                    <?php endwhile; ?>
                 </tbody>
             </table>
-        </main>
         </main>
     </div>
 
