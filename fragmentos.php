@@ -71,5 +71,18 @@
  
     </footer>';
 
+
+    $sidebar='
+    <div class="sidebarMiPerfil">
+        <h2>Hola, Usuario</h2>
+        <ul>
+            <li class="active"><i class="icon"></i>Dashboard</li>
+            <li><i class="icon"></i>Mis Reservas</li>
+            <li><i class="icon"></i>Mis Donaciones</li>
+            <li><i class="icon"></i>Mis Animales</li>
+            <li><i class="icon"></i>Ajustes</li>
+            <li><i class="icon"></i>Cerrar Sesión</li>
+        </ul>
+    </div>';
 ?>
     

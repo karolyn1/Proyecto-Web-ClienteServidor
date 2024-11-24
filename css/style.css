@@ -2069,3 +2069,115 @@ body {
     margin-bottom: 20px;
 }
 
+/*ESTILOS PARA EL SIDEBAR DE MI PERFIL*/
+/* Contenedor Principal */
+.dashboard-container {
+    display: flex;
+    font-family: "Monserrat", sans-serif;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebarMiPerfil {
+    width: 250px;
+    margin: 50px;
+    font-family: "Monserrat", sans-serif;
+    background-color: #ffffff;
+    position: static;
+    padding: 20px;
+    height: 600px;
+    border-right: 1px solid #e6e6e6;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sidebarMiPerfil h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color:#003049;
+}
+
+.sidebarMiPerfil ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 5px;
+    font-size: 18px;
+    margin: 0;
+}
+
+.sidebarMiPerfil ul li {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 5px;
+    font-size: 18px;
+    margin: 0;
+}
+
+
+.sidebarMiPerfil ul li:hover {
+    color: #f5bb0d;
+}
+
+.sidebarMiPerfil ul li.active {
+    background-color:#003049;
+    border-radius: 5pxpx;
+    color: #fff;
+}
+
+.sidebarMiPerfil ul li .icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 4px;
+    border-radius: 50%;
+    background: #ccc;
+    display: inline-block;
+    font-family: "Monserrat", sans-serif;
+    font-weight: 200;
+}
+
+/* Contenido Principal */
+.main-content-perfil {
+    flex: 1;
+    padding: 20px;
+    margin-left: 300px; /* Ajusta el margen para dejar espacio al sidebar */
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 300px;
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.card p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.card button {
+    background-color:#003049;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+    background-color: #f7b500;
+    color: #FFFFFF;
+}
