@@ -17,7 +17,7 @@
 
     <?php
     // Incluir el archivo de conexión y datos desde la carpeta actions
-    require 'actions/datos_dashboardAdmin.php';
+    require './actions/datos_dashboardAdmin.php';
     ?>
 
     <?php

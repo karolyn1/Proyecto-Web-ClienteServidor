@@ -30,7 +30,7 @@
         <h2>Editar Evento</h2>
 
         <?php
-        include("actions/conexion.php"); // Incluir archivo de conexión
+        include("./actions/conexion.php"); // Incluir archivo de conexión
 
         // Validar ID de evento
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
