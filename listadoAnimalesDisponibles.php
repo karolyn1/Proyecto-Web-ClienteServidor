@@ -30,16 +30,15 @@
         <div class="animal-grid">
             <?php
                 // Incluir archivo de conexión a la base de datos
-                include("conexion.php");
+                include './actions/conexion.php';
 
                 try {
                     // Consulta para obtener animales sin usuario asociado
                     $sql = "
-                        SELECT a.id_animal, a.nombre, a.foto 
-                        FROM animal a
-                        LEFT JOIN animal_usuario au ON a.id_animal = au.id_animal
-                        WHERE au.id_usuario IS NULL AND a.activo = 1";
-                    $stmt = $pdo->prepare($sql);
+                        SELECT a.ID_Animal, a.Nombre, A.Imagen 
+                        FROM animal a 
+                        WHERE Apadrinado=0";
+                    $stmt = $conexion->prepare($sql);
                     $stmt->execute();
                     $animales = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -47,8 +46,8 @@
                         // Mostrar cada animal como una tarjeta
                         foreach ($animales as $animal) {
                             echo '<div class="animal-card">';
-                            echo '<img src="./ruta_a_imagenes/' . htmlspecialchars($animal['foto']) . '" alt="Foto de ' . htmlspecialchars($animal['nombre']) . '">';
-                            echo '<a href="animal.php?id=' . $animal['id_animal'] . '">' . htmlspecialchars($animal['nombre']) . '</a>';
+                            echo '<img src="./actions/mostrar_imagen.php?ID_Animal=' . htmlspecialchars($animal['ID_Animal']) . '" alt="Foto de ' . htmlspecialchars($animal['Nombre']) . '">';
+                            echo '<a href="animal.php?id=' . $animal['ID_Animal'] . '">' . htmlspecialchars($animal['Nombre']) . '</a>';
                             echo '</div>';
                         }
                     } else {

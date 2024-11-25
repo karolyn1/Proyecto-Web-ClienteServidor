@@ -68,6 +68,7 @@
             } else {
                 echo "<script>alert('Error al actualizar el evento');</script>";
             }
+        }
         ?>
 
         <form method="POST" action="">
