@@ -20,33 +20,41 @@
     ?>
 
     <?php
-    include("actions/conexion.php"); // Incluir archivo de conexión
+        include("actions/conexion.php"); // Incluir archivo de conexión
 
-    // Obtener los datos necesarios
-    $sql = "SELECT a.nombre AS animal_nombre, u.nombre AS usuario_nombre, u.apellido1, u.apellido2, ia.fecha_apadrinamiento, ia.cuota 
-            FROM animal_usuario ia
-            JOIN animal a ON ia.animal_id = a.id
-            JOIN usuario u ON ia.usuario_id = u.id";
-    $resultado = $conexion->query($sql);
+        // Obtener los datos necesarios
+        $sql = "SELECT a.nombre AS animal_nombre, u.nombre AS usuario_nombre, u.apellido1, u.apellido2, ia.fecha_apadrinamiento, ia.cuota, ia.animal_id, ia.usuario_id 
+        FROM animal_usuario ia
+        JOIN animal a ON ia.animal_id = a.id
+        JOIN usuario u ON ia.usuario_id = u.id";
 
-    // Eliminar la relación entre el padrino y el animal
-    if (isset($_GET['eliminar']) && isset($_GET['animal_id']) && isset($_GET['usuario_id'])) {
+        // Usar mysqli para ejecutar la consulta
+        $resultado = $conexion->query($sql);
+
+        // Eliminar la relación entre el padrino y el animal
+        if (isset($_GET['eliminar']) && isset($_GET['animal_id']) && isset($_GET['usuario_id'])) {
         $animal_id = $_GET['animal_id'];
         $usuario_id = $_GET['usuario_id'];
-        
-        // Eliminar la relación de apadrinamiento
+
+        // Eliminar la relación de apadrinamiento utilizando consultas preparadas
         $eliminar_sql = "DELETE FROM animal_usuario WHERE animal_id = ? AND usuario_id = ?";
         $stmt = $conexion->prepare($eliminar_sql);
+
+        // Vincular los parámetros
         $stmt->bind_param("ii", $animal_id, $usuario_id);
-        $stmt->execute();
-        $stmt->close();
-        
+
+        // Ejecutar la consulta
+        if ($stmt->execute()) {
         // Redirigir después de la eliminación
         header("Location: gestion_padrinos.php");
         exit();
-    }
+        } else {
+        echo "<script>alert('Error al eliminar el apadrinamiento');</script>";
+        }
+        $stmt->close();
+        }
 
-    $conexion->close();
+        $conexion->close();
     ?>
     <main>
     <div id="viewport">

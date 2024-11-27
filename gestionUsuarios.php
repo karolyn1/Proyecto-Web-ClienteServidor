@@ -19,68 +19,68 @@
     echo $sidebarAdmin2;
     ?>
 
-<?php
-    include("sidebar.php");
-    echo $sidebarAdmin2;
+    <?php
+        include("sidebar.php");
+        echo $sidebarAdmin2;
 
-    include("actions/conexion.php"); 
+        include("actions/conexion.php"); 
 
-    // Verificar si se recibe una solicitud de eliminación
-    if (isset($_GET['eliminar'])) {
-        $idUsuario = $_GET['eliminar'];
+        // Verificar si se recibe una solicitud de eliminación
+        if (isset($_GET['eliminar'])) {
+            $idUsuario = $_GET['eliminar'];
 
-        // Comprobar si el usuario está vinculado a donaciones o apadrinamientos
-        $sqlComprobar = "
-            SELECT COUNT(*) as count 
-            FROM donaciones 
-            WHERE usuario_id = ? 
-            UNION 
-            SELECT COUNT(*) as count 
-            FROM apadrinamientos 
-            WHERE usuario_id = ?";
-        $stmtComprobar = $conn->prepare($sqlComprobar);
-        $stmtComprobar->bind_param("ii", $idUsuario, $idUsuario);
-        $stmtComprobar->execute();
-        $resultadoComprobacion = $stmtComprobar->get_result();
+            // Comprobar si el usuario está vinculado a donaciones o apadrinamientos
+            $sqlComprobar = "
+                SELECT COUNT(*) as count 
+                FROM donaciones 
+                WHERE usuario_id = ? 
+                UNION 
+                SELECT COUNT(*) as count 
+                FROM apadrinamientos 
+                WHERE usuario_id = ?";
+            $stmtComprobar = $conexion->prepare($sqlComprobar);  // Cambiado de $conn a $conexion
+            $stmtComprobar->bind_param("ii", $idUsuario, $idUsuario);
+            $stmtComprobar->execute();
+            $resultadoComprobacion = $stmtComprobar->get_result();
 
-        $existeRelacion = false;
-        while ($row = $resultadoComprobacion->fetch_assoc()) {
-            if ($row['count'] > 0) {
-                $existeRelacion = true;
-                break;
+            $existeRelacion = false;
+            while ($row = $resultadoComprobacion->fetch_assoc()) {
+                if ($row['count'] > 0) {
+                    $existeRelacion = true;
+                    break;
+                }
             }
-        }
 
-        if ($existeRelacion) {
-            echo "<script>alert('No se puede eliminar el usuario porque está asociado a donaciones o apadrinamientos.');</script>";
-        } else {
-            $sqlEliminar = "DELETE FROM usuarios WHERE id = ?";
-            $stmtEliminar = $conn->prepare($sqlEliminar);
-            $stmtEliminar->bind_param("i", $idUsuario);
-            if ($stmtEliminar->execute()) {
-                echo "<script>alert('Usuario eliminado correctamente.'); window.location.href='gestionarUsuarios.php';</script>";
+            if ($existeRelacion) {
+                echo "<script>alert('No se puede eliminar el usuario porque está asociado a donaciones o apadrinamientos.');</script>";
             } else {
-                echo "<script>alert('Error al eliminar el usuario.');</script>";
+                $sqlEliminar = "DELETE FROM usuarios WHERE id = ?";
+                $stmtEliminar = $conexion->prepare($sqlEliminar);  // Cambiado de $conn a $conexion
+                $stmtEliminar->bind_param("i", $idUsuario);
+                if ($stmtEliminar->execute()) {
+                    echo "<script>alert('Usuario eliminado correctamente.'); window.location.href='gestionarUsuarios.php';</script>";
+                } else {
+                    echo "<script>alert('Error al eliminar el usuario.');</script>";
+                }
             }
         }
-    }
 
-    // Verificar si se recibe una solicitud de actualización
-    if (isset($_POST['actualizar'])) {
-        $idUsuario = $_POST['id_usuario'];
-        $nombre = $_POST['nombre'];
-        $rol = $_POST['rol'];
+        // Verificar si se recibe una solicitud de actualización
+        if (isset($_POST['actualizar'])) {
+            $idUsuario = $_POST['id_usuario'];
+            $nombre = $_POST['nombre'];
+            $rol = $_POST['rol'];
 
-        $sqlActualizar = "UPDATE usuarios SET nombre = ?, rol = ? WHERE id = ?";
-        $stmtActualizar = $conn->prepare($sqlActualizar);
-        $stmtActualizar->bind_param("ssi", $nombre, $rol, $idUsuario);
+            $sqlActualizar = "UPDATE usuarios SET nombre = ?, rol = ? WHERE id = ?";
+            $stmtActualizar = $conexion->prepare($sqlActualizar);  // Cambiado de $conn a $conexion
+            $stmtActualizar->bind_param("ssi", $nombre, $rol, $idUsuario);
 
-        if ($stmtActualizar->execute()) {
-            echo "<script>alert('Usuario actualizado correctamente.'); window.location.href='gestionarUsuarios.php';</script>";
-        } else {
-            echo "<script>alert('Error al actualizar el usuario.');</script>";
+            if ($stmtActualizar->execute()) {
+                echo "<script>alert('Usuario actualizado correctamente.'); window.location.href='gestionarUsuarios.php';</script>";
+            } else {
+                echo "<script>alert('Error al actualizar el usuario.');</script>";
+            }
         }
-    }
     ?>
     <main>
         <div id="viewport">

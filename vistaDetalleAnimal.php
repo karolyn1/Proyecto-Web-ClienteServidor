@@ -20,30 +20,39 @@
 
     // Incluir archivo de conexión a la base de datos
     include("actions/conexion.php");
-// Obtener el ID del animal desde la URL
-$idAnimal = isset($_GET['id']) ? intval($_GET['id']) : 0;
+    // Obtener el ID del animal desde la URL
+    $idAnimal = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Consultar datos del animal
-$sql = "SELECT nombre, especie, edad, estado_salud, historia, necesidades, imagen 
-        FROM animal 
-        WHERE id = ?";
-$stmt = $conexion->prepare($sql);
-$stmt->bind_param("i", $idAnimal);
-$stmt->execute();
-$resultado = $stmt->get_result();
+    // Consultar datos del animal
+    $sql = "SELECT nombre, especie, edad, estado_salud, historia, necesidades, imagen 
+            FROM animal 
+            WHERE id = ?";
 
-if ($resultado->num_rows > 0) {
-    $animal = $resultado->fetch_assoc();
-} else {
-    echo "<p class='text-center'>El animal solicitado no existe.</p>";
-    exit;
-}
+    // Preparar la consulta
+    $stmt = $conexion->prepare($sql);
 
-$stmt->close();
-$conexion->close();
+    // Vincular el parámetro
+    $stmt->bind_param("i", $idAnimal);
+
+    // Ejecutar la consulta
+    $stmt->execute();
+
+    // Obtener el resultado
+    $resultado = $stmt->get_result();
+
+    if ($resultado->num_rows > 0) {
+        $animal = $resultado->fetch_assoc();
+    } else {
+        echo "<p class='text-center'>El animal solicitado no existe.</p>";
+        exit;
+    }
+
+    // Cerrar la consulta y la conexión
+    $stmt->close();
+    $conexion->close();
 ?>
 <main>
-<div class="detalleAnimal-title text-center">
+    <div class="detalleAnimal-title text-center">
         <h1>PERFIL DE <?php echo htmlspecialchars($animal['nombre']); ?></h1>
     </div>
 

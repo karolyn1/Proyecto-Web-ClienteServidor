@@ -22,15 +22,17 @@
 
     // Consulta para obtener donaciones y usuarios
     $sql = "SELECT u.id AS usuario_id, u.nombre_completo, u.email, d.monto, d.fecha, d.id AS donacion_id 
-            FROM usuarios u 
-            LEFT JOIN donaciones d ON u.id = d.usuario_id
-            WHERE d.estado = 1"; // Estado activo de la donación
-    $result = $conn->query($sql);
+    FROM usuarios u 
+    LEFT JOIN donaciones d ON u.id = d.usuario_id
+    WHERE d.estado = 1"; // Estado activo de la donación
+    $result = $conn->query($sql); // Usamos el método query() de mysqli
 
     // Eliminación lógica de donaciones
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
         $donacion_id = $_POST['donacion_id'];
         $update_sql = "UPDATE donaciones SET estado = 0 WHERE id = $donacion_id";
+        
+        // Ejecutar la consulta de actualización
         if ($conn->query($update_sql) === TRUE) {
             echo "<div class='alert alert-success'>Donación eliminada correctamente.</div>";
         } else {
@@ -77,29 +79,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if ($result->num_rows > 0): ?>
-                                <?php while ($row = $result->fetch_assoc()): ?>
-                                    <tr>
-                                        <td><?php echo $row['usuario_id']; ?></td>
-                                        <td><?php echo $row['nombre_completo']; ?></td>
-                                        <td><?php echo $row['email']; ?></td>
-                                        <td>$<?php echo number_format($row['monto'], 2); ?></td>
-                                        <td><?php echo date('d/m/Y', strtotime($row['fecha'])); ?></td>
-                                        <td>
-                                            <form method="POST" action="">
-                                                <input type="hidden" name="donacion_id" value="<?php echo $row['donacion_id']; ?>">
-                                                <button type="submit" name="eliminar" class="btn btn-danger btn-sm">
-                                                    <i class="fas fa-trash"></i> Eliminar
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                <?php endwhile; ?>
-                            <?php else: ?>
+                        <?php if ($result->num_rows > 0): ?>
+                            <?php while ($row = $result->fetch_assoc()): ?>
                                 <tr>
-                                    <td colspan="6" class="text-center">No se encontraron donaciones activas.</td>
+                                    <td><?php echo $row['usuario_id']; ?></td>
+                                    <td><?php echo $row['nombre_completo']; ?></td>
+                                    <td><?php echo $row['email']; ?></td>
+                                    <td>$<?php echo number_format($row['monto'], 2); ?></td>
+                                    <td><?php echo date('d/m/Y', strtotime($row['fecha'])); ?></td>
+                                    <td>
+                                        <form method="POST" action="">
+                                            <input type="hidden" name="donacion_id" value="<?php echo $row['donacion_id']; ?>">
+                                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i> Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
-                            <?php endif; ?>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6" class="text-center">No se encontraron donaciones activas.</td>
+                            </tr>
+                        <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

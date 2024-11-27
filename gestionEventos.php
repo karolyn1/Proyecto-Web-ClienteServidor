@@ -24,12 +24,16 @@
     // Lógica para eliminar evento
     if (isset($_GET['eliminar_id'])) {
         $id_eliminar = $_GET['eliminar_id'];
-        $sql_eliminar = "DELETE FROM eventos WHERE id = $id_eliminar";
-        if ($conexion->query($sql_eliminar) === TRUE) {
+        // Preparamos la consulta de eliminación
+        $sql_eliminar = "DELETE FROM eventos WHERE id = ?";
+        $stmt = $conexion->prepare($sql_eliminar);
+        $stmt->bind_param("i", $id_eliminar); // "i" indica que el parámetro es un entero
+        if ($stmt->execute()) {
             echo "<script>alert('Evento eliminado correctamente');</script>";
         } else {
             echo "<script>alert('Error al eliminar el evento');</script>";
         }
+        $stmt->close(); // Cerramos el statement después de ejecutarlo
     }
 
     // Consulta para obtener los eventos

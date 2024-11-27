@@ -40,68 +40,70 @@
 
         // Consultar los animales registrados en la base de datos
         $query_animales = "SELECT id, nombre FROM animal";
-        $result_animales = $conn->query($query_animales);
+        $stmt_animales = $conn->prepare($query_animales); // Preparar la consulta
+        $stmt_animales->execute(); // Ejecutar la consulta
+        $result_animales = $stmt_animales->get_result(); // Obtener los resultados de la consulta
 
         if (!$result_animales) {
-            die("Error al obtener los animales: " . $conn->error);
+            die("Error al obtener los animales: " . $conn->error); // Mostrar error si no hay resultados
         }
     ?>
 
-    <main>
-        <div class="p-5">
-            <h1 class="title-formulario">Apadrinamiento</h1>
-            <p>A través de este formulario, puedes contribuir al bienestar de los animales que más lo necesitan. Selecciona la cantidad y la frecuencia de tu apadrinamiento y completa los detalles para hacer tu contribución. ¡Gracias por ser parte del cambio!</p>
-            <div class="container">
-                <form action="datos_formularioApadrinamiento.php" method="post" onsubmit="return validarFormulario()">
-                    <div class="mb-3">
-                        <label for="nombre">Nombre completo</label>
-                        <input type="text" id="nombre" name="nombre" required minlength="3" maxlength="50" title="Introduce al menos 3 caracteres.">
-                    </div>
-                    <div class="mb-3">
-                        <label for="apellido1">Primer apellido</label>
-                        <input type="text" id="apellido1" name="apellido1" required minlength="3" maxlength="50">
-                    </div>
-                    <div class="mb-3">
-                        <label for="apellido2">Segundo apellido</label>
-                        <input type="text" id="apellido2" name="apellido2" required minlength="3" maxlength="50">
-                    </div>
-                    <div class="mb-3">
-                        <label for="correo">Correo electrónico</label>
-                        <input type="email" id="correo" name="correo" required title="Introduce un correo válido.">
-                    </div>
-                    <div class="mb-3">
-                        <label for="telefono">Teléfono de contacto</label>
-                        <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{8,15}" title="Introduce un número de teléfono válido.">
-                    </div>
-                    <div class="mb-3">
-                        <label for="id_animal">Animal a apadrinar</label>
-                        <select id="id_animal" name="id_animal" required>
-                            <option value="">Seleccione un animal</option>
-                            <?php
-                                // Generar las opciones dinámicamente
-                                while ($row = $result_animales->fetch_assoc()) {
-                                    echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['nombre']) . '</option>';
-                                }
-                            ?>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="monto">Monto mensual (mínimo $50)</label>
-                        <input type="number" id="monto" name="monto" required min="50" title="El monto mínimo es $50.">
-                    </div>
-                    <div class="mb-3">
-                        <label for="metodo">Método de pago</label>
-                        <select id="metodo" name="metodo" required>
-                            <option value="tarjeta">Tarjeta crédito/débito</option>
-                            <option value="sinpe">Sinpe móvil</option>
-                            <option value="paypal">PayPal</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn">Apadrinar</button>
-                </form>
-            </div>
+<main>
+    <div class="p-5">
+        <h1 class="title-formulario">Apadrinamiento</h1>
+        <p>A través de este formulario, puedes contribuir al bienestar de los animales que más lo necesitan. Selecciona la cantidad y la frecuencia de tu apadrinamiento y completa los detalles para hacer tu contribución. ¡Gracias por ser parte del cambio!</p>
+        <div class="container">
+            <form action="datos_formularioApadrinamiento.php" method="post" onsubmit="return validarFormulario()">
+                <div class="mb-3">
+                    <label for="nombre">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" required minlength="3" maxlength="50" title="Introduce al menos 3 caracteres.">
+                </div>
+                <div class="mb-3">
+                    <label for="apellido1">Primer apellido</label>
+                    <input type="text" id="apellido1" name="apellido1" required minlength="3" maxlength="50">
+                </div>
+                <div class="mb-3">
+                    <label for="apellido2">Segundo apellido</label>
+                    <input type="text" id="apellido2" name="apellido2" required minlength="3" maxlength="50">
+                </div>
+                <div class="mb-3">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo" required title="Introduce un correo válido.">
+                </div>
+                <div class="mb-3">
+                    <label for="telefono">Teléfono de contacto</label>
+                    <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{8,15}" title="Introduce un número de teléfono válido.">
+                </div>
+                <div class="mb-3">
+                    <label for="id_animal">Animal a apadrinar</label>
+                    <select id="id_animal" name="id_animal" required>
+                        <option value="">Seleccione un animal</option>
+                        <?php
+                            // Generar las opciones dinámicamente
+                            while ($row = $result_animales->fetch_assoc()) {
+                                echo '<option value="' . $row['id'] . '">' . htmlspecialchars($row['nombre']) . '</option>';
+                            }
+                        ?>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="monto">Monto mensual (mínimo $50)</label>
+                    <input type="number" id="monto" name="monto" required min="50" title="El monto mínimo es $50.">
+                </div>
+                <div class="mb-3">
+                    <label for="metodo">Método de pago</label>
+                    <select id="metodo" name="metodo" required>
+                        <option value="tarjeta">Tarjeta crédito/débito</option>
+                        <option value="sinpe">Sinpe móvil</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Apadrinar</button>
+            </form>
         </div>
-    </main>
+    </div>
+</main>
 
     <?php
         include("fragmentos.php");

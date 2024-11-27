@@ -8,17 +8,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hora = $_POST['hora'];
     $lugar = $_POST['lugar'];
 
-    try {
-        // Sentencia SQL para insertar datos en la tabla `evento`
-        $sql = "INSERT INTO eventos (descripcion, fecha, hora, lugar) 
-                VALUES (:descripcion, :fecha, :hora, :lugar)";
-        $stmt = $conexion->prepare($sql);
+    // Sentencia SQL para insertar datos en la tabla `eventos`
+    $sql = "INSERT INTO eventos (descripcion, fecha, hora, lugar) VALUES (?, ?, ?, ?)";
 
-        // Asignar valores a los parámetros
-        $stmt->bindParam(':descripcion', $descripcion);
-        $stmt->bindParam(':fecha', $fecha);
-        $stmt->bindParam(':hora', $hora);
-        $stmt->bindParam(':lugar', $lugar);
+    // Preparar la sentencia
+    if ($stmt = $conn->prepare($sql)) {
+        // Vincular los parámetros
+        $stmt->bind_param("ssss", $descripcion, $fecha, $hora, $lugar);
 
         // Ejecutar la sentencia
         if ($stmt->execute()) {
@@ -33,11 +29,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     window.location.href = 'gestionEventos.php';
                   </script>";
         }
-    } catch (PDOException $e) {
+
+        // Cerrar la sentencia
+        $stmt->close();
+    } else {
+        // Si la preparación de la sentencia falla
         echo "<script>
-                alert('Error: " . $e->getMessage() . "');
+                alert('Error al preparar la consulta.');
                 window.location.href = 'gestionEventos.php';
               </script>";
     }
 }
+
+// Cerrar la conexión
+$conn->close();
 ?>

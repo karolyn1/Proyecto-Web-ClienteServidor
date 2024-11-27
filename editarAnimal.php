@@ -114,14 +114,12 @@ form{
 <body>
     <?php 
         include("sidebar.php");
-        echo $sidebarAdmin2;?>
-
-    <?php 
-        include("sidebar.php");
         echo $sidebarAdmin2;
 
+        // Asegúrate de usar la conexión mysqli
         include("actions/conexion.php");
 
+        // Obtener el ID del animal de la URL
         $id = isset($_GET['id']) ? $_GET['id'] : null;
 
         if (!$id) {
@@ -129,23 +127,27 @@ form{
             exit;
         }
 
-        // Obtener datos del animal
+        // Usamos consultas preparadas con mysqli para obtener datos del animal
         $sql = "SELECT * FROM animales WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $animal = $result->fetch_assoc();
+        if ($stmt = $conn->prepare($sql)) {
+            $stmt->bind_param("i", $id); // "i" indica que el parámetro es un entero
+            $stmt->execute();
+            $result = $stmt->get_result(); // Obtener el resultado de la consulta
 
-        if (!$animal) {
-            echo "Animal no encontrado.";
+            $animal = $result->fetch_assoc(); // Obtener los datos del animal
+
+            // Verificar si el animal existe
+            if (!$animal) {
+                echo "Animal no encontrado.";
+                exit;
+            }
+        } else {
+            echo "Error en la preparación de la consulta.";
             exit;
         }
     ?>
 
-
-  </div>
-  <div id="viewport">
+<div id="viewport">
     <div id="content">
         <nav class="navbar navbar-default user">
             <div class="container-fluid">
@@ -159,13 +161,13 @@ form{
                 <input type="hidden" name="id" value="<?= htmlspecialchars($animal['id']) ?>">
 
                 <div class="form-group">
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($animal['nombre']) ?>" required>
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($animal['nombre']) ?>" required>
                 </div>
 
                 <div class="form-group">
-                <label for="especie">Especie</label>
-                <input type="text" id="especie" name="especie" value="<?= htmlspecialchars($animal['especie']) ?>" required>
+                    <label for="especie">Especie</label>
+                    <input type="text" id="especie" name="especie" value="<?= htmlspecialchars($animal['especie']) ?>" required>
                 </div>
 
                 <div class="form-group">
@@ -194,3 +196,4 @@ form{
     </div>
 </div>
 </body>
+</html>

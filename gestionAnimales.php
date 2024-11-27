@@ -26,19 +26,22 @@
         // Verificar si se pasó un ID para la eliminación
         if (isset($_GET['id'])) {
             $id_animal = $_GET['id'];
-
+        
             // Consulta para verificar si el animal está apadrinado
-            $sql = "SELECT COUNT(*) FROM animal_usuario WHERE id_animal = :id_animal";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(['id_animal' => $id_animal]);
-            $apadrinadoCount = $stmt->fetchColumn();
-
+            $sql = "SELECT COUNT(*) AS apadrinado_count FROM animal_usuario WHERE id_animal = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $id_animal);  // 'i' para integer
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $apadrinadoCount = $result->fetch_assoc()['apadrinado_count'];
+        
             if ($apadrinadoCount == 0) {
                 // Si no está apadrinado, se puede eliminar lógicamente
-                $sql = "UPDATE animal SET activo = 0 WHERE id_animal = :id_animal";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute(['id_animal' => $id_animal]);
-
+                $sql = "UPDATE animal SET activo = 0 WHERE id_animal = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $id_animal);
+                $stmt->execute();
+        
                 // Redirigir a la página de gestión de animales
                 header('Location: gestionAnimales.php');
                 exit;
@@ -56,9 +59,17 @@
             LEFT JOIN usuario u ON au.id_usuario = u.id_usuario
             WHERE a.activo = 1"; // Filtrar solo los animales activos
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $animales = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $conn->query($sql); // Usamos query() en lugar de prepare() para esta consulta simple
+
+        if ($result->num_rows > 0) {
+            // Si hay resultados, los obtenemos
+            $animales = [];
+            while ($row = $result->fetch_assoc()) {
+                $animales[] = $row;
+            }
+        } else {
+            $animales = []; // En caso de que no haya resultados
+        }
     ?>
 
     <main>

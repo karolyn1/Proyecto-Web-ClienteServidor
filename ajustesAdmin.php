@@ -25,23 +25,20 @@
         $nuevo_telefono = $_POST['telefono'];
         $nuevo_email = $_POST['email'];
 
-        try {
-            // Actualizar los datos del administrador en la base de datos
-            $sql_update = "UPDATE usuario SET nombre = :nombre, apellido1 = :apellido1, apellido2 = :apellido2, telefono = :telefono, correo = :email WHERE correo = :email_actual";
-            $stmt_update = $conexion->prepare($sql_update);
-            $stmt_update->bindParam(':nombre', $nuevo_nombre);
-            $stmt_update->bindParam(':apellido1', $nuevo_apellido1);
-            $stmt_update->bindParam(':apellido2', $nuevo_apellido2);
-            $stmt_update->bindParam(':telefono', $nuevo_telefono);
-            $stmt_update->bindParam(':email', $nuevo_email);
-            $stmt_update->bindParam(':email_actual', $admin['correo']);
-            $stmt_update->execute();
-
-            // Volver a cargar los datos actualizados
-            echo "<script>alert('Datos actualizados correctamente.');</script>";
-            require 'actions/obtener_admin.php'; // Recarga los datos del administrador actualizados
-        } catch (PDOException $e) {
-            echo "Error al actualizar los datos: " . $e->getMessage();
+        // Actualizar los datos del administrador en la base de datos
+        $sql_update = "UPDATE usuario SET nombre = ?, apellido1 = ?, apellido2 = ?, telefono = ?, correo = ? WHERE correo = ?";
+        if ($stmt_update = $conexion->prepare($sql_update)) {
+            $stmt_update->bind_param("ssssss", $nuevo_nombre, $nuevo_apellido1, $nuevo_apellido2, $nuevo_telefono, $nuevo_email, $admin['correo']);
+            if ($stmt_update->execute()) {
+                echo "<script>alert('Datos actualizados correctamente.');</script>";
+                // Recarga los datos del administrador actualizados
+                require 'actions/obtener_admin.php'; 
+            } else {
+                echo "<script>alert('Error al actualizar los datos.');</script>";
+            }
+            $stmt_update->close();
+        } else {
+            echo "<script>alert('Error de preparación de la consulta.');</script>";
         }
     }
 
@@ -50,32 +47,39 @@
         $contrasena_actual = $_POST['contrasena_actual'];
         $nueva_contrasena = $_POST['nueva_contrasena'];
 
-        try {
-            // Obtener la contraseña actual del administrador desde la base de datos
-            $sql = "SELECT contrasena FROM usuario WHERE correo = :email";
-            $stmt = $conexion->prepare($sql);
-            $stmt->bindParam(':email', $admin['correo']);
+        // Obtener la contraseña actual del administrador desde la base de datos
+        $sql = "SELECT contrasena FROM usuario WHERE correo = ?";
+        if ($stmt = $conexion->prepare($sql)) {
+            $stmt->bind_param("s", $admin['correo']);
             $stmt->execute();
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->bind_result($contrasena_db);
+            $stmt->fetch();
+            $stmt->close();
 
             // Verificar si la contraseña actual ingresada coincide
-            if (!password_verify($contrasena_actual, $resultado['contrasena'])) {
+            if (!password_verify($contrasena_actual, $contrasena_db)) {
                 echo "<script>alert('La contraseña actual no es correcta.');</script>";
             } else {
                 // Actualizar la nueva contraseña
                 $nueva_contrasena_hash = password_hash($nueva_contrasena, PASSWORD_DEFAULT);
-                $sql_update = "UPDATE usuario SET contrasena = :nueva_contrasena WHERE correo = :email";
-                $stmt_update = $conexion->prepare($sql_update);
-                $stmt_update->bindParam(':nueva_contrasena', $nueva_contrasena_hash);
-                $stmt_update->bindParam(':email', $admin['correo']);
-                $stmt_update->execute();
-
-                echo "<script>alert('Contraseña actualizada correctamente.');</script>";
+                $sql_update = "UPDATE usuario SET contrasena = ? WHERE correo = ?";
+                if ($stmt_update = $conexion->prepare($sql_update)) {
+                    $stmt_update->bind_param("ss", $nueva_contrasena_hash, $admin['correo']);
+                    if ($stmt_update->execute()) {
+                        echo "<script>alert('Contraseña actualizada correctamente.');</script>";
+                    } else {
+                        echo "<script>alert('Error al actualizar la contraseña.');</script>";
+                    }
+                    $stmt_update->close();
+                } else {
+                    echo "<script>alert('Error de preparación de la consulta para cambiar la contraseña.');</script>";
+                }
             }
-        } catch (PDOException $e) {
-            echo "Error al actualizar la contraseña: " . $e->getMessage();
+        } else {
+            echo "<script>alert('Error al consultar la contraseña actual.');</script>";
         }
     }
+
     ?>
 
     <?php
@@ -83,7 +87,7 @@
     echo $sidebarAdmin2;
     ?>
 
-    <main>
+<main>
         <div id="viewport">
             <div id="content">
                 <nav class="navbar">

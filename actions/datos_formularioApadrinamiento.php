@@ -1,6 +1,8 @@
 <?php
-    include("conexion.php"); // Archivo para la conexión a la base de datos
+    // Incluir el archivo de conexión a la base de datos
+    include("conexion.php");
 
+    // Función para registrar los errores
     function logError($error) {
         $file = 'errores.log';
         $date = date('Y-m-d H:i:s');

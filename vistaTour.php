@@ -31,13 +31,13 @@
         // Consulta para obtener los detalles del tour
         $sql = "SELECT nombre, descripcion, fecha, hora, precio_boleto, tickets_disponibles, imagen 
                 FROM tours WHERE id = ?";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("i", $id_tour);
-        $stmt->execute();
-        $stmt->bind_result($nombre, $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $imagen);
-        $stmt->fetch();
-        $stmt->close();
-        $conexion->close();
+        $stmt = mysqli_prepare($conexion, $sql);
+        mysqli_stmt_bind_param($stmt, "i", $id_tour);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $nombre, $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $imagen);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+        mysqli_close($conexion);
     ?>
 <main>
     <div class="container mt-5">

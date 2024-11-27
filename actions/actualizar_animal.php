@@ -1,5 +1,6 @@
 <?php
-include("actions/conexion.php");
+// Incluir la conexión
+include("conexion.php");
 
 // Verificar si se enviaron los datos desde el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,35 +23,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sql = "UPDATE animales 
             SET nombre = ?, especie = ?, raza = ?, fecha_ingreso = ?, fecha_nacimiento = ?, estado_salud = ? 
             WHERE id = ?";
-    $stmt = $conn->prepare($sql);
-    if ($stmt === false) {
-        echo "Error en la preparación de la consulta: " . $conn->error;
-        exit;
-    }
+    
+    // Usar prepared statements
+    if ($stmt = $conn->prepare($sql)) {
+        // Vincular parámetros
+        $stmt->bind_param(
+            "ssssssi", // Definir el tipo de datos de los parámetros: 6 cadenas (s) y un entero (i)
+            $nombre,
+            $especie,
+            $raza,
+            $fecha_ingreso,
+            $fecha_nacimiento,
+            $estado_salud,
+            $id
+        );
 
-    // Vincular parámetros
-    $stmt->bind_param(
-        "ssssssi",
-        $nombre,
-        $especie,
-        $raza,
-        $fecha_ingreso,
-        $fecha_nacimiento,
-        $estado_salud,
-        $id
-    );
+        // Ejecutar la consulta
+        if ($stmt->execute()) {
+            // Redirigir al listado con un mensaje de éxito
+            header("Location: listadoAnimalesDisponibles.php?success=1");
+            exit;
+        } else {
+            echo "Error al actualizar el registro: " . $stmt->error;
+        }
 
-    // Ejecutar la consulta
-    if ($stmt->execute()) {
-        // Redirigir al listado con un mensaje de éxito
-        header("Location: listadoAnimalesDisponibles.php?success=1");
-        exit;
+        // Cerrar la declaración
+        $stmt->close();
     } else {
-        echo "Error al actualizar el registro: " . $stmt->error;
+        echo "Error en la preparación de la consulta: " . $conn->error;
     }
-
-    // Cerrar la declaración
-    $stmt->close();
 }
 
 // Cerrar la conexión

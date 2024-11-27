@@ -30,21 +30,19 @@
         <div class="animal-grid">
             <?php
                 // Incluir archivo de conexión a la base de datos
-                include './actions/conexion.php';
+                include 'actions/conexion.php';
 
                 try {
                     // Consulta para obtener animales sin usuario asociado
-                    $sql = "
-                        SELECT a.ID_Animal, a.Nombre, A.Imagen 
-                        FROM animal a 
-                        WHERE Apadrinado=0";
-                    $stmt = $conexion->prepare($sql);
-                    $stmt->execute();
-                    $animales = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                    $sql = "SELECT a.ID_Animal, a.Nombre, a.Imagen 
+                    FROM animal a 
+                    WHERE Apadrinado=0";
 
-                    if (!empty($animales)) {
+                    $result = $conexion->query($sql);
+
+                    if ($result->num_rows > 0) {
                         // Mostrar cada animal como una tarjeta
-                        foreach ($animales as $animal) {
+                        while ($animal = $result->fetch_assoc()) {
                             echo '<div class="animal-card">';
                             echo '<img src="./actions/mostrar_imagen.php?ID_Animal=' . htmlspecialchars($animal['ID_Animal']) . '" alt="Foto de ' . htmlspecialchars($animal['Nombre']) . '">';
                             echo '<a href="animal.php?id=' . $animal['ID_Animal'] . '">' . htmlspecialchars($animal['Nombre']) . '</a>';
@@ -53,6 +51,9 @@
                     } else {
                         echo "<p>No hay animales disponibles para apadrinar en este momento.</p>";
                     }
+
+                    // Cerrar la conexión
+                    $conexion->close();
                 } catch (PDOException $e) {
                     echo "<p>Error al cargar los animales: " . htmlspecialchars($e->getMessage()) . "</p>";
                 }

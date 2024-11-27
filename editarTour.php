@@ -21,9 +21,9 @@
         $stmt->bind_param("i", $idTour);
         $stmt->execute();
         $resultado = $stmt->get_result();
-        $tour = $resultado->fetch_assoc();
-
+        
         // Verificar si el tour existe
+        $tour = $resultado->fetch_assoc();
         if (!$tour) {
             echo "<script>alert('Tour no encontrado'); window.location.href='gestionTours.php';</script>";
             exit();
@@ -53,6 +53,10 @@
             echo "<script>alert('Error al actualizar el tour');</script>";
         }
     }
+
+    // Cerrar la conexión
+    $stmt->close();
+    $conexion->close();
 ?>
     <div class="container mt-5">
         <h2>Editar Tour</h2>

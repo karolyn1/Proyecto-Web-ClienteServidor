@@ -18,27 +18,27 @@
     ?>
 
     <?php
-    include("actions/conexion.php"); // Incluir archivo de conexión
+        include("actions/conexion.php"); // Incluir archivo de conexión
 
-    // Verificar si se ha solicitado eliminar un tour
-    if (isset($_GET['id']) && !empty($_GET['id'])) {
-        $idTour = $_GET['id'];
-        
-        // Eliminar el tour con el id especificado
-        $sqlEliminar = "DELETE FROM tours WHERE id = ?";
-        $stmt = $conexion->prepare($sqlEliminar);
-        $stmt->bind_param("i", $idTour);
-        
-        if ($stmt->execute()) {
-            echo "<script>alert('Tour eliminado con éxito'); window.location.href='gestionTours.php';</script>";
-        } else {
-            echo "<script>alert('Error al eliminar el tour'); window.location.href='gestionTours.php';</script>";
+        // Verificar si se ha solicitado eliminar un tour
+        if (isset($_GET['id']) && !empty($_GET['id'])) {
+            $idTour = $_GET['id'];
+            
+            // Eliminar el tour con el id especificado
+            $sqlEliminar = "DELETE FROM tours WHERE id = ?";
+            $stmt = $conexion->prepare($sqlEliminar);  // Usar prepare()
+            $stmt->bind_param("i", $idTour);  // Vincular parámetros
+            if ($stmt->execute()) {
+                echo "<script>alert('Tour eliminado con éxito'); window.location.href='gestionTours.php';</script>";
+            } else {
+                echo "<script>alert('Error al eliminar el tour'); window.location.href='gestionTours.php';</script>";
+            }
+            $stmt->close();  // Cerrar la sentencia
         }
-    }
 
-    // Consulta para obtener los tours
-    $sql = "SELECT id, nombre, fecha, descripcion, precio_boleto, tickets_disponibles FROM tours";
-    $resultado = $conexion->query($sql);
+        // Consulta para obtener los tours
+        $sql = "SELECT id, nombre, fecha, descripcion, precio_boleto, tickets_disponibles FROM tours";
+        $resultado = $conexion->query($sql);  // Usar query() si es una consulta simple, no requiere preparación
     ?>
     <main>
     <div id="viewport">
@@ -82,28 +82,32 @@
                         </thead>
                         <tbody>
                             <?php
-                            if ($resultado->num_rows > 0) {
-                                while($tour = $resultado->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $tour['nombre'] . "</td>";
-                                    echo "<td>" . $tour['fecha'] . "</td>";
-                                    echo "<td>" . $tour['descripcion'] . "</td>";
-                                    echo "<td>" . $tour['precio_boleto'] . "</td>";
-                                    echo "<td>" . $tour['tickets_disponibles'] . "</td>";
-                                    echo "<td class='actions'>";
-                                    // Botón de editar
-                                    echo "<a href='editarTour.php?id=" . $tour['id'] . "' class='edit'><i class='fas fa-pen'></i></a>";
-                                    // Botón de eliminar
-                                    echo "<a href='?id=" . $tour['id'] . "' class='delete' onclick='return confirm(\"¿Estás seguro de eliminar este tour?\");'><i class='fas fa-trash'></i></a>";
-                                    echo "</td>";
-                                    echo "</tr>";
+                                if ($resultado->num_rows > 0) {
+                                    while($tour = $resultado->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . $tour['nombre'] . "</td>";
+                                        echo "<td>" . $tour['fecha'] . "</td>";
+                                        echo "<td>" . $tour['descripcion'] . "</td>";
+                                        echo "<td>" . $tour['precio_boleto'] . "</td>";
+                                        echo "<td>" . $tour['tickets_disponibles'] . "</td>";
+                                        echo "<td class='actions'>";
+                                        // Botón de editar
+                                        echo "<a href='editarTour.php?id=" . $tour['id'] . "' class='edit'><i class='fas fa-pen'></i></a>";
+                                        // Botón de eliminar
+                                        echo "<a href='?id=" . $tour['id'] . "' class='delete' onclick='return confirm(\"¿Estás seguro de eliminar este tour?\");'><i class='fas fa-trash'></i></a>";
+                                        echo "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='6'>No se encontraron tours</td></tr>";
                                 }
-                            } else {
-                                echo "<tr><td colspan='6'>No se encontraron tours</td></tr>";
-                            }
-                            $conexion->close();
                             ?>
                         </tbody>
+                        <?php 
+                            // Cerrar la conexión después de que todas las operaciones con la base de datos hayan terminado
+                            $conexion->close();
+                        ?>
+
                     </table>
                     </div>
                 </div>

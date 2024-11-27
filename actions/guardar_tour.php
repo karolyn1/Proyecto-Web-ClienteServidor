@@ -17,16 +17,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    try {
-        $sql = "INSERT INTO tours (descripcion, fecha, hora, precio_boleto, tickets_disponibles) 
-                VALUES (:descripcion, :fecha, :hora, :precio_boleto, :tickets_disponibles)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bindParam(':descripcion', $descripcion);
-        $stmt->bindParam(':fecha', $fecha);
-        $stmt->bindParam(':hora', $hora);
-        $stmt->bindParam(':precio_boleto', $precio_boleto);
-        $stmt->bindParam(':tickets_disponibles', $tickets_disponibles);
+    // Sentencia SQL para insertar datos en la tabla `tours`
+    $sql = "INSERT INTO tours (descripcion, fecha, hora, precio_boleto, tickets_disponibles) 
+            VALUES (?, ?, ?, ?, ?)";
 
+    // Preparar la sentencia
+    if ($stmt = $conn->prepare($sql)) {
+        // Vincular los parámetros
+        $stmt->bind_param("ssssd", $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles);
+
+        // Ejecutar la sentencia
         if ($stmt->execute()) {
             echo "<script>
                     alert('Tour registrado correctamente.');
@@ -38,11 +38,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     window.location.href = 'gestionTours.php';
                   </script>";
         }
-    } catch (PDOException $e) {
+
+        // Cerrar la sentencia
+        $stmt->close();
+    } else {
+        // Si la preparación de la sentencia falla
         echo "<script>
-                alert('Error: " . $e->getMessage() . "');
+                alert('Error al preparar la consulta.');
                 window.location.href = 'gestionTours.php';
               </script>";
     }
 }
+
+// Cerrar la conexión
+$conn->close();
 ?>

@@ -5,21 +5,39 @@ include 'conexion.php';
 $id_animal = $_GET['ID_Animal'];
 
 try {
-    $sql = "SELECT Imagen FROM animal WHERE ID_Animal = :ID_Animal";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bindParam(':ID_Animal', $id_animal, PDO::PARAM_INT);
-    $stmt->execute();
+    // Sentencia SQL para seleccionar la imagen
+    $sql = "SELECT Imagen FROM animal WHERE ID_Animal = ?";
+    
+    // Preparar la consulta
+    if ($stmt = $conn->prepare($sql)) {
+        // Vincular el parámetro
+        $stmt->bind_param("i", $id_animal); // 'i' es para integer
+        
+        // Ejecutar la sentencia
+        $stmt->execute();
+        
+        // Obtener el resultado
+        $stmt->bind_result($imagen);
+        $stmt->fetch();
 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Verificar si se encontró una imagen
+        if ($imagen) {
+            // Enviar encabezado apropiado para la imagen
+            header("Content-Type: image/jpeg"); // Cambia el MIME según el tipo de imagen almacenada
+            echo $imagen; // Mostrar contenido binario
+        } else {
+            echo "Imagen no encontrada.";
+        }
 
-    if ($row && $row['Imagen']) {
-        // Enviar encabezado apropiado para la imagen
-        header("Content-Type: image/jpeg"); // Cambia el MIME según el tipo de imagen almacenada
-        echo $row['Imagen']; // Mostrar contenido binario
+        // Cerrar la sentencia
+        $stmt->close();
     } else {
-        echo "Imagen no encontrada.";
+        echo "Error en la consulta.";
     }
-} catch (PDOException $e) {
+} catch (mysqli_sql_exception $e) {
     echo "Error: " . $e->getMessage();
 }
+
+// Cerrar la conexión
+$conn->close();
 ?>

@@ -158,27 +158,27 @@
 
         <main>
         <?php
-            // Conexión a la base de datos
-            include('actions/conexion.php');
+        // Conexión a la base de datos (ya se encuentra en conexion.php, solo asegurarse de usar mysqli)
+        include('actions/conexion.php'); // Asegúrate que la conexión use mysqli
 
-            // Consulta SQL para obtener los datos de las donaciones
-            $query = "
-                SELECT 
-                    usuario.nombre AS usuario_nombre,
-                    donaciones.monto,
-                    donaciones.fecha
-                FROM donaciones
-                INNER JOIN usuario ON donaciones.usuario_id = usuario.id
-            ";
+        // Consulta SQL para obtener los datos de las donaciones
+        $query = "
+            SELECT 
+                usuario.nombre AS usuario_nombre,
+                donaciones.monto,
+                donaciones.fecha
+            FROM donaciones
+            INNER JOIN usuario ON donaciones.usuario_id = usuario.id
+        ";
 
-            // Ejecutamos la consulta
-            $result = $conexion->query($query);
+        // Ejecutamos la consulta usando mysqli
+        $result = $conexion->query($query);
 
-            // Verificamos si la consulta tuvo éxito
-            if (!$result) {
-                die("Error en la consulta: " . $conexion->error);
-            }
-        ?>        
+        // Verificamos si la consulta tuvo éxito
+        if (!$result) {
+            die("Error en la consulta: " . $conexion->error);
+        }
+        ?>     
         
         <table class="table">
                 <thead>

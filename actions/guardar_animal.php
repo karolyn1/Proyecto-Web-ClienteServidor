@@ -10,19 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $estado_salud = $_POST['estado_salud'];
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
 
-    try {
-        // Sentencia SQL para insertar datos en la tabla `animal`
-        $sql = "INSERT INTO animal (nombre, especie, raza, fecha_ingreso, estado_salud, fecha_nacimiento) 
-                VALUES (:nombre, :especie, :raza, :fecha_ingreso, :estado_salud, :fecha_nacimiento)";
-        $stmt = $conexion->prepare($sql);
+    // Sentencia SQL para insertar datos en la tabla `animal`
+    $sql = "INSERT INTO animal (nombre, especie, raza, fecha_ingreso, estado_salud, fecha_nacimiento) 
+            VALUES (?, ?, ?, ?, ?, ?)";
 
-        // Asignar valores a los parámetros
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':especie', $especie);
-        $stmt->bindParam(':raza', $raza);
-        $stmt->bindParam(':fecha_ingreso', $fecha_ingreso);
-        $stmt->bindParam(':estado_salud', $estado_salud);
-        $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+    // Preparar la sentencia
+    if ($stmt = $conn->prepare($sql)) {
+        // Vincular los parámetros
+        $stmt->bind_param("ssssss", $nombre, $especie, $raza, $fecha_ingreso, $estado_salud, $fecha_nacimiento);
 
         // Ejecutar la sentencia
         if ($stmt->execute()) {
@@ -37,11 +32,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     window.location.href = 'gestionAnimales.php';
                   </script>";
         }
-    } catch (PDOException $e) {
+
+        // Cerrar la sentencia
+        $stmt->close();
+    } else {
+        // Si la preparación de la sentencia falla
         echo "<script>
-                alert('Error: " . $e->getMessage() . "');
+                alert('Error al preparar la consulta.');
                 window.location.href = 'gestionAnimales.php';
               </script>";
     }
 }
+
+// Cerrar la conexión
+$conn->close();
 ?>

@@ -49,6 +49,7 @@
                 echo "<p>No hay tours disponibles en este momento.</p>";
             }
 
+            // Cerrar la conexión
             $conexion->close();
             ?>
         </div>

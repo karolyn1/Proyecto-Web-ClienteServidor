@@ -11,20 +11,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contraseña = password_hash($_POST['contraseña'], PASSWORD_BCRYPT); // Encriptar la contraseña
     $rol = $_POST['rol'];
 
-    try {
-        // Sentencia SQL para insertar datos en la tabla `usuario`
-        $sql = "INSERT INTO usuario (nombre, apellido1, apellido2, correo, telefono, contraseña, rol) 
-                VALUES (:nombre, :apellido1, :apellido2, :correo, :telefono, :contraseña, :rol)";
-        $stmt = $conexion->prepare($sql);
+    // Validar datos
+    if (empty($nombre) || empty($apellido1) || empty($apellido2) || empty($correo) || empty($telefono) || empty($contraseña) || empty($rol)) {
+        echo "<script>
+                alert('Por favor, completa todos los campos.');
+                window.location.href = '../gestionUsuarios.php';
+              </script>";
+        exit;
+    }
 
-        // Asignar valores a los parámetros
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':apellido1', $apellido1);
-        $stmt->bindParam(':apellido2', $apellido2);
-        $stmt->bindParam(':correo', $correo);
-        $stmt->bindParam(':telefono', $telefono);
-        $stmt->bindParam(':contraseña', $contraseña);
-        $stmt->bindParam(':rol', $rol);
+    // Sentencia SQL para insertar datos en la tabla `usuario`
+    $sql = "INSERT INTO usuario (nombre, apellido1, apellido2, correo, telefono, contraseña, rol) 
+            VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    // Preparar la sentencia
+    if ($stmt = $conn->prepare($sql)) {
+        // Vincular los parámetros
+        $stmt->bind_param("sssssss", $nombre, $apellido1, $apellido2, $correo, $telefono, $contraseña, $rol);
 
         // Ejecutar la sentencia
         if ($stmt->execute()) {
@@ -38,11 +41,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     window.location.href = '../gestionUsuarios.php';
                   </script>";
         }
-    } catch (PDOException $e) {
+
+        // Cerrar la sentencia
+        $stmt->close();
+    } else {
+        // Si la preparación de la sentencia falla
         echo "<script>
-                alert('Error: " . $e->getMessage() . "');
+                alert('Error al preparar la consulta.');
                 window.location.href = '../gestionUsuarios.php';
               </script>";
     }
 }
+
+// Cerrar la conexión
+$conn->close();
 ?>

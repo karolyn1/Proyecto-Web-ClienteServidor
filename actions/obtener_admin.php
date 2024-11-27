@@ -7,20 +7,22 @@ try {
             FROM usuario u 
             INNER JOIN roles r ON u.id_rol = r.id_rol 
             WHERE r.nombre_rol = 'Administrador'";
-    $stmt = $conexion->prepare($sql);
-    $stmt->execute();
+    
+    // Preparar la consulta
+    $result = $conn->query($sql);
 
-    // Obtener los datos
-    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$admin) {
+    // Verificar si se obtuvo algún resultado
+    if ($result->num_rows > 0) {
+        // Obtener los datos
+        $admin = $result->fetch_assoc();
+    } else {
         echo "<script>
                 alert('No se encontraron datos del administrador.');
                 window.location.href = 'gestionUsuarios.php'; // Redirige si no hay datos
               </script>";
         exit();
     }
-} catch (PDOException $e) {
+} catch (mysqli_sql_exception $e) {
     echo "Error al obtener los datos del administrador: " . $e->getMessage();
     exit();
 }

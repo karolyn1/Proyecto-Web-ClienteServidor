@@ -32,7 +32,7 @@ if (!$id) {
 // Obtener los datos del usuario
 $sql = "SELECT * FROM usuarios WHERE id = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id);
+$stmt->bind_param("i", $id);  // Aquí estamos usando el ID como entero
 $stmt->execute();
 $result = $stmt->get_result();
 $usuario = $result->fetch_assoc();
@@ -42,7 +42,6 @@ if (!$usuario) {
     exit;
 }
 ?>
-
 
 <div id="viewport">
     <div id="content">

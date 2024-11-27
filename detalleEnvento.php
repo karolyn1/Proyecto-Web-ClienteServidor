@@ -27,15 +27,35 @@
     $id_evento = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
     // Consulta para obtener los detalles del evento
-    $sql = "SELECT descripcion, fecha, hora, lugar, costo FROM evento WHERE id = :id";
-    $stmt = $conexion->prepare($sql);
-    $stmt->bindParam(':id', $id_evento, PDO::PARAM_INT);
-    $stmt->execute();
-    $evento = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($id_evento > 0) {
+        // Prepara la consulta para evitar inyecciones SQL
+        $sql = "SELECT descripcion, fecha, hora, lugar, costo FROM evento WHERE id = ?";
+        
+        if ($stmt = $conexion->prepare($sql)) {
+            // Vincula el parámetro (s = string, i = integer)
+            $stmt->bind_param("i", $id_evento);
 
-    // Verificar si se encontró el evento
-    if (!$evento) {
-        echo "<div class='container mt-5'><h1>Evento no encontrado.</h1></div>";
+            // Ejecuta la consulta
+            $stmt->execute();
+
+            // Obtiene el resultado
+            $stmt->store_result();
+            $stmt->bind_result($descripcion, $fecha, $hora, $lugar, $costo);
+
+            // Verifica si se encontró el evento
+            if ($stmt->num_rows > 0) {
+                // Extrae los datos
+                $stmt->fetch();
+            } else {
+                echo "<div class='container mt-5'><h1>Evento no encontrado.</h1></div>";
+                exit;
+            }
+
+            // Cierra la declaración
+            $stmt->close();
+        }
+    } else {
+        echo "<div class='container mt-5'><h1>ID de evento inválido.</h1></div>";
         exit;
     }
     ?>
@@ -48,17 +68,17 @@
 
             <div class="col-md-6">
                 <h1>Detalle del Evento</h1>
-                <p class="text-muted"><?php echo htmlspecialchars($evento['descripcion']); ?></p>
+                <p class="text-muted"><?php echo htmlspecialchars($descripcion); ?></p>
 
-                <p><strong>Fecha:</strong> <?php echo htmlspecialchars($evento['fecha']); ?></p>
-                <p><strong>Costo:</strong> $<?php echo number_format(htmlspecialchars($evento['costo']), 2); ?> USD por persona</p>
-                <p><strong>Hora:</strong> <?php echo htmlspecialchars($evento['hora']); ?></p>
-                <p><strong>Lugar:</strong> <?php echo htmlspecialchars($evento['lugar']); ?></p>
+                <p><strong>Fecha:</strong> <?php echo htmlspecialchars($fecha); ?></p>
+                <p><strong>Costo:</strong> $<?php echo number_format(htmlspecialchars($costo), 2); ?> USD por persona</p>
+                <p><strong>Hora:</strong> <?php echo htmlspecialchars($hora); ?></p>
+                <p><strong>Lugar:</strong> <?php echo htmlspecialchars($lugar); ?></p>
 
                 <a href="reservar_evento.php?id=<?php echo $id_evento; ?>" class="btn btn-primary">Reservar Evento</a>
             </div>
         </div>
-
+        
         <div class="row mt-5">
             <div class="col">
                 <h3>Información Adicional</h3>
