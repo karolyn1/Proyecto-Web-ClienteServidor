@@ -72,17 +72,18 @@
     </footer>';
 
 
-    $sidebar='
+    $current_page = basename($_SERVER['PHP_SELF']);
+    
+    $sidebar = '
     <div class="sidebarMiPerfil">
         <h2>Hola, Usuario</h2>
         <ul>
-            <li class="active"><i class="icon"></i>Dashboard</li>
-            <li><i class="icon"></i>Mis Reservas</li>
-            <li><i class="icon"></i>Mis Donaciones</li>
-            <li><i class="icon"></i>Mis Animales</li>
-            <li><i class="icon"></i>Ajustes</li>
-            <li><i class="icon"></i>Cerrar Sesión</li>
+            <li class="' . ($current_page == 'editarperfil.php' ? 'active' : '') . '"><a href="editarperfil.php"><i class="icon"></i>Dashboard</a></li>
+            <li class="' . ($current_page == 'donaciones.php' ? 'active' : '') . '"><a href="donaciones.php"><i class="icon"></i>Mis Donaciones</a></li>
+            <li class="' . ($current_page == 'misanimales.php' ? 'active' : '') . '"><a href="misanimales.php"><i class="icon"></i>Mis Animales</a></li>
+            <li class="' . ($current_page == 'misboletos.php' ? 'active' : '') . '"><a href="misboletos.php"><i class="icon"></i>Mis Boletos</a></li>
+            <li class="' . ($current_page == 'soporte.php' ? 'active' : '') . '"><a href="soporte.php"><i class="icon"></i>Soporte</a></li>
+            <li><a href="logout.php"><i class="icon"></i>Cerrar Sesión</a></li>
         </ul>
     </div>';
-?>
-    
+    ?>

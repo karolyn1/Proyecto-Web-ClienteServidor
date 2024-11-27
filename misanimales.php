@@ -27,11 +27,24 @@ $current_page = basename($_SERVER['PHP_SELF']);
             echo $sidebar;
             ?>
             <div class="main-content-perfil">
+                <h1>Animales Patrocinados Ejemplo</h1>
+                <P>La base de datos conexion</P>
                 <div class="card-container">
-                    <!-- Mensaje de que no existen animales -->
+                    <!-- Ejemplo de cartas de animales patrocinados -->
                     <div class="card">
-                        <h2>Animales</h2>
-                        <p>No existen animales todavía. ¡Explora nuestra lista de animales disponibles para apadrinar!</p>
+                        <img src="imagenes/tigre.jpg" alt="Tigre de Bengala" class="card-img-top" style="max-height: 200px; object-fit: cover;">
+                        <h2>Tigre de Bengala</h2>
+                        <p>Este majestuoso tigre fue rescatado y ahora vive protegido en un santuario.</p>
+                    </div>
+                    <div class="card">
+                        <img src="imagenes/panda.jpg" alt="Panda Rojo" class="card-img-top" style="max-height: 200px; object-fit: cover;">
+                        <h2>Panda Rojo</h2>
+                        <p>Un encantador panda rojo que necesita apoyo para su cuidado.</p>
+                    </div>
+                    <div class="card">
+                        <img src="imagenes/elefante.jpg" alt="Elefante Asiático" class="card-img-top" style="max-height: 200px; object-fit: cover;">
+                        <h2>Elefante Asiático</h2>
+                        <p>Un elefante que fue rescatado de condiciones difíciles y ahora vive en paz.</p>
                     </div>
                 </div>
             </div>

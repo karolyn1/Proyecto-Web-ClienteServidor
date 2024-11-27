@@ -1,7 +1,3 @@
-<?php
-$current_page = basename($_SERVER['PHP_SELF']);
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,13 +22,53 @@ $current_page = basename($_SERVER['PHP_SELF']);
             include('fragmentos.php');
             echo $sidebar;
             ?>
-            <div class="main-content-perfil">
-                <div class="card-container">
-                    <!-- Mensaje de que no existen boletos -->
-                    <div class="card">
-                        <h2>Boletos</h2>
-                        <p>No existen boletos todavía. ¡Explora nuestros eventos y adquiere el tuyo!</p>
-                    </div>
+            <div class="container mt-4">
+                <h1 class="text-center">Ejemplo de Boletos Adquiridos</h1>
+                <p class="text-center text-muted">
+                    Estos boletos son un ejemplo y no representan datos reales.
+                </p>
+                <div class="row">
+                    <?php
+                    // Simulación de boletos adquiridos (ejemplo estático)
+                    $boletos = [
+                        [
+                            'codigo_boleto' => 'BOL123456',
+                            'nombre_tour' => 'Tour a la Selva',
+                            'fecha_tour' => '2023-12-15',
+                            'fecha_adquirido' => '2023-11-20 14:30'
+                        ],
+                        [
+                            'codigo_boleto' => 'BOL789012',
+                            'nombre_tour' => 'Aventura en el Río',
+                            'fecha_tour' => '2024-01-10',
+                            'fecha_adquirido' => '2023-11-25 10:45'
+                        ],
+                        [
+                            'codigo_boleto' => 'BOL345678',
+                            'nombre_tour' => 'Excursión Montañosa',
+                            'fecha_tour' => '2024-02-05',
+                            'fecha_adquirido' => '2023-11-30 16:00'
+                        ]
+                    ];
+
+                    if (!empty($boletos)):
+                        foreach ($boletos as $boleto): ?>
+                            <div class="col-md-4">
+                                <div class="card mb-3 shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Tour: <?php echo $boleto['nombre_tour']; ?></h5>
+                                        <p class="card-text"><strong>Código de Boleto:</strong> <?php echo $boleto['codigo_boleto']; ?></p>
+                                        <p class="card-text"><strong>Fecha del Tour:</strong> <?php echo date("d-m-Y", strtotime($boleto['fecha_tour'])); ?></p>
+                                        <p class="card-text"><strong>Adquirido:</strong> <?php echo date("d-m-Y H:i", strtotime($boleto['fecha_adquirido'])); ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach;
+                    else: ?>
+                        <div class="alert alert-info" role="alert">
+                            No tienes boletos adquiridos todavía. ¡Explora nuestros tours y adquiere el tuyo!
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
