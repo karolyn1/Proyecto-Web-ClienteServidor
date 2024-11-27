@@ -20,14 +20,15 @@
     echo $navbar;
     ?>
     <main>
-        <div class="container-login">
+        
             <!-- Formulario de Inicio de Sesión -->
             <div class="form-container" id="login-form">
                 <h2>Iniciar Sesión</h2>
-                <form action="login.php" method="POST">
-                    <input type="text" id="username" name="username" placeholder="Email o Usuario" required>
-                    <input type="password" id="password" name="password" placeholder="Contraseña" required>
-
+                <form action="procesar_login.php" method="POST">
+                    <label> Usuario: </label> <br>
+                    <input type="text" name="username" id="username"><br>
+                    <label> Contraseña: </label> <br>
+                    <input type="password" name="password"  id="password"><br>
                     <div class="remember">
                         <a href="olvide_contra.php">¿Olvidaste tu contraseña?</a>
                     </div>
