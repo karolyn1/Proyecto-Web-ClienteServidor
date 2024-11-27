@@ -8,19 +8,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis boletos- Casa Natura</title>
+    <title>Mis Boletos - Casa Natura</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Open Sans', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         .sidebar {
@@ -42,7 +37,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         }
 
         .sidebar ul li a {
-            color: black; 
+            color: white; 
             text-decoration: none;
             font-weight: bold;
             display: block;
@@ -50,24 +45,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
         }
 
         .sidebar ul li a:hover {
-            background-color: antiquewhite;
-            color: #3498db; 
+            background-color: #3cb371;
             cursor: pointer;
-        }
-
-        .sidebar ul li a.active {
-            background-color: #f1c40f;
-            color: black;
-            border-radius: 5px;
-        }
-
-        .sidebar .logo img {
-            width: 140px;
-            height: auto;
-            margin-bottom: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         header {
@@ -75,7 +54,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             padding: 20px;
             color: black;
             text-align: center;
-            margin-left: 250px; 
+            margin-left: 250px;
         }
 
         header h1 {
@@ -83,18 +62,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
             font-size: 2em;
             font-weight: bold;
             color: black;
-            margin-left: 10px;
         }
 
         header h1 span {
-            color: #f1c40f; 
+            color: #f1c40f;
         }
 
         header nav ul {
             list-style: none;
             padding: 0;
             display: flex;
-            justify-content: center; 
+            justify-content: center;
+            margin: 0;
         }
 
         header nav ul li {
@@ -111,40 +90,64 @@ $current_page = basename($_SERVER['PHP_SELF']);
             color: #3498db;
         }
 
+        main {
+            margin-left: 270px;
+            padding: 20px;
+        }
+
         footer {
             background-color: #2f8b3b;
             color: white;
             text-align: center;
             padding: 10px;
-            position: absolute;
+            position: fixed;
             bottom: 0;
             width: 100%;
         }
 
-        main {
-            margin-left: 270px;
-            padding: 20px;
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 10px;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            transition: all 0.3s ease-in-out;
+        }
+
+        .card-header {
+            background-color: #2f8b3b;
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .card-footer {
+            background-color: #f8f9fa;
+            color: black;
         }
     </style>
 </head>
 <body>
     <div class="container">
 
+        <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">
-                <img src="imagenes/logo.png" alt="Casa Natura Logo">
+                <img src="imagenes/logo.png" alt="Casa Natura Logo" class="img-fluid mx-auto d-block">
             </div>
             <ul>
-                <li><a ="dashboarduser.php" class="dashboarduser">Mi Perfil</a></li>
-                <li><a href="donaciones.php" class="donaciones">Ver donaciones</a></li>
-                <li><a href="misanimales.php" class="misanimales">Mis animales</a></li>
-                <li><a href="misboletos.php" class="misboletos <?php echo ($current_page == 'misboletos.php') ? 'active' : ''; ?>">Mis boletos</a></li>
+                <li><a href="dashboarduser.php">Mi Perfil</a></li>
+                <li><a href="donaciones.php">Ver donaciones</a></li>
+                <li><a href="misanimales.php">Mis animales</a></li>
+                <li><a href="misboletos.php" class="active">Mis boletos</a></li>
                 <li><a href="editarperfil.php">Editar Perfil</a></li>
                 <li><a href="soporte.php">Soporte</a></li> 
                 <li><a href="logout.php">Salir</a></li> 
             </ul>
         </div>
 
+        <!-- Header -->
         <header>
             <h1><span>CASA</span> NATURA</h1>
             <nav>
@@ -160,16 +163,50 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </nav>
         </header>
 
+        <!-- Main -->
         <main>
-            <h1>Sesión de mis boletos :)</h1>
+            <div class="container mt-5">
+                <h1 class="text-center">Ejemplo Mis Boletos</h1>
+                <div class="row mt-4">
+                    <!-- Ejemplo de boletos adquiridos -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Tour: Aventura Natural</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Fecha:</strong> 15 de diciembre de 2024</p>
+                                <p class="card-text"><strong>Hora:</strong> 10:00 AM</p>
+                                <p class="card-text"><strong>Precio:</strong> $50.00</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Tour: Caminata Nocturna</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text"><strong>Fecha:</strong> 22 de diciembre de 2024</p>
+                                <p class="card-text"><strong>Hora:</strong> 8:00 PM</p>
+                                <p class="card-text"><strong>Precio:</strong> $30.00</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-primary">Ver detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
     <footer>
-        <?php 
-        include("fragmentos.php");
-        echo $footer;
-        ?>
+        
     </footer>
 </body>
 </html>
