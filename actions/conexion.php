@@ -6,10 +6,10 @@
 
     try {
         // Crear la conexión con mysqli
-        $conexion = new mysqli($servername, $username, $password, $dbname);
+        $conn = new mysqli($servername, $username, $password, $dbname);
     
         // Verificar si hubo un error en la conexión
-        if ($conexion->connect_error) {
+        if ($conn->connect_error) {
             throw new Exception("Error en la conexión: " . $conexion->connect_error);
         }
     

@@ -38,7 +38,7 @@
                     FROM animal a 
                     WHERE Apadrinado=0";
 
-                    $result = $conexion->query($sql);
+                    $result = $conn->query($sql);
 
                     if ($result->num_rows > 0) {
                         // Mostrar cada animal como una tarjeta
@@ -53,7 +53,7 @@
                     }
 
                     // Cerrar la conexión
-                    $conexion->close();
+                    $conn->close();
                 } catch (PDOException $e) {
                     echo "<p>Error al cargar los animales: " . htmlspecialchars($e->getMessage()) . "</p>";
                 }

@@ -65,6 +65,11 @@ main {
     color: #FFC107;
 }
 
+.nav-links li.active a {
+  color: #f5bb0d;
+    font-weight: bold; /* Destaca el texto si es necesario */
+}
+
 .login-button {
     background-color: #f7b500;
     color: #fff;
@@ -1631,16 +1636,16 @@ button {
     }
     
     /* Iconos para el dashboard */
-    .icon-dashboard::before { content: "📂"; }
-    .icon-animals::before { content: "🐾"; }
-    .icon-donations::before { content: "💰"; }
-    .icon-sponsorship::before { content: "🤝"; }
-    .icon-tours::before { content: "📅"; }
-    .icon-events::before { content: "🎉"; }
-    .icon-settings::before { content: "⚙️"; }
-    .icon-support::before { content: "🆘"; }
-    .icon-logout::before { content: "🔌"; }
-    .icon-users::before { content: "🫂"; }
+    .icon-dashboard::before { content: "📂 "; }
+    .icon-animals::before { content: "🐾 "; }
+    .icon-donations::before { content: "💰 "; }
+    .icon-sponsorship::before { content: "🤝 "; }
+    .icon-tours::before { content: "📅 "; }
+    .icon-events::before { content: "🎉 "; }
+    .icon-settings::before { content: "⚙️ "; }
+    .icon-support::before { content: "🆘 "; }
+    .icon-logout::before { content: "🔌 "; }
+    .icon-users::before { content: "🫂 "; }
     
 
     .footerAdmin {
@@ -2074,7 +2079,6 @@ body {
 .dashboard-container {
     display: flex;
     font-family: "Monserrat", sans-serif;
-    min-height: 100vh;
 }
 
 /* Sidebar */
@@ -2085,13 +2089,14 @@ body {
     background-color: #ffffff;
     position: static;
     padding: 20px;
-    height: 600px;
+    height: 300px;
     border-right: 1px solid #e6e6e6;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .sidebarMiPerfil h2 {
-    font-size: 22px;
+    font-size: 29px;
+    font-family: "Monserrat", sans-serif;
     font-weight: bold;
     margin-bottom: 20px;
     color:#003049;
@@ -2100,6 +2105,7 @@ body {
 .sidebarMiPerfil ul {
     list-style: none;
     padding: 0;
+    font-family: "Monserrat", sans-serif;
     margin-bottom: 5px;
     font-size: 18px;
     margin: 0;
@@ -2108,21 +2114,27 @@ body {
 .sidebarMiPerfil ul li {
     list-style: none;
     padding: 0;
+    font-family: "Monserrat", sans-serif;
     margin-bottom: 5px;
     font-size: 18px;
     margin: 0;
 }
 
+.sidebarMiPerfil ul li a {
+    color: #003049;
+}
 
-.sidebarMiPerfil ul li:hover {
+.sidebarMiPerfil ul a:hover {
     color: #f5bb0d;
+    font-weight: bold;
+    text-decoration: none;
 }
 
-.sidebarMiPerfil ul li.active {
-    background-color:#003049;
-    border-radius: 5pxpx;
-    color: #fff;
+.sidebarMiPerfil ul li.active a {
+    color: #f5bb0d; 
+    font-weight: bold; 
 }
+
 
 .sidebarMiPerfil ul li .icon {
     width: 20px;
@@ -2138,29 +2150,32 @@ body {
 /* Contenido Principal */
 .main-content-perfil {
     flex: 1;
-    padding: 20px;
-    margin-left: 300px; /* Ajusta el margen para dejar espacio al sidebar */
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .card {
     background-color: #fff;
     padding: 20px;
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     flex: 1;
     min-width: 300px;
 }
 
-.card h3 {
+.card h2 {
     margin-top: 0;
-    font-size: 18px;
-    color: #333;
+    font-weight: bold;
+    font-family: "Monserrat", sans-serif;
+    font-size: 25px;
+    text-align: center;
+    color: #003049;
 }
 
 .card p {
+    text-align: center;
     font-size: 14px;
     color: #666;
     line-height: 1.6;
@@ -2180,4 +2195,11 @@ body {
 .card button:hover {
     background-color: #f7b500;
     color: #FFFFFF;
+}
+
+.perfil-title-donaciones{
+    color: #003049;
+    font-family: "Monserrat", sans-serif;
+    font-size: 30px;
+    font-weight: bold;
 }
