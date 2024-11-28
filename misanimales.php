@@ -24,10 +24,10 @@
             include('fragmentos.php');
             echo $sidebar;
             ?>
-            <div class="main-content-perfil">
-                <h1>Animales Patrocinados Ejemplo</h1>
-                <P>La base de datos conexion</P>
-                <div class="card-container">
+            <div class="col main-content-perfil">
+                
+                <div class="row container card-container">
+                <h2 class="perfil-title-donaciones text-center m-5">MIS ANIMALES</h2>
                     <!-- Ejemplo de cartas de animales patrocinados -->
                     <div class="card">
                         <img src="imagenes/tigre.jpg" alt="Tigre de Bengala" class="card-img-top" style="max-height: 200px; object-fit: cover;">
