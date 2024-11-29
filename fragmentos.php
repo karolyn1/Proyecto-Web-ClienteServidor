@@ -86,4 +86,48 @@ $navbar = '
             <li><a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</a></li>
         </ul>
     </div>';
+
+    $opciones= 
+
+    '
+    <div class="menuCards">
+    <div class="cardMenu">
+        <a href="editarperfil.php">
+            <div class="icon">🏠</div>
+            <p>DASHBOARD</p>
+        </a>
+    </div>
+    <div class="cardMenu">
+        <a href="donaciones.php">
+            <div class="icon">💰</div>
+            <p>MIS DONACIONES</p>
+        </a>
+    </div>
+    <div class="cardMenu">
+        <a href="misanimales.php">
+            <div class="icon">🐾</div>
+            <p>MIS ANIMALES</p>
+        </a>
+    </div>
+    <div class="cardMenu">
+        <a href="misboletos.php">
+            <div class="icon">🎟️</div>
+            <p>MIS TOURS</p>
+        </a>
+    </div>
+    <div class="cardMenu">
+        <a href="misboletos.php">
+            <div class="icon">🤝</div>
+            <p>MIS EVENTOS</p>
+        </a>
+    </div>
+    <div class="cardMenu">
+        <a href="#cerrar-sesion">
+            <div class="icon">🔒</div>
+            <p>CERRAR SESIÓN</p>
+        </a>
+    </div>
+</div>';
     ?>
+
+    

@@ -20,13 +20,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <?php
     include('fragmentos.php');
     echo $navbar;
+    include('./actions/conexion.php');
     ?>
     <main>
+    <?php
+    include('fragmentos.php');
+    echo $opciones;
+    ?>
         <div class="dashboard-container">
-            <?php
-            include('fragmentos.php');
-            echo $sidebar;
-            ?>
             <div class="col main-content-perfil">
                 <div class="row m-5 card-container">
                 <div class="container contenedor-tabla">

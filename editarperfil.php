@@ -31,11 +31,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
     include('./actions/conexion.php');
     ?>
     <main>
+    <?php
+    include('fragmentos.php');
+    echo $opciones;
+    ?>
+
         <div class="dashboard-container">
-            <?php
-            include('fragmentos.php');
-            echo $sidebar;
-            ?>
+           
             <div class="col main-content-perfil">
            
                 <div class="row container card-container flex">
@@ -59,7 +61,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         <button class="submit-btn" onclick="editarDireccion()">EDITAR</button>
                     </div>
 
-                    <div class="container contenedor-tabla">
+                    <div class="container contenedor-tabla mb-5">
                         <h2 class="perfil-title-donaciones">MIS DONACIONES</h2>
                         <br>
                         <table class="tabla text-center">

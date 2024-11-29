@@ -5,7 +5,7 @@ try {
     // Consulta para obtener los datos del administrador
     $sql = "SELECT u.nombre, u.apellido1, u.apellido2, u.telefono, u.correo 
             FROM usuario u 
-            INNER JOIN roles r ON u.id_rol = r.id_rol 
+            INNER JOIN roles r ON u.ID_Rol = r.ID_Rol 
             WHERE r.nombre_rol = 'Administrador'";
     
     // Preparar la consulta

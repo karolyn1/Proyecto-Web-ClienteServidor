@@ -20,12 +20,13 @@
     echo $navbar;
     ?>
     <main>
-        
-            <!-- Formulario de Inicio de Sesión -->
+    <div class="container-login">
+    <img src="imagenes/caballito.jpg" class="animal-images" alt="Animales Casa Natura">
+                        <!-- Formulario de Inicio de Sesión -->
             <div class="form-container" id="login-form">
                 <h2>Iniciar Sesión</h2>
-                <form action="procesar_login.php" method="POST">
-                    <label> Usuario: </label> <br>
+                <form action="./actions/procesar_login.php" method="POST">
+                    <label> Email: </label> <br>
                     <input type="text" name="username" id="username"><br>
                     <label> Contraseña: </label> <br>
                     <input type="password" name="password"  id="password"><br>
@@ -60,10 +61,9 @@
                 </div>
             </div>
 
-            <div class="animal-images">
-                <img src="imagenes/caballito.jpg" alt="Animales Casa Natura">
-            </div>
+
         </div>
+        
     </main>
     <footer>
         <?php

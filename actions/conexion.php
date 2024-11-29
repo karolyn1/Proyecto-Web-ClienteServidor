@@ -13,7 +13,7 @@
             throw new Exception("Error en la conexión: " . $conexion->connect_error);
         }
     
-        echo "Conexión exitosa.<br>";
+       // echo "Conexión exitosa.<br>";
     } catch (Exception $e) {
         // Capturar errores y mostrar el mensaje
         echo "Error en la conexión: " . $e->getMessage();

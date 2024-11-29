@@ -73,8 +73,8 @@
     ?>
 
     <main>
-        <div id="viewport">
-            <div id="content">
+        <div class="viewport">
+            <div class="content">
                 <!-- Navbar -->
                 <nav class="navbar">
                     <div class="container-fluid">

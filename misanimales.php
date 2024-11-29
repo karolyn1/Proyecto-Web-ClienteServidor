@@ -19,30 +19,23 @@
     echo $navbar;
     ?>
     <main>
+    <?php
+    include('fragmentos.php');
+    echo $opciones;
+    ?>
+    <h2 class="perfil-title-donaciones text-center m-5">MIS ANIMALES</h2>
         <div class="dashboard-container">
-            <?php
-            include('fragmentos.php');
-            echo $sidebar;
-            ?>
-            <div class="col main-content-perfil">
+        
+        <br>
+            <div class="main-content-perfil">
                 
                 <div class="row container card-container">
-                <h2 class="perfil-title-donaciones text-center m-5">MIS ANIMALES</h2>
+           
                     <!-- Ejemplo de cartas de animales patrocinados -->
-                    <div class="card">
+                    <div class="card animales">
                         <img src="imagenes/tigre.jpg" alt="Tigre de Bengala" class="card-img-top" style="max-height: 200px; object-fit: cover;">
                         <h2>Tigre de Bengala</h2>
                         <p>Este majestuoso tigre fue rescatado y ahora vive protegido en un santuario.</p>
-                    </div>
-                    <div class="card">
-                        <img src="imagenes/panda.jpg" alt="Panda Rojo" class="card-img-top" style="max-height: 200px; object-fit: cover;">
-                        <h2>Panda Rojo</h2>
-                        <p>Un encantador panda rojo que necesita apoyo para su cuidado.</p>
-                    </div>
-                    <div class="card">
-                        <img src="imagenes/elefante.jpg" alt="Elefante Asiático" class="card-img-top" style="max-height: 200px; object-fit: cover;">
-                        <h2>Elefante Asiático</h2>
-                        <p>Un elefante que fue rescatado de condiciones difíciles y ahora vive en paz.</p>
                     </div>
                 </div>
             </div>

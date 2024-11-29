@@ -18,11 +18,11 @@
     echo $navbar;
     ?>
     <main>
+    <?php
+    include('fragmentos.php');
+    echo $opciones;
+    ?>
         <div class="dashboard-container">
-            <?php
-            include('fragmentos.php');
-            echo $sidebar;
-            ?>
             <div class="container mt-4">
                 <h1 class="text-center">Ejemplo de Boletos Adquiridos</h1>
                 <p class="text-center text-muted">
