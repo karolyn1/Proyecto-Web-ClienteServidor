@@ -12,6 +12,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="./js/java.js"></script>
 </head>
 
 <body>
@@ -44,16 +45,16 @@
             <!-- Formulario de Registro -->
             <div class="form-container" id="register-form" style="display: none;">
                 <h2>Registro</h2>
-                <form action="registro.php" method="POST">
+                <form action="./actions/registro.php" method="POST">
                     <input type="text" name="nombre" placeholder="Nombre" required>
                     <input type="text" name="primer_apellido" placeholder="Primer Apellido" required>
                     <input type="text" name="segundo_apellido" placeholder="Segundo Apellido" required>
                     <input type="text" name="provincia" placeholder="Provincia" required>
-                    <input type="text" name="cantpn" placeholder="Cantón" required>
+                    <input type="text" name="canton" placeholder="Cantón" required>
                     <input type="text" name="distrito" placeholder="Distrito" required>
                     <input type="text" name="direccion" placeholder="Dirección" required>
                     <input type="email" name="correo" placeholder="Correo Electrónico" required>
-                    <input type="password" name="contraseña" placeholder="Contraseña" required>
+                    <input type="password" name="password" placeholder="Contraseña" required>
                     <button type="submit" name="registrar">Registrarme</button>
                 </form>
                 <div class="toggle-section">

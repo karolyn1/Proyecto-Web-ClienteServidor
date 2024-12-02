@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if(!empty($_POST)) {	
     $username = $_POST["username"];
 }
@@ -13,7 +16,7 @@ $navbar = '
     <div class="menu-container">
         <div>
             <ul class="nav-links">
-                <li class="' . ($current_page == 'homepage.php' ? 'active' : '') . '"><a href="homepage.php">HOME</a></li>
+                <li class="' . ($current_page == 'homepage.php' ? 'active' : '') . '"><a href="index.php">HOME</a></li>
                 <li class="' . ($current_page == 'informacionDonacion.php' ? 'active' : '') . '">
                     <a href="informacionDonacion.php">DONACIONES</a>
                     <ul class="submenu">
@@ -24,18 +27,33 @@ $navbar = '
                 <li class="' . ($current_page == 'tourDisponible.php' ? 'active' : '') . '"><a href="tourDisponible.php">TOURS</a></li>
                 <li class="' . ($current_page == 'eventosDisponibles.php' ? 'active' : '') . '"><a href="eventosDisponibles.php">EVENTOS</a></li>
                 <li class="' . ($current_page == 'contactenos.php' ? 'active' : '') . '"><a href="contactenos.php">CONTACTO</a></li>
-                <li class="' . ($current_page == 'quienessomos.php' ? 'active' : '') . '"><a href="quienessomos.php">NOSOTROS</a></li>
-                <li class="' . ($current_page == 'login.php' ? 'active' : '') . '"><a href="login.php"><i class="fas fa-user"></i></a>
-                    <ul class="submenu-login">
-                        <a href="editarPerfil.php">Mi Perfil</a>
-                        <a href="dashboardAdmin.php">Administrador</a>
-                    </ul>
-                </li>
+                <li class="' . ($current_page == 'quienessomos.php' ? 'active' : '') . '"><a href="quienessomos.php">NOSOTROS</a></li>';
+             
+                if(!empty($_SESSION["username"])) {
+                    
+                    $navbar .= '
+                    <li class="' . ($current_page == 'login.php' ? 'active' : '') . '">
+                        <a href="login.php"><i class="fas fa-user"></i></a>
+                        <ul class="submenu-login">
+                            <a href="editarPerfil.php">Mi Perfil</a>
+                            <a href="./actions/cerrarSesion.php">Cerrar Sesión</a>
+                        </ul>
+                    </li>';
+                } else {
+                   
+                    $navbar .= '
+                    <li class="' . ($current_page == 'login.php' ? 'active' : '') . '">
+                        <a href="login.php"><i class="fas fa-user"></i></a>
+                    </li>';
+                }
+
+$navbar .= '
             </ul>
         </div>
     </div>
     <button class="menu-toggle">☰</button>
 </nav>';
+
 
     $footer='<footer class="footer">
         <div class="footer-title">

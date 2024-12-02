@@ -16,17 +16,18 @@ if(!empty($_POST)){
     $result = $conn->query($sql);
     
     if($result->num_rows > 0){
+       ;
         while($row = $result->fetch_assoc()){
-            if($password==($row["Password"])){
+            if(password_verify($password, $row["Password"])){      
                 $_SESSION["username"] = $row["Correo"];
                 $_SESSION["rol"] = $row["Rol"];
                 $_SESSION["IdUsuario"] = $row["ID_Usuario"];
                 $_SESSION["Nombre"] = $row["Nombre"];
                 $_SESSION["Apellido1"] = $row["Apellido1"];
 
-                if($_SESSION["rol"] == "admin"){
+                if($_SESSION["rol"] === "admin"){
                     header("Location: /Proyecto-Web-ClienteServidor/dashboardAdmin.php");
-                } elseif ($_SESSION["rol"] == "cliente") {
+                } elseif ($_SESSION["rol"] === "cliente") {
                     header("Location: /Proyecto-Web-ClienteServidor/index.php");
                 } else {
                     header("Location: /Proyecto-Web-ClienteServidor/index.php");
@@ -35,12 +36,16 @@ if(!empty($_POST)){
                 exit();
 
             } else {
-                echo "Error en password o usuario";
+                echo "<script>
+                alert('Error en Usuario o Contraseña');
+                window.location.href = 'login.php'; // Redirige si no hay datos
+              </script>";
+        exit();
                 session_destroy();
             }
         }
     } else {
         echo "El usuario no existe.";
     }
-    
+
 }
