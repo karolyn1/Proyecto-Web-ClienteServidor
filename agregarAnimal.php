@@ -35,12 +35,15 @@
                     <div class="container-animales-agregar container mt-4">
 
                         <h1><b>CREAR NUEVO ANIMAL</b></h1>
+                        
+                        <form action="actions/guardar_animal.php" method="POST" class="form-agregar-animal" enctype="multipart/form-data">
                         <div class="profile-pic">
                             <img id="profileImage" src="https://via.placeholder.com/100" alt="Foto de perfil">
-                            <input type="file" id="imageUpload" accept="image/*" onchange="loadFile(event)">
-                            <label for="imageUpload">Subir foto</label>
+                            <input type="file" id="file" name="file" onchange="loadFile(event)">
+                            <label for="file">Subir foto</label>
+                            <span id="error-file">La imagen es obligatoria.</span>
+
                         </div>
-                        <form action="actions/guardar_animal.php" method="POST" class="form-agregar-animal">
                             <div class=" form-group">
                                 <div class="mb-3">
                                 <label for="nombre">Nombre</label>
@@ -65,6 +68,14 @@
                                 <div class="mb-3">
                                 <label for="estado_salud">Estado Salud</label>
                                     <input type="text" id="estado_salud" name="estado_salud" placeholder="Estado Salud" required>
+                                </div>
+                                <div class="mb-3">
+                                <label for="estado_salud">Historia</label>
+                                    <input type="text" id="historia" name="historia" placeholder="Estado Salud" required>
+                                </div>
+                                <div class="mb-3">
+                                <label for="estado_salud">Necesidades</label>
+                                    <input type="text" id="necesidades" name="necesidades" placeholder="Estado Salud" required>
                                 </div>
                                 <input type="hidden" id="apadrinado">
                             </div>

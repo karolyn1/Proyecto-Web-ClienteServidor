@@ -21,7 +21,7 @@ if(!empty($_POST)){
 
     if($result->num_rows > 0){
         echo "<script>
-                alert('Lo sentimos. El correo indicado ya existe en nuestra base de datos. Inicia Sesión o registrate con uno nuevo');
+                alert('Lo sentimos. El correo indicado ya existe en nuestra base de datos. Inicia Sesión o Registrate con uno nuevo');
                 window.location.href = '/Proyecto-Web-ClienteServidor/login.php'; // Redirige si no hay datos
               </script>";
         exit();
@@ -38,7 +38,11 @@ if(!empty($_POST)){
             if($conn->query($direccion) === TRUE){
                 $rol = "INSERT INTO `roles`(`Rol`, `ID_Usuario`) VALUES ('cliente', $idUsuario)";
                 if($conn->query($rol) === TRUE){
-                header("Location: /Proyecto-Web-ClienteServidor/index.php");
+                echo "<script>
+                alert('Bienvenido a Casa Natura. Ya puedes iniciar sesión con tus credenciales.');
+                window.location.href = '/Proyecto-Web-ClienteServidor/login.php'; // Redirige si no hay datos
+              </script>";
+                header("Location: /Proyecto-Web-ClienteServidor/login.php");
                 exit(); 
                 } else {
                 echo "Error al insertar el rol.";

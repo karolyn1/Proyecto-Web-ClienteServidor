@@ -1,49 +1,48 @@
 <?php
-require 'conexion.php';
+include('conexion.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtener los datos del formulario
-    $nombre = $_POST['nombre'];
-    $especie = $_POST['especie'];
-    $raza = $_POST['raza'];
-    $fecha_ingreso = $_POST['fecha_ingreso'];
-    $estado_salud = $_POST['estado_salud'];
-    $fecha_nacimiento = $_POST['fecha_nacimiento'];
+    if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
 
-    // Sentencia SQL para insertar datos en la tabla `animal`
-    $sql = "INSERT INTO animal (nombre, especie, raza, fecha_ingreso, estado_salud, fecha_nacimiento) 
-            VALUES (?, ?, ?, ?, ?, ?)";
+        $fileTmpPath = $_FILES['file']['tmp_name'];
+        $fileName = $_FILES['file']['name'];
+        $fileSize = $_FILES['file']['size'];
+        $fileType = $_FILES['file']['type'];
 
-    // Preparar la sentencia
-    if ($stmt = $conn->prepare($sql)) {
-        // Vincular los parámetros
-        $stmt->bind_param("ssssss", $nombre, $especie, $raza, $fecha_ingreso, $estado_salud, $fecha_nacimiento);
+        $nombre = $_POST['nombre'];
+        $especie = $_POST['especie'];
+        $raza = $_POST['raza'];
+        $fecha_ingreso = $_POST['fecha_ingreso'];
+        $estado_salud = $_POST['estado_salud'];
+        $fecha_nacimiento = $_POST['fecha_nacimiento'];
+        $historia = $_POST['historia'];
+        $necesidades = $_POST['necesidades'];
 
-        // Ejecutar la sentencia
-        if ($stmt->execute()) {
-            // Mostrar pop-up y redirigir
-            echo "<script>
+        $uploadDir = 'img/';
+        $destPath = $uploadDir . $fileName;
+
+        if (move_uploaded_file($fileTmpPath, $destPath)) {
+
+            $query = "INSERT INTO animal( Nombre, Raza, Especie, Fecha_Ingreso, Estado_Salud, Fecha_Nacimiento, Historia, Necesidades, Imagen, Apadrinado) 
+            VALUES ('$nombre','$raza','$especie','$fecha_ingreso','$estado_salud','$fecha_nacimiento','$historia','$necesidades','$destPath',0)";
+
+            if ($conn->query($query) ==  TRUE) {
+                echo "<script>
                     alert('Animal registrado correctamente.');
-                    window.location.href = 'gestionAnimales.php';
                   </script>";
-        } else {
-            echo "<script>
+                header('Location: /Proyecto-Web-ClienteServidor/gestionAnimales.php');    
+            } else {
+                echo "<script>
                     alert('Error al registrar el animal.');
-                    window.location.href = 'gestionAnimales.php';
                   </script>";
+                  header('Location: /Proyecto-Web-ClienteServidor/agregarAnimal.php');   
+            }
+        } else {
+            echo "<p>Error al subir el archivo.</p>";
         }
-
-        // Cerrar la sentencia
-        $stmt->close();
     } else {
-        // Si la preparación de la sentencia falla
-        echo "<script>
-                alert('Error al preparar la consulta.');
-                window.location.href = 'gestionAnimales.php';
-              </script>";
+        echo "<p>Error: " . $_FILES['file']['error'] . "</p>";
     }
 }
 
-// Cerrar la conexión
-$conn->close();
-?>
+    
