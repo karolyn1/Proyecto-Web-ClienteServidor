@@ -22,7 +22,7 @@
             <p>General</p>
             <ul>
                 <li><i class="icon-settings"></i><a href="ajustesAdmin.php"> Ajustes</a></li>
-                <li><i class="icon-logout"></i><a href="login.php"> Logout</a></li>
+                <li><i class="icon-logout"></i><a href="./actions/cerrarSesion.php"> Logout</a></li>
             </ul>
         </div>
     </div>';

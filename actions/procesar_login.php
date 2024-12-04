@@ -38,7 +38,7 @@ if(!empty($_POST)){
             } else {
                 echo "<script>
                 alert('Error en Usuario o Contraseña');
-                window.location.href = 'login.php'; // Redirige si no hay datos
+                window.location.href = '/Proyecto-Web-ClienteServidor/login.php'; // Redirige si no hay datos
               </script>";
         exit();
                 session_destroy();
