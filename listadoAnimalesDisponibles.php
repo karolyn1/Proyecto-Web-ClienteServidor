@@ -34,7 +34,7 @@
 
                 try {
                     // Consulta para obtener animales sin usuario asociado
-                    $sql = "SELECT a.ID_Animal, a.Nombre, a.Imagen 
+                    $sql = "SELECT a.ID_Animal, a.Nombre, a.Imagen, a.Historia, a.Especie, a.Raza, a.Fecha_Nacimiento
                     FROM animal a 
                     WHERE Apadrinado=0";
 
@@ -44,12 +44,13 @@
                         // Mostrar cada animal como una tarjeta
                         while ($animal = $result->fetch_assoc()) {
                             echo '<div class="animal-card">';
-                            echo '<img src="./actions/mostrar_imagen.php?ID_Animal=' . htmlspecialchars($animal['ID_Animal']) . '" alt="Foto de ' . htmlspecialchars($animal['Nombre']) . '">';
+                            echo '<img class="imagenAnimal" src="./actions/'.$animal['Imagen'].'">';
                             echo '<a href="animal.php?id=' . $animal['ID_Animal'] . '">' . htmlspecialchars($animal['Nombre']) . '</a>';
+                            echo '<p> '.$animal['Historia'].'</p>';
                             echo '</div>';
                         }
                     } else {
-                        echo "<p>No hay animales disponibles para apadrinar en este momento.</p>";
+                        echo '<p class="mensajeAnimalesApadrinar">No hay animales disponibles para apadrinar en este momento.</p>';
                     }
 
                     // Cerrar la conexión

@@ -16,14 +16,25 @@ $navbar = '
     <div class="menu-container">
         <div>
             <ul class="nav-links">
-                <li class="' . ($current_page == 'homepage.php' ? 'active' : '') . '"><a href="index.php">HOME</a></li>
-                <li class="' . ($current_page == 'informacionDonacion.php' ? 'active' : '') . '">
+                <li class="' . ($current_page == 'index.php' ? 'active' : '') . '"><a href="index.php">HOME</a></li>';
+                 if(!empty($_SESSION["username"])) {
+                    
+                    $navbar .= '
+                     <li class="' . ($current_page == 'informacionDonacion.php' ? 'active' : '') . '">
                     <a href="informacionDonacion.php">DONACIONES</a>
                     <ul class="submenu">
                         <li><a href="formularioDonaciones.php">FORMULARIO</a></li>
                     </ul>
-                </li>
-                <li class="' . ($current_page == 'listadoAnimalesDisponibles.php' ? 'active' : '') . '"><a href="listadoAnimalesDisponibles.php">APADRINAR</a></li>
+                </li>';
+                } else {
+                   
+                    $navbar .= '
+                    <li class="' . ($current_page == 'informacionDonacion.php' ? 'active' : '') . '">
+                        <a href="informacionDonacion.php">DONACIONES</a>
+                    </li>';
+                }
+                
+                '<li class="' . ($current_page == 'listadoAnimalesDisponibles.php' ? 'active' : '') . '"><a href="listadoAnimalesDisponibles.php">APADRINAR</a></li>
                 <li class="' . ($current_page == 'tourDisponible.php' ? 'active' : '') . '"><a href="tourDisponible.php">TOURS</a></li>
                 <li class="' . ($current_page == 'eventosDisponibles.php' ? 'active' : '') . '"><a href="eventosDisponibles.php">EVENTOS</a></li>
                 <li class="' . ($current_page == 'contactenos.php' ? 'active' : '') . '"><a href="contactenos.php">CONTACTO</a></li>
