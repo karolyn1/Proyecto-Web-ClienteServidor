@@ -23,21 +23,23 @@
         include("actions/conexion.php"); // Incluir archivo de conexión
 
         // Obtener los datos necesarios
-        $sql = "SELECT a.nombre AS animal_nombre, u.nombre AS usuario_nombre, u.apellido1, u.apellido2, ia.fecha_apadrinamiento, ia.cuota, ia.animal_id, ia.usuario_id 
+        $sql = "SELECT a.Nombre AS animal_nombre,  CONCAT(u.Nombre, ' ',u.Apellido1, ' ', u.Apellido2) as NombreCompleto, ia.FechaApadrinamiento, ia.Monto, ia.ID_Animal, ia.ID_Usuario
         FROM animal_usuario ia
-        JOIN animal a ON ia.animal_id = a.id
-        JOIN usuario u ON ia.usuario_id = u.id";
+        JOIN usuario u ON 
+        ia.ID_Usuario = u.ID_Usuario
+        JOIN animal a
+        ON ia_ID_Animal = a.ID_Animal;
 
         // Usar mysqli para ejecutar la consulta
         $resultado = $conexion->query($sql);
 
         // Eliminar la relación entre el padrino y el animal
-        if (isset($_GET['eliminar']) && isset($_GET['animal_id']) && isset($_GET['usuario_id'])) {
-        $animal_id = $_GET['animal_id'];
-        $usuario_id = $_GET['usuario_id'];
+        if (isset($_GET['eliminar']) && isset($_GET['ID_Animal']) && isset($_GET['ID_Usuario'])) {
+        $animal_id = $_GET['ID_Animal'];
+        $usuario_id = $_GET['ID_Usuario'];
 
         // Eliminar la relación de apadrinamiento utilizando consultas preparadas
-        $eliminar_sql = "DELETE FROM animal_usuario WHERE animal_id = ? AND usuario_id = ?";
+        $eliminar_sql = "DELETE FROM animal_usuario WHERE ID_Animal = ? AND ID_Usuario = ?";
         $stmt = $conexion->prepare($eliminar_sql);
 
         // Vincular los parámetros
@@ -100,7 +102,7 @@
                                     while($row = $resultado->fetch_assoc()) {
                                         echo "<tr>";
                                         echo "<td>" . $row['animal_nombre'] . "</td>";
-                                        echo "<td>" . $row['usuario_nombre'] . " " . $row['apellido1'] . " " . $row['apellido2'] . "</td>";
+                                        echo "<td>" . $row['NombreCompleto']. "</td>";
                                         echo "<td>" . $row['fecha_apadrinamiento'] . "</td>";
                                         echo "<td>" . $row['cuota'] . "</td>";
                                         echo "<td class='actions'>";

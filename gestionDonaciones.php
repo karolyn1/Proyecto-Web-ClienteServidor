@@ -21,20 +21,20 @@
     include("actions/conexion.php"); // Conexión a la base de datos
 
     // Consulta para obtener donaciones y usuarios
-    $sql = "SELECT u.id AS usuario_id, u.nombre_completo, u.email, d.monto, d.fecha, d.id AS donacion_id 
-    FROM usuarios u 
-    LEFT JOIN donaciones d ON u.id = d.usuario_id
-    WHERE d.estado = 1"; // Estado activo de la donación
+    $sql = "SELECT u.ID_Usuario AS usuario_id, CONCAT(u.Nombre, ' ',u.Apellido1, ' ', u.Apellido2) as NombreCompleto, u.Correo, d.Monto, d.Fecha, d.ID_Donacion AS donacion_id 
+    FROM usuario u 
+    LEFT JOIN donaciones d ON u.ID_Usuario = d.ID_Usuario
+    WHERE d.Estado = 1"; // Estado activo de la donación
     $result = $conn->query($sql); // Usamos el método query() de mysqli
 
     // Eliminación lógica de donaciones
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
         $donacion_id = $_POST['donacion_id'];
-        $update_sql = "UPDATE donaciones SET estado = 0 WHERE id = $donacion_id";
+        $update_sql = "UPDATE donaciones SET Estado = 0 WHERE ID_Usuario = $donacion_id";
         
         // Ejecutar la consulta de actualización
         if ($conn->query($update_sql) === TRUE) {
-            echo "<div class='alert alert-success'>Donación eliminada correctamente.</div>";
+            echo "<script>Donación eliminada correctamente.</script>";
         } else {
             echo "<div class='alert alert-danger'>Error al eliminar: " . $conn->error . "</div>";
         }
@@ -50,10 +50,10 @@
                     </div>
                 </nav>
 
-                <div class="contenedor">
+                <div class="contenedor mt-5">
                     <!-- Botón para generar reporte y barra de búsqueda -->
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <a href="reporte.php" class="btn btn-primary agregarAnimal d-flex align-items-center">
+                        <a href="reporte.php" class="btn-agregar agregarAnimal d-flex align-items-center">
                             <i class="fas fa-file-alt p-1"></i> GENERAR REPORTE
                         </a>
                         <div class="input-group" style="width: 250px;">
@@ -65,7 +65,7 @@
                             </div>
                         </div>
                     </div>
-
+</div>
                     <!-- Tabla de Donaciones -->
                     <table class="table table-striped">
                         <thead>
@@ -82,11 +82,11 @@
                         <?php if ($result->num_rows > 0): ?>
                             <?php while ($row = $result->fetch_assoc()): ?>
                                 <tr>
-                                    <td><?php echo $row['usuario_id']; ?></td>
-                                    <td><?php echo $row['nombre_completo']; ?></td>
-                                    <td><?php echo $row['email']; ?></td>
-                                    <td>$<?php echo number_format($row['monto'], 2); ?></td>
-                                    <td><?php echo date('d/m/Y', strtotime($row['fecha'])); ?></td>
+                                    <td><?php echo $row['donacion_id']; ?></td>
+                                    <td><?php echo $row['NombreCompleto']; ?></td>
+                                    <td><?php echo $row['Correo']; ?></td>
+                                    <td>$<?php echo number_format($row['Monto'], 2); ?></td>
+                                    <td><?php echo date('d/m/Y', strtotime($row['Fecha'])); ?></td>
                                     <td>
                                         <form method="POST" action="">
                                             <input type="hidden" name="donacion_id" value="<?php echo $row['donacion_id']; ?>">
