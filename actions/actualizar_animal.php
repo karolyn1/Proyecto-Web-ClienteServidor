@@ -1,59 +1,63 @@
 <?php
-// Incluir la conexión
-include("conexion.php");
+include('conexion.php');
 
-// Verificar si se enviaron los datos desde el formulario
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Recoger datos del formulario
-    $id = $_POST['id']; // ID del animal
-    $nombre = $_POST['nombre']; // Nombre del animal
-    $especie = $_POST['especie']; // Especie del animal
-    $raza = $_POST['raza']; // Raza del animal
-    $fecha_ingreso = $_POST['fecha_ingreso']; // Fecha de ingreso
-    $fecha_nacimiento = $_POST['fecha_nacimiento']; // Fecha de nacimiento
-    $estado_salud = $_POST['estado_salud']; // Estado de salud
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['idAnimal'])) {
+        $ID_Animal = $_POST['idAnimal'];
+        $nombre = $_POST['NombreEditar'];
+        $especie = $_POST['especieEditar'];
+        $raza = $_POST['razaEditar'];
+        $fecha_ingreso = $_POST['fecha_ingresoEditar'];
+        $estado_salud = $_POST['estado_saludEditar'];
+        $fecha_nacimiento = $_POST['fecha_nacimientoEditar'];
+        $historia = $_POST['historiaEditar'];
+        $necesidades = $_POST['necesidadesEditar'];
+        $apadrinado = $_POST['apadrinadoEditar'];
 
-    // Validar campos obligatorios
-    if (empty($nombre) || empty($especie) || empty($fecha_ingreso)) {
-        echo "Por favor, complete todos los campos obligatorios.";
-        exit;
-    }
+        $uploadDir = 'img/';
+        $destPath = '';
 
-    // Preparar la consulta de actualización
-    $sql = "UPDATE animales 
-            SET nombre = ?, especie = ?, raza = ?, fecha_ingreso = ?, fecha_nacimiento = ?, estado_salud = ? 
-            WHERE id = ?";
-    
-    // Usar prepared statements
-    if ($stmt = $conn->prepare($sql)) {
-        // Vincular parámetros
-        $stmt->bind_param(
-            "ssssssi", // Definir el tipo de datos de los parámetros: 6 cadenas (s) y un entero (i)
-            $nombre,
-            $especie,
-            $raza,
-            $fecha_ingreso,
-            $fecha_nacimiento,
-            $estado_salud,
-            $id
-        );
+        if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+            $fileTmpPath = $_FILES['file']['tmp_name'];
+            $fileName = $_FILES['file']['name'];
+            $fileSize = $_FILES['file']['size'];
+            $fileType = $_FILES['file']['type'];
+            $destPath = $uploadDir . $fileName;
 
-        // Ejecutar la consulta
-        if ($stmt->execute()) {
-            // Redirigir al listado con un mensaje de éxito
-            header("Location: listadoAnimalesDisponibles.php?success=1");
-            exit;
+            if (move_uploaded_file($fileTmpPath, $destPath)) {
+                // Actualizar con nueva imagen
+                $query = "UPDATE animal 
+                          SET Nombre = '$nombre', Raza = '$raza', Especie = '$especie', Fecha_Ingreso = '$fecha_ingreso', 
+                              Estado_Salud = '$estado_salud', Fecha_Nacimiento = '$fecha_nacimiento', Historia = '$historia', 
+                              Necesidades = '$necesidades', Imagen = '$destPath', Apadrinado = '$apadrinado' 
+                          WHERE ID_Animal = '$ID_Animal'";
+            } else {
+                echo json_encode(["status" => "99", "message" => "Error al subir la imagen."]);
+                exit;
+            }
         } else {
-            echo "Error al actualizar el registro: " . $stmt->error;
+            // Actualizar sin nueva imagen
+            $query = "UPDATE animal 
+                      SET Nombre = '$nombre', Raza = '$raza', Especie = '$especie', Fecha_Ingreso = '$fecha_ingreso', 
+                          Estado_Salud = '$estado_salud', Fecha_Nacimiento = '$fecha_nacimiento', Historia = '$historia', 
+                          Necesidades = '$necesidades', Apadrinado = '$apadrinado' 
+                      WHERE ID_Animal = '$ID_Animal'";
         }
 
-        // Cerrar la declaración
-        $stmt->close();
+        // Ejecutar la consulta de actualización
+        try {
+            if ($conn->query($query) === TRUE) {
+                echo json_encode(["status" => "00", "message" => "Animal actualizado correctamente"]);
+                header('Location: /Proyecto-Web-ClienteServidor/gestionAnimales.php');    
+            } else {
+                echo json_encode(["status" => "99", "message" => "Error al actualizar animal"]);
+            }
+        } catch (Exception $e) {
+            echo json_encode(["status" => "99", "message" => "Error al actualizar animal"]);
+        }
     } else {
-        echo "Error en la preparación de la consulta: " . $conn->error;
+        echo json_encode(["status" => "99", "message" => "ID de animal no proporcionado"]);
     }
-}
 
-// Cerrar la conexión
-$conn->close();
+}
 ?>

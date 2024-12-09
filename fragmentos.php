@@ -32,13 +32,14 @@ $navbar = '
                     <li class="' . ($current_page == 'informacionDonacion.php' ? 'active' : '') . '">
                         <a href="informacionDonacion.php">DONACIONES</a>
                     </li>';
+                    
                 }
                 
-                '<li class="' . ($current_page == 'listadoAnimalesDisponibles.php' ? 'active' : '') . '"><a href="listadoAnimalesDisponibles.php">APADRINAR</a></li>
-                <li class="' . ($current_page == 'tourDisponible.php' ? 'active' : '') . '"><a href="tourDisponible.php">TOURS</a></li>
-                <li class="' . ($current_page == 'eventosDisponibles.php' ? 'active' : '') . '"><a href="eventosDisponibles.php">EVENTOS</a></li>
-                <li class="' . ($current_page == 'contactenos.php' ? 'active' : '') . '"><a href="contactenos.php">CONTACTO</a></li>
-                <li class="' . ($current_page == 'quienessomos.php' ? 'active' : '') . '"><a href="quienessomos.php">NOSOTROS</a></li>';
+              $navbar .=' <li class="' . ($current_page == 'listadoAnimalesDisponibles.php' ? 'active' : '') . '"><a href="listadoAnimalesDisponibles.php">APADRINAR</a></li>
+                    <li class="' . ($current_page == 'tourDisponible.php' ? 'active' : '') . '"><a href="tourDisponible.php">TOURS</a></li>
+                    <li class="' . ($current_page == 'eventosDisponibles.php' ? 'active' : '') . '"><a href="eventosDisponibles.php">EVENTOS</a></li>
+                    <li class="' . ($current_page == 'contactenos.php' ? 'active' : '') . '"><a href="contactenos.php">CONTACTO</a></li>
+                    <li class="' . ($current_page == 'quienessomos.php' ? 'active' : '') . '"><a href="quienessomos.php">NOSOTROS</a></li>';
              
                 if(!empty($_SESSION["username"])) {
                     

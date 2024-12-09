@@ -1791,18 +1791,17 @@ body {
 
 /* Fila de encabezado */
 .fila-header {
-    margin: 10px;
-    margin-top: 20px;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 20px;
+    width: 100%;
+    justify-content: space-between; /* Espaciado entre los elementos */
+    align-items: center; /* Alinear verticalmente al centro */
+    margin-bottom: 20px; /* Espacio debajo del contenedor */
+    padding: 10px; /* Opcional: para separación interna */
 }
 
 /* Botón Agregar */
 .boton-agregar {
     flex-shrink: 0;
-    justify-self: start;
 }
 
 .btn-agregar {
@@ -1829,38 +1828,18 @@ body {
 
 /* Buscador */
 .buscador {
-    flex-shrink: 0;
-}
-
-.input-grupo {
+    flex-grow: 1; /* El buscador ocupa todo el espacio restante */
     display: flex;
-    align-items: center;
+    justify-content: flex-end;
 }
 
-.campo-buscar {
+.input-grupo input {
+    width: 100%; /* Ajusta el ancho */
+    max-width: 300px; /* Establece un límite de ancho */
     padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
+    border-radius: 5px;
     font-size: 14px;
-}
-
-.btn-buscar {
-    background-color: #003049;
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-buscar:hover {
-    background-color: #f5bb0d;
-    color: #FFFFFF;
-}
-
-.icono-buscar {
-    font-size: 16px;
 }
 
 /* Contenedor de la tabla */
@@ -1906,8 +1885,12 @@ body {
 }
 
 /* Cuerpo de la tabla */
-.tabla tbody tr {
-    transition: background-color 0.3s ease; }
+.tabla td {
+    transition: background-color 0.3s ease; 
+    color: #003049;
+    font-weight:400;
+    text-align: center;
+}
 
 .tabla tbody tr:nth-child(even) {
     background-color: #f8f9fa; /* Fondo gris claro para filas pares */
@@ -1944,6 +1927,7 @@ body {
     border-radius: 6px;
     font-size: 14px;
     cursor: pointer;
+    background-color: #003049;
     transition: transform 0.2s, background-color 0.3s ease;
     color: #fff;
 }
@@ -1955,16 +1939,18 @@ body {
 .btn-editar {
     margin-bottom: 2px;
     border-radius: 10px;
-    background-color: #f5bb0d; /* Verde */
+    background-color: #003049; /* Verde */
 }
 
 .btn-editar a{
     text-decoration: none;
     color: #FFFFFF;
+    font-weight: bold;
 }
 
 .btn-editar:hover {
-    background-color: #e0a400;
+    transform: scale(1.05);
+    background-color: #f5bb0d;
 }
 
 .btn-eliminar {
@@ -1973,7 +1959,8 @@ body {
 }
 
 .btn-eliminar:hover {
-    background-color: #c82333;
+    background-color: #f5bb0d;
+    transform: scale(1.05); 
 }
 .buscador-donaciones {
     flex-shrink: 0;
