@@ -19,22 +19,17 @@
         echo $sidebarAdmin2;
     ?>
     <main>
-        <div id="viewport">
-            <div id="content">
+        <div class="viewport">
+            <div class="content">
                 <nav class="navbar ">
                     <div class="container-fluid">
                         <h2 class="titulo">Gestión de Usuarios</h2>
                     </div>
                 </nav>
-                <div class="container-fluid">
+                <div class="mt-5 container-fluid">
                     <div class="container container-animales-agregar mt-4">
                         <h1><b>CREAR NUEVO USUARIO</b></h1>
-                        <div class="profile-pic">
-                            <img id="profileImage" src="https://via.placeholder.com/100" alt="Foto de perfil">
-                            <input type="file" id="imageUpload" accept="image/*" onchange="loadFile(event)">
-                            <label for="imageUpload">Subir foto</label>
-                        </div>
-                        <form action="scripts/guardar_usuario.php" method="POST" class="form-agregar-animal">
+                        <form action="actions/guardar_usuario.php" method="POST" class="form-agregar-animal">
                             <div class="row">
                                 <div class="col form-group-agregar-animal mb-3">
                                     <label for="nombre">Nombre</label>
@@ -71,7 +66,7 @@
                                     <option value="cliente">Cliente</option>
                                 </select>
                             </div>
-                            <button type="submit" class="submit-btn btn btn-primary">GUARDAR</button>
+                            <button type="submit" class="submit-btn ">GUARDAR</button>
                         </form>
                     </div>
                 </div>

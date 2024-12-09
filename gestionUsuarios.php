@@ -108,14 +108,14 @@
                         </div>
                     </div>
                     <table class="tabla text-center">
-                        <thead>
+                       
                             <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Rol</th>
                                 <th>Acciones</th>
                             </tr>
-                        </thead>
+                     
                         <tbody>
                             <?php
                             // Consultar los usuarios desde la base de datos
