@@ -10,7 +10,7 @@
     
         // Verificar si hubo un error en la conexión
         if ($conn->connect_error) {
-            throw new Exception("Error en la conexión: " . $conexion->connect_error);
+            throw new Exception("Error en la conexión: " . $conn->connect_error);
         }
     
        // echo "Conexión exitosa.<br>";

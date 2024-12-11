@@ -16,8 +16,9 @@
 <body>
     <?php 
         include("fragmentos.php");
-        echo $navbar;        
-        ?>
+        echo $navbar;
+    ?>
+
     <div class="d-flex justify-content-between align-items-center mt-4">
         <div class="text-container">
             <h1 class="title">SE PARTE DE <br> NUESTRA FAMILIA</h1>
@@ -36,11 +37,11 @@
     <h2 class="family-title">CONOCÉ A NUESTRA FAMILIA</h2>
 
  <!-- Carrusel -->
-    <div class="d-flex justify-content-center mb-5"> <!-- Flexbox para centrar el carrusel -->
+    <!-- <div class="d-flex justify-content-center mb-5"> 
         <div id="animalCarouselHP" class="carousel slide" data-bs-ride="carousel" data-bs-interval="7000">
-            <div class="carousel-inner">
+            <div class="carousel-inner">-->
             <!-- Slide 1 -->
-                <div class="carousel-item active">
+              <!--  <div class="carousel-item active">
                     <div class="carousel-contentHP">
                         <div class="image-containerHP">
                             <img src="imagenes/img2.png" alt="Simba" class="img-fluid">
@@ -54,10 +55,10 @@
                         <a href="#" class="cta-btnHP">Ver más</a>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <!-- Slide 2 -->
-            <div class="carousel-item">
+            <!--<div class="carousel-item">
                 <div class="carousel-contentHP">
                     <div class="image-containerHP">
                         <img src="imagenes/img4.png" alt="Luna" class="img-fluid">
@@ -68,13 +69,13 @@
                             crítica. Ahora, bajo cuidado y protección, se está recuperando. Con tu ayuda, podemos
                             asegurar que reciba el alimento y los cuidados médicos necesarios para que algún día
                             pueda volver a su hábitat natural y vivir en libertad.</p>
-                        <a href="#" class="cta-btnHP">Ver más</a>
+                        <a href="quienessomos.php" class="cta-btnHP">Ver más</a>
                     </div>
                 </div>
-            </div>
+            </div>-->
 
             <!-- Slide 3 -->
-            <div class="carousel-item">
+            <!-- <div class="carousel-item">
                 <div class="carousel-contentHP">
                     <div class="image-containerHP">
                         <img src="imagenes/img5.png" alt="Rocky" class="img-fluid">
@@ -88,20 +89,60 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
         <!-- Botones de navegación -->
+       <!--  <a class="carousel-control-prev" data-bs-target="#animalCarouselHP" data-bs-slide="prev">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i> 
+        </a>-->
+
+    <!-- Botón siguiente -->
+       <!--  <a class="carousel-control-next" data-bs-target="#animalCarouselHP" data-bs-slide="next">
+            <i class="fas fa-arrow-right" aria-hidden="true"></i> 
+        </a>
+    </div>
+</div>-->
+
+<div class="d-flex justify-content-center mb-5">
+    <div id="animalCarouselHP" class="carousel slide" data-bs-ride="carousel" data-bs-interval="7000">
+        <div class="carousel-inner">
+            <?php
+            include('./actions/conexion.php'); // Incluir la conexión aquí
+            
+            $query = "SELECT imagen, nombre, raza, estado_salud FROM animal";
+            $result = $conn->query($query);
+
+            if ($result && $result->num_rows > 0) {
+                $index = 0;
+                while ($animal = $result->fetch_assoc()): ?>
+                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                        <div class="carousel-contentHP d-flex">
+                            <div class="image-containerHP w-50">
+                                <img src="<?php echo $animal['imagen']; ?>" alt="<?php echo htmlspecialchars($animal['nombre']); ?>" class="img-fluid">
+                            </div>
+                            <div class="text-container-carouselHP w-50">
+                                <h3><?php echo htmlspecialchars($animal['nombre']); ?> - <?php echo htmlspecialchars($animal['raza']); ?></h3>
+                                <p>Estado de Salud: <?php echo htmlspecialchars($animal['estado_salud']); ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php 
+                $index++;
+                endwhile;
+            } else {
+                echo "<p>No se encontraron animales.</p>";
+            }
+            ?>
+        </div>
+
         <a class="carousel-control-prev" data-bs-target="#animalCarouselHP" data-bs-slide="prev">
             <i class="fas fa-arrow-left" aria-hidden="true"></i> 
         </a>
-
-    <!-- Botón siguiente -->
         <a class="carousel-control-next" data-bs-target="#animalCarouselHP" data-bs-slide="next">
             <i class="fas fa-arrow-right" aria-hidden="true"></i> 
         </a>
     </div>
 </div>
-
 
     <!-- Sección inferior -->
     <div class="bottom-section">
@@ -109,7 +150,7 @@
             <img src="imagenes/img3.png" alt="Descripción de la imagen" class="img-fluid-info">
         </div>
         <div class="right-box">
-            <a href="#">
+            <a href="quienessomos.php">
                 ¿Deseas conocer más <br> acerca de <br> nuestro refugio?
                 <span class="arrow">→</span>
             </a>
