@@ -109,7 +109,7 @@
             <?php
             include('./actions/conexion.php'); // Incluir la conexión aquí
             
-            $query = "SELECT imagen, nombre, raza, estado_salud FROM animal";
+            $query = "SELECT Imagen, Nombre, Raza, Estado_Salud FROM animal";
             $result = $conn->query($query);
 
             if ($result && $result->num_rows > 0) {
@@ -118,11 +118,11 @@
                     <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
                         <div class="carousel-contentHP d-flex">
                             <div class="image-containerHP w-50">
-                                <img src="<?php echo $animal['imagen']; ?>" alt="<?php echo htmlspecialchars($animal['nombre']); ?>" class="img-fluid">
+                                <img src="./actions/<?php echo $animal['Imagen']; ?>" alt="<?php echo htmlspecialchars($animal['Nombre']); ?>" class="img-fluid">
                             </div>
                             <div class="text-container-carouselHP w-50">
-                                <h3><?php echo htmlspecialchars($animal['nombre']); ?> - <?php echo htmlspecialchars($animal['raza']); ?></h3>
-                                <p>Estado de Salud: <?php echo htmlspecialchars($animal['estado_salud']); ?></p>
+                                <h3><?php echo htmlspecialchars($animal['Nombre']); ?> - <?php echo htmlspecialchars($animal['Raza']); ?></h3>
+                                <p>Estado de Salud: <?php echo htmlspecialchars($animal['Estado_Salud']); ?></p>
                             </div>
                         </div>
                     </div>
