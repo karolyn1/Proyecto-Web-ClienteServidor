@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['registrar'])) {
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     if ($conn) {
-        $query = "INSERT INTO usuario (nombre, primer_apellido, segundo_apellido, provincia, canton, distrito, direccion, correo, password) 
+        $query = "INSERT INTO usuario (Nombre, Primer_Apellido, Segundo_Apellido, Provincia, Canton, Distrito, Direccion, Correo, Password) 
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
         $stmt->bind_param(
