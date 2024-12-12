@@ -37,7 +37,7 @@
             <!-- Formulario de Inicio de Sesión -->
             <div class="form-container" id="login-form">
                 <h2>Iniciar Sesión</h2>
-                <form action="./actions/registro.php" method="POST">
+                <form action="./actions/procesar_login.php" method="POST">
                     <label>Email:</label> <br>
                     <input type="email" name="email" id="email" required><br>
                     <label>Contraseña:</label> <br>
@@ -57,7 +57,7 @@
             <!-- Formulario de Registro -->
             <div class="form-container" id="register-form" style="display: none;">
                 <h2>Registro</h2>
-                <form action="./actions/procesar_login.php" method="POST">
+                <form action="./actions/registro.php" method="POST">
                     <input type="text" name="nombre" placeholder="Nombre" required>
                     <input type="text" name="primer_apellido" placeholder="Primer Apellido" required>
                     <input type="text" name="segundo_apellido" placeholder="Segundo Apellido" required>
