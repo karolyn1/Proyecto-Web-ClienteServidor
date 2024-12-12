@@ -65,7 +65,7 @@
                     <input type="text" name="canton" placeholder="Cantón" required>
                     <input type="text" name="distrito" placeholder="Distrito" required>
                     <input type="text" name="direccion" placeholder="Dirección" required>
-                    <input type="email" name="username" placeholder="Correo Electrónico" required>
+                    <input type="email" name="correo" placeholder="Correo Electrónico" required>
                     <input type="password" name="password" placeholder="Contraseña" required>
                     <button type="submit" name="registrar">Registrarme</button>
                 </form>
