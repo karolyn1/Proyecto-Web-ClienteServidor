@@ -3,7 +3,7 @@ include('conexion.php');
 
 session_start();
 if(!empty($_POST)){
-    $username = $_POST["username"];
+    $username = $_POST["correo"];
     $password = $_POST["password"];
 
 

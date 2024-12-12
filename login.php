@@ -39,7 +39,7 @@
                 <h2>Iniciar Sesión</h2>
                 <form action="./actions/procesar_login.php" method="POST">
                     <label>Email:</label> <br>
-                    <input type="email" name="email" id="email" required><br>
+                    <input type="email" name="correo" id="email" required><br>
                     <label>Contraseña:</label> <br>
                     <input type="password" name="password" id="password" required pattern="^[A-Za-z0-9]{8}$" title="La contraseña debe tener exactamente 8 caracteres alfanuméricos."><br>
                     <div class="remember">
