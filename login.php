@@ -17,24 +17,34 @@
 
 <body>
     <?php
+    session_start();
     include("fragmentos.php");
     echo $navbar;
+
+    include("actions/conexion.php");
+    if (!$conn) {
+        die("Error de conexión: " . mysqli_connect_error());
+    }
+
+    if (isset($_SESSION['usuario_nombre'])) {
+        echo "<div class='alert alert-success'>¡Bienvenido, " . htmlspecialchars($_SESSION['usuario_nombre']) . "!</div>";
+    }
     ?>
+
     <main>
-    <div class="container-login">
-    <img src="imagenes/caballito.jpg" class="animal-images" alt="Animales Casa Natura">
-                        <!-- Formulario de Inicio de Sesión -->
+        <div class="container-login">
+            <img src="imagenes/caballito.jpg" class="animal-images" alt="Animales Casa Natura">
+            <!-- Formulario de Inicio de Sesión -->
             <div class="form-container" id="login-form">
                 <h2>Iniciar Sesión</h2>
                 <form action="./actions/procesar_login.php" method="POST">
-                    <label> Email: </label> <br>
-                    <input type="text" name="username" id="username"><br>
-                    <label> Contraseña: </label> <br>
-                    <input type="password" name="password"  id="password"><br>
+                    <label>Email:</label> <br>
+                    <input type="email" name="email" id="email" required><br>
+                    <label>Contraseña:</label> <br>
+                    <input type="password" name="password" id="password" required pattern="^[A-Za-z0-9]{8}$" title="La contraseña debe tener exactamente 8 caracteres alfanuméricos."><br>
                     <div class="remember">
                         <a href="olvide_contra.php">¿Olvidaste tu contraseña?</a>
                     </div>
-
                     <button type="submit" name="login">INICIAR SESIÓN</button>
                 </form>
                 <div class="toggle-section">
@@ -42,10 +52,12 @@
                 </div>
             </div>
 
+            
+
             <!-- Formulario de Registro -->
             <div class="form-container" id="register-form" style="display: none;">
                 <h2>Registro</h2>
-                <form action="./actions/registro.php" method="POST">
+                <form action="registro_login.php" method="POST">
                     <input type="text" name="nombre" placeholder="Nombre" required>
                     <input type="text" name="primer_apellido" placeholder="Primer Apellido" required>
                     <input type="text" name="segundo_apellido" placeholder="Segundo Apellido" required>
@@ -61,14 +73,11 @@
                     ¿Ya tienes cuenta? <a onclick="toggleForms('login-form')">Iniciar Sesión aquí</a>
                 </div>
             </div>
-
-
         </div>
-        
     </main>
+
     <footer>
         <?php
-        include("fragmentos.php");
         echo $footer;
         ?>
     </footer>
@@ -79,6 +88,18 @@
             document.getElementById("login-form").style.display = formToShow === "login-form" ? "block" : "none";
             document.getElementById("register-form").style.display = formToShow === "register-form" ? "block" : "none";
         }
+    </script>
+
+    <script>
+        document.querySelector("form[action='./actions/procesar_login.php']").addEventListener("submit", function(event) {
+        var password = document.getElementById("password").value;
+
+        // Validar que la contraseña tenga exactamente 8 caracteres
+        if (password.length !== 8) {
+            alert("La contraseña debe tener exactamente 8 caracteres.");
+            event.preventDefault(); // Evita el envío del formulario
+        }
+    });
     </script>
 </body>
 

@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    include('./actions/conexion.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,6 +22,7 @@
     include("fragmentos.php");
         echo $navbar;
     ?>
+
     <main>
     <div class="container-donacion">
         <div class="row">
@@ -76,7 +82,29 @@
             <p class="welcome-text">
             Confianza y Compromiso: Tu contribución se gestiona de manera responsable, asegurando que cada centavo se utilice en beneficio de los animales.
             </p>
-            <button class="about-btn"><a href="formularioDonaciones.php">Quiero Donar</a></button>
+            
+            <button class="about-btn" onclick="verificarLogin()">Quiero Donar</button>
+
+            <script>
+            function verificarLogin() {
+                // Usamos un llamado AJAX para verificar el login
+                fetch('verificar_login.php')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.logueado) {
+                            // Redirige al formulario de donaciones si está logueado
+                            window.location.href = "formularioDonaciones.php";
+                        } else {
+                            // Muestra el popup y redirige al login después de cerrar el popup
+                            alert("Debe estar logueado para realizar donaciones.");
+                            window.location.href = "login.php";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+            </script>
         </div>
 
        

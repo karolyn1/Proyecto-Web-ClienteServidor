@@ -19,6 +19,14 @@
         echo $navbar;
     ?>
 
+    <?php
+    session_start();
+    if (!isset($_SESSION['usuario_id'])) {
+        header("Location: login.php");
+        exit();
+    }
+    ?>
+
     <main>
         <div class="p-5">
             <h1 class="title-formulario">APOYA CON TU DONACIÓN</h1>

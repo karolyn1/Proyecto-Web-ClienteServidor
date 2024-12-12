@@ -74,7 +74,7 @@
 
         $hash_contraseña = password_hash($contraseña, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO usuarios (nombre, primer_apellido, segundo_apellido, provincia, cantpn, distrito, direccion, correo, contraseña, voluntario) 
+        $query = "INSERT INTO usuario (nombre, primer_apellido, segundo_apellido, provincia, cantpn, distrito, direccion, correo, contraseña, voluntario) 
                   VALUES ('$nombre', '$primer_apellido', '$segundo_apellido', '$provincia', '$cantpn', '$distrito', '$direccion', '$correo', '$hash_contraseña', '$voluntario')";
 
         if (mysqli_query($conn, $query)) {
