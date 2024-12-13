@@ -131,6 +131,20 @@ $(function () {
 );
 
 
+//ACCIONES DONACIONES
+$('#desactivarDonaciones').on('submit', function(e){
+    e.preventDefault();
+    $.post("/actions/donacionesAcciones.php", {
+        action: 'desactivar',
+        id: $("#donacion_id").val();
+    }), function(data, status){
+        let reponse = JSON.parse(data);
+        console.log(response);
+        alert.response(response.message);
+    }
+});
+
+
 //VALIDACIONES DEL FORMULARIO DE DONACIONES
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form-donaciones');

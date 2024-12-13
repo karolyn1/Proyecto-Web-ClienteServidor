@@ -9,7 +9,7 @@
         <div class="menuSidebar">
             <p>Main Menu</p>
             <ul>
-                <li ><i class="icon-dashboard"></i><a href="dashboardAdmin.php"> Dashboard</a></li>
+                <li ><i class="icon-dashboard"></i><a href="index.php"> Dashboard</a></li>
                 <li><i class="icon-animals"></i><a href="gestionAnimales.php">  Gestión de Animales</a></li>
                 <li><i class="icon-donations"></i><a href="gestionDonaciones.php"> Gestión de Donaciones</a></li>
                 <li><i class="icon-users"></i><a href="gestionUsuarios.php">  Gestión de Usuarios</a></li>

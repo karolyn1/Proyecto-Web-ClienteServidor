@@ -10,7 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Verificar que ambos campos no estén vacíos
     if (!empty($email) && !empty($password)) {
         // Consultar la base de datos para comprobar el usuario
-        $query = "SELECT * FROM usuario WHERE correo = '$email'";
+        $query = "SELECT a.Nombre, a.Apellido1, a.Correo, a.ID_Usuario, b.Rol, a.Password
+        FROM Usuario a
+        INNER JOIN roles b
+        ON a.ID_Usuario = b.ID_Usuario
+        WHERE a.Correo = '".$email."'";
+    
         $result = mysqli_query($conn, $query);
 
         if (mysqli_num_rows($result) == 1) {
@@ -22,7 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['usuario_id'] = $row['ID_Usuario']; // Usar el campo correcto para el ID
                 $_SESSION['usuario_nombre'] = $row['Nombre'];
                 $_SESSION['usuario_correo'] = $row['Correo'];
-
+                $_SESSION['usuario_rol'] = $row['Rol'];
+    
                 // Redirigir al usuario a la página principal
                 header("Location: ../index.php");
                 exit();

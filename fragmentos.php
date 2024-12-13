@@ -17,7 +17,7 @@ $navbar = '
         <div>
             <ul class="nav-links">
                 <li class="' . ($current_page == 'index.php' ? 'active' : '') . '"><a href="index.php">HOME</a></li>';
-                 if(!empty($_SESSION["username"])) {
+                 if(!empty($_SESSION["usuario_id"])) {
                     
                     $navbar .= '
                      <li class="' . ($current_page == 'informacionDonacion.php' ? 'active' : '') . '">
@@ -42,16 +42,14 @@ $navbar = '
                     <li class="' . ($current_page == 'contactenos.php' ? 'active' : '') . '"><a href="contactenos.php">CONTACTO</a></li>
                     <li class="' . ($current_page == 'quienessomos.php' ? 'active' : '') . '"><a href="quienessomos.php">NOSOTROS</a></li>';
              
-                if(!empty($_SESSION["username"])) {
+                if(!empty($_SESSION["usuario_id"])) {
                     
                     $navbar .= '
+                    <li class="' . ($current_page == 'editarPerfil.php' ? 'active' : '') . '"><a href="editarPerfil.php">MI PERFIL</a></li>
                     <li class="' . ($current_page == 'login.php' ? 'active' : '') . '">
-                        <a href="login.php"><i class="fas fa-user"></i></a>
-                        <ul class="submenu-login">
-                            <a href="editarPerfil.php">Mi Perfil</a>
-                            <a href="./actions/cerrarSesion.php">Cerrar Sesión</a>
-                        </ul>
+                        <a href="actions/cerrarSesion.php"><i class="fas fa-sign-out-alt"></i></a>
                     </li>';
+                    
                 } else {
                    
                     $navbar .= '
