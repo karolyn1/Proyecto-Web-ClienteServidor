@@ -129,3 +129,45 @@ $(function () {
 }
 
 );
+
+
+//VALIDACIONES DEL FORMULARIO DE DONACIONES
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('form-donaciones');
+    form.addEventListener('submit', (e) => {
+        let valid = true;
+
+    // Validar el campo nombre
+    const nombre = document.getElementById('nombre');
+    if (nombre.value.trim() === '') {
+        alert('Por favor ingresa tu nombre completo.');
+        valid = false;
+    }
+
+    // Validar correo electrónico
+    const correo = document.getElementById('correo');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(correo.value)) {
+        alert('Por favor ingresa un correo electrónico válido.');
+        valid = false;
+    }
+
+    // Validar teléfono
+    const telefono = document.getElementById('telefono');
+    const telefonoRegex = /^[0-9]{8,15}$/;
+    if (!telefonoRegex.test(telefono.value)) {
+        alert('Por favor ingresa un número de teléfono válido.');
+        valid = false;
+    }
+
+    // Validar cantidad
+    if (cantidadSelect.value === 'otra' && otraCantidadInput.value === '') {
+        alert('Por favor especifica una cantidad válida.');
+        valid = false;
+    }
+
+    if (!valid) {
+        e.preventDefault(); // Evitar el envío si no es válido
+    }
+});
+});

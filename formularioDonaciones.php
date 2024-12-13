@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    if (!isset($_SESSION['usuario_id'])) {
+        header("Location: login.php");
+        exit();
+    }
+    ?>
+    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
 </head>
 
 <body>
@@ -19,13 +28,6 @@
         echo $navbar;
     ?>
 
-    <?php
-    session_start();
-    if (!isset($_SESSION['usuario_id'])) {
-        header("Location: login.php");
-        exit();
-    }
-    ?>
 
     <main>
         <div class="p-5">
@@ -35,7 +37,7 @@
                 Cada aporte es valioso y ayuda a mejorar la vida de estos animales. 
                 ¡Gracias por ser parte del cambio!</p>
             <div class="container">
-                <form action="datos_formularioDonaciones.php" method="post">
+                <form action="datos_formularioDonaciones.php" method="post" id="form-donaciones">
                     <div class="mb-3">
                         <label for="nombre">Nombre completo del donador</label>
                         <input type="text" id="nombre" name="nombre" class="form-control" required>
@@ -50,12 +52,14 @@
                     </div>
                     <div class="mb-3">
                         <label for="cantidad">Cantidad a donar</label>
-                        <select id="cantidad" name="cantidad" class="form-control" required>
+                        <select id="cantidad" name="cantidad" class="form-control" required onchange="toggleOtraCantidad()">
                             <option value="10">$10</option>
                             <option value="25">$25</option>
                             <option value="50">$50</option>
+                            <option value="otra">Otra cantidad</option>
                         </select>
-                        <input type="number" id="otra-cantidad" name="otra_cantidad" class="form-control mt-2" placeholder="Digite alguna otra cantidad">
+                        <!-- Campo para otra cantidad -->
+                        <input type="number" id="otra-cantidad" name="otra_cantidad" class="form-control mt-2" placeholder="Digite otra cantidad" style="display: none;" min="1">
                     </div>
                     <div class="mb-3">
                         <label for="frecuencia">Frecuencia de la donación</label>
@@ -67,13 +71,92 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="metodo">Método de pago</label>
-                        <select id="metodo" name="metodo" class="form-control" required>
-                            <option value="tarjeta">Tarjeta crédito/débito</option>
-                            <option value="sinpe">Sinpe móvil</option>
-                            <option value="paypal">PayPal</option>
-                        </select>
+                    <label for="metodo">Método de pago</label>
+                    <select id="metodo" name="metodo" class="form-control" required onchange="mostrarModal()">
+                        <option value="">Selecciona un método de pago</option>
+                        <option value="tarjeta">Tarjeta crédito/débito</option>
+                        <option value="sinpe">Sinpe móvil</option>
+                        <option value="paypal">PayPal</option>
+                    </select>
+                </div>
+
+                <!-- Modal para tarjeta -->
+                <div class="modal fade" id="modalTarjeta" tabindex="-1" role="dialog" aria-labelledby="modalTarjetaLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalTarjetaLabel">Pago con Tarjeta</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="numeroTarjeta">Número de tarjeta</label>
+                                        <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="titularTarjeta">Nombre del titular</label>
+                                        <input type="text" class="form-control" id="titularTarjeta" placeholder="Nombre del titular">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="codigoSeguridad">Código de seguridad</label>
+                                        <input type="text" class="form-control" id="codigoSeguridad" placeholder="XXX">
+                                    </div>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Finalizar</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Modal para Sinpe -->
+                <div class="modal fade" id="modalSinpe" tabindex="-1" role="dialog" aria-labelledby="modalSinpeLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalSinpeLabel">Pago por Sinpe Móvil</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Realice su Sinpe al número: <strong>70265643</strong></p>
+                                <p>Nombre del titular: <strong>Casa Natura</strong></p>
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Hecho</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal para PayPal -->
+                <div class="modal fade" id="modalPaypal" tabindex="-1" role="dialog" aria-labelledby="modalPaypalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalPaypalLabel">Pago con PayPal</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="usuarioPaypal">Usuario de PayPal</label>
+                                        <input type="text" class="form-control" id="usuarioPaypal" placeholder="Usuario">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contrasenaPaypal">Contraseña</label>
+                                        <input type="password" class="form-control" id="contrasenaPaypal" placeholder="Contraseña">
+                                    </div>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Finalizar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                     <button type="submit" class="btn btn-dark">Donar</button>
                 </form>
             </div>
@@ -84,6 +167,41 @@
         include("fragmentos.php");
         echo $footer;
     ?>
+
+    <script>
+        function toggleOtraCantidad() {
+            const cantidadDropdown = document.getElementById('cantidad');
+            const otraCantidadInput = document.getElementById('otra-cantidad');
+
+            // Verificar si se selecciona "Otra cantidad"
+            if (cantidadDropdown.value === 'otra') {
+                otraCantidadInput.style.display = 'block';
+                otraCantidadInput.required = true; // Hacer que sea requerido
+            } else {
+                otraCantidadInput.style.display = 'none';
+                otraCantidadInput.required = false; // No requerido si no está visible
+                otraCantidadInput.value = ''; // Limpiar el valor ingresado
+            }
+        }
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+    <script src="./js/java.js" defer></script>
+
+    <script>
+        function mostrarModal() {
+            const metodoPago = document.getElementById('metodo').value;
+
+            if (metodoPago === 'tarjeta') {
+                $('#modalTarjeta').modal('show');
+            } else if (metodoPago === 'sinpe') {
+                $('#modalSinpe').modal('show');
+            } else if (metodoPago === 'paypal') {
+                $('#modalPaypal').modal('show');
+            }
+        }
+    </script>
 
 </body>
 

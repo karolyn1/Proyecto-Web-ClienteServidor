@@ -1,51 +1,49 @@
-<?php 
-include('conexion.php');
-
+<?php
 session_start();
-if(!empty($_POST)){
-    $username = $_POST["correo"];
-    $password = $_POST["password"];
+include("conexion.php");
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Recoger los valores del formulario
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $sql = "SELECT a.Nombre, a.Apellido1, a.Correo, a.ID_Usuario, b.Rol, a.Password
-    FROM Usuario a
-    INNER JOIN roles b
-    ON a.ID_Usuario = b.ID_Usuario
-    WHERE a.Correo = '".$username."'";
+    // Verificar que ambos campos no estén vacíos
+    if (!empty($email) && !empty($password)) {
+        // Consultar la base de datos para comprobar el usuario
+        $query = "SELECT * FROM usuario WHERE correo = '$email'";
+        $result = mysqli_query($conn, $query);
 
-    $result = $conn->query($sql);
-    
-    if($result->num_rows > 0){
-       ;
-        while($row = $result->fetch_assoc()){
-            if(password_verify($password, $row["Password"])){      
-                $_SESSION["username"] = $row["Correo"];
-                $_SESSION["rol"] = $row["Rol"];
-                $_SESSION["IdUsuario"] = $row["ID_Usuario"];
-                $_SESSION["Nombre"] = $row["Nombre"];
-                $_SESSION["Apellido1"] = $row["Apellido1"];
+        if (mysqli_num_rows($result) == 1) {
+            $row = mysqli_fetch_assoc($result);
+            
+            // Verificar la contraseña usando password_verify
+            if (password_verify($password, $row['Password'])) { // Asegúrate de que el campo en la base de datos es 'Password' (mayúscula 'P')
+                // Establecer variables de sesión
+                $_SESSION['usuario_id'] = $row['ID_Usuario']; // Usar el campo correcto para el ID
+                $_SESSION['usuario_nombre'] = $row['Nombre'];
+                $_SESSION['usuario_correo'] = $row['Correo'];
 
-                if($_SESSION["rol"] === "admin"){
-                    header("Location: /Proyecto-Web-ClienteServidor/dashboardAdmin.php");
-                } elseif ($_SESSION["rol"] === "cliente") {
-                    header("Location: /Proyecto-Web-ClienteServidor/index.php");
-                } else {
-                    header("Location: /Proyecto-Web-ClienteServidor/index.php");
-                }
-
+                // Redirigir al usuario a la página principal
+                header("Location: ../index.php");
                 exit();
-
             } else {
-                echo "<script>
-                alert('Error en Usuario o Contraseña');
-                window.location.href = '/Proyecto-Web-ClienteServidor/login.php'; // Redirige si no hay datos
-              </script>";
-        exit();
-                session_destroy();
+                // Si la contraseña no coincide
+                header("Location: ../login.php?error=1");
+                exit();
             }
+        } else {
+            // Si no se encuentra el usuario
+            header("Location: ../login.php?error=1");
+            exit();
         }
     } else {
-        echo "El usuario no existe.";
+        // Si los campos están vacíos
+        header("Location: ../login.php?error=1");
+        exit();
     }
-
+} else {
+    // Si no es un POST request
+    header("Location: ../login.php?error=1");
+    exit();
 }
+?>

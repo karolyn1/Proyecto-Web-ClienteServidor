@@ -35,7 +35,8 @@ $navbar = '
                     
                 }
                 
-              $navbar .=' <li class="' . ($current_page == 'listadoAnimalesDisponibles.php' ? 'active' : '') . '"><a href="listadoAnimalesDisponibles.php">APADRINAR</a></li>
+              $navbar .=' 
+                    <li class="' . ($current_page == 'listadoAnimalesDisponibles.php' ? 'active' : '') . '"><a href="listadoAnimalesDisponibles.php">APADRINAR</a></li>
                     <li class="' . ($current_page == 'tourDisponible.php' ? 'active' : '') . '"><a href="tourDisponible.php">TOURS</a></li>
                     <li class="' . ($current_page == 'eventosDisponibles.php' ? 'active' : '') . '"><a href="eventosDisponibles.php">EVENTOS</a></li>
                     <li class="' . ($current_page == 'contactenos.php' ? 'active' : '') . '"><a href="contactenos.php">CONTACTO</a></li>
@@ -86,7 +87,7 @@ $navbar .= '
             <div class="footer-links">
             <a href="quienessomos.php">NOSOTROS</a>
             <a href="informacionDonacion.php">DONAR</a>
-            <a href="lostadoAnimalesDisponibles.php">APADRINAR</a>
+            <a href="listadoAnimalesDisponibles.php">APADRINAR</a>
             <a href="#">EVENTOS</a>
             <a href="#">TOURS</a>
             <a href="#">CONTÁCTANOS</a>

@@ -2,55 +2,58 @@
 include('conexion.php');
 session_start();
 
-if(!empty($_POST)){
+if (!empty($_POST)) {
     // Recibir datos
     $nombre = $_POST['nombre'];
-    $primerApellido = $_POST['primer_apellido'];
-    $segundoApellido = $_POST['segundo_apellido'];
+    $apellido1 = $_POST['apellido1'];
+    $apellido2 = $_POST['apellido2'];
     $provincia = $_POST['provincia'];
     $canton = $_POST['canton'];
     $distrito = $_POST['distrito'];
-    $direccionExacta = $_POST['direccion'];
-    $username = $_POST['correo']; 
+    $direccionExacta = $_POST['direccion_exacta'];
+    $correo = $_POST['correo'];
     $password = $_POST['password'];
     $hash_password = password_hash($password, PASSWORD_BCRYPT);
 
-   
-    $sql = "SELECT * FROM `usuario` WHERE `Correo` = '$username'";
+    // Verificar si el correo ya está registrado
+    $sql = "SELECT * FROM `usuario` WHERE `Correo` = '$correo'";
     $result = $conn->query($sql);
 
-    if($result->num_rows > 0){
+    if ($result->num_rows > 0) {
         echo "<script>
-                alert('Lo sentimos. El correo indicado ya existe en nuestra base de datos. Inicia Sesión o Registrate con uno nuevo');
-                window.location.href = '/Proyecto-Web-ClienteServidor/login.php'; // Redirige si no hay datos
+                alert('Lo sentimos. El correo indicado ya existe en nuestra base de datos. Inicia Sesión o Regístrate con uno nuevo');
+                window.location.href = '../login.php'; // Redirige al login
               </script>";
         exit();
-    
     } else {
+        // Insertar datos en la base de datos
         $sql = "INSERT INTO `usuario`(`Nombre`, `Apellido1`, `Apellido2`, `Correo`, `Password`, `Donador`, `Estado`) 
-                VALUES ('$nombre', '$primerApellido', '$segundoApellido', '$username', '$hash_password', 0, 'Activo')";
+                VALUES ('$nombre', '$apellido1', '$apellido2', '$correo', '$hash_password', 0, 'Activo')";
         
-        if($conn->query($sql) === TRUE){
+        if ($conn->query($sql) === TRUE) {
             $idUsuario = $conn->insert_id;  
             $direccion = "INSERT INTO `direccion`(`Provincia`, `Canton`, `Distrito`, `Direccion_Exacta`, `ID_Usuario`) 
                           VALUES ('$provincia', '$canton', '$distrito', '$direccionExacta', $idUsuario)";
             
-            if($conn->query($direccion) === TRUE){
+            if ($conn->query($direccion) === TRUE) {
                 $rol = "INSERT INTO `roles`(`Rol`, `ID_Usuario`) VALUES ('cliente', $idUsuario)";
-                if($conn->query($rol) === TRUE){
-                echo "<script>
-                alert('Bienvenido a Casa Natura. Ya puedes iniciar sesión con tus credenciales.');
-                window.location.href = '/Proyecto-Web-ClienteServidor/login.php'; // Redirige si no hay datos
-              </script>";
-                header("Location: /Proyecto-Web-ClienteServidor/login.php");
-                exit(); 
+                if ($conn->query($rol) === TRUE) {
+                    $_SESSION["Nombre"] = $nombre;
+                    $_SESSION["Apellido1"] = $apellido1;
+                    $_SESSION["correo"] = $correo;
+                    $_SESSION["rol"] = 'cliente';
+                    
+                    echo "<script>
+                            alert('Bienvenido a Casa Natura. Ya puedes iniciar sesión con tus credenciales.');
+                            window.location.href = '../login.php';
+                          </script>";
+                    exit(); 
                 } else {
-                echo "Error al insertar el rol.";
+                    echo "Error al insertar el rol.";
                 }
-        } else {
-            echo "Error al insertar la dirección.";
-        }
-            
+            } else {
+                echo "Error al insertar la dirección.";
+            }
         } else {
             echo "Error al registrar el usuario.";
         }
