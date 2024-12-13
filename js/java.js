@@ -131,57 +131,66 @@ $(function () {
 );
 
 
-//ACCIONES DONACIONES
-$('#desactivarDonaciones').on('submit', function(e){
-    e.preventDefault();
-    $.post("/actions/donacionesAcciones.php", {
-        action: 'desactivar',
-        id: $("#donacion_id").val();
-    }), function(data, status){
-        let reponse = JSON.parse(data);
-        console.log(response);
-        alert.response(response.message);
-    }
-});
-
-
-//VALIDACIONES DEL FORMULARIO DE DONACIONES
+// VALIDACIONES DEL FORMULARIO DE DONACIONES
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('form-donaciones');
+    const submitButton = document.getElementById('submit-button');
+    
     form.addEventListener('submit', (e) => {
         let valid = true;
 
-    // Validar el campo nombre
-    const nombre = document.getElementById('nombre');
-    if (nombre.value.trim() === '') {
-        alert('Por favor ingresa tu nombre completo.');
-        valid = false;
-    }
+        // Deshabilitar el botón de envío al comenzar la validación
+        submitButton.disabled = true;
 
-    // Validar correo electrónico
-    const correo = document.getElementById('correo');
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(correo.value)) {
-        alert('Por favor ingresa un correo electrónico válido.');
-        valid = false;
-    }
+        // Validar el campo nombre
+        const nombre = document.getElementById('nombre');
+        if (nombre.value.trim() === '') {
+            alert('Por favor ingresa tu nombre completo.');
+            valid = false;
+        }
 
-    // Validar teléfono
-    const telefono = document.getElementById('telefono');
-    const telefonoRegex = /^[0-9]{8,15}$/;
-    if (!telefonoRegex.test(telefono.value)) {
-        alert('Por favor ingresa un número de teléfono válido.');
-        valid = false;
-    }
+        // Validar el campo apellido1
+        const apellido1 = document.getElementById('apellido1');
+        if (apellido1.value.trim() === '') {
+            alert('Por favor ingresa tu primer apellido.');
+            valid = false;
+        }
 
-    // Validar cantidad
-    if (cantidadSelect.value === 'otra' && otraCantidadInput.value === '') {
-        alert('Por favor especifica una cantidad válida.');
-        valid = false;
-    }
+        // Validar el campo apellido2
+        const apellido2 = document.getElementById('apellido2');
+        if (apellido2.value.trim() === '') {
+            alert('Por favor ingresa tu segundo apellido.');
+            valid = false;
+        }
 
-    if (!valid) {
-        e.preventDefault(); // Evitar el envío si no es válido
-    }
-});
+        // Validar correo electrónico
+        const correo = document.getElementById('correo');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(correo.value)) {
+            alert('Por favor ingresa un correo electrónico válido.');
+            valid = false;
+        }
+
+        // Validar teléfono
+        const telefono = document.getElementById('telefono');
+        const phoneRegex = /^\d{8,15}$/; // Ejemplo: 8-15 dígitos
+        if (!phoneRegex.test(telefono.value)) {
+            alert('Por favor ingresa un número de teléfono válido.');
+            valid = false;
+        }
+
+        // Validar campo "Otra cantidad" si está visible
+        const otraCantidad = document.getElementById('otra-cantidad');
+        if (otraCantidad.offsetHeight > 0 && otraCantidad.value <= 0) {
+            alert('Por favor ingresa una cantidad válida.');
+            valid = false;
+        }
+
+        if (!valid) {
+            e.preventDefault(); // Prevenir envío si hay errores
+        } else {
+            // Si es válido, se puede proceder con el envío del formulario
+            submitButton.disabled = false;
+        }
+    });
 });

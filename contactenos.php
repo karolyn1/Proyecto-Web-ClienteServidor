@@ -22,19 +22,32 @@
         ?>
     </header>
 <main>
-    <section class="contact-section">
+<section class="contact-section">
         <div class="contact-form">
             <img src="imagenes/logo.png" alt="Casa Natura Logo" class="logo-mascot">
         </div>
         <div class="contact-form">
-            
-            <form>
+        <form id="contact-form" action="#" method="GET">
             <h3 class="contacto-title-form">¿Tienes alguna duda?</h3>
-                <input type="text" placeholder="Nombre"> <input type="text" placeholder="Apellidos">
-                <input type="email" placeholder="Email">
-                <textarea placeholder="Mensaje"></textarea>
-                <button type="submit" class="about-btn">ENVIAR</button>
-            </form>
+
+            <!-- Campo Nombre -->
+            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+            <small class="error-message" style="color: red; display: none;">Por favor, ingresa tu nombre.</small>
+
+            <!-- Campo Apellidos -->
+            <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required>
+            <small class="error-message" style="color: red; display: none;">Por favor, ingresa tus apellidos.</small>
+
+            <!-- Campo Correo Electrónico -->
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <small class="error-message" style="color: red; display: none;">Por favor, ingresa un correo válido.</small>
+
+            <!-- Campo Mensaje -->
+            <textarea id="mensaje" name="mensaje" placeholder="Mensaje" required></textarea>
+            <small class="error-message" style="color: red; display: none;">Por favor, escribe un mensaje.</small>
+
+            <button type="submit" class="about-btn">ENVIAR</button>
+        </form>
         </div>
     </section>
 
@@ -59,5 +72,30 @@
         echo $footer;
         ?>
     </footer>
+
+    <script>
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Detener el envío para la demostración
+        let isValid = true;
+
+        // Selecciona todos los campos y verifica su validez
+        const inputs = document.querySelectorAll("#contact-form input, #contact-form textarea");
+        inputs.forEach(input => {
+            const errorMessage = input.nextElementSibling; // El mensaje de error es el siguiente hermano
+            if (!input.checkValidity()) {
+                isValid = false;
+                errorMessage.style.display = "block";
+                errorMessage.textContent = input.validationMessage;
+            } else {
+                errorMessage.style.display = "none";
+            }
+        });
+
+        if (isValid) {
+            alert("Formulario completado correctamente. ¡Gracias por contactarnos!"); // Mensaje de demostración
+            document.getElementById("contact-form").reset(); // Limpia el formulario
+        }
+    });
+</script>
 </body>
 </html>

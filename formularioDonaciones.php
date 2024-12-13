@@ -43,6 +43,14 @@
                         <input type="text" id="nombre" name="nombre" class="form-control" required>
                     </div>
                     <div class="mb-3">
+                        <label for="apellido1">Primer apellido</label>
+                        <input type="text" id="apellido1" name="apellido1" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido2">Segundo apellido</label>
+                        <input type="text" id="apellido2" name="apellido2" class="form-control">
+                    </div>
+                    <div class="mb-3">
                         <label for="correo">Correo electrónico</label>
                         <input type="email" id="correo" name="correo" class="form-control" required>
                     </div>
@@ -51,8 +59,8 @@
                         <input type="tel" id="telefono" name="telefono" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="cantidad">Cantidad a donar</label>
-                        <select id="cantidad" name="cantidad" class="form-control" required onchange="toggleOtraCantidad()">
+                        <label for="monto">Cantidad a donar</label>
+                        <select id="monto-select" name="monto" class="form-control" required onchange="toggleOtraCantidad()">
                             <option value="10">$10</option>
                             <option value="25">$25</option>
                             <option value="50">$50</option>
@@ -157,7 +165,7 @@
                     </div>
                 </div>
 
-                    <button type="submit" class="btn btn-dark">Donar</button>
+                    <button type="submit" class="btn btn-dark" id="submit-button">Donar</button>
                 </form>
             </div>
         </div>
@@ -170,17 +178,16 @@
 
     <script>
         function toggleOtraCantidad() {
-            const cantidadDropdown = document.getElementById('cantidad');
-            const otraCantidadInput = document.getElementById('otra-cantidad');
+            const montoSelect = document.getElementById("monto-select");
+            const otraCantidadInput = document.getElementById("otra-cantidad");
 
-            // Verificar si se selecciona "Otra cantidad"
-            if (cantidadDropdown.value === 'otra') {
-                otraCantidadInput.style.display = 'block';
-                otraCantidadInput.required = true; // Hacer que sea requerido
+            if (montoSelect.value === "otra") {
+                otraCantidadInput.style.display = "block";
+                otraCantidadInput.required = true;
             } else {
-                otraCantidadInput.style.display = 'none';
-                otraCantidadInput.required = false; // No requerido si no está visible
-                otraCantidadInput.value = ''; // Limpiar el valor ingresado
+                otraCantidadInput.style.display = "none";
+                otraCantidadInput.required = false;
+                otraCantidadInput.value = ""; // Limpiar valor si se selecciona otra opción
             }
         }
     </script>
