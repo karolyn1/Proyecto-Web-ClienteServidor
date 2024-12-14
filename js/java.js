@@ -126,9 +126,113 @@ $(function () {
     // Llama a la función para obtener todos los animales
     getAllAnimals();
 
-}
+//------------------------------------------------------------------------------------
+//GESTION DE DONACIONES
 
-);
+//DESACTIVAR DONACIONES
+$('#desactivarDonaciones').on("submit",  function(e){
+    console.log("funciona");
+    $id= $("#donacion_id").val();
+    e.preventDefault();
+    $.post("actions/donacionesAcciones.php", {
+        action: 'desactivar',
+        id:$id
+    }, function(data, status) {
+        let response = JSON.parse(data);
+        console.log(response.message);
+        alert(response.message);
+        if(response.status=='00'){
+            location.reload();
+        }
+    }).fail(function(){
+        alert("Error al procesar la solicitud.")
+    });
+});
+
+//------------------------------------------------------------------------------------
+//GESTION DE USUARIOS
+
+//AGREGAR USUARIO
+$("#agregarUsuario").on("submit", function(e){
+    e.preventDefault();
+    console.log("hola");
+    $.post("actions/accionesUsuario.php", {
+        action: 'add',
+        nombre: $("#nombre").val(),
+        apellido1: $("#apellido1").val(),
+        apellido2: $("#apellido2").val(),
+        correo: $("#correo").val(),
+        telefono: $("#telefono").val(),
+        password: $("#password").val(),
+        rol: $("#rol").val()
+    }, function(data, status){
+        let response= JSON.parse(data);
+        alert(response.message);
+        if (response.status === '00') {  // Verifica si la actualización fue exitosa
+            // Redirigir a la página de gestión de usuarios
+            window.location.href = "./gestionUsuarios.php";
+        }
+    }).fail(function() {
+        alert("Error al procesar la solicitud.");
+    });
+    });
+
+
+//EDITAR USUARIO
+
+$("#actualizarUsuario").on("submit", function(e){
+    e.preventDefault();
+
+    $.post("actions/accionesUsuario.php", {
+        action: 'actualizar',
+        id: $("#idUsuarioEditar").val(),
+        nombre: $("#nombreEditar").val(),
+        apellido1: $("#apellido1Editar").val(),
+        apellido2: $("#apellido2Editar").val(),
+        correo: $("#correoEditar").val(),
+        telefono: $("#telefonoEditar").val(),
+        rol: $("#rolEditar").val(),
+        estado: $("#estadoEditar").val()
+    }, function(data, status){
+        let response= JSON.parse(data);
+        alert(response.message);
+        if (response.status === '00') {  // Verifica si la actualización fue exitosa
+            // Redirigir a la página de gestión de usuarios
+            window.location.href = "./gestionUsuarios.php";
+        }
+    }).fail(function() {
+        alert("Error al procesar la solicitud.");
+    });
+    });
+
+});
+
+//ELIMINAR O DESACTIVAR USUARIO
+//ELIMINA SI ES ADMIN, DESACTIVA SI ES CLIENTE, ESTO PARA NO PERDER TRACKING DE DATOS DE DONACIONES, ETC
+$(document).on("click", "#eliminarUsuario", function() {
+
+
+    let userId = $(this).data('id');
+    console.log(userId);
+
+    if (confirm("¿Estás seguro de eliminar este usuario?")) {
+        $.post("actions/accionesUsuario.php", {
+            action: 'eliminar',
+            id: userId
+        }, function(data, status) {
+            let response = JSON.parse(data); 
+            alert(response.message); 
+
+
+            if (response.status === '00') {
+                location.reload(); }
+        }).fail(function() {
+            // En caso de error en la solicitud AJAX
+            alert("Error al procesar la solicitud");
+        });
+    };
+
+
 
 
 // VALIDACIONES DEL FORMULARIO DE DONACIONES
@@ -193,4 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.disabled = false;
         }
     });
+});
+
+
+
+//CIERRE DEL FUNCTION
 });

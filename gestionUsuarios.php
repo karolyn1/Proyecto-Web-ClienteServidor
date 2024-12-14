@@ -12,6 +12,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
 </head>
 
 <body>
@@ -108,18 +110,20 @@
                         </div>
                     </div>
                     <table class="tabla text-center">
-                       
-                            <tr>
-                                <th>#</th>
-                                <th>Nombre</th>
-                                <th>Rol</th>
-                                <th>Acciones</th>
-                            </tr>
-                     
+
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Rol</th>
+                            <th>Correo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+
                         <tbody>
                             <?php
                             // Consultar los usuarios desde la base de datos
-                            $sqlUsuarios = "SELECT a.ID_Usuario, a.Nombre, a.Apellido1, a.Apellido2, a.Correo, a.Estado, b.Rol 
+                            $sqlUsuarios = "SELECT a.ID_Usuario,CONCAT( a.Nombre,' ', a.Apellido1,' ', a.Apellido2) as NombreCompleto, a.Correo, a.Estado, b.Rol 
                             FROM usuario a
                             INNER JOIN roles b
                             ON a.ID_Usuario = b.ID_Usuario";
@@ -129,11 +133,16 @@
                                 while ($fila = $resultadoUsuarios->fetch_assoc()) {
                                     echo "<tr>";
                                     echo "<td>" . htmlspecialchars($fila['ID_Usuario']) . "</td>";
-                                    echo "<td>" . htmlspecialchars($fila['Nombre']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($fila['NombreCompleto']) . "</td>";
                                     echo "<td>" . htmlspecialchars($fila['Rol']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($fila['Correo']) . "</td>";
+                                    echo "<td>" . htmlspecialchars($fila['Estado']) . "</td>";
                                     echo "<td class='actions'>";
                                     echo "<a href='editarUsuario.php?id=" . $fila['ID_Usuario'] . "' class='edit'><i class='fas fa-pen'></i></a>";
-                                    echo "<a href='gestionarUsuarios.php?eliminar=" . $fila['ID_Usuario'] . "' class='delete' onclick='return confirm(\"¿Estás seguro de eliminar este usuario?\");'><i class='fas fa-trash'></i></a>";
+                                    echo "<button class='delete' id='eliminarUsuario' data-id='" . $fila['ID_Usuario'] . "'>
+            <i class='fas fa-trash'></i>
+        </button>";
+
                                     echo "</td>";
                                     echo "</tr>";
                                 }

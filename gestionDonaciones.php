@@ -12,6 +12,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
 </head>
 
 <body>
@@ -75,17 +77,17 @@
                     <!-- Botón para generar reporte y barra de búsqueda -->
     <div class="container">
                     <!-- Tabla de Donaciones -->
-                    <table class="tabla table-striped">
-                        <thead>
+                    <table class="tabla text-center">
+                        
                             <tr>
                                 <th>#</th>
-                                <th>Usuario</th>
-                                <th>Email</th>
-                                <th>Donación</th>
-                                <th>Fecha</th>
-                                <th>Acciones</th>
+                                <th>USUARIO</th>
+                                <th>EMAIL</th>
+                                <th>DONACIÓN</th>
+                                <th>FECHA</th>
+                                <th>ACCIONES</th>
                             </tr>
-                        </thead>
+                       
                         <tbody>
                             <?php if ($result->num_rows > 0): ?>
                                 <?php while ($row = $result->fetch_assoc()): ?>
@@ -96,11 +98,11 @@
                                         <td>$<?php echo number_format($row['Monto'], 2); ?></td>
                                         <td><?php echo date('d/m/Y', strtotime($row['Fecha'])); ?></td>
                                         <td>
-                                            <form  id="desactivarDonaciones">
+                                            <form  id="desactivarDonaciones" action="">
                                                 <input type="hidden" name="donacion_id" id="donacion_id"
                                                     value="<?php echo $row['donacion_id']; ?>">
-                                                <button type="submit" name="desactivarDonacion" id="desactivarDonacion" class="btn btn-warning btn-sm">
-                                                <i class="fa-solid fa-person-running"></i> <b>Desactivar</b>                                                </button>
+                                                <button type="submit" name="desactivarDonacion" id="desactivarDonacion" class=" btnDesactivar ">
+                                                <i class="fa-solid fa-person-running"></i> <b>Desactivar</b>                                            </button>
                                             </form>
                                         </td>
                                     </tr>

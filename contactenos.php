@@ -35,7 +35,7 @@
             <small class="error-message" style="color: red; display: none;">Por favor, ingresa tu nombre.</small>
 
             <!-- Campo Apellidos -->
-            <input type="text" id="apellidos" name="apellidos" placeholder="Apellidos" required>
+            <input type="text" id="apellidos" name="apellidos" placeholder="Apellido" required>
             <small class="error-message" style="color: red; display: none;">Por favor, ingresa tus apellidos.</small>
 
             <!-- Campo Correo Electrónico -->

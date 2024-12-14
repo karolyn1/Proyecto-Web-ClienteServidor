@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
 </head>
 
 <body>
@@ -29,7 +31,7 @@
                 <div class="mt-5 container-fluid">
                     <div class="container container-animales-agregar mt-4">
                         <h1><b>CREAR NUEVO USUARIO</b></h1>
-                        <form action="actions/guardar_usuario.php" method="POST" class="form-agregar-animal">
+                        <form id="agregarUsuario" class="form-agregar-animal">
                             <div class="row">
                                 <div class="col form-group-agregar-animal mb-3">
                                     <label for="nombre">Nombre</label>
@@ -56,7 +58,7 @@
                             </div>
                             <div class="form-group-agregar-animal mb-3">
                                 <label for="contraseña">Contraseña</label>
-                                <input type="password" id="contraseña" name="contraseña" placeholder="Contraseña" class="form-control" required>
+                                <input type="password" id="password" name="password" placeholder="Contraseña" class="form-control" required>
                             </div>
                             <div class="form-group-agregar-animal mb-3">
                                 <label for="rol">Rol</label>
@@ -78,15 +80,6 @@
         include("sidebar.php");
         echo $footerAdmin;
     ?>
-
-    <script>
-        // Mostrar imagen de perfil seleccionada
-        const loadFile = event => {
-            const output = document.getElementById('profileImage');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = () => URL.revokeObjectURL(output.src);
-        };
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>

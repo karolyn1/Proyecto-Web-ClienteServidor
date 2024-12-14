@@ -45,7 +45,7 @@
                             <a class="btn-agregar" href="agregarAnimal.php">
                                 <i class="fas fa-plus icono-agregar"></i> AGREGAR ANIMAL
                             </a>
-                        </div>
+                            </div>
 
                         <!-- Input de búsqueda -->
                         <div class="buscador">
@@ -58,11 +58,11 @@
                         <table class="tabla text-center" id="tablaAnimales">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Raza</th>
-                                    <th>Especie</th>
-                                    <th>Apadrinado</th>
-                                    <th>Acciones</th>
+                                    <th>NOMBRE</th>
+                                    <th>RAZA</th>
+                                    <th>ESPECIE</th>
+                                    <th>APADRINADO</th>
+                                    <th>ACCIONES</th>
                                 </tr>
                                 <tbody id="bodyTabla">
 

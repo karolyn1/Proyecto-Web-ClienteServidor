@@ -1,4 +1,7 @@
-<?php
+
+
+<!-- <?php
+ //NO SE ESTA USANDO, SE CAMBIO POR EL DE ACCIONES_USUARIO
 require 'conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -8,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $apellido2 = $_POST['apellido2'];
     $correo = $_POST['correo'];
     $telefono = $_POST['telefono'];
-    $contraseña = password_hash($_POST['contraseña'], PASSWORD_BCRYPT); // Encriptar la contraseña
+    $contraseña = password_hash($_POST['password'], PASSWORD_BCRYPT); // Encriptar la contraseña
     $rol = $_POST['rol'];
 
     // Validar datos
@@ -55,4 +58,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Cerrar la conexión
 $conn->close();
-?>
+?> -->
