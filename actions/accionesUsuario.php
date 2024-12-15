@@ -18,37 +18,44 @@ switch ($data['action']) {
         $Estado = 'Activo'; // El estado lo puedes establecer directamente
         $Password = mysqli_real_escape_string($conn, $data['password']);
         $Password = password_hash($Password, PASSWORD_DEFAULT); // Hashea la contraseña para mayor seguridad
-    
-        try {
-            // Inserción de usuario
-            $sql = "INSERT INTO usuario (Nombre, Apellido1, Apellido2, Estado, Correo, Telefono, Password) 
-                    VALUES ('$Nombre', '$Apellido1', '$Apellido2', '$Estado', '$Correo', '$Telefono', '$Password')";
-    
-            $ejecutarUsuario = $conn->query($sql);
-    
-            if ($ejecutarUsuario) {
-                $idUsuario = $conn->insert_id; // Obtén el ID del usuario recién insertado
-    
-                // Insertar el rol en la tabla roles
-                $sqlRol = "INSERT INTO roles (ID_Usuario, Rol) VALUES ('$idUsuario', '$Rol')";
-                $ejecutarRol = $conn->query($sqlRol);
-    
-                if ($ejecutarRol) {
-                    echo json_encode(["status" => "00", "message" => "Usuario y rol insertados correctamente"]);
+        $consultar = "SELECT * FROM usuario";
+        $ejecutarConsulta = $conn->query($consultar);
+
+        if ($ejecutarConsulta->num_rows > 0) {
+            echo json_encode(["status" => "99", "message" => "Ya existe un usuario con el correo indicado"]);
+        } else {
+            try {
+                // Inserción de usuario
+                $sql = "INSERT INTO usuario (Nombre, Apellido1, Apellido2, Estado, Correo, Telefono, Password) 
+                        VALUES ('$Nombre', '$Apellido1', '$Apellido2', '$Estado', '$Correo', '$Telefono', '$Password')";
+        
+                $ejecutarUsuario = $conn->query($sql);
+        
+                if ($ejecutarUsuario) {
+                    $idUsuario = $conn->insert_id; // Obtén el ID del usuario recién insertado
+        
+                    // Insertar el rol en la tabla roles
+                    $sqlRol = "INSERT INTO roles (ID_Usuario, Rol) VALUES ('$idUsuario', '$Rol')";
+                    $ejecutarRol = $conn->query($sqlRol);
+        
+                    if ($ejecutarRol) {
+                        echo json_encode(["status" => "00", "message" => "Usuario y rol insertados correctamente"]);
+                    } else {
+                        // Si falla la inserción del rol, elimina el usuario insertado
+                        $deleteUsuario = "DELETE FROM usuario WHERE ID_Usuario = '$idUsuario'";
+                        $conn->query($deleteUsuario);
+        
+                        echo json_encode(["status" => "99", "message" => "Hubo un error al insertar el rol"]);
+                    }
                 } else {
-                    // Si falla la inserción del rol, elimina el usuario insertado
-                    $deleteUsuario = "DELETE FROM usuario WHERE ID_Usuario = '$idUsuario'";
-                    $conn->query($deleteUsuario);
-    
-                    echo json_encode(["status" => "99", "message" => "Hubo un error al insertar el rol"]);
+                    echo json_encode(["status" => "99", "message" => "Hubo un error al insertar el usuario"]);
                 }
-            } else {
-                echo json_encode(["status" => "99", "message" => "Hubo un error al insertar el usuario"]);
+        
+            } catch (Exception $e) {
+                echo json_encode(["status" => "99", "message" => "Error en la operación: " . $e->getMessage()]);
             }
-    
-        } catch (Exception $e) {
-            echo json_encode(["status" => "99", "message" => "Error en la operación: " . $e->getMessage()]);
         }
+        
         break;
     
     case 'actualizar':

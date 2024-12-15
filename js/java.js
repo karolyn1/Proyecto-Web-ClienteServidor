@@ -1,11 +1,50 @@
 $(function () {
     getAllAnimals();
-
+    getPadrinos();
     //ALERTA PARA EL REGISTRO
     function mostrarAlertaCorreoExistente() {
         alert("El correo ya está registrado.");
         window.location.href = 'registro.php';
     }
+
+
+    //OBTENER PADRINOS
+function getPadrinos() {
+    $.post("actions/accionesApadrinamientos.php", {
+        action: 'mostrar',
+    },
+        function (data, status) {
+            let response = JSON.parse(data);
+            if ($("#bodyPadrinos tr").length === 0) {
+                $("#bodyPadrinos").html('<tr><td colspan="8">No hay animales apadrinados</td></tr>');
+            }
+            if (response.status === '00') {
+                console.log(response);
+                let respuesta = '';
+                response.padrinos.forEach((element) => {
+                    respuesta += `
+                    <tr id="${element.ID}">
+                        <td>${element.NombreAnimal}</td>
+                        <td>${element.Raza}</td>
+                        <td>${element.NombrePadrino}</td>
+                        <td>${element.FechaApadrinamiento}</td>
+                        <td>${element.FechaFin}</td>
+                        <td>$${element.Monto}</td>
+                        <td>${element.Frecuencia}</td>
+                        <td>
+                            <button class="btn-editar" id="btnEditar" data-id="${element.ID_Animal}">
+                                Editar
+                            </button>
+                            <button class="btn-eliminar" data-id="${element.ID_Animal}">Eliminar</button>
+                        </td>
+                    </tr>
+                `;
+                });
+                console.log(respuesta);
+                $("#bodyPadrinos").html(respuesta || '<tr><td colspan="8">No hay apadrinamientos disponibles</td></tr>');
+            }
+        });
+}
 
     //FUNCIONES PARA EL CRUD DE ANIMALES EN ADMIN DASHBOAR
 
@@ -86,6 +125,10 @@ $(function () {
                 }
             });
     }
+
+    
+
+
 
     //ELIMINAR ANIMALES
     $(document).on("click", ".btn-eliminar", function () {
@@ -298,6 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
 
 
 
