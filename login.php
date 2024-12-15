@@ -34,6 +34,8 @@
     $error_message = "";
     if (isset($_GET['error']) && $_GET['error'] == 1) {
         $error_message = "Usuario o contraseña incorrectos.";
+    } else if (isset($_GET["error"]) && $_GET["error"] == 2) {
+        $error_message = "Usuario inactivo. Favor contactar al administrador (admin@casanatura.com) o crear una cuenta nueva.";
     }
     ?>
 
