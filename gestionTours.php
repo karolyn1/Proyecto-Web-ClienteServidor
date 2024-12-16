@@ -24,19 +24,19 @@
         $resultado = $conn->query($sql);  // Usar query() si es una consulta simple, no requiere preparación
 
         // Verificar si se ha solicitado eliminar un tour
-        if (isset($_GET['id']) && !empty($_GET['id'])) {
+        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $idTour = $_GET['id'];
-            
+
             // Eliminar el tour con el id especificado
             $sqlEliminar = "DELETE FROM tours WHERE ID_Tour = ?";
-            $stmt = $conn->prepare($sqlEliminar);  // Usar prepare()
-            $stmt->bind_param("i", $idTour);  // Vincular parámetros
+            $stmt = $conn->prepare($sqlEliminar);
+            $stmt->bind_param("i", $idTour);
             if ($stmt->execute()) {
                 echo "<script>alert('Tour eliminado con éxito'); window.location.href='gestionTours.php';</script>";
             } else {
                 echo "<script>alert('Error al eliminar el tour'); window.location.href='gestionTours.php';</script>";
             }
-            $stmt->close();  // Cerrar la sentencia
+            $stmt->close();
         }
 
         // Consulta para obtener los tours
@@ -71,7 +71,6 @@
                             <tr>
                                 <th>Nombre del Tour</th>
                                 <th>Fecha</th>
-                                <th>Descripción</th>
                                 <th>Precio Boleto</th>
                                 <th>Boletos Disponibles</th>
                                 <th>Acciones</th>
@@ -82,11 +81,10 @@
                                 if ($resultado->num_rows > 0) {
                                     while($tour = $resultado->fetch_assoc()) {
                                         echo "<tr>";
-                                        echo "<td>" . $tour['Nombre'] . "</td>";
-                                        echo "<td>" . $tour['Fecha'] . "</td>";
-                                        echo "<td>" . $tour['Descripcion'] . "</td>";
-                                        echo "<td>" . $tour['Precio_Boleto'] . "</td>";
-                                        echo "<td>" . $tour['Tickets_Disponibles'] . "</td>";
+                                        echo "<td>" . htmlspecialchars($tour['Descripcion']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($tour['Fecha']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($tour['Precio_Boleto']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($tour['Tickets_Disponibles']) . "</td>";
                                         echo "<td class='actions'>";
                                         // Botón de editar
                                         echo "<a href='editarTour.php?id=" . $tour['ID_Tour'] . "' class='edit'><i class='fas fa-pen'></i></a>";

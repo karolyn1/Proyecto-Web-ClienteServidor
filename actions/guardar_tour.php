@@ -1,55 +1,86 @@
 <?php
-require 'conexion.php';
+
+// Verifica si el archivo de conexión existe antes de incluirlo
+$rutaConexion = realpath('conexion.php');
+if (!$rutaConexion || !file_exists($rutaConexion)) {
+    die('Error: No se encuentra el archivo de conexión en ' . $rutaConexion);
+}
+require $rutaConexion;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $descripcion = $_POST['descripcion'];
-    $fecha = $_POST['fecha'];
-    $hora = $_POST['hora'];
-    $precio_boleto = $_POST['precio_boleto'];
-    $tickets_disponibles = $_POST['tickets_disponibles'];
+    // Recibe los datos del formulario
+    $descripcion = $_POST['descripcion'] ?? '';
+    $fecha = $_POST['fecha'] ?? '';
+    $hora = $_POST['hora'] ?? '';
+    $precio_boleto = $_POST['precio_boleto'] ?? 0;
+    $tickets_disponibles = $_POST['tickets_disponibles'] ?? 0;
 
-    // Validar datos
-    if (empty($descripcion) || empty($fecha) || empty($hora) || empty($precio_boleto) || empty($tickets_disponibles)) {
+    // Verifica si se ha subido una imagen
+    if (empty($_FILES['imagen']['name'])) {
         echo "<script>
-                alert('Por favor, completa todos los campos.');
-                window.location.href = 'agregarTour.php';
+                alert('Por favor, sube una imagen para el tour.');
+                window.location.href = '../agregarTour.php';
               </script>";
-        exit;
+        exit; // Detenemos la ejecución si no se ha subido una imagen
     }
 
-    // Sentencia SQL para insertar datos en la tabla `tours`
-    $sql = "INSERT INTO tours (descripcion, fecha, hora, precio_boleto, tickets_disponibles) 
-            VALUES (?, ?, ?, ?, ?)";
+    // Variable para almacenar el nombre de la imagen
+    $image_name = null;
 
-    // Preparar la sentencia
+    // Si se subió una imagen
+    $target_dir = "../imagenes/";
+    $image_name = basename($_FILES["imagen"]["name"]);
+    $target_file = $target_dir . $image_name;
+
+    // Verifica si el archivo se sube correctamente
+    if (!move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file)) {
+        echo "<script>
+                alert('Error al mover el archivo de imagen.');
+                window.location.href = '../agregarTour.php';
+              </script>";
+        exit; // Detenemos la ejecución si la imagen no se mueve correctamente
+    }
+
+    // Inserta los datos en la base de datos, incluyendo la imagen
+    $sql = "INSERT INTO tours (descripcion, fecha, hora, precio_boleto, tickets_disponibles, imagen) 
+            VALUES (?, ?, ?, ?, ?, ?)";
+
     if ($stmt = $conn->prepare($sql)) {
-        // Vincular los parámetros
-        $stmt->bind_param("ssssd", $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles);
+        // Vincula los parámetros (la imagen se pasa como string)
+        $stmt->bind_param(
+            "sssdis", 
+            $descripcion, 
+            $fecha, 
+            $hora, 
+            $precio_boleto, 
+            $tickets_disponibles, 
+            $image_name
+        );
 
-        // Ejecutar la sentencia
+        // Ejecuta la consulta
         if ($stmt->execute()) {
+            // Redirige a la página de gestión de tours
             echo "<script>
                     alert('Tour registrado correctamente.');
-                    window.location.href = 'gestionTours.php';
+                    window.location.href = '../gestionTours.php';
                   </script>";
         } else {
+            // Error al ejecutar la consulta
             echo "<script>
-                    alert('Error al registrar el tour.');
-                    window.location.href = 'gestionTours.php';
+                    alert('Error al registrar el tour: " . $stmt->error . "');
+                    window.location.href = '../agregarTour.php';
                   </script>";
         }
-
-        // Cerrar la sentencia
         $stmt->close();
     } else {
-        // Si la preparación de la sentencia falla
+        // Error al preparar la consulta SQL
         echo "<script>
-                alert('Error al preparar la consulta.');
-                window.location.href = 'gestionTours.php';
+                alert('Error al preparar la consulta SQL.');
+                window.location.href = '../agregarTour.php';
               </script>";
     }
 }
 
-// Cerrar la conexión
+// Cierra la conexión
 $conn->close();
 ?>
