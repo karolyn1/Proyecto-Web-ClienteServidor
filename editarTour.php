@@ -101,6 +101,7 @@
                                 <span id="error-file">La imagen es obligatoria.</span>
 
                             </div>
+                            <div class="form-group">
                             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
                 <textarea class="form-control" id="descripcion" name="descripcion" required><?= isset($tour['Descripcion']) ? htmlspecialchars($tour['Descripcion']) : '' ?></textarea>
