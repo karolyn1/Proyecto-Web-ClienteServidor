@@ -35,7 +35,7 @@
                         <div class="fila-header">
 
                             <div class="boton-agregar">
-                                <a class="btn-agregar" href="#">
+                                <a class="btn-agregar" href="agregarApadrinamiento.php">
                                     <i class="fas fa-plus icono-agregar"></i> AGREGAR APADRINAMIENTO
                                 </a>
                             </div>
@@ -64,6 +64,25 @@
 
                         </tbody>
                         </table>
+
+                        <table class="tabla" id="tablaTodosPadrinos">
+                        <thead>
+                            <tr>
+                                <th>Nombre del Animal</th>
+                                <th>Raza</th>
+                                <th>Padrino</th>
+                                <th>Fecha de Apadrinamiento</th>
+                                <th>Fin del Apadrinamiento</th>
+                                <th>Cuota</th>
+                                <th>Frecuencia</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bodyPadrinosTodos">
+
+                        </tbody>
+                        </table>
+
 
                     </div>
 

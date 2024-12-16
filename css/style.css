@@ -2315,3 +2315,103 @@ body {
         border-radius: 10px;
         background-color: #003049; 
 }
+
+
+.formApadrinamiento {
+    font-family: "Montserrat", Arial, sans-serif;
+     padding: 10px;
+     max-width: 90%;
+ }
+ 
+ .formApadrinamiento  .form-group {
+     display: flex;
+    font-family: "Montserrat", Arial, sans-serif;
+     flex-wrap: wrap;
+     gap: 20px;
+ }
+ 
+ .formApadrinamiento  .form-group div {
+     flex: 1 1 45%;
+ }
+ 
+ .formApadrinamiento  .form-group label {
+     display: block;
+     margin-bottom: 5px;
+     font-weight: bold;
+ }
+ 
+ .formApadrinamiento  .form-group input[type="text"],
+ .formApadrinamiento  .form-group input[type="date"],
+ .formApadrinamiento  .form-group select {
+     width: 100%;
+     padding: 8px;
+     margin-bottom: 10px;
+     border: 1px solid #ccc;
+     border-radius: 4px;
+ }
+ 
+ .fila-usuario:hover {
+    background-color: #d1ecf1;
+    cursor: pointer;
+}
+.fila-usuario.selected {
+    background-color: #d1ecf1; /* Un color diferente para indicar selección */
+}
+
+.fila-animal:hover {
+    background-color: #d1ecf1;
+    cursor: pointer;
+}
+.fila-animal.selected {
+    background-color: #d1ecf1; /* Un color diferente para indicar selección */
+}
+
+.tablaApadrinamientos {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden;
+   font-family: "Montserrat", Arial, sans-serif;
+    font-size: 15px;
+    color: #003049;
+}
+
+/* Estilos del encabezado */
+
+
+.tablaApadrinamientos thead th {
+    text-transform: uppercase;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 3px solid #ffffff; 
+}
+
+/* Cuerpo de la tabla */
+.tablaApadrinamientos td {
+    transition: background-color 0.3s ease; 
+    color: #003049;
+    font-weight:400;
+    text-align: center;
+}
+
+
+
+
+/* Celdas */
+.tablaApadrinamientos tbody td {
+    padding: 14px;
+    border-bottom: 1px solid #dee2e6; /* Línea divisoria suave */
+}
+
+/* Botones de acción */
+.tablaApadrinamientos tbody td.actions {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espaciado entre botones */
+}
