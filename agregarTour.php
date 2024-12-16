@@ -18,8 +18,8 @@
         echo $sidebarAdmin2;
     ?>
     <main>
-    <div id="viewport">
-        <div id="content">
+    <div class="viewport">
+        <div class="content">
             <nav class="navbar">
                 <div class="container-fluid">
                     <h2 class="titulo">Gestión de Tours</h2>
