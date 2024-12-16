@@ -20,13 +20,16 @@
     <?php
         include("actions/conexion.php"); // Incluir archivo de conexión
 
+        $sql = "SELECT * FROM tours";
+        $resultado = $conn->query($sql);  // Usar query() si es una consulta simple, no requiere preparación
+
         // Verificar si se ha solicitado eliminar un tour
         if (isset($_GET['id']) && !empty($_GET['id'])) {
             $idTour = $_GET['id'];
             
             // Eliminar el tour con el id especificado
-            $sqlEliminar = "DELETE FROM tours WHERE id = ?";
-            $stmt = $conexion->prepare($sqlEliminar);  // Usar prepare()
+            $sqlEliminar = "DELETE FROM tours WHERE ID_Tour = ?";
+            $stmt = $conn->prepare($sqlEliminar);  // Usar prepare()
             $stmt->bind_param("i", $idTour);  // Vincular parámetros
             if ($stmt->execute()) {
                 echo "<script>alert('Tour eliminado con éxito'); window.location.href='gestionTours.php';</script>";
@@ -37,8 +40,7 @@
         }
 
         // Consulta para obtener los tours
-        $sql = "SELECT id, nombre, fecha, descripcion, precio_boleto, tickets_disponibles FROM tours";
-        $resultado = $conexion->query($sql);  // Usar query() si es una consulta simple, no requiere preparación
+       
     ?>
     <main>
     <div class="viewport">
@@ -49,25 +51,20 @@
                 </div>
             </nav>
             <div class="contenedor">
-                    <div class="fila-header">
+            <div class="container contenedor-tabla">
+                     <div class="fila-header">
 
-                        <div class="boton-agregar">
-                            <a class="btn-agregar" href="agregarTour.php">
-                                <i class="fas fa-plus icono-agregar"></i> AGREGAR TOUR
-                            </a>
-                        </div>
-                        <div class="buscador">
-                            <div class="input-grupo">
-                                <input type="text" class="campo-buscar" placeholder="Buscar Tour...">
-                                <button class="btn-buscar">
-                                    <i class="fas fa-search icono-buscar"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                    <!-- Tabla de eventos -->
-                     <div class="container contenedor-tabla">
+<div class="boton-agregar">
+    <a class="btn-agregar" href="agregarTour.php">
+        <i class="fas fa-plus icono-agregar"></i> AGREGAR TOUR
+    </a>
+</div>
+<div class="buscador">
+    <div class="input-grupo">
+        <input type="text" class="campo-buscar" placeholder="Buscar Tour...">
+    </div>
+</div>
+</div>
                     <table class="tabla">
                         <thead>
                         <thead>
@@ -85,16 +82,16 @@
                                 if ($resultado->num_rows > 0) {
                                     while($tour = $resultado->fetch_assoc()) {
                                         echo "<tr>";
-                                        echo "<td>" . $tour['nombre'] . "</td>";
-                                        echo "<td>" . $tour['fecha'] . "</td>";
-                                        echo "<td>" . $tour['descripcion'] . "</td>";
-                                        echo "<td>" . $tour['precio_boleto'] . "</td>";
-                                        echo "<td>" . $tour['tickets_disponibles'] . "</td>";
+                                        echo "<td>" . $tour['Nombre'] . "</td>";
+                                        echo "<td>" . $tour['Fecha'] . "</td>";
+                                        echo "<td>" . $tour['Descripcion'] . "</td>";
+                                        echo "<td>" . $tour['Precio_Boleto'] . "</td>";
+                                        echo "<td>" . $tour['Tickets_Disponibles'] . "</td>";
                                         echo "<td class='actions'>";
                                         // Botón de editar
-                                        echo "<a href='editarTour.php?id=" . $tour['id'] . "' class='edit'><i class='fas fa-pen'></i></a>";
+                                        echo "<a href='editarTour.php?id=" . $tour['ID_Tour'] . "' class='edit'><i class='fas fa-pen'></i></a>";
                                         // Botón de eliminar
-                                        echo "<a href='?id=" . $tour['id'] . "' class='delete' onclick='return confirm(\"¿Estás seguro de eliminar este tour?\");'><i class='fas fa-trash'></i></a>";
+                                        echo "<a href='?id=" . $tour['ID_Tour'] . "' class='delete' onclick='return confirm(\"¿Estás seguro de eliminar este tour?\");'><i class='fas fa-trash'></i></a>";
                                         echo "</td>";
                                         echo "</tr>";
                                     }
@@ -105,14 +102,17 @@
                         </tbody>
                         <?php 
                             // Cerrar la conexión después de que todas las operaciones con la base de datos hayan terminado
-                            $conexion->close();
+                            $conn->close();
                         ?>
 
                     </table>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
+            </div>
+                    <!-- Tabla de eventos -->
+                    
     </div>
     </main>
     <?php 
