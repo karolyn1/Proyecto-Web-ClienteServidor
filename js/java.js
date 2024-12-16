@@ -1,6 +1,6 @@
 $(function () {
     getAllAnimals();
-    getPadrinos();
+    getPadrinosActivos();
     //ALERTA PARA EL REGISTRO
     function mostrarAlertaCorreoExistente() {
         alert("El correo ya está registrado.");
@@ -10,14 +10,14 @@ $(function () {
 //-----------------------------------------------------
     //GESTION DE PADRINOS 
     //OBTENER
-function getPadrinos() {
+function getPadrinosActivos() {
     $.post("actions/accionesApadrinamientos.php", {
         action: 'mostrar',
     },
         function (data, status) {
             let response = JSON.parse(data);
             if ($("#bodyPadrinos tr").length === 0) {
-                $("#bodyPadrinos").html('<tr><td colspan="8">No hay animales apadrinados</td></tr>');
+                $("#bodyPadrinos").html('<tr><td colspan="8">No hay apadrinamientos activos</td></tr>');
             }
             if (response.status === '00') {
                 console.log(response);
@@ -42,7 +42,7 @@ function getPadrinos() {
                 `;
                 });
                 console.log(respuesta);
-                $("#bodyPadrinos").html(respuesta || '<tr><td colspan="8">No hay apadrinamientos disponibles</td></tr>');
+                $("#bodyPadrinos").html(respuesta || '<tr><td colspan="8">No hay apadrinamientos activos disponibles</td></tr>');
             }
         });
 }
@@ -56,8 +56,46 @@ $(document).on("click", "#btnEditarPadrino", function () {
     window.location.href = `./editarApadrinamiento.php?ID=${ID}`;
 });
 
-//EDITAR
+//ELIMINAR APADRINAMIENTO
+$(document).on('click', "#btnEliminarPadrino", function(){
+    $.post("actions/accionesApadrinamientos.php", {
+        action: 'eliminar',
+        id: $(this).data('id')
+    }, function(data, status){
+        let response= JSON.parse(data);
+        alert(response.message);
+        if(response.status=='00'){
+            location.reload();
+        }
+    });
+})
 
+
+//EDITAR
+$("#formEditarApadrinamiento").on('submit', function (e){
+    e.preventDefault();
+    $id = $("#idApadrinamiento").val();
+    $cuota = $("#MontoEditar").val();
+    $frecuencia = $("#frecuenciaEditar").val();
+
+    if($cuota === 0 && $frecuencia === ''){
+        alert("Por favor completa los datos antes de guardar");
+    } else {
+        $.post("actions/accionesApadrinamientos.php", {
+            action: 'editar',
+            id: $id,
+            monto: $cuota,
+            frecuencia: $frecuencia
+        }, function(data, status){
+            let response = JSON.parse(data);
+            alert(response.message);
+            if(response.status == '00'){
+                window.location.href = "./gestionPadrinos.php";
+            }
+        });
+    }
+
+})
 
 
 
@@ -174,7 +212,7 @@ $(document).on("click", "#btnEditarPadrino", function () {
     });
 
 
-    $(document).on("click", "#btnEliminarAnimal", function () {
+    $(document).on("click", "#btnEditarAnimal", function () {
         const element = $(this).closest('tr');
         const idAnimal = element.attr("idAnimal");
 

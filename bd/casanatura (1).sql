@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-12-2024 a las 21:05:59
+-- Tiempo de generación: 16-12-2024 a las 02:33:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -36,7 +36,6 @@ CREATE TABLE `animal` (
   `Estado_Salud` varchar(20) NOT NULL,
   `Fecha_Nacimiento` date NOT NULL,
   `Apadrinado` tinyint(1) NOT NULL,
-  `ID_Usuario` int(10) NOT NULL,
   `Imagen` varchar(255) NOT NULL,
   `Historia` varchar(255) NOT NULL,
   `Necesidades` varchar(255) NOT NULL
@@ -46,8 +45,8 @@ CREATE TABLE `animal` (
 -- Volcado de datos para la tabla `animal`
 --
 
-INSERT INTO `animal` (`ID_Animal`, `Nombre`, `Raza`, `Especie`, `Fecha_Ingreso`, `Estado_Salud`, `Fecha_Nacimiento`, `Apadrinado`, `ID_Usuario`, `Imagen`, `Historia`, `Necesidades`) VALUES
-(1, 'Donke', 'v', 'ej', '2024-12-06', 'v', '2024-12-13', 0, 0, 'img/burrito.jpg', 'v', 'v');
+INSERT INTO `animal` (`ID_Animal`, `Nombre`, `Raza`, `Especie`, `Fecha_Ingreso`, `Estado_Salud`, `Fecha_Nacimiento`, `Apadrinado`, `Imagen`, `Historia`, `Necesidades`) VALUES
+(1, 'Donkey', 'Burro Común', 'Equino', '2024-12-06', 'Saludable', '2014-12-09', 0, 'img/burrito.jpg', 'Donkey, un burro joven rescatado, fue encontrado en condiciones difíciles. Ahora recibe cuidados veterinarios, una dieta balanceada y espacio seguro. Es sociable, curioso y necesita compañía, ejercicio y un refugio adecuado. ', 'Donkey necesita un refugio adecuado, espacio para moverse libremente, una dieta equilibrada con heno y agua limpia, atención veterinaria regular, compañía de otros animales para evitar la soledad y cuidados amorosos que promuevan su bienestar.');
 
 -- --------------------------------------------------------
 
@@ -60,11 +59,18 @@ CREATE TABLE `animal_usuario` (
   `ID_Usuario` int(11) NOT NULL,
   `ID_Animal` int(11) NOT NULL,
   `FechaApadrinamiento` date NOT NULL,
-  `FechaFin` date NOT NULL,
+  `FechaFin` date DEFAULT NULL,
   `Monto` decimal(10,0) NOT NULL,
   `Frecuencia` varchar(50) NOT NULL,
   `Estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `animal_usuario`
+--
+
+INSERT INTO `animal_usuario` (`ID`, `ID_Usuario`, `ID_Animal`, `FechaApadrinamiento`, `FechaFin`, `Monto`, `Frecuencia`, `Estado`) VALUES
+(1, 1, 1, '2024-12-09', '2024-12-15', 20, 'Mensual', 0);
 
 -- --------------------------------------------------------
 
@@ -164,7 +170,8 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`ID_Rol`, `Rol`, `ID_Usuario`) VALUES
 (2, 'cliente', 2),
 (3, 'admin', 3),
-(4, 'cliente', 4);
+(4, 'cliente', 4),
+(5, 'cliente', 1);
 
 -- --------------------------------------------------------
 
@@ -205,10 +212,10 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`ID_Usuario`, `Nombre`, `Password`, `Apellido1`, `Apellido2`, `Correo`, `Telefono`, `Donador`, `Estado`) VALUES
-(1, 'Ariana   ', '$2y$10$AcomD5YW.cE.vGnLBnydOO68HuK91I1gA550wXWsdfqU7URVl8d32', 'Fallas   ', 'Calderon   ', 'ariana@gmail.com', 72307240, 0, 'Activo'),
+(1, 'Ariana    ', '$2y$10$AcomD5YW.cE.vGnLBnydOO68HuK91I1gA550wXWsdfqU7URVl8d32', 'Fallas    ', 'Calderon    ', 'ariana@gmail.com', 72307240, 0, 'Activo'),
 (2, 'Paola    ', '$2y$10$Scp8wmVLytjc5fwJhO7dB.oohKseUg6ylPMhmU/k3jFocY4WGQK6S', 'Calderon', 'Romero', 'arianafallas1@gmail.com', 88494643, 0, 'Activo'),
 (3, 'Ariana', '$2y$10$Q1fVmFUnl2Bfq9/sHOQsOeJXjhoxH6pz2qd3DLEFPX6II7//Ve/Fu', 'Fallas', 'Calderon', 'a@gmail.com', 78779, 0, 'Activo'),
-(4, 'Pablo', '$2y$10$vYvsVJb6GupYrE7ZHNN/A.BPpgrc0EfXq99iE1BEfHF8mQC26OxeW', 'Fallas', 'Calderon', 'pfalla@gmail.com', 72307240, 0, 'Activo');
+(4, 'Pablo  ', '$2y$10$vYvsVJb6GupYrE7ZHNN/A.BPpgrc0EfXq99iE1BEfHF8mQC26OxeW', 'Fallas  ', 'Calderon  ', 'pfalla@gmail.com', 72307240, 0, 'Inactivo');
 
 -- --------------------------------------------------------
 
@@ -334,7 +341,7 @@ ALTER TABLE `animal`
 -- AUTO_INCREMENT de la tabla `animal_usuario`
 --
 ALTER TABLE `animal_usuario`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `contacto`
@@ -364,7 +371,7 @@ ALTER TABLE `eventos`
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `ID_Rol` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_Rol` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `tours`

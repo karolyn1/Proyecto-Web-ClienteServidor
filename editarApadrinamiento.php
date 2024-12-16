@@ -12,6 +12,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
 </head>
 <style>
 
@@ -55,7 +57,7 @@
 
                         <form class="formApadrinamientos" id="formEditarApadrinamiento">
                      
-                                <input type="hidden" id="id" name="id" value="<?php echo $apadrinamiento['ID']; ?>">
+                                <input type="hidden" id="idApadrinamiento" name="id" value="<?php echo $apadrinamiento['ID']; ?>">
                                 <div class="mb-3">
                                     <label for="couta">Cuota</label>
                                     <input type="int" value="<?php echo $apadrinamiento['Monto']; ?>" id="MontoEditar"
@@ -64,7 +66,7 @@
                                 
                                 <div class="mb-3">
                                     <label for="frecuencia">Frecuencia</label>
-                                    <select id="frecuencia" name="frecuencia" required>
+                                    <select id="frecuenciaEditar" name="frecuencia" required>
                                         <option value="" disabled <?php echo empty($apadrinamiento['Frecuencia']) ? 'selected' : ''; ?>>Selecciona la frecuencia</option>
                                         <option value="Mensual" <?php echo $apadrinamiento['Frecuencia'] == 'Mensual' ? 'selected' : ''; ?>>Mensual</option>
                                         <option value="Bimensual" <?php echo $apadrinamiento['Frecuencia'] == 'Bimensual' ? 'selected' : ''; ?>>Bimensual</option>

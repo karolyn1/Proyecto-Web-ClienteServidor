@@ -10,7 +10,8 @@ switch($data['action']){
         INNER JOIN usuario b 
         ON a.ID_Usuario = b.ID_Usuario
         INNER JOIN animal c
-        ON a.ID_Animal = c.ID_Animal";
+        ON a.ID_Animal = c.ID_Animal
+        WHERE a.Estado = 1";
         $result = $conn->query($sql);
         if($result->num_rows>0){
             $apadrinamientos = [];
@@ -45,6 +46,29 @@ switch($data['action']){
             } else {
                 echo json_encode(["status" => "99", "message" => "Error al actualizar apadrinamiento"]);
             }
+
+        case 'eliminar':
+            $id = $data['id'];
+            $obtenerIdAnimal = "SELECT ID_Animal FROM animal_usuario WHERE ID = '$id'";
+            $obtener = $conn->query($obtenerIdAnimal);
+            if($obtener->num_rows > 0){
+                $idAnimal = $obtener->fetch_assoc()["ID_Animal"];
+                $actualizar = "UPDATE animal_usuario SET Estado = 0, FechaFin = CURDATE() WHERE ID = '$id'";
+                $result = $conn->query($actualizar);
+            if($result){
+                $liberar = "UPDATE animal SET Apadrinado = 0 WHERE ID_Animal = '$idAnimal'";
+                $ejecutar = $conn->query($liberar);
+                if($ejecutar){
+                    echo json_encode(["status" => "00", "message" => "Apadrinamiento eliminado con exito"]);
+            } else {
+                echo json_encode(["status" => "99", "message" => "Hubo un error al eliminar el apadrinamiento"]);
+            }
+            }}
+            break;
+
+
+
+            
         default:
             break;
 

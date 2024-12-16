@@ -40,8 +40,9 @@
                                 </a>
                             </div>
                             <div class="buscador">
-                                <div class="input-grupo">
-                                    <input type="text" class="campo-buscar" placeholder="Buscar Padrino...">
+                                <div class="row">
+                                    <button class="col btn-agregar" id="padrinosActivos">ACTIVOS</button>
+                                    <button class="col btn-agregar" id="todosPadrinos">TODOS</button>
                                 </div>
                             </div>
                         </div>
