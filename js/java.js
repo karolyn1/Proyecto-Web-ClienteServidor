@@ -7,8 +7,9 @@ $(function () {
         window.location.href = 'registro.php';
     }
 
-
-    //OBTENER PADRINOS
+//-----------------------------------------------------
+    //GESTION DE PADRINOS 
+    //OBTENER
 function getPadrinos() {
     $.post("actions/accionesApadrinamientos.php", {
         action: 'mostrar',
@@ -32,10 +33,10 @@ function getPadrinos() {
                         <td>$${element.Monto}</td>
                         <td>${element.Frecuencia}</td>
                         <td>
-                            <button class="btn-editar" id="btnEditar" data-id="${element.ID_Animal}">
+                            <button class="btn-editar" id="btnEditarPadrino" data-id="${element.ID}">
                                 Editar
                             </button>
-                            <button class="btn-eliminar" data-id="${element.ID_Animal}">Eliminar</button>
+                            <button class="btn-eliminar" id="btnEliminarPadrino" data-id="${element.ID}">Eliminar</button>
                         </td>
                     </tr>
                 `;
@@ -46,6 +47,24 @@ function getPadrinos() {
         });
 }
 
+//IR A LA PAGINA DE EDITAR
+$(document).on("click", "#btnEditarPadrino", function () {
+    const element = $(this).closest('tr');
+    const ID = element.attr("ID");
+
+    // Redirige a la página de edición con el ID del animal en la URL
+    window.location.href = `./editarApadrinamiento.php?ID=${ID}`;
+});
+
+//EDITAR
+
+
+
+
+
+
+//----------------------------------------------------------------
+//ANIMALES
     //FUNCIONES PARA EL CRUD DE ANIMALES EN ADMIN DASHBOAR
 
     $("#BuscarAnimal").keyup(() => {
@@ -70,8 +89,8 @@ function getPadrinos() {
                                     <td>${element.Especie}</td>
                                     <td>${element.Apadrinado}</td>
                                     <td>
-                                        <button class="btn-editar" data-id="${element.ID_Animal}">Editar</button>
-                                        <button class="btn-eliminar" data-id="${element.ID_Animal}">Eliminar</button>
+                                        <button class="btn-editar" id="btnEditarAnimal" data-id="${element.ID_Animal}">Editar</button>
+                                        <button class="btn-eliminar"  id="btnEliminarAnimal" data-id="${element.ID_Animal}">Eliminar</button>
                                     </td>
                                 </tr>
                             `;
@@ -112,10 +131,10 @@ function getPadrinos() {
                             <td>${element.Especie}</td>
                             <td>${element.Apadrinado}</td>
                             <td>
-                                <button class="btn-editar" id="btnEditar" data-id="${element.ID_Animal}">
+                                <button class="btn-editar" id="btnEditarAnimal" data-id="${element.ID_Animal}">
                                     Editar
                                 </button>
-                                <button class="btn-eliminar" data-id="${element.ID_Animal}">Eliminar</button>
+                                <button class="btn-eliminar" id="btnEliminarAnimal" data-id="${element.ID_Animal}">Eliminar</button>
                             </td>
                         </tr>
                     `;
@@ -131,7 +150,7 @@ function getPadrinos() {
 
 
     //ELIMINAR ANIMALES
-    $(document).on("click", ".btn-eliminar", function () {
+    $(document).on("click", "#btnEliminarAnimal", function () {
         if (confirm("¿Deseas eliminar el animal?")) {
             const row = $(this).closest('tr');
             const id = row.attr("idAnimal");
@@ -155,7 +174,7 @@ function getPadrinos() {
     });
 
 
-    $(document).on("click", ".btn-editar", function () {
+    $(document).on("click", "#btnEliminarAnimal", function () {
         const element = $(this).closest('tr');
         const idAnimal = element.attr("idAnimal");
 

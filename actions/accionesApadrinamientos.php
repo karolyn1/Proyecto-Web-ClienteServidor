@@ -34,7 +34,17 @@ switch($data['action']){
             echo json_encode(["status" => "99", "padrinos" => []]);
         }
         break;
-
+        case 'editar':
+            $id = $data['id'];
+            $monto = $data['monto'];
+            $frecuencia = $data['frecuencia'];
+            $sql = "UPDATE animal_usuario SET Monto = '$monto', Frecuencia = '$frecuencia' WHERE ID = '$id'";
+            $result = $conn->query($sql);
+            if($result){
+                echo json_encode(["status" => "00", "message" => "Apadrinamiento actualizado"]);
+            } else {
+                echo json_encode(["status" => "99", "message" => "Error al actualizar apadrinamiento"]);
+            }
         default:
             break;
 
