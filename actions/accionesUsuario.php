@@ -123,6 +123,18 @@ switch ($data['action']) {
                 }
             }
             break;
+            case 'updateAdmin':
+                $correoActual = $_SESSION['usuario_correo'];
+                $nombre = $data['nombre'];
+                $apellido1 = $data['apellido1'];
+                $apellido2= $data['apellido2'];
+                $telefono = $data['nombre'];
+                $correo = $data['correo'];
+                $direccion = $data['direccion'];
+                $provincia = $data['provincia'];
+                $canton = $data['canton'];
+                $distrito = $data['distrito'];
+
     
     default:
         break;
