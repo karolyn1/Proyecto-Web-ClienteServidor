@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Donacioens</title>
+    <title>Casa Natura - Olvide contraseña</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -111,59 +111,80 @@
             echo $footer;
         ?>
     </div>
-    <!-- 
-include("conexion.php"); 
+    <?php
+include("conexion.php");
+require 'vendor/autoload.php'; 
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 if (isset($_POST['enviar'])) {
-    $correo = $_POST['correo'];
-    $token = bin2hex(random_bytes(50)); // Genera un token aleatorio
+    $correo = trim($_POST['correo']);
+    
+  
+    if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+        echo "<p style='color: red; text-align: center;'>Correo electrónico inválido.</p>";
+        exit;
+    }
 
+    $token = bin2hex(random_bytes(50));
+    $expiracion = date('Y-m-d H:i:s', strtotime('+1 hour'));
 
-    $sql = "SELECT * FROM usuarios WHERE correo = '$correo'";
-    $result = $conn->query($sql);
+ 
+    $stmt = $conn->prepare("SELECT id FROM usuarios WHERE correo = ?");
+    $stmt->bind_param("s", $correo);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-       
-        $update = "UPDATE usuarios SET reset_token='$token', reset_expiration=DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE correo='$correo'";
-        if ($conn->query($update) === TRUE) {
-           
-            $link = "http://tu_dominio.com/restablecer_contraseña.php?token=$token";
+    
+        $update = $conn->prepare("UPDATE usuarios SET reset_token = ?, reset_expiration = ? WHERE correo = ?");
+        $update->bind_param("sss", $token, $expiracion, $correo);
+        $update->execute();
 
+        
+        $link = "http://tu_dominio.com/restablecer_contraseña.php?token=$token";
+
+        
+        $mail = new PHPMailer(true);
+        try {
             
-            $subject = "Restablecimiento de contraseña - Casa Natura";
-            $message = "
-                <html>
-                <head>
-                    <title>Restablecimiento de contraseña</title>
-                </head>
-                <body>
-                    <p>Hola,</p>
-                    <p>Recibimos una solicitud para restablecer tu contraseña en Casa Natura. Haz clic en el siguiente enlace para crear una nueva contraseña:</p>
-                    <p><a href='$link'>Restablecer mi contraseña</a></p>
-                    <p>Este enlace expirará en 1 hora.</p>
-                </body>
-                </html>
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com'; 
+            $mail->SMTPAuth = true;
+            $mail->Username = 'nicoleobregon198@gmail.com';
+            $mail->Password = 'wkgp ttra ccnq esyj'; 
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+
+          
+            $mail->setFrom('nicoleobregon198@gmail.com', 'Casa Natura');
+            $mail->addAddress($correo);
+            $mail->isHTML(true);
+            $mail->Subject = 'Restablecimiento de contraseña - Casa Natura';
+            $mail->Body    = "
+                <p>Hola,</p>
+                <p>Recibimos una solicitud para restablecer tu contraseña. Haz clic en el siguiente enlace:</p>
+                <p><a href='$link'>Restablecer mi contraseña</a></p>
+                <p>Este enlace expirará en 1 hora.</p>
             ";
 
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-            $headers .= "From: no-reply@tu_dominio.com" . "\r\n";
-
-            if (mail($correo, $subject, $message, $headers)) {
-                echo "<p style='color: green; text-align: center;'>Correo de restablecimiento enviado. Revisa tu bandeja de entrada.</p>";
-            } else {
-                echo "<p style='color: red; text-align: center;'>Error al enviar el correo. Inténtalo de nuevo.</p>";
-            }
-        } else {
-            echo "<p style='color: red; text-align: center;'>Error al generar el token. Inténtalo de nuevo.</p>";
+            $mail->send();
+            echo "<p style='color: green; text-align: center;'>Correo enviado. Revisa tu bandeja de entrada.</p>";
+        } catch (Exception $e) {
+            echo "<p style='color: red; text-align: center;'>Error al enviar el correo: {$mail->ErrorInfo}</p>";
         }
     } else {
-        echo "<p style='color: red; text-align: center;'>Correo no registrado.</p>";
+        echo "<p style='color: red; text-align: center;'>El correo no está registrado.</p>";
     }
+    
+    $stmt->close();
+    $update->close();
 }
 
 $conn->close();
- -->
+?>
+
 
 </body>
 </html>
