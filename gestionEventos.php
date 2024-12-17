@@ -27,13 +27,13 @@
     if (isset($_GET['eliminar_id'])) {
         $id_eliminar = $_GET['eliminar_id'];
         // Preparamos la consulta de eliminación
-        $sql_eliminar = "DELETE FROM eventos WHERE id = ?";
+        $sql_eliminar = "DELETE FROM eventos WHERE ID_Evento = ?";
         $stmt = $conn->prepare($sql_eliminar);
         $stmt->bind_param("i", $id_eliminar); // "i" indica que el parámetro es un entero
         if ($stmt->execute()) {
-            echo "<script>alert('Evento eliminado correctamente');</script>";
+            echo "<script>alert('Evento eliminado con éxito'); window.location.href='gestionEventos.php';</script>";
         } else {
-            echo "<script>alert('Error al eliminar el evento');</script>";
+            echo "<script>alert('Error al eliminar evento'); window.location.href='gestionEventos.php';</script>";
         }
         $stmt->close(); // Cerramos el statement después de ejecutarlo
     }
@@ -71,13 +71,18 @@
                             </div>
                         </div>
                     </div>
-                    <table>
+                    <table class="tabla">
                             <thead>
                                 <tr>
-                                    <th>Nombre del Evento</th>
-                                    <th>Fecha</th>
-                                    <th>Descripción</th>
-                                    <th>Acciones</th>
+                                <th>NOMBRE</th>
+                                <th>DESCRIPCION</th>
+                                    <th>FECHA</th>
+                                    <th>HORA</th>
+
+                                    <th>LUGAR</th>
+                                    <th>COSTO BOLETO</th>
+                                    <th>CUPOS</th>
+                                    <th>ACCIONES</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -86,18 +91,22 @@
                                     while($evento = $resultado->fetch_assoc()) {
                                         echo "<tr>";
                                         echo "<td>" . $evento['Nombre'] . "</td>";
-                                        echo "<td>" . $evento['Fecha'] . "</td>";
                                         echo "<td>" . $evento['Descripcion'] . "</td>";
+                                        echo "<td>" . $evento['Fecha'] . "</td>";
+                                        echo "<td>" . $evento['Hora'] . "</td>";
+                                        echo "<td>" . $evento['Lugar'] . "</td>";
+                                        echo "<td>$" . $evento['Costo'] . "</td>";
+                                        echo "<td>" . $evento['Cupos'] . "</td>";
                                         echo "<td class='actions'>";
                                         // Botón para editar (redirige a editarEvento.php con el id del evento)
-                                        echo "<a href='editarEvento.php?id=" . $evento['id'] . "' class='edit'><i class='fas fa-pen'></i></a>";
+                                        echo "<a href='editarEvento.php?id=" . $evento['ID_Evento'] . "' class='edit'><i class='fas fa-pen'></i></a>";
                                         // Botón para eliminar (redirige a esta misma página con el id del evento a eliminar)
-                                        echo "<a href='?eliminar_id=" . $evento['id'] . "' class='delete'><i class='fas fa-trash'></i></a>";
+                                        echo "<a href='?eliminar_id=" . $evento['ID_Evento'] . "' class='delete'><i class='fas fa-trash'></i></a>";
                                         echo "</td>";
                                         echo "</tr>";
                                     }
                                 } else {
-                                    echo "<tr><td colspan='4'>No se encontraron eventos</td></tr>";
+                                    echo "<tr><td colspan='8'>No se encontraron eventos</td></tr>";
                                 }
                                 $conn->close();
                                 ?>

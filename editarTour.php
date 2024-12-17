@@ -46,6 +46,7 @@
 
     // Procesar la edición del tour
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $nombre = $_POST['nombre'];
         $descripcion = $_POST['descripcion'];
         $fecha = $_POST['fecha'];
         $hora = $_POST['hora'];
@@ -58,14 +59,14 @@
             $imagen_tmp = $_FILES['imagen']['tmp_name'];
             $ruta_imagen = "imagenes/" . $imagen;
             move_uploaded_file($imagen_tmp, $ruta_imagen);
-            $sqlActualizar = "UPDATE tours SET descripcion = ?, fecha = ?, hora = ?, precio_boleto = ?, tickets_disponibles = ?, imagen = ? WHERE id_tour = ?";
+            $sqlActualizar = "UPDATE tours SET nombre = ?, descripcion = ?, fecha = ?, hora = ?, precio_boleto = ?, tickets_disponibles = ?, imagen = ? WHERE id_tour = ?";
             $stmt = $conn->prepare($sqlActualizar);
-            $stmt->bind_param("ssssisi", $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $ruta_imagen, $idTour);
+            $stmt->bind_param("ssssdisi", $nombre, $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $ruta_imagen, $idTour);
         } else {
             // Si no se subió imagen, no actualizar el campo imagen
-            $sqlActualizar = "UPDATE tours SET descripcion = ?, fecha = ?, hora = ?, precio_boleto = ?, tickets_disponibles = ? WHERE id_tour = ?";
+            $sqlActualizar = "UPDATE tours SET  nombre = ?, descripcion = ?, fecha = ?, hora = ?, precio_boleto = ?, tickets_disponibles = ? WHERE id_tour = ?";
             $stmt = $conn->prepare($sqlActualizar);
-            $stmt->bind_param("ssssii", $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $idTour);
+            $stmt->bind_param("ssssdii", $nombre, $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $idTour);
         }
 
         if ($stmt->execute()) {
@@ -92,9 +93,9 @@
 
                         <h1><b>EDITAR TOUR</b></h1>
 
-                        <form method="POST" enctype="multipart/form-data">
+                        <form method="POST" class="form-agregar-animal" enctype="multipart/form-data">
                             <div class="profile-pic">
-                                <img id="profileImage" src="<?php echo $tour['Imagen']; ?>">
+                                <img id="profileImage" src="imagenes/<?php echo $tour['Imagen']; ?>">
                                 <input type="file" id="imagen" name="imagen"
                                     onchange="loadFile(event)">
                                 <label for="imagen" class="form-label">Imagen (Opcional)</label>
@@ -102,6 +103,10 @@
 
                             </div>
                             <div class="form-group">
+                            <div class="mb-3">
+                <label for="descripcion" class="form-label">Nombre</label>
+                <textarea class="form-control" id="nombreTour" name="nombre" required><?= isset($tour['Nombre']) ? htmlspecialchars($tour['Nombre']) : '' ?></textarea>
+            </div>
                             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción</label>
                 <textarea class="form-control" id="descripcion" name="descripcion" required><?= isset($tour['Descripcion']) ? htmlspecialchars($tour['Descripcion']) : '' ?></textarea>

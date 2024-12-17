@@ -70,6 +70,7 @@
                         <thead>
                             <tr>
                                 <th>Nombre del Tour</th>
+                                <th>Descripción</th>
                                 <th>Fecha</th>
                                 <th>Precio Boleto</th>
                                 <th>Boletos Disponibles</th>
@@ -81,6 +82,7 @@
                                 if ($resultado->num_rows > 0) {
                                     while($tour = $resultado->fetch_assoc()) {
                                         echo "<tr>";
+                                        echo "<td>" . htmlspecialchars($tour['Nombre']) . "</td>";
                                         echo "<td>" . htmlspecialchars($tour['Descripcion']) . "</td>";
                                         echo "<td>" . htmlspecialchars($tour['Fecha']) . "</td>";
                                         echo "<td>" . htmlspecialchars($tour['Precio_Boleto']) . "</td>";

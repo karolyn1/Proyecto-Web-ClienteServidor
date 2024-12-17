@@ -19,8 +19,8 @@
         echo $sidebarAdmin2;
     ?>
     <main>
-    <div id="viewport">
-        <div id="content">
+    <div class="viewport">
+        <div class="content">
             <nav class="navbar">
                 <div class="container-fluid">
                     <h2 class="titulo">Gestión de Eventos</h2>
@@ -29,13 +29,18 @@
             <div class="container-fluid">
                 <div class="container container-animales-agregar mt-4">
                     <h1><b>CREAR NUEVO EVENTO</b></h1>
-                    <div class="profile-pic">
-                            <img id="profileImage" src="https://via.placeholder.com/100" alt="Foto de perfil">
-                            <input type="file" id="imageUpload" accept="image/*" onchange="loadFile(event)">
+                  
+                        <form action="actions/guardar_evento.php" method="POST" class="form-agregar-animal" enctype="multipart/form-data">
+                        <div class="profile-pic">
+                        <img id="profileImage" src="https://via.placeholder.com/100" alt="Foto de perfil">
+                            <input type="file" id="imageUpload" name="imagen" accept="image/*" onchange="loadFile(event)" required>
                             <label for="imageUpload">Subir foto</label>
                         </div>
-                        <form action="actions/guardar_evento.php" method="POST" class="form-agregar-animal">
                             <div class="form-group">
+                            <div class="mb-3">
+                                    <label for="descripcion">Nombre</label>
+                                    <input type="text" id="nombreEvento" name="nombre" placeholder="Nombre del evento" required>
+                                </div>
                                 <div class="mb-3">
                                     <label for="descripcion">Descripción</label>
                                     <input type="text" id="descripcion" name="descripcion" placeholder="Descripción del evento" required>
@@ -51,6 +56,14 @@
                                 <div class="mb-3">
                                     <label for="lugar">Lugar</label>
                                     <input type="text" id="lugar" name="lugar" placeholder="Lugar del evento" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lugar">Cupos</label>
+                                    <input type="number" id="cupos" name="cupos" placeholder="Cupos del evento" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lugar">Costo</label>
+                                    <input type="number" id="costo" name="costo" placeholder="Costo del evento" required>
                                 </div>
                             </div>
                             <button type="submit" class="submit-btn">GUARDAR</button>

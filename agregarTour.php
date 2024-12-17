@@ -35,6 +35,9 @@
                             <label for="imageUpload">Subir foto</label>
                         </div>
                         <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombreTour" name="nombre" placeholder="Nombre del evento" required>
+
                             <label for="descripcion">Descripción</label>
                             <input type="text" id="descripcion" name="descripcion" placeholder="Descripción del evento" required>
 
