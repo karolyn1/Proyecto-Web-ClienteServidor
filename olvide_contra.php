@@ -98,22 +98,25 @@
     <div class="container mt-5">
         <div class="form-olvide-contra">
             <h1>¿Olvidaste tu contraseña?</h1>
-            <h2>Ingresa tu correo electrónico y la contraseña para restablecerla. </h2>
-            
-            <form action="login.php" method="POST">
+            <h2>Ingresa tu correo electrónico para validar</h2>
+            <form action="" method="POST" onsubmit="showLoading()">
                 <input type="email" name="correo" placeholder="Correo electrónico" required>
-                <input type="text" name="contra" placeholder="Escribe tu nueva contraseña" required>
-        <input type="text" name="confirma" placeholder="Confirma tu contraseña" required>
 
-        <div class="buttons">
-            <button type="button" class="cancel-button" onclick="window.location.href='login.php'">Cancelar</button>
-            <button type="submit" name="enviar" class="submit-button">Confirmar</button>
-        </div>
-    </form>
+                <div style="display: flex; justify-content: space-between;">
+                    <button type="button" class="cancel-button" onclick="window.location.href='login.php'">Cancelar</button>
+                    <button type="submit" name="enviar" class="submit-button">Validar Correo</button>
+                </div>
+            
+            </form>
+            <?php
+            // Mostrar el mensaje si el correo no existe
+            if (!empty($mensaje)) {
+                echo $mensaje;
+            }
+            ?>
         </div>
     </div>
-    </div>
-    </main>
+</main>
     <div class="footer">
         <?php 
             include("fragmentos.php");
@@ -122,31 +125,16 @@
     </div>
     
     <?php
-include("actions/conexion.php");
-require 'vendor/autoload.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+include("actions/conexion.php"); 
 
 if (isset($_POST['enviar'])) {
     $correo = trim($_POST['correo']);
-    $contra = trim($_POST['contra']);
-    $confirma = trim($_POST['confirma']);
 
-    // Validar el correo electrónico
+    // Validar el formato del correo
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
         echo "<p style='color: red; text-align: center;'>Correo electrónico inválido.</p>";
         exit;
     }
-
-    // Validar que las contraseñas coincidan
-    if ($contra !== $confirma) {
-        echo "<p style='color: red; text-align: center;'>Las contraseñas no coinciden.</p>";
-        exit;
-    }
-
-    // Hashear la nueva contraseña
-    $hashedPassword = password_hash($contra, PASSWORD_DEFAULT);
 
     // Verificar si el correo existe en la base de datos
     $stmt = $conn->prepare("SELECT id FROM usuarios WHERE correo = ?");
@@ -155,56 +143,16 @@ if (isset($_POST['enviar'])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Actualizar la contraseña en la base de datos
-        $update = $conn->prepare("UPDATE usuarios SET password = ?, reset_token = NULL, reset_expiration = NULL WHERE correo = ?");
-        $update->bind_param("ss", $hashedPassword, $correo);
-        $update->execute();
-
-        if ($update->affected_rows > 0) {
-            // Mostrar mensaje de éxito
-            echo "<p style='color: green; text-align: center;'>Contraseña cambiada correctamente. Redirigiendo al login...</p>";
-
-            // Enviar correo de confirmación
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'nicoleobregon198@gmail.com';
-                $mail->Password = 'wlwj zmui oukh ukms';
-                $mail->SMTPSecure = 'tls';
-                $mail->Port = 587;
-
-                $mail->setFrom('nicoleobregon198@gmail.com', 'Casa Natura');
-                $mail->addAddress($correo);
-                $mail->isHTML(true);
-                $mail->Subject = 'Confirmación de cambio de contraseña - Casa Natura';
-                $mail->Body = "
-                    <p>Hola,</p>
-                    <p>Tu contraseña ha sido cambiada correctamente.</p>
-                    <p>Si no realizaste este cambio, por favor contáctanos inmediatamente.</p>
-                ";
-
-                $mail->send();
-            } catch (Exception $e) {
-                echo "<p style='color: red; text-align: center;'>Error al enviar el correo: {$mail->ErrorInfo}</p>";
-            }
-
-            // Redirigir al login después de 3 segundos
-            header("refresh:3;url=login.php");
-            exit;
-        } else {
-            echo "<p style='color: red; text-align: center;'>Error al actualizar la contraseña.</p>";
-        }
+        // Redirigir a restablecer_contra.php si el correo existe
+        header("Location: restablecer_contra.php?correo=" . urlencode($correo));
+        exit;
     } else {
         echo "<p style='color: red; text-align: center;'>El correo no está registrado.</p>";
     }
 
     $stmt->close();
-    $update->close();
+    $conn->close();
 }
-
-$conn->close();
 ?>
 
 
