@@ -112,7 +112,7 @@
         ?>
     </div>
     <?php
-include("conexion.php");
+include("actions/conexion.php");
 require 'vendor/autoload.php'; 
 
 use PHPMailer\PHPMailer\PHPMailer;
