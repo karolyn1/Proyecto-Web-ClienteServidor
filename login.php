@@ -77,7 +77,7 @@
                     <input type="text" name="distrito" placeholder="Distrito" required>
                     <input type="text" name="direccion_exacta" placeholder="Dirección Exacta" required>
                     <input type="email" name="correo" placeholder="Correo Electrónico" required>
-                    <input type="password" name="password" id="register-password" required pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres.">
+                    <input type="password" name="password" id="register-password" placeholder="Password" required pattern=".{8,}" title="La contraseña debe tener al menos 8 caracteres.">
                     <button type="submit" name="registrar">Registrarme</button>
                 </form>
                 <div class="toggle-section">

@@ -38,10 +38,7 @@ if (!empty($_POST)) {
             if ($conn->query($direccion) === TRUE) {
                 $rol = "INSERT INTO `roles`(`Rol`, `ID_Usuario`) VALUES ('cliente', $idUsuario)";
                 if ($conn->query($rol) === TRUE) {
-                    $_SESSION["usuario_nombre"] = $nombre;
-                    $_SESSION["usuario_apellido1"] = $apellido1;
-                    $_SESSION["usuario_correo"] = $correo;
-                    $_SESSION["usuario_rol"] = 'cliente';
+                   
                     
                     echo "<script>
                             alert('Bienvenido a Casa Natura. Ya puedes iniciar sesión con tus credenciales.');
