@@ -44,8 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Inserta los datos en la base de datos, incluyendo la imagen
-    $sql = "INSERT INTO eventos (descripcion, fecha, hora, costo, cupos, lugar, imagen, nombre) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO eventos (descripcion, fecha, hora, costo, cupos, lugar, imagen, nombre, CuposVendidos) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?,0)";
 
     if ($stmt = $conn->prepare($sql)) {
         // Vincula los parámetros (la imagen se pasa como string)

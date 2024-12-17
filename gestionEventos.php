@@ -82,6 +82,7 @@
                                     <th>LUGAR</th>
                                     <th>COSTO BOLETO</th>
                                     <th>CUPOS</th>
+                                    <th>CUPOS VENDIDOS</th>
                                     <th>ACCIONES</th>
                                 </tr>
                             </thead>
@@ -97,6 +98,7 @@
                                         echo "<td>" . $evento['Lugar'] . "</td>";
                                         echo "<td>$" . $evento['Costo'] . "</td>";
                                         echo "<td>" . $evento['Cupos'] . "</td>";
+                                        echo "<td>" . $evento['CuposVendidos'] . "</td>";
                                         echo "<td class='actions'>";
                                         // Botón para editar (redirige a editarEvento.php con el id del evento)
                                         echo "<a href='editarEvento.php?id=" . $evento['ID_Evento'] . "' class='edit'><i class='fas fa-pen'></i></a>";

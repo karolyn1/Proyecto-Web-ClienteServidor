@@ -73,7 +73,8 @@
                                 <th>Descripción</th>
                                 <th>Fecha</th>
                                 <th>Precio Boleto</th>
-                                <th>Boletos Disponibles</th>
+                                <th>Boletos</th>
+                                <th>Boletos Vendidos</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -87,6 +88,7 @@
                                         echo "<td>" . htmlspecialchars($tour['Fecha']) . "</td>";
                                         echo "<td>" . htmlspecialchars($tour['Precio_Boleto']) . "</td>";
                                         echo "<td>" . htmlspecialchars($tour['Tickets_Disponibles']) . "</td>";
+                                        echo "<td>" . htmlspecialchars($tour['TicketsVendidos']) . "</td>";
                                         echo "<td class='actions'>";
                                         // Botón de editar
                                         echo "<a href='editarTour.php?id=" . $tour['ID_Tour'] . "' class='edit'><i class='fas fa-pen'></i></a>";
