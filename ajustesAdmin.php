@@ -49,7 +49,7 @@
 
         // Obtener la contraseña actual del administrador desde la base de datos
         $sql = "SELECT contrasena FROM usuario WHERE correo = ?";
-        if ($stmt = $conexion->prepare($sql)) {
+        if ($stmt = $conn->prepare($sql)) {
             $stmt->bind_param("s", $admin['correo']);
             $stmt->execute();
             $stmt->bind_result($contrasena_db);
@@ -63,7 +63,7 @@
                 // Actualizar la nueva contraseña
                 $nueva_contrasena_hash = password_hash($nueva_contrasena, PASSWORD_DEFAULT);
                 $sql_update = "UPDATE usuario SET contrasena = ? WHERE correo = ?";
-                if ($stmt_update = $conexion->prepare($sql_update)) {
+                if ($stmt_update = $conn->prepare($sql_update)) {
                     $stmt_update->bind_param("ss", $nueva_contrasena_hash, $admin['correo']);
                     if ($stmt_update->execute()) {
                         echo "<script>alert('Contraseña actualizada correctamente.');</script>";
