@@ -1,12 +1,14 @@
 <?php
+session_start();
 require 'conexion.php'; // Archivo con la conexión a la base de datos
 
 try {
+    $id = $_SESSION['usuario_id'];
     // Consulta para obtener los datos del administrador
     $sql = "SELECT u.nombre, u.apellido1, u.apellido2, u.telefono, u.correo 
             FROM usuario u 
             INNER JOIN roles r ON u.ID_Rol = r.ID_Rol 
-            WHERE r.nombre_rol = 'Administrador'";
+            WHERE u.ID_Usuario = '$id'";
     
     // Preparar la consulta
     $result = $conn->query($sql);
