@@ -48,9 +48,16 @@ $result = $stmt->get_result();
 
 </head>
 
-<body>
-    <?php include('fragmentos.php'); echo $navbar; ?>
-
+<?php
+    include('fragmentos.php');
+    echo $navbar;
+    include('./actions/conexion.php');
+    ?>
+    <main>
+    <?php
+    include('fragmentos.php');
+    echo $opciones;
+    ?>
     <main>
         <div class="container mt-4">
             <h1 class="titulo">MIS BOLETOS</h1>
