@@ -2471,3 +2471,7 @@ body {
     justify-content: center;
     gap: 10px; /* Espaciado entre botones */
 }
+.infoTour{
+    font-family: "Montserrat", Arial, sans-serif;
+    color: #003049;
+}

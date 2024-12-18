@@ -581,10 +581,47 @@ $(function () {
         });
     });
 
+    //APADRINAR ANIMAL - CLIENTE
+    $("#formApadrinarAnimal").on('submit', function(e){
+        e.preventDefault();
 
+        $id= $("#idAnimalApadrinar").val();
+        $montoDonar = $("#SmontoDonarForm").val();
+        $frecuencia = "Mensual";
+
+        $.post("actions/accionesApadrinamientos.php", {
+            action: 'apadrinar',
+            id: $id,
+            montoDonar: $montoDonar,
+            frecuencia: $frecuencia
+        }, function(data, status){
+            let response = JSON.parse(data);
+            alert(response.message);
+            if(response.status=='00'){
+                window.location.href = "./listadoAnimalesDisponibles.php";
+            }
+        });
+    })
 
 
     //CIERRE DEL FUNCTION
 
+
+    document.getElementById('metodo_pago').addEventListener('change', function() {
+        var metodo = this.value;
+        // Ocultar todos los campos
+        document.getElementById('tarjeta_fields').style.display = 'none';
+        document.getElementById('paypal_fields').style.display = 'none';
+        document.getElementById('sinpe_fields').style.display = 'none';
+        
+        // Mostrar campos según el método de pago
+        if (metodo === 'Tarjeta de Crédito') {
+            document.getElementById('tarjeta_fields').style.display = 'block';
+        } else if (metodo === 'PayPal') {
+            document.getElementById('paypal_fields').style.display = 'block';
+        } else if (metodo === 'SINPE Móvil') {
+            document.getElementById('sinpe_fields').style.display = 'block';
+        }
+    });
 
 });

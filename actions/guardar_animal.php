@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $historia = $_POST['historia'];
         $necesidades = $_POST['necesidades'];
 
-        $uploadDir = 'img/';
+        $uploadDir = "../imagenes/";
         $destPath = $uploadDir . $fileName;
 
         if (move_uploaded_file($fileTmpPath, $destPath)) {

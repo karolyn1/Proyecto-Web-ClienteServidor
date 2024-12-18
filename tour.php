@@ -79,123 +79,137 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
 </head>
 
 <body>
-    <?php 
-        include("fragmentos.php");
-        echo $navbar;
-    ?>
+    <nav> <?php
+    include("fragmentos.php");
+    echo $navbar;
+    ?></nav>
 
-    <!-- Contenido del Tour -->
-    <div class="container mt-5 tour-container">
-        <div class="row">
-            <!-- Imagen grande a la izquierda -->
-            <div class="col-md-6">
-                <img src="imagenes/<?php echo htmlspecialchars($tour['Imagen']); ?>" alt="Imagen del Tour" class="img-fluid tour-img">
-            </div>
+    <main>
+        <div class="container mt-5">
+            <div class="row">
+                <!-- Columna de Información del Tour -->
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <div class="p-4 rounded shadow-sm bg-light">
+                        <!-- Imagen -->
+                        <div class="text-center mb-3">
+                            <img src="imagenes/<?php echo htmlspecialchars($tour['Imagen']); ?>" alt="Imagen del Tour"
+                                class="img-fluid rounded">
+                        </div>
 
-            <!-- Información del Tour -->
-            <div class="col-md-6 tour-info d-flex flex-column justify-content-center">
-                <h1><?php echo htmlspecialchars($tour['Nombre']); ?></h1>
-                <p><strong>Descripción:</strong> <?php echo nl2br(htmlspecialchars($tour['Descripcion'])); ?></p>
-                <p><strong>Fecha:</strong> <?php echo htmlspecialchars($tour['Fecha']); ?></p>
-                <p><strong>Hora:</strong> <?php echo substr($tour['Hora'], 0, 5); ?></p>
-                <p><strong>Precio por boleto:</strong> $<?php echo htmlspecialchars($tour['Precio_Boleto']); ?></p>
-                <p><strong>Tickets disponibles:</strong> <?php echo htmlspecialchars($tour['Tickets_Disponibles']); ?></p>
+                        <!-- Información -->
+                        <h2 class="titulo mb-3 text-center"><?php echo htmlspecialchars($tour['Nombre']); ?></h2>
+                        <ul class="infoTour list-unstyled">
+                            <li><strong>Descripción:</strong>
+                                <?php echo nl2br(htmlspecialchars($tour['Descripcion'])); ?></li>
+                            <li><strong>Fecha:</strong> <?php echo htmlspecialchars($tour['Fecha']); ?></li>
+                            <li><strong>Hora:</strong> <?php echo substr($tour['Hora'], 0, 5); ?></li>
+                            <li><strong>Precio por boleto:</strong>
+                                $<?php echo htmlspecialchars($tour['Precio_Boleto']); ?></li>
+                            <li><strong>Tickets disponibles:</strong>
+                                <?php echo htmlspecialchars($tour['Tickets_Disponibles']); ?></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Columna del Formulario -->
+                <div class="col-md-6">
+                    <div class="p-4 rounded shadow-sm bg-white">
+                        <h2 class="titulo text-center mb-4">COMPRA TUS TICKETS</h2>
+
+                        <!-- Alertas -->
+                        <?php if (isset($success)): ?>
+                            <div class="alert alert-success"><?php echo $success; ?></div>
+                        <?php elseif (isset($error)): ?>
+                            <div class="alert alert-danger"><?php echo $error; ?></div>
+                        <?php endif; ?>
+
+                        <!-- Formulario -->
+                        <form method="POST" class="form-agregar-animal">
+                            <div class="mb-3">
+                                <label for="cantidad_tickets" class="form-label">Cantidad de Tickets</label>
+                                <input type="number" id="cantidad_tickets" name="cantidad_tickets" class="form-control"
+                                    min="1" max="<?php echo $tour['Tickets_Disponibles']; ?>" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="metodo_pago" class="form-label">Método de Pago</label>
+                                <select id="metodo_pago" name="metodo_pago" class="form-select" required>
+                                    <option value="">Seleccione...</option>
+                                    <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
+                                    <option value="PayPal">PayPal</option>
+                                    <option value="SINPE Móvil">SINPE Móvil</option>
+                                </select>
+                            </div>
+
+                            <!-- Campos Dinámicos de Pago -->
+                            <div id="tarjeta_fields" class="d-none">
+                                <div class="mb-2">
+                                    <label for="numero_tarjeta">Número de Tarjeta</label>
+                                    <input type="text" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="vencimiento">Fecha de Vencimiento</label>
+                                    <input type="month" class="form-control">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" class="form-control" placeholder="123">
+                                </div>
+                            </div>
+
+                            <div id="paypal_fields" class="d-none">
+                                <p class="text-muted">Inicie sesión en su cuenta PayPal al finalizar la reserva.</p>
+                            </div>
+
+                            <div id="sinpe_fields" class="d-none">
+                                <p>Realice el pago a:</p>
+                                <p><strong>+506 8486 7434 - Johnny Castillo</strong></p>
+                            </div>
+
+                            <!-- Botón -->
+                            <div class="text-center mt-4">
+                                <button type="submit" class="submit-btn">COMPRAR</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
+    </main>
 
-        <!-- Formulario de Reserva -->
-        <div class="row form-reserva">
-            <div class="col-12 text-center">
-                <h2>Reservar Tickets</h2>
-
-                <?php if (isset($success)): ?>
-                    <div class="alert alert-success"><?php echo $success; ?></div>
-                <?php elseif (isset($error)): ?>
-                    <div class="alert alert-danger"><?php echo $error; ?></div>
-                <?php endif; ?>
-
-                <form method="POST" class="mb-5 mt-5">
-                    <div class="form-group">
-                        <label for="cantidad_tickets">Cantidad de Tickets</label>
-                        <input type="number" id="cantidad_tickets" name="cantidad_tickets" 
-                               class="form-control mx-auto" style="max-width: 200px;" 
-                               min="1" max="<?php echo $tour['Tickets_Disponibles']; ?>" required>
-                    </div>
-
-                    <!-- Dropdown de Métodos de Pago -->
-                    <div class="form-group">
-                        <label for="metodo_pago">Método de Pago</label>
-                        <select id="metodo_pago" name="metodo_pago" class="form-control" required>
-                        <option value="empty"></option>
-                            <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
-                            <option value="PayPal">PayPal</option>
-                            <option value="SINPE Móvil">SINPE Móvil</option>
-                        </select>
-                    </div>
-
-                    <!-- Campos de pago condicionales -->
-                    <div id="tarjeta_fields" style="display: none;">
-                        <div class="form-group">
-                            <label for="numero_tarjeta">Número de Tarjeta</label>
-                            <input type="text" id="numero_tarjeta" name="numero_tarjeta" class="form-control" placeholder="Número de tarjeta" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="vencimiento">Fecha de Vencimiento</label>
-                            <input type="month" id="vencimiento" name="vencimiento" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="cvv">CVV</label>
-                            <input type="text" id="cvv" name="cvv" class="form-control" placeholder="CVV" required>
-                        </div>
-                    </div>
-
-                    <div id="paypal_fields" style="display: none;">
-                        <p>Inicie sesión en su cuenta de PayPal.</p>
-                        <p>Cuenta: cuenta@paypal.com</p>
-                    </div>
-
-                    <div id="sinpe_fields" style="display: none;">
-                        <p>Por favor realice el pago a este número de teléfono:</p>
-                        <p>+506 8486 7434 Johnny Castillo Fallas</p>
-                    </div>
-
-                    <button type="submit" class="btn btn-reservar mt-3">Reservar Ahora</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <?php 
+    <?php
     include("fragmentos.php");
     echo $footer;
     ?>
-
     <script>
-        document.getElementById('metodo_pago').addEventListener('change', function() {
+        document.getElementById('metodo_pago').addEventListener('change', function () {
             var metodo = this.value;
             // Ocultar todos los campos
-            document.getElementById('tarjeta_fields').style.display = 'none';
-            document.getElementById('paypal_fields').style.display = 'none';
-            document.getElementById('sinpe_fields').style.display = 'none';
-            
+            document.getElementById('tarjeta_fields').classList.add('d-none');
+            document.getElementById('paypal_fields').classList.add('d-none');
+            document.getElementById('sinpe_fields').classList.add('d-none');
+
             // Mostrar campos según el método de pago
             if (metodo === 'Tarjeta de Crédito') {
-                document.getElementById('tarjeta_fields').style.display = 'block';
+                document.getElementById('tarjeta_fields').classList.remove('d-none');
             } else if (metodo === 'PayPal') {
-                document.getElementById('paypal_fields').style.display = 'block';
+                document.getElementById('paypal_fields').classList.remove('d-none');
             } else if (metodo === 'SINPE Móvil') {
-                document.getElementById('sinpe_fields').style.display = 'block';
+                document.getElementById('sinpe_fields').classList.remove('d-none');
             }
         });
     </script>
-
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

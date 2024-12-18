@@ -137,17 +137,18 @@ if (isset($_POST['enviar'])) {
     }
 
     // Verificar si el correo existe en la base de datos
-    $stmt = $conn->prepare("SELECT id FROM usuarios WHERE correo = ?");
+    $stmt = $conn->prepare("SELECT ID_Usuario FROM usuario WHERE correo = ?");
     $stmt->bind_param("s", $correo);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         // Redirigir a restablecer_contra.php si el correo existe
-        header("Location: restablecer_contra.php?correo=" . urlencode($correo));
+        header("Location: ./restablecer_contra.php?correo=" . urlencode($correo));
         exit;
     } else {
         echo "<p style='color: red; text-align: center;'>El correo no está registrado.</p>";
+
     }
 
     $stmt->close();
