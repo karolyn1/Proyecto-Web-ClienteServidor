@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 17-12-2024 a las 03:15:54
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Host: 127.0.0.1
+-- Generation Time: Dec 18, 2024 at 10:33 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `casanatura`
+-- Database: `casanatura`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `animal`
+-- Table structure for table `animal`
 --
 
 CREATE TABLE `animal` (
@@ -42,16 +42,16 @@ CREATE TABLE `animal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `animal`
+-- Dumping data for table `animal`
 --
 
 INSERT INTO `animal` (`ID_Animal`, `Nombre`, `Raza`, `Especie`, `Fecha_Ingreso`, `Estado_Salud`, `Fecha_Nacimiento`, `Apadrinado`, `Imagen`, `Historia`, `Necesidades`) VALUES
-(1, 'Donkey', 'Burro Común', 'Equino', '2024-12-06', 'Saludable', '2014-12-09', 1, 'img/burrito.jpg', 'Donkey, un burro joven rescatado, fue encontrado en condiciones difíciles. Ahora recibe cuidados veterinarios, una dieta balanceada y espacio seguro. Es sociable, curioso y necesita compañía, ejercicio y un refugio adecuado. ', 'Donkey necesita un refugio adecuado, espacio para moverse libremente, una dieta equilibrada con heno y agua limpia, atención veterinaria regular, compañía de otros animales para evitar la soledad y cuidados amorosos que promuevan su bienestar.');
+(1, 'Donkey', 'Burro Común', 'Equino', '2024-12-06', 'Saludable', '2014-12-09', 0, 'img/burrito.jpg', 'Donkey, un burro joven rescatado, fue encontrado en condiciones difíciles. Ahora recibe cuidados veterinarios, una dieta balanceada y espacio seguro. Es sociable, curioso y necesita compañía, ejercicio y un refugio adecuado. ', 'Donkey necesita un refugio adecuado, espacio para moverse libremente, una dieta equilibrada con heno y agua limpia, atención veterinaria regular, compañía de otros animales para evitar la soledad y cuidados amorosos que promuevan su bienestar.');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `animal_usuario`
+-- Table structure for table `animal_usuario`
 --
 
 CREATE TABLE `animal_usuario` (
@@ -66,17 +66,19 @@ CREATE TABLE `animal_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `animal_usuario`
+-- Dumping data for table `animal_usuario`
 --
 
 INSERT INTO `animal_usuario` (`ID`, `ID_Usuario`, `ID_Animal`, `FechaApadrinamiento`, `FechaFin`, `Monto`, `Frecuencia`, `Estado`) VALUES
 (1, 1, 1, '2024-12-09', '2024-12-15', 20, 'Mensual', 0),
-(3, 2, 1, '2024-12-15', NULL, 70, 'Mensual', 1);
+(3, 2, 1, '2024-12-15', '2024-12-18', 80, 'Mensual', 0),
+(4, 2, 1, '2024-12-18', '2024-12-18', 80, 'Mensual', 1),
+(5, 2, 1, '2024-12-18', '2024-12-18', 60, 'Mensual', 1);
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `contacto`
+-- Table structure for table `contacto`
 --
 
 CREATE TABLE `contacto` (
@@ -84,14 +86,22 @@ CREATE TABLE `contacto` (
   `Nombre` varchar(50) NOT NULL,
   `Apellido` varchar(50) NOT NULL,
   `Email` varchar(50) NOT NULL,
-  `ID_Usuario` int(10) NOT NULL,
+  `ID_Usuario` int(10) DEFAULT NULL,
   `Mensaje` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contacto`
+--
+
+INSERT INTO `contacto` (`ID`, `Nombre`, `Apellido`, `Email`, `ID_Usuario`, `Mensaje`) VALUES
+(1, 'Paola    ', 'Calderon', 'arianafallas1@gmail.com', 2, 'sdf'),
+(2, 'Paola    ', 'Calderon', 'arianafallas1@gmail.com', 2, 'dfj');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `direccion`
+-- Table structure for table `direccion`
 --
 
 CREATE TABLE `direccion` (
@@ -104,7 +114,7 @@ CREATE TABLE `direccion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `direccion`
+-- Dumping data for table `direccion`
 --
 
 INSERT INTO `direccion` (`ID_Direccion`, `Provincia`, `Canton`, `Distrito`, `Direccion_Exacta`, `ID_Usuario`) VALUES
@@ -115,7 +125,7 @@ INSERT INTO `direccion` (`ID_Direccion`, `Provincia`, `Canton`, `Distrito`, `Dir
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `donaciones`
+-- Table structure for table `donaciones`
 --
 
 CREATE TABLE `donaciones` (
@@ -128,7 +138,7 @@ CREATE TABLE `donaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `donaciones`
+-- Dumping data for table `donaciones`
 --
 
 INSERT INTO `donaciones` (`ID_Donacion`, `Monto`, `Fecha`, `ID_Usuario`, `Estado`, `MetodoPago`) VALUES
@@ -138,7 +148,7 @@ INSERT INTO `donaciones` (`ID_Donacion`, `Monto`, `Fecha`, `ID_Usuario`, `Estado
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `eventos`
+-- Table structure for table `eventos`
 --
 
 CREATE TABLE `eventos` (
@@ -155,7 +165,7 @@ CREATE TABLE `eventos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `eventos`
+-- Dumping data for table `eventos`
 --
 
 INSERT INTO `eventos` (`ID_Evento`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `Lugar`, `Imagen`, `Cupos`, `CuposVendidos`, `Costo`) VALUES
@@ -164,7 +174,7 @@ INSERT INTO `eventos` (`ID_Evento`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `L
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
@@ -174,7 +184,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`ID_Rol`, `Rol`, `ID_Usuario`) VALUES
@@ -186,7 +196,7 @@ INSERT INTO `roles` (`ID_Rol`, `Rol`, `ID_Usuario`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `tours`
+-- Table structure for table `tours`
 --
 
 CREATE TABLE `tours` (
@@ -202,7 +212,7 @@ CREATE TABLE `tours` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `tours`
+-- Dumping data for table `tours`
 --
 
 INSERT INTO `tours` (`ID_Tour`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `Precio_Boleto`, `Tickets_Disponibles`, `TicketsVendidos`, `Imagen`) VALUES
@@ -211,7 +221,7 @@ INSERT INTO `tours` (`ID_Tour`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `Preci
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -227,7 +237,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `usuario`
 --
 
 INSERT INTO `usuario` (`ID_Usuario`, `Nombre`, `Password`, `Apellido1`, `Apellido2`, `Correo`, `Telefono`, `Donador`, `Estado`) VALUES
@@ -239,7 +249,7 @@ INSERT INTO `usuario` (`ID_Usuario`, `Nombre`, `Password`, `Apellido1`, `Apellid
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario_evento`
+-- Table structure for table `usuario_evento`
 --
 
 CREATE TABLE `usuario_evento` (
@@ -254,7 +264,7 @@ CREATE TABLE `usuario_evento` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuario_tour`
+-- Table structure for table `usuario_tour`
 --
 
 CREATE TABLE `usuario_tour` (
@@ -267,17 +277,17 @@ CREATE TABLE `usuario_tour` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `animal`
+-- Indexes for table `animal`
 --
 ALTER TABLE `animal`
   ADD PRIMARY KEY (`ID_Animal`);
 
 --
--- Indices de la tabla `animal_usuario`
+-- Indexes for table `animal_usuario`
 --
 ALTER TABLE `animal_usuario`
   ADD PRIMARY KEY (`ID`),
@@ -285,53 +295,53 @@ ALTER TABLE `animal_usuario`
   ADD KEY `FK_USUARIO` (`ID_Usuario`);
 
 --
--- Indices de la tabla `contacto`
+-- Indexes for table `contacto`
 --
 ALTER TABLE `contacto`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `FK_CONTACTO` (`ID_Usuario`);
 
 --
--- Indices de la tabla `direccion`
+-- Indexes for table `direccion`
 --
 ALTER TABLE `direccion`
   ADD PRIMARY KEY (`ID_Direccion`),
   ADD KEY `FK_U_DIRECCION` (`ID_Usuario`);
 
 --
--- Indices de la tabla `donaciones`
+-- Indexes for table `donaciones`
 --
 ALTER TABLE `donaciones`
   ADD PRIMARY KEY (`ID_Donacion`),
   ADD KEY `FK_DONACION_USER` (`ID_Usuario`);
 
 --
--- Indices de la tabla `eventos`
+-- Indexes for table `eventos`
 --
 ALTER TABLE `eventos`
   ADD PRIMARY KEY (`ID_Evento`);
 
 --
--- Indices de la tabla `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`ID_Rol`),
   ADD KEY `FK_ROL_USUARIO` (`ID_Usuario`);
 
 --
--- Indices de la tabla `tours`
+-- Indexes for table `tours`
 --
 ALTER TABLE `tours`
   ADD PRIMARY KEY (`ID_Tour`);
 
 --
--- Indices de la tabla `usuario`
+-- Indexes for table `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`ID_Usuario`);
 
 --
--- Indices de la tabla `usuario_evento`
+-- Indexes for table `usuario_evento`
 --
 ALTER TABLE `usuario_evento`
   ADD PRIMARY KEY (`ID_Relacion_UE`),
@@ -339,7 +349,7 @@ ALTER TABLE `usuario_evento`
   ADD KEY `FK_EVENTO` (`ID_Evento`);
 
 --
--- Indices de la tabla `usuario_tour`
+-- Indexes for table `usuario_tour`
 --
 ALTER TABLE `usuario_tour`
   ADD PRIMARY KEY (`ID_Relacion_UT`),
@@ -347,119 +357,119 @@ ALTER TABLE `usuario_tour`
   ADD KEY `FK_TOUR` (`ID_Tour`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `animal`
+-- AUTO_INCREMENT for table `animal`
 --
 ALTER TABLE `animal`
   MODIFY `ID_Animal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `animal_usuario`
+-- AUTO_INCREMENT for table `animal_usuario`
 --
 ALTER TABLE `animal_usuario`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `contacto`
+-- AUTO_INCREMENT for table `contacto`
 --
 ALTER TABLE `contacto`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `direccion`
+-- AUTO_INCREMENT for table `direccion`
 --
 ALTER TABLE `direccion`
   MODIFY `ID_Direccion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `donaciones`
+-- AUTO_INCREMENT for table `donaciones`
 --
 ALTER TABLE `donaciones`
   MODIFY `ID_Donacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `eventos`
+-- AUTO_INCREMENT for table `eventos`
 --
 ALTER TABLE `eventos`
   MODIFY `ID_Evento` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `ID_Rol` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `tours`
+-- AUTO_INCREMENT for table `tours`
 --
 ALTER TABLE `tours`
   MODIFY `ID_Tour` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `usuario`
+-- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
   MODIFY `ID_Usuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de la tabla `usuario_evento`
+-- AUTO_INCREMENT for table `usuario_evento`
 --
 ALTER TABLE `usuario_evento`
   MODIFY `ID_Relacion_UE` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `usuario_tour`
+-- AUTO_INCREMENT for table `usuario_tour`
 --
 ALTER TABLE `usuario_tour`
   MODIFY `ID_Relacion_UT` int(10) NOT NULL AUTO_INCREMENT;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `animal_usuario`
+-- Constraints for table `animal_usuario`
 --
 ALTER TABLE `animal_usuario`
   ADD CONSTRAINT `FK_ANIMAL` FOREIGN KEY (`ID_Animal`) REFERENCES `animal` (`ID_Animal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_USUARIO` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Filtros para la tabla `contacto`
+-- Constraints for table `contacto`
 --
 ALTER TABLE `contacto`
   ADD CONSTRAINT `FK_CONTACTO` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `direccion`
+-- Constraints for table `direccion`
 --
 ALTER TABLE `direccion`
   ADD CONSTRAINT `FK_U_DIRECCION` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `donaciones`
+-- Constraints for table `donaciones`
 --
 ALTER TABLE `donaciones`
   ADD CONSTRAINT `FK_DONACION_USER` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `roles`
+-- Constraints for table `roles`
 --
 ALTER TABLE `roles`
   ADD CONSTRAINT `FK_ROL_USUARIO` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `usuario_evento`
+-- Constraints for table `usuario_evento`
 --
 ALTER TABLE `usuario_evento`
   ADD CONSTRAINT `FK_EVENTO` FOREIGN KEY (`ID_Evento`) REFERENCES `eventos` (`ID_Evento`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_USUARIO_EVENTO` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `usuario_tour`
+-- Constraints for table `usuario_tour`
 --
 ALTER TABLE `usuario_tour`
   ADD CONSTRAINT `FK_TOUR` FOREIGN KEY (`ID_Tour`) REFERENCES `tours` (`ID_Tour`) ON UPDATE CASCADE,
