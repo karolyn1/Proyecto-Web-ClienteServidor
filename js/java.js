@@ -5,6 +5,7 @@ $(function () {
     getPadrinos();
     getAnimalesDisponibles();
     getClientes();
+    getAdmin();
     //ALERTA PARA EL REGISTRO
     function mostrarAlertaCorreoExistente() {
         alert("El correo ya está registrado.");
@@ -645,7 +646,103 @@ $(function () {
     });
 
 
+    //ACTUALIZAR ADMINISTRADOR
 
+    //MOSTRAR EL ADMIN
+    function getAdmin() {
+        
+        $.post("actions/accionesUsuario.php", {
+            action: 'getUsuario' 
+        }, function (data, status) {
+            try {
+                let response = JSON.parse(data); // Parsear la respuesta JSON
+                console.log(response);
+    
+                if (response.status == '00') {
+                    let user = response.users[0]; // Asumimos que data contiene un array con un solo usuario
+                    console.log(user);
+                    // Asignar valores a los campos correspondientes
+                    $("#nombreAdmin").val(user.Nombre);
+                    $("#apellido1Admin").val(user.Apellido1);
+                    $("#apellido2Admin").val(user.Apellido2);
+                    $("#telefonoAdmin").val(user.Telefono);
+                    $("#emailAdmin").val(user.Correo);
+                    $("#direccionAdmin").val(user.Provincia);
+                    $("#cantonAdmin").val(user.Canton);
+                    $("#distritoAdmin").val(user.Distrito);
+                    $("#exactaAdmin").val(user.Direccion);
+                    $("#passwordHash").val(user.Password);
+                } else {
+                    console.error("Error en la respuesta: ", response.users);
+                    alert("No se pudo obtener la información del administrador. Por favor, inténtelo de nuevo.");
+                }
+            } catch (error) {
+                console.error("Error al procesar la respuesta: ", error);
+                alert("Ocurrió un error al intentar obtener los datos del administrador.");
+            }
+        })
+    };
+
+
+    $("#formAdminActualizar").on('submit', function(e){
+        e.preventDefault();
+
+        $nombreAdmin = $("#nombreAdmin").val();
+        $apellido1Admin = $("#apellido1Admin").val();
+        $apellido2admin =  $("#apellido2Admin").val();
+        $telefonoAdmin =  $("#telefonoAdmin").val();
+        $emailAdmin =  $("#emailAdmin").val();
+        $direccionAdmin =  $("#direccionAdmin").val();
+        $cantonAdmin =  $("#cantonAdmin").val();
+        $distritoAdmin =  $("#distritoAdmin").val();
+        $exactaAdmin =  $("#exactaAdmin").val();
+
+
+        $.post("actions/accionesUsuario.php", {
+            action: 'updateAdmin',
+            nombre: $nombreAdmin,
+            apellido1: $apellido1Admin,
+            apellido2: $apellido2admin,
+            telefono: $telefonoAdmin,
+            correo: $emailAdmin,
+            direccion: $exactaAdmin,
+            canton: $cantonAdmin,
+            distrito: $distritoAdmin,
+            provincia: $direccionAdmin
+        }, function(data, status){
+          let response = JSON.parse(data);
+          console.log(response);
+            alert(response.message);
+            if(response.status === '01'){
+                window.location.href = "./login.php";
+            }
+
+        });
+
+
+    });
+
+
+
+    $("#changePassword").on('submit', function(e){
+        e.preventDefault();
+        $passwordHash = $("#passwordHash").val();
+        $contraActual = $("#contrasena_actual").val();
+        $nuevaContra =  $("#nueva_contrasena").val();
+
+        $.post("actions/accionesUsuario.php", {
+            action: 'actualizarPassword',
+            contraActual: $contraActual,
+            newPassword: $nuevaContra,
+            passwordHash: $passwordHash
+        }, function(data, status){
+            let response = JSON.parse(data);
+            alert(response.message);
+            if(response.status=='00'){
+                window.location.href = "./login.php";
+            }
+        });
+    })
     //CIERRE DEL FUNCTION
 
         

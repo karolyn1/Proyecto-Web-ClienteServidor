@@ -12,6 +12,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
 </head>
 
 <body>
@@ -38,37 +40,37 @@
                 <div class="container container-animales-agregar mt-4">
 
 
-                    <form action="" class="row formApadrinamiento" method="POST">
+                    <form action="" class="row " id="formAdminActualizar" method="POST">
 
                         <div class="formDatos col">
                             <h1 class="text-center"><b>DATOS PERSONALES</b></h1>
                             <div class="mb-3"><label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre"
-                                    value="<?php echo $_SESSION['usuario_nombre']; ?>" required>
+                                <input type="text" class="form-control" id="nombreAdmin" name="nombre"
+                                   required>
                             </div>
                             <div class="mb-3"><label for="apellido1">Primer Apellido</label>
-                                <input type="text" class="form-control" id="apellido1" name="apellido1"
-                                    value="<?php echo $_SESSION['usuario_apellido1']; ?>" required>
+                                <input type="text" class="form-control" id="apellido1Admin" name="apellido1"
+                                    required>
 
 
-                                <div class=" mb-3">
+                                <div class="mb-3">
                                     <label for="apellido2">Segundo Apellido</label>
-                                    <input type="text" class="form-control" id="apellido2" name="apellido2"
-                                        value="<?php echo $_SESSION['usuario_apellido2']; ?>" required>
+                                    <input type="text" class="form-control" id="apellido2Admin" name="apellido2"
+                                        required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="telefono">Teléfono</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono"
-                                        value="<?php echo $_SESSION['usuario_telefono']; ?>" required>
+                                    <input type="text" class="form-control" id="telefonoAdmin" name="telefono"
+                                       required>
                                 </div>
 
                             </div>
 
                             <div class="mb-3">
                                 <label for="email">Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    value="<?php echo $_SESSION['usuario_correo']; ?>" required>
+                                <input type="email" class="form-control" id="emailAdmin" name="email"
+                                    required>
                             </div>
 
                         </div>
@@ -77,23 +79,23 @@
                             <h1 class="text-center"><b>DIRECCION</b></h1>
                    
                                 <div class="mb-3"><label for="nombre">Provincia</label>
-                                    <input type="text" class="form-control" id="nombreAdmin" name="nombre"
-                                        value="<?php echo $_SESSION['usuario_provincia']; ?>" required>
+                                    <input type="text" class="form-control" id="direccionAdmin" name="nombre"
+                                         required>
                                 </div>
                                 <div class="mb-3"><label for="apellido1">Cantón</label>
                                     <input type="text" class="form-control" id="cantonAdmin" name="apellido1"
-                                        value="<?php echo $_SESSION['usuario_canton']; ?>" required>
+                                         required>
                                 </div>
                                 <div class=" mb-3">
                                     <label for="apellido2">Distrito</label>
                                     <input type="text" class="form-control" id="distritoAdmin" name="apellido2"
-                                        value="<?php echo $_SESSION['usuario_distrito']; ?>" required>
+                                         required>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="telefono">Dirección Exacta</label>
-                                    <input type="text" class="form-control" id="telefono" name="telefono"
-                                        value="<?php echo $_SESSION['usuario_direccion']; ?>" required>
+                                    <input type="text" class="form-control" id="exactaAdmin" name="exactaAdmin"
+                                         required>
                                 </div>
                         </div>
 
@@ -105,6 +107,7 @@
                     <!-- Formulario de Cambio de Contraseña -->
                     <h5>Cambio de Contraseña</h5>
                     <form action="" id="changePassword" method="POST">
+                        <input type="hidden" id="passwordHash">
                         <div class="form-group">
                             <label for="contrasena_actual">Contraseña Actual</label>
                             <input type="password" class="form-control" id="contrasena_actual" name="contrasena_actual"
@@ -131,7 +134,6 @@
     ?>
 
     <!-- Scripts de jQuery, Popper.js y Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </bo>

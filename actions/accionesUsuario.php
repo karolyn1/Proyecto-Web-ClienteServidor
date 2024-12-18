@@ -83,7 +83,7 @@ switch ($data['action']) {
         }
 
         break;
-        case 'eliminar': 
+    case 'eliminar': 
             $id = $data['id'];
             if (isset($data['id'])) {
                 $id = $data['id'];
@@ -124,19 +124,188 @@ switch ($data['action']) {
             }
             break;
             case 'updateAdmin':
+                $idUser = $_SESSION['usuario_id'];
                 $correoActual = $_SESSION['usuario_correo'];
                 $nombre = $data['nombre'];
                 $apellido1 = $data['apellido1'];
-                $apellido2= $data['apellido2'];
-                $telefono = $data['nombre'];
+                $apellido2 = $data['apellido2'];
+                $telefono = $data['telefono'];
                 $correo = $data['correo'];
                 $direccion = $data['direccion'];
                 $provincia = $data['provincia'];
                 $canton = $data['canton'];
                 $distrito = $data['distrito'];
+            
+                // Validar si el correo ya existe
+                $buscarCorreo = "SELECT * FROM usuario WHERE Correo = ? AND ID_Usuario != ?";
+                $stmtCorreo = $conn->prepare($buscarCorreo);
+                $stmtCorreo->bind_param("si", $correo, $idUser);
+                $stmtCorreo->execute();
+                $resultado = $stmtCorreo->get_result();
+            
+                if ($resultado->num_rows > 0) {
+                    echo json_encode(["status" => "99", "message" => "El correo ingresado ya existe en la base de datos."]);
+                    break;
+                }
+            
+                // Actualizar usuario
+                $sql = "UPDATE usuario 
+                        SET Nombre = ?, Apellido1 = ?, Apellido2 = ?, Telefono = ?, Correo = ? 
+                        WHERE ID_Usuario = ?";
+                $stmtUsuario = $conn->prepare($sql);
+                $stmtUsuario->bind_param("sssssi", $nombre, $apellido1, $apellido2, $telefono, $correo, $idUser);
+            
+                case 'updateAdmin':
+                    $idUser = $_SESSION['usuario_id'];
+                    $correoActual = $_SESSION['usuario_correo'];
+                    $nombre = $data['nombre'];
+                    $apellido1 = $data['apellido1'];
+                    $apellido2 = $data['apellido2'];
+                    $telefono = $data['telefono'];
+                    $correo = $data['correo'];
+                    $direccion = $data['direccion'];
+                    $provincia = $data['provincia'];
+                    $canton = $data['canton'];
+                    $distrito = $data['distrito'];
+                
+                    // Validar si el correo ya existe
+                    $buscarCorreo = "SELECT * FROM usuario WHERE Correo = ? AND ID_Usuario != ?";
+                    $stmtCorreo = $conn->prepare($buscarCorreo);
+                    $stmtCorreo->bind_param("si", $correo, $idUser);
+                    $stmtCorreo->execute();
+                    $resultado = $stmtCorreo->get_result();
+                
+                    if ($resultado->num_rows > 0) {
+                        echo json_encode(["status" => "99", "message" => "El correo ingresado ya existe en la base de datos."]);
+                        break;
+                    }
+                
+                    // Actualizar usuario
+                    $sql = "UPDATE usuario 
+                            SET Nombre = ?, Apellido1 = ?, Apellido2 = ?, Telefono = ?, Correo = ? 
+                            WHERE ID_Usuario = ?";
+                    $stmtUsuario = $conn->prepare($sql);
+                    $stmtUsuario->bind_param("sssssi", $nombre, $apellido1, $apellido2, $telefono, $correo, $idUser);
+                
+                    if ($stmtUsuario->execute()) {
+                        // Verificar si el correo cambió
+                        if ($correo !== $correoActual) {
+                            session_unset();
+                            session_destroy();
+                            echo json_encode([
+                                "status" => "01",
+                                "message" => "El correo ha sido cambiado. Por favor, inicia sesión de nuevo.",
+                            ]);
+                            break;
+                        }
+                
+                        // Actualizar dirección
+                        $direccionUpdate = "UPDATE direccion 
+                                            SET Direccion_Exacta = ?, Provincia = ?, Canton = ?, Distrito = ? 
+                                            WHERE ID_Usuario = ?";
+                        $stmtDireccion = $conn->prepare($direccionUpdate);
+                        $stmtDireccion->bind_param("ssssi", $direccion, $provincia, $canton, $distrito, $idUser);
+                
+                        if ($stmtDireccion->execute()) {
+                            echo json_encode(["status" => "00", "message" => "Usuario actualizado exitosamente."]);
+                        } else {
+                            echo json_encode(["status" => "99", "message" => "Error al actualizar la dirección: " . $stmtDireccion->error]);
+                        }
+                
+                        $stmtDireccion->close();
+                    } else {
+                        echo json_encode(["status" => "99", "message" => "Error al actualizar el usuario: " . $stmtUsuario->error]);
+                    }
+                
+                    $stmtUsuario->close();
+                    break;
+                
+                $stmtUsuario->close();
+                break;
+            
+            case 'getUsuario':
+                $id = $_SESSION['usuario_id'];
+                $sql = "SELECT a.Apellido1, a.Nombre, a.Apellido2, a.Correo, a.Telefono, b.Direccion_Exacta, b.Provincia, b.Canton, b.Distrito, a.Password
+                        FROM usuario a
+                        INNER JOIN direccion b
+                        ON a.ID_Usuario = b.ID_Usuario
+                        WHERE a.ID_Usuario = '$id'";
+                $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                            $users = [];
+                            $user = $result->fetch_assoc();
+                            $users[] = [
+            "Nombre" => $user['Nombre'],
+            "Apellido1" => $user['Apellido1'],
+            "Apellido2" => $user['Apellido2'],
+            "Correo" => $user['Correo'],
+            "Telefono" => $user['Telefono'],
+            "Direccion" => $user['Direccion_Exacta'],
+            "Provincia" => $user['Provincia'],
+            "Canton" => $user['Canton'],
+            "Distrito" => $user['Distrito'],
+            "Password" => $user['Password']
+        ];
 
+        echo json_encode([
+            "status" => "00",
+            "users" => $users
+        ]);
+    } else {
+        echo json_encode([
+            "status" => "99",
+            "users" => "No se encontró información para el usuario especificado."
+        ]);
+    }
+    break;
+    case 'actualizarPassword':
+        $contraActual = $data['contraActual'];
+        $password = $data['passwordHash'];
+        $nuevoPassword = $data['newPassword'];
+        $hash_password = password_hash($nuevoPassword, PASSWORD_BCRYPT);
     
-    default:
+        // Verificar si la contraseña actual coincide
+        if (password_verify($contraActual, $password)) {
+            $sql = "UPDATE usuario SET Password = ? WHERE ID_Usuario = ?";
+            if ($stmt = $conn->prepare($sql)) {
+                $stmt->bind_param("si", $hash_password, $idUsuarioSesion);
+    
+                if ($stmt->execute()) {
+                    // Cerrar la sesión y redirigir al login
+                    session_unset();
+                    session_destroy();
+    
+                    // Redirección al login
+                    echo json_encode([
+                        "status" => "00",
+                        "message" => "Contraseña actualizada correctamente. Redirigiendo al inicio de sesión..."
+                    ]);
+    
+                    exit; // Detener ejecución después de la redirección
+                } else {
+                    echo json_encode([
+                        "status" => "99",
+                        "message" => "No se pudo actualizar la contraseña. Error en la base de datos."
+                    ]);
+                }
+                $stmt->close();
+            } else {
+                echo json_encode([
+                    "status" => "99",
+                    "message" => "Error al preparar la consulta: " . $conn->error
+                ]);
+            }
+        } else {
+            echo json_encode([
+                "status" => "01",
+                "message" => "La contraseña actual no es correcta."
+            ]);
+        }
+        break;
+    
+    
+
+        default:
         break;
 }
 
