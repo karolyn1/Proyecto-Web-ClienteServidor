@@ -45,13 +45,8 @@ if (!isset($_SESSION['usuario_id'])) {
                 <form method="post" class="form-agregar-animal" id="form-donaciones">
                     <div class="mb-3">
                         <label for="monto">Cantidad a donar</label>
-                        <select id="monto-select" name="monto" class="form-control" required
-                            onchange="toggleOtraCantidad()">
-                            <option value="10">$10</option>
-                            <option value="25">$25</option>
-                            <option value="50">$50</option>
-                            <option value="otra">Otra cantidad</option>
-                        </select>
+                        <input type="number" id="otra-cantidad" name="otra_cantidad" class="form-control mt-2"
+                        placeholder="Digite otra cantidad"  min="1">
                         <!-- Campo para otra cantidad -->
                         <input type="number" id="otra-cantidad" name="otra_cantidad" class="form-control mt-2"
                             placeholder="Digite otra cantidad" style="display: none;" min="1">
@@ -184,17 +179,6 @@ if (!isset($_SESSION['usuario_id'])) {
 
 <script>
     
-
-    function toggleOtraCantidad() {
-        var select = document.getElementById('monto-select');
-        var otraCantidad = document.getElementById('otra-cantidad');
-        if (select.value === 'otra') {
-            otraCantidad.style.display = 'block';
-        } else {
-            otraCantidad.style.display = 'none';
-        }
-    }
-
     function mostrarModal() {
         var metodo = document.getElementById('metodo').value;
         if (metodo === 'tarjeta') {

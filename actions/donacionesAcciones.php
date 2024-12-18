@@ -31,6 +31,7 @@ switch ($data['action']) {
             } else {
                 echo json_encode(["status" => "99", "message" => "Lo sentimos, tu donación no pudo ser procesada"]);
             }
+            break;
         default:
         break;
     };

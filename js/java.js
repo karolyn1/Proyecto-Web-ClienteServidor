@@ -586,7 +586,7 @@ $(function () {
         e.preventDefault();
 
         $id= $("#idAnimalApadrinar").val();
-        $montoDonar = $("#SmontoDonarForm").val();
+        $montoDonar = $("#montoDonarForm").val();
         $frecuencia = "Mensual";
 
         $.post("actions/accionesApadrinamientos.php", {
@@ -601,53 +601,12 @@ $(function () {
                 window.location.href = "./listadoAnimalesDisponibles.php";
             }
         });
-    })
+    });
 
 
     //CIERRE DEL FUNCTION
-    $("#form-donaciones").on('submit', function(e) {
-        e.preventDefault();
-        console.log("Form enviado")
-    
-        // Deshabilitar el botón de submit para prevenir envíos repetidos
-        $("#submit-button").prop('disabled', true);
-    
-        // Obtener el valor seleccionado del select
-        let $montoDonacion = $("#monto-select").val();
-    
-        // Si el valor seleccionado es "otra", obtener el valor del campo de input
-        if ($montoDonacion === "otra") {
-            $montoDonacion = $("#otra-cantidad").val(); // Obtener la cantidad ingresada
-        } else {
-            $montoDonacion = $("#monto-select").val(); 
-        }
-    
-        // Obtener el método de pago
-        let $pago = $("#metodo").val();
-    
-            $.post("actions/donacionesAcciones.php", {
-                action: 'guardar',
-                monto: $montoDonacion,
-                metodoPago: $pago
-            }, function(data, status) {
-                let response = JSON.parse(data);
-                
-                if (response.status == '00') {
-                    $('#donationModal').modal('show'); // Muestra el modal
-                } else {
-                    alert("Hubo un error al guardar la donación.");
-                }
-            }).fail(function() {
-                alert("Error al procesar la donación. Inténtalo de nuevo.");
-            }).always(function() {
-                // Habilitar el botón nuevamente en caso de error o éxito
-                $("#submit-button").prop('disabled', false);
-            });
 
-    });
-    
-
-    
+        
 
 
 });

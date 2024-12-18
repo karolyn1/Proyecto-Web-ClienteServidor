@@ -80,7 +80,7 @@ if (!$result_animales) {
                         <option value="paypal">PayPal</option>
                     </select>
                 </div>
-                <button type="submit" class="btn">Apadrinar</button>
+                <button type="submit" class="submit-btn">Apadrinar</button>
             </form>
         </div>
     </div>
