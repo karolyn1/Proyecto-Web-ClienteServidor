@@ -10,22 +10,49 @@ if (!isset($_SESSION['usuario_id'])) {
 
 $usuario_id = $_SESSION['usuario_id'];
 
-// Verificar si se ha presionado el botón de finalizar apadrinamiento
 if (isset($_POST['finalizar_apadrinamiento'])) {
     $id_animal = $_POST['id_animal'];
-    $fecha_finalizacion = date('Y-m-d'); // Fecha actual
+    $usuario_id = $_SESSION['usuario_id']; // Obtener el ID del usuario de la sesión actual
+    $modalMessage = "";
 
-    // Actualizar la fecha de finalización en la base de datos
+    // Actualizar la fecha de finalización en la tabla 'animal_usuario'
     $query_update = "
         UPDATE animal_usuario
-        SET FechaFin = ?
+        SET FechaFin = CURDATE()
         WHERE ID_Usuario = ? AND ID_Animal = ? AND FechaFin IS NULL
     ";
-
     $stmt_update = $conn->prepare($query_update);
-    $stmt_update->bind_param("sii", $fecha_finalizacion, $usuario_id, $id_animal);
-    $stmt_update->execute();
+    $stmt_update->bind_param("ii", $usuario_id, $id_animal); // Ambos son enteros
+    $success1 = $stmt_update->execute();
     $stmt_update->close();
+
+    // Actualizar el estado del animal en la tabla 'animal'
+    $query_update_animal = "
+        UPDATE animal
+        SET Apadrinado = 0
+        WHERE ID_Animal = ?
+    ";
+    $stmt_update_animal = $conn->prepare($query_update_animal);
+    $stmt_update_animal->bind_param("i", $id_animal); // ID_Animal es un entero
+    $success2 = $stmt_update_animal->execute();
+    $stmt_update_animal->close();
+
+    // Validar si las consultas fueron exitosas
+    if ($success1 && $success2) {
+        $modalMessage = "El apadrinamiento ha finalizado correctamente.";
+    } else {
+        $modalMessage = "Ha ocurrido un error al finalizar el apadrinamiento.";
+    }
+
+    // Generar código para mostrar el modal
+    echo "<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('resultModal');
+            const modalMessage = document.getElementById('modalMessage');
+            modalMessage.textContent = '$modalMessage';
+            modal.style.display = 'block';
+        });
+    </script>";
 }
 
 ?>
@@ -101,7 +128,7 @@ if (isset($_POST['finalizar_apadrinamiento'])) {
                             <?php
                         }
                     } else {
-                        echo "<p class='text-center'>No tienes animales apadrinados actualmente.</p>";
+                        echo "<p class='container text-center'>No tienes animales apadrinados actualmente.</p>";
                     }
 
                     $stmt->close();
@@ -110,9 +137,20 @@ if (isset($_POST['finalizar_apadrinamiento'])) {
             </div>
         </div>
     </main>
+    <div id="resultModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+    <div class="modalApadrinamiento">
+        <p id="modalMessage"></p>
+        <button onclick="closeModal()">Cerrar</button>
+    </div>
+</div>
     <?php
     include("fragmentos.php");
     echo $footer;
     ?>
+    <script>
+    function closeModal() {
+        document.getElementById('resultModal').style.display = 'none';
+    }
+</script>
 </body>
 </html>

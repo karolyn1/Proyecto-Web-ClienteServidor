@@ -745,7 +745,37 @@ $(function () {
     })
     //CIERRE DEL FUNCTION
 
+    $("#contact-form").on('submit', function(e){
+
+        e.preventDefault();
+        $nombre = $("#nombreConsulta").val();
+        $apellido = $("#apellidoConsulta").val();
+        $email = $("#emailConsulta").val();
+        $mensaje = $("#mensajeConsulta").val();
+
+
+        if (!$nombre || !$nombre || !$email || !$mensaje) {
+            alert('Debe completar todos los campos antes de enviar.');
+            return;
+        } else {
+            $.post("actions/contactoAcciones.php", {
+                action: 'add',
+                nombre:  $nombre, apellido:  $apellido, email: $email, mensaje:   $mensaje 
+            }, function(data,status){
+                let response = JSON.parse(data);
+                console.log(response);
+                alert(response.message);
+                if(response.status=='00'){
+                    $mensaje = $("#mensajeConsulta").val("");
+
+                }
+            });
+        }
         
+
+
+
+    })
 
 
 });

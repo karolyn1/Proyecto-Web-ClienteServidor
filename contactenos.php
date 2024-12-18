@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Casa Natura - Donacioens</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,12 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css" >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
 </head>
 <body>
     <header>
     <?php 
         include("fragmentos.php");
-        echo $navbar;        
+        echo $navbar;   
+        
+        $usuarioNombre = $usuarioApellido1 = $usuarioCorreo = ""; // Valores predeterminados
+        if (!empty($_SESSION['usuario_id'])) {
+            $usuarioNombre = $_SESSION['usuario_nombre'] ?? "";
+            $usuarioApellido1 = $_SESSION['usuario_apellido1'] ?? "";
+            $usuarioCorreo = $_SESSION['usuario_correo'] ?? "";
+        }
+
         ?>
     </header>
 <main>
@@ -27,23 +34,23 @@
             <img src="imagenes/logo.png" alt="Casa Natura Logo" class="logo-mascot">
         </div>
         <div class="contact-form">
-        <form id="contact-form" action="#" method="GET">
-            <h3 class="contacto-title-form">¿Tienes alguna duda?</h3>
+        <form id="contact-form  form-agregar-animal" action="#">
+            <h3 class="contacto-title-form">¿TIENES ALGUNA DUDA?</h3>
 
             <!-- Campo Nombre -->
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+            <input type="text" id="nombreConsulta" name="nombre" placeholder="Nombre"  value="<?php echo htmlspecialchars($usuarioNombre); ?>"  required>
             <small class="error-message" style="color: red; display: none;">Por favor, ingresa tu nombre.</small>
 
             <!-- Campo Apellidos -->
-            <input type="text" id="apellidos" name="apellidos" placeholder="Apellido" required>
+            <input type="text" id="apellidoConsulta" name="apellidos" placeholder="Apellido" value="<?php echo htmlspecialchars($usuarioApellido1); ?>"  required>
             <small class="error-message" style="color: red; display: none;">Por favor, ingresa tus apellidos.</small>
 
             <!-- Campo Correo Electrónico -->
-            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="email" id="emailConsulta" name="email" placeholder="Email" value="<?php echo htmlspecialchars($usuarioCorreo); ?>"  required>
             <small class="error-message" style="color: red; display: none;">Por favor, ingresa un correo válido.</small>
 
             <!-- Campo Mensaje -->
-            <textarea id="mensaje" name="mensaje" placeholder="Mensaje" required></textarea>
+            <textarea id="mensajeConsulta" name="mensaje" placeholder="Mensaje" required></textarea>
             <small class="error-message" style="color: red; display: none;">Por favor, escribe un mensaje.</small>
 
             <button type="submit" class="about-btn">ENVIAR</button>
@@ -73,29 +80,6 @@
         ?>
     </footer>
 
-    <script>
-    document.getElementById("contact-form").addEventListener("submit", function(event) {
-        event.preventDefault(); // Detener el envío para la demostración
-        let isValid = true;
 
-        // Selecciona todos los campos y verifica su validez
-        const inputs = document.querySelectorAll("#contact-form input, #contact-form textarea");
-        inputs.forEach(input => {
-            const errorMessage = input.nextElementSibling; // El mensaje de error es el siguiente hermano
-            if (!input.checkValidity()) {
-                isValid = false;
-                errorMessage.style.display = "block";
-                errorMessage.textContent = input.validationMessage;
-            } else {
-                errorMessage.style.display = "none";
-            }
-        });
-
-        if (isValid) {
-            alert("Formulario completado correctamente. ¡Gracias por contactarnos!"); // Mensaje de demostración
-            document.getElementById("contact-form").reset(); // Limpia el formulario
-        }
-    });
-</script>
 </body>
 </html>
