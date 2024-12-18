@@ -65,7 +65,7 @@ $result = $stmt->get_result();
                                 <div class="card-body">
                                     <h5 class="card-title">Tour: <?php echo $boleto['Nombre']; ?></h5>
                                     <p class="card-text"><strong>Boleto(s) Adquirido(s):</strong> <?php echo $boleto['BoletosAdquridos']; ?></p>
-                                    <p class="card-text"><strong>Total:</strong> ¢<?php echo number_format($boleto['Total'], 2); ?></p>
+                                    <p class="card-text"><strong>Total:</strong> $<?php echo number_format($boleto['Total'], 2); ?></p>
                                     <p class="card-text"><strong>Fecha del Tour:</strong> <?php echo date("d-m-Y", strtotime($boleto['Fecha'])); ?></p>
                                     <p class="card-text"><strong>Hora del Tour:</strong> <?php echo date("H:i", strtotime($boleto['Hora'])); ?></p>
                                 </div>
