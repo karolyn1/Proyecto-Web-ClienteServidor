@@ -618,13 +618,13 @@ $(function () {
         // Si el valor seleccionado es "otra", obtener el valor del campo de input
         if ($montoDonacion === "otra") {
             $montoDonacion = $("#otra-cantidad").val(); // Obtener la cantidad ingresada
+        } else {
+            $montoDonacion = $("#monto-select").val(); 
         }
     
         // Obtener el método de pago
         let $pago = $("#metodo").val();
     
-        // Verificar si el monto es válido antes de enviarlo
-        if ($montoDonacion && $pago) {
             $.post("actions/donacionesAcciones.php", {
                 action: 'guardar',
                 monto: $montoDonacion,
@@ -643,11 +643,7 @@ $(function () {
                 // Habilitar el botón nuevamente en caso de error o éxito
                 $("#submit-button").prop('disabled', false);
             });
-        } else {
-            alert("Por favor, ingrese un monto válido.");
-            // Habilitar el botón si no se realiza la donación
-            $("#submit-button").prop('disabled', false);
-        }
+
     });
     
 
