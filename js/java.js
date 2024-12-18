@@ -604,6 +604,48 @@ $(function () {
     });
 
 
+    $("#form-donaciones").on("submit", function (e) {
+        e.preventDefault(); // Evitar el envío predeterminado del formulario
+
+        // Capturar los datos del formulario
+        let monto = $("#otra-cantidad").val();
+        let metodoPago = $("#metodo").val();
+
+        // Validar campos antes de enviar
+        if (!monto || !metodoPago) {
+            alert("Por favor, completa todos los campos.");
+            return;
+        }
+
+        // Enviar datos al servidor con $.ajax
+        $.ajax({
+            url: "actions/donacionesAcciones.php", // Ruta al archivo PHP
+            type: "POST", // Método HTTP
+            dataType: "json", // Especificar que se espera una respuesta JSON
+            contentType: "application/json; charset=utf-8", // Indicar que se envían datos JSON
+            data2: JSON.stringify({
+                action: 'guardar', // Acción que se ejecutará en PHP
+                monto: monto,
+                metodoPago: metodoPago,
+            }),
+            success: function (response) {
+                // Manejar la respuesta del servidor
+                if (response.status === "00") {
+                    // Mostrar modal de éxito
+                    $('#donationModal').modal('show');
+                } else {
+                    // Mostrar mensaje de error
+                    alert(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("Ocurrió un error al procesar tu donación. Intenta nuevamente.");
+            },
+        });
+    });
+
+
+
     //CIERRE DEL FUNCTION
 
         
