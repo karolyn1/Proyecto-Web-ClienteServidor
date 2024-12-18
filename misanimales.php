@@ -9,6 +9,25 @@ if (!isset($_SESSION['usuario_id'])) {
 }
 
 $usuario_id = $_SESSION['usuario_id'];
+
+// Verificar si se ha presionado el botón de finalizar apadrinamiento
+if (isset($_POST['finalizar_apadrinamiento'])) {
+    $id_animal = $_POST['id_animal'];
+    $fecha_finalizacion = date('Y-m-d'); // Fecha actual
+
+    // Actualizar la fecha de finalización en la base de datos
+    $query_update = "
+        UPDATE animal_usuario
+        SET FechaFin = ?
+        WHERE ID_Usuario = ? AND ID_Animal = ? AND FechaFin IS NULL
+    ";
+
+    $stmt_update = $conn->prepare($query_update);
+    $stmt_update->bind_param("sii", $fecha_finalizacion, $usuario_id, $id_animal);
+    $stmt_update->execute();
+    $stmt_update->close();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -47,10 +66,10 @@ $usuario_id = $_SESSION['usuario_id'];
                     <?php
                     // Consulta para obtener los animales apadrinados del usuario actual
                     $query = "
-                        SELECT a.Nombre, a.Historia, a.Imagen, a.Raza, a.Especie, a.Estado_Salud
+                        SELECT a.ID_Animal, a.Nombre, a.Historia, a.Imagen, a.Raza, a.Especie, a.Estado_Salud
                         FROM animal a
                         INNER JOIN animal_usuario au ON a.ID_Animal = au.ID_Animal
-                        WHERE au.ID_Usuario = ?
+                        WHERE au.ID_Usuario = ? AND au.FechaFin IS NULL
                         ORDER BY au.FechaApadrinamiento DESC
                     ";
 
@@ -68,12 +87,16 @@ $usuario_id = $_SESSION['usuario_id'];
                             }
                             ?>
                             <div class="card animales col-md-4 mb-4">
-                                    <h5 class="card-title"><?php echo htmlspecialchars($row['Nombre']); ?></h5>
-                                    <p class="card-text"><strong>Raza:</strong> <?php echo htmlspecialchars($row['Raza']); ?></p>
-                                    <p class="card-text"><strong>Especie:</strong> <?php echo htmlspecialchars($row['Especie']); ?></p>
-                                    <p class="card-text"><strong>Estado de Salud:</strong> <?php echo htmlspecialchars($row['Estado_Salud']); ?></p>
-                                    <p class="card-text"><?php echo htmlspecialchars($row['Historia']); ?></p>
-                                </div>
+                                <h5 class="card-title"><?php echo htmlspecialchars($row['Nombre']); ?></h5>
+                                <p class="card-text"><strong>Raza:</strong> <?php echo htmlspecialchars($row['Raza']); ?></p>
+                                <p class="card-text"><strong>Especie:</strong> <?php echo htmlspecialchars($row['Especie']); ?></p>
+                                <p class="card-text"><strong>Estado de Salud:</strong> <?php echo htmlspecialchars($row['Estado_Salud']); ?></p>
+                                <p class="card-text"><?php echo htmlspecialchars($row['Historia']); ?></p>
+                                <!-- Botón para finalizar apadrinamiento -->
+                                <form method="POST" action="">
+                                    <input type="hidden" name="id_animal" value="<?php echo $row['ID_Animal']; ?>">
+                                    <button type="submit" name="finalizar_apadrinamiento" class="btn btn-danger">Finalizar Apadrinamiento</button>
+                                </form>
                             </div>
                             <?php
                         }
