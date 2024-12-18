@@ -26,10 +26,11 @@ if (!isset($_SESSION['usuario_id'])) {
 </head>
 
 <body>
-    <?php
-    include("fragmentos.php");
-    echo $navbar;
-    ?>
+<?php
+include("fragmentos.php");
+include("actions/conexion.php");
+echo $navbar;
+?>
 
 
     <main>
