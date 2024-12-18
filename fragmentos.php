@@ -143,7 +143,7 @@ $navbar .= '
         </a>
     </div>
     <div class="cardMenu">
-        <a href="misboletos.php">
+        <a href="misEventos.php">
             <div class="icon">🤝</div>
             <p>MIS EVENTOS</p>
         </a>
