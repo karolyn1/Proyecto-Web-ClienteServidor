@@ -1,16 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+// Verificar si el archivo existe
+if (!file_exists("actions/conexion.php")) {
+    die("Error: No se encuentra 'actions/conexion.php'.");
+}
+
+// Incluir el archivo de conexión
+include("actions/conexion.php");
+?>
+
+<?php
+    // Verificar que la conexión existe antes de continuar
+    if (!isset($conn) || $conn->connect_error) {
+        die("Error: No se pudo establecer la conexión a la base de datos.");
+    }
+
+    // Consulta para eventos disponibles
+    $sql = "SELECT ID_Evento, Nombre, Descripcion, Imagen FROM eventos"; // Asegúrate de que la tabla se llama 'eventos'
+    $resultado = $conn->query($sql);
+
+    if (!$resultado) {
+        die("Error en la consulta: " . $conn->error); // Maneja errores en la consulta
+    }
+?>
 
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Eventos</title>
+    <title>Casa Natura - Eventos Disponibles</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css" >
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -20,58 +42,55 @@
             echo $navbar;
         ?>
     </nav>
-<main>
-    <div class="container">
-        <h1 class="animales-apadrinar-title">Eventos Disponibles</h1>
-        <p class="animales-apadrinar-subtitle">Únete a nuestras actividades y eventos exclusivos. Cada evento está diseñado para ofrecerte una experiencia única y enriquecedora.</p>
 
-        <h3 class="animales-apadrinar-list-title">Lista de Eventos Disponibles</h3>
+    <main>
+        <div class="container">
+            <h1 class="animales-apadrinar-title">Eventos Disponibles</h1>
+            <p class="animales-apadrinar-subtitle">
+                Únete a nuestras actividades y eventos exclusivos. Cada evento está diseñado para ofrecerte una experiencia única y enriquecedora.
+            </p>
 
-        <!-- Grid de eventos -->
-        <div class="animal-grid">
-            <!-- Ejemplo de tarjeta de evento 1 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Evento+1" alt="Imagen del Evento 1">
-                <a href="evento.php?id=1">Evento 1</a>
-                <p>Descripción breve del Evento 1.</p>
-            </div>
+            <h3 class="animales-apadrinar-list-title">Lista de Eventos Disponibles</h3>
 
-            <!-- Ejemplo de tarjeta de evento 2 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Evento+2" alt="Imagen del Evento 2">
-                <a href="evento.php?id=2">Evento 2</a>
-                <p>Descripción breve del Evento 2.</p>
-            </div>
+            <div class="animal-grid">
+                <?php
+                if ($resultado->num_rows > 0) {
+                    while ($evento = $resultado->fetch_assoc()) {
+                        echo '<div class="animal-card">';
+                        
+                        // Verificar si el campo 'imagen' contiene un valor
+                        $imagen = htmlspecialchars($evento['Imagen']);
+                        
+                        // Verificar si la imagen existe en la carpeta 'imagenes'
+                        if (!empty($imagen) && file_exists('imagenes/' . $imagen)) {
+                            echo '<img src="imagenes/' . $imagen . '" alt="Imagen del evento">';
+                        } else {
+                            // Si no existe la imagen, usar una imagen por defecto
+                            echo '<img src="imagenes/default.jpg" alt="Imagen no disponible">';
+                        }
 
-            <!-- Ejemplo de tarjeta de evento 3 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Evento+3" alt="Imagen del Evento 3">
-                <a href="evento.php?id=3">Evento 3</a>
-                <p>Descripción breve del Evento 3.</p>
-            </div>
+                        echo '<a href="evento.php?id=' . htmlspecialchars($evento['ID_Evento']) . '">Ver detalles del evento</a>';
+                        echo '<p>' . htmlspecialchars($evento['Descripcion']) . '</p>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo "<p>No hay eventos disponibles en este momento.</p>";
+                }
 
-            <!-- Ejemplo de tarjeta de evento 4 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Evento+4" alt="Imagen del Evento 4">
-                <a href="evento.php?id=4">Evento 4</a>
-                <p>Descripción breve del Evento 4.</p>
-            </div>
-
-            <!-- Ejemplo de tarjeta de evento 5 -->
-            <div class="animal-card">
-                <img src="https://via.placeholder.com/200x200.png?text=Evento+5" alt="Imagen del Evento 5">
-                <a href="evento.php?id=5">Evento 5</a>
-                <p>Descripción breve del Evento 5.</p>
+                // Cerrar la conexión al final
+                $conn->close();
+                ?>
             </div>
         </div>
-    </div>
-</main>
+    </main>
+
     <footer>
         <?php
-         include("fragmentos.php");
-         echo $footer;
-         ?>
+        // Incluir fragmentos de pie de página
+        include("fragmentos.php");
+        echo $footer;
+        ?>
     </footer>
 </body>
-
 </html>
+
