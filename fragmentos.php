@@ -148,12 +148,7 @@ $navbar .= '
             <p>MIS EVENTOS</p>
         </a>
     </div>
-    <div class="cardMenu">
-        <a href="#cerrar-sesion">
-            <div class="icon">🔒</div>
-            <p>CERRAR SESIÓN</p>
-        </a>
-    </div>
+    
 </div>';
     ?>
 
