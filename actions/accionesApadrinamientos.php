@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("conexion.php");
 
 $data = $_POST;
@@ -158,6 +159,26 @@ break;
                 echo json_encode(["status" => "99", "message" => "Error al apadrinar el animal"]);
             }
             break;
+
+            case 'apadrinar':
+                $idUsuario = $_SESSION['usuario_id'];
+                $idAnimalApadrinar = $data['id'];
+                $montoDonar = $data['montoDonar'];
+                $frecuenciaDonacion = $data['frecuencia'];
+
+                $sql = "INSERT INTO animal_usuario (ID_Usuario, ID_Animal, FechaApadrinamiento, Monto, Frecuencia, Estado) 
+                VALUES ('$idUsuario', '$idAnimalApadrinar', CURDATE(), '$montoDonar', '$frecuenciaDonacion', 1)";
+        
+                $result = $conn->query($sql);
+                if($result){
+                    $up = "UPDATE animal SET Apadrinado = 1 WHERE ID_Animal = '$idAnimalApadrinar'";
+                    $consu = $conn->query($up);
+                    if($consu){
+                        echo json_encode(["status" => "00", "message" => "Animal apadrinado con éxito"]);
+                    } } else {
+                        echo json_encode(["status" => "99", "message" => "Error al apadrinar el animal"]);
+                    }
+                    break;
         default:
             break;
 

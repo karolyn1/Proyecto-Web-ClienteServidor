@@ -37,7 +37,7 @@
                 Cada aporte es valioso y ayuda a mejorar la vida de estos animales. 
                 ¡Gracias por ser parte del cambio!</p>
             <div class="container">
-                <form action="datos_formularioDonaciones.php" method="post" id="form-donaciones">
+                <form action="datos_formularioDonaciones.php" method="post"class="form-agregar-animal" id="form-donaciones">
                     <div class="mb-3">
                         <label for="nombre">Nombre completo del donador</label>
                         <input type="text" id="nombre" name="nombre" class="form-control" required>
@@ -89,7 +89,7 @@
                 </div>
 
                 <!-- Modal para tarjeta -->
-                <div class="modal fade" id="modalTarjeta" tabindex="-1" role="dialog" aria-labelledby="modalTarjetaLabel" aria-hidden="true">
+                <div class="modal fade form-agregar-animal" id="modalTarjeta" tabindex="-1" role="dialog" aria-labelledby="modalTarjetaLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -100,7 +100,7 @@
                             </div>
                             <div class="modal-body">
                                 <form>
-                                    <div class="form-group">
+                                    <div class="form-group ">
                                         <label for="numeroTarjeta">Número de tarjeta</label>
                                         <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX">
                                     </div>
@@ -112,7 +112,7 @@
                                         <label for="codigoSeguridad">Código de seguridad</label>
                                         <input type="text" class="form-control" id="codigoSeguridad" placeholder="XXX">
                                     </div>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Finalizar</button>
+                                    <button type="button" class="submit-btn" data-dismiss="modal">Finalizar</button>
                                 </form>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                 </div>
 
                 <!-- Modal para Sinpe -->
-                <div class="modal fade" id="modalSinpe" tabindex="-1" role="dialog" aria-labelledby="modalSinpeLabel" aria-hidden="true">
+                <div class="modal fade form-agregar-animal" id="modalSinpe" tabindex="-1" role="dialog" aria-labelledby="modalSinpeLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -129,10 +129,10 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body form-agregar-animal">
                                 <p>Realice su Sinpe al número: <strong>70265643</strong></p>
                                 <p>Nombre del titular: <strong>Casa Natura</strong></p>
-                                <button type="button" class="btn btn-success" data-dismiss="modal">Hecho</button>
+                                <button type="button" class="submit-btn" data-dismiss="modal">HECHO</button>
                             </div>
                         </div>
                     </div>

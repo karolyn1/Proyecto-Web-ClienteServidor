@@ -45,7 +45,7 @@
                         while ($animal = $result->fetch_assoc()) {
                             echo '<div class="animal-card">';
                             echo '<img class="imagenAnimal" src="./actions/'.$animal['Imagen'].'">';
-                            echo '<a href="animal.php?id=' . $animal['ID_Animal'] . '">' . htmlspecialchars($animal['Nombre']) . '</a>';
+                            echo '<a href="vistaDetalleAnimal.php?id=' . $animal['ID_Animal'] . '">' . htmlspecialchars($animal['Nombre']) . '</a>';
                             echo '<p> '.$animal['Historia'].'</p>';
                             echo '</div>';
                         }
