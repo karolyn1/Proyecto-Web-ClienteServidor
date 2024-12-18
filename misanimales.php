@@ -25,27 +25,29 @@
     ?>
     <h2 class="perfil-title-donaciones text-center m-5">MIS ANIMALES</h2>
     <div class="dashboard-container">
-    <br>
-    <div class="main-content-perfil">
-        <div class="row container card-container">
-            <?php
-            // Consultar los animales desde la base de datos
-            include 'actions/conexion.php'; 
-            $sql = "SELECT * FROM animales ORDER BY id DESC";
-            $result = mysqli_query($conn, $sql);
+        <br>
+        <div class="main-content-perfil">
+            <div class="row container card-container">
+                <?php
+               
+               include("actions/conexion.php");
 
-           
-            while ($row = mysqli_fetch_assoc($result)) { ?>
-                <div class="card animales">
-                    <img src="<?php echo $row['imagen']; ?>" alt="<?php echo $row['nombre']; ?>" class="card-img-top" style="max-height: 200px; object-fit: cover;">
-                    <h2><?php echo $row['nombre']; ?></h2>
-                    <p><?php echo $row['historia']; ?></p>
-                </div>
-            <?php } ?>
+                $sql = "SELECT * FROM animales ORDER BY id DESC";
+                $result = mysqli_query($conn, $sql);
+
+              
+                while ($row = mysqli_fetch_assoc($result)) { ?>
+                    <div class="card animales col-md-4 mb-4">
+                        <img src="<?php echo $row['imagen']; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" 
+                             class="card-img-top" style="max-height: 200px; object-fit: cover;">
+                        <h2><?php echo htmlspecialchars($row['nombre']); ?></h2>
+                        <p><?php echo htmlspecialchars($row['historia']); ?></p>
+                    </div>
+                <?php } ?>
+            </div>
         </div>
     </div>
-</div>
-
+    </main>
     <?php 
     include("fragmentos.php");
     echo $footer;

@@ -18,7 +18,7 @@
     ?>
 
     <?php
-        include("actions/conexion.php"); // Incluir archivo de conexión
+        include("actions/conexion.php"); 
 
         $sql = "SELECT * FROM tours";
         $resultado = $conn->query($sql);  // Usar query() si es una consulta simple, no requiere preparación
