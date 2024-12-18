@@ -92,3 +92,44 @@
     </div>
 </body>
 <html>
+<?php
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    include 'config/db.php';
+
+   
+    $nombre = $_POST['nombre'];
+    $especie = $_POST['especie'];
+    $raza = $_POST['raza'];
+    $fecha_ingreso = $_POST['fecha_ingreso'];
+    $fecha_nacimiento = $_POST['fecha_nacimiento'];
+    $estado_salud = $_POST['estado_salud'];
+    $historia = $_POST['historia'];
+    $necesidades = $_POST['necesidades'];
+
+   
+    $imagen = 'uploads/default.png'; 
+    if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+        $directorio = 'uploads/';
+        $nombreImagen = basename($_FILES['file']['name']);
+        $rutaImagen = $directorio . $nombreImagen;
+
+  
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $rutaImagen)) {
+            $imagen = $rutaImagen;
+        }
+    }
+
+    $sql = "INSERT INTO animales (nombre, especie, raza, fecha_ingreso, fecha_nacimiento, estado_salud, historia, necesidades, imagen) 
+            VALUES ('$nombre', '$especie', '$raza', '$fecha_ingreso', '$fecha_nacimiento', '$estado_salud', '$historia', '$necesidades', '$imagen')";
+
+    if (mysqli_query($conn, $sql)) {
+        // Redirigir a misanimales.php
+        header('Location: misanimales.php');
+        exit();
+    } else {
+        echo "Error al guardar el animal: " . mysqli_error($conn);
+    }
+    mysqli_close($conn);
+}
+?>

@@ -24,22 +24,29 @@
     echo $opciones;
     ?>
     <h2 class="perfil-title-donaciones text-center m-5">MIS ANIMALES</h2>
-        <div class="dashboard-container">
-        
+    <div class="dashboard-container">
         <br>
-            <div class="main-content-perfil">
-                
-                <div class="row container card-container">
-           
-                    <!-- Ejemplo de cartas de animales patrocinados -->
-                    <div class="card animales">
-                        <img src="imagenes/tigre.jpg" alt="Tigre de Bengala" class="card-img-top" style="max-height: 200px; object-fit: cover;">
-                        <h2>Tigre de Bengala</h2>
-                        <p>Este majestuoso tigre fue rescatado y ahora vive protegido en un santuario.</p>
+        <div class="main-content-perfil">
+            <div class="row container card-container">
+                <?php
+               
+               include("actions/conexion.php");
+
+                $sql = "SELECT * FROM animales ORDER BY id DESC";
+                $result = mysqli_query($conn, $sql);
+
+              
+                while ($row = mysqli_fetch_assoc($result)) { ?>
+                    <div class="card animales col-md-4 mb-4">
+                        <img src="<?php echo $row['imagen']; ?>" alt="<?php echo htmlspecialchars($row['nombre']); ?>" 
+                             class="card-img-top" style="max-height: 200px; object-fit: cover;">
+                        <h2><?php echo htmlspecialchars($row['nombre']); ?></h2>
+                        <p><?php echo htmlspecialchars($row['historia']); ?></p>
                     </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
+    </div>
     </main>
     <?php 
     include("fragmentos.php");
