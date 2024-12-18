@@ -66,7 +66,7 @@ if (!isset($_SESSION['usuario_id'])) {
                         </select>
                     </div>
                     <button type="submit" class="submit-btn" id="submit-button">Donar</button>
-                </form>
+                
 
                 <!-- Modal para tarjeta -->
                 <div class="modal fade form-agregar-animal" id="modalTarjeta" tabindex="-1" role="dialog"
@@ -172,31 +172,9 @@ if (!isset($_SESSION['usuario_id'])) {
                         </div>
                     </div>
                 </div>
+                </form>
 
-                <script>
-    
-
-                    function toggleOtraCantidad() {
-                        var select = document.getElementById('monto-select');
-                        var otraCantidad = document.getElementById('otra-cantidad');
-                        if (select.value === 'otra') {
-                            otraCantidad.style.display = 'block';
-                        } else {
-                            otraCantidad.style.display = 'none';
-                        }
-                    }
-
-                    function mostrarModal() {
-                        var metodo = document.getElementById('metodo').value;
-                        if (metodo === 'tarjeta') {
-                            $('#modalTarjeta').modal('show');
-                        } else if (metodo === 'sinpe') {
-                            $('#modalSinpe').modal('show');
-                        } else if (metodo === 'paypal') {
-                            $('#modalPaypal').modal('show');
-                        }
-                    }
-                </script>
+              
     </main>
 
     <?php
@@ -204,6 +182,30 @@ if (!isset($_SESSION['usuario_id'])) {
     echo $footer;
     ?>
 
+<script>
+    
+
+    function toggleOtraCantidad() {
+        var select = document.getElementById('monto-select');
+        var otraCantidad = document.getElementById('otra-cantidad');
+        if (select.value === 'otra') {
+            otraCantidad.style.display = 'block';
+        } else {
+            otraCantidad.style.display = 'none';
+        }
+    }
+
+    function mostrarModal() {
+        var metodo = document.getElementById('metodo').value;
+        if (metodo === 'tarjeta') {
+            $('#modalTarjeta').modal('show');
+        } else if (metodo === 'sinpe') {
+            $('#modalSinpe').modal('show');
+        } else if (metodo === 'paypal') {
+            $('#modalPaypal').modal('show');
+        }
+    }
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     <script src="./js/java.js" defer></script>
 
