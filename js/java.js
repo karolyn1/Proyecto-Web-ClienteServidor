@@ -605,23 +605,53 @@ $(function () {
 
 
     //CIERRE DEL FUNCTION
-
-
-    document.getElementById('metodo_pago').addEventListener('change', function() {
-        var metodo = this.value;
-        // Ocultar todos los campos
-        document.getElementById('tarjeta_fields').style.display = 'none';
-        document.getElementById('paypal_fields').style.display = 'none';
-        document.getElementById('sinpe_fields').style.display = 'none';
-        
-        // Mostrar campos según el método de pago
-        if (metodo === 'Tarjeta de Crédito') {
-            document.getElementById('tarjeta_fields').style.display = 'block';
-        } else if (metodo === 'PayPal') {
-            document.getElementById('paypal_fields').style.display = 'block';
-        } else if (metodo === 'SINPE Móvil') {
-            document.getElementById('sinpe_fields').style.display = 'block';
+    $("#form-donaciones").on('submit', function(e) {
+        e.preventDefault();
+        console.log("Form enviado")
+    
+        // Deshabilitar el botón de submit para prevenir envíos repetidos
+        $("#submit-button").prop('disabled', true);
+    
+        // Obtener el valor seleccionado del select
+        let $montoDonacion = $("#monto-select").val();
+    
+        // Si el valor seleccionado es "otra", obtener el valor del campo de input
+        if ($montoDonacion === "otra") {
+            $montoDonacion = $("#otra-cantidad").val(); // Obtener la cantidad ingresada
+        }
+    
+        // Obtener el método de pago
+        let $pago = $("#metodo").val();
+    
+        // Verificar si el monto es válido antes de enviarlo
+        if ($montoDonacion && $pago) {
+            $.post("actions/donacionesAcciones.php", {
+                action: 'guardar',
+                monto: $montoDonacion,
+                metodoPago: $pago
+            }, function(data, status) {
+                let response = JSON.parse(data);
+                
+                if (response.status == '00') {
+                    $('#donationModal').modal('show'); // Muestra el modal
+                } else {
+                    alert("Hubo un error al guardar la donación.");
+                }
+            }).fail(function() {
+                alert("Error al procesar la donación. Inténtalo de nuevo.");
+            }).always(function() {
+                // Habilitar el botón nuevamente en caso de error o éxito
+                $("#submit-button").prop('disabled', false);
+            });
+        } else {
+            alert("Por favor, ingrese un monto válido.");
+            // Habilitar el botón si no se realiza la donación
+            $("#submit-button").prop('disabled', false);
         }
     });
+    
+
+    
+
 
 });
