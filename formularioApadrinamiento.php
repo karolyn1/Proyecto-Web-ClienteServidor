@@ -76,20 +76,20 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
+                                    <form id="formTarjeta" onsubmit="return validarModalTarjeta()">
                                         <div class="mb-3">
                                             <label for="numeroTarjeta">Número de tarjeta</label>
-                                            <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX">
+                                            <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="titularTarjeta">Nombre del titular</label>
-                                            <input type="text" class="form-control" id="titularTarjeta" placeholder="Nombre del titular">
+                                            <input type="text" class="form-control" id="titularTarjeta" placeholder="Nombre del titular" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="codigoSeguridad">Código de seguridad</label>
-                                            <input type="text" class="form-control" id="codigoSeguridad" placeholder="XXX">
+                                            <input type="text" class="form-control" id="codigoSeguridad" placeholder="XXX" required>
                                         </div>
-                                        <button type="button" class="btn" data-bs-dismiss="modal">Finalizar</button>
+                                        <button type="submit" class="btn">Finalizar</button>
                                     </form>
                                 </div>
                             </div>
@@ -122,16 +122,16 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
+                                    <form id="formPaypal" onsubmit="return validarModalPaypal()">
                                         <div class="mb-3">
                                             <label for="usuarioPaypal">Usuario de PayPal</label>
-                                            <input type="text" class="form-control" id="usuarioPaypal" placeholder="Usuario">
+                                            <input type="text" class="form-control" id="usuarioPaypal" placeholder="Usuario" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="contrasenaPaypal">Contraseña</label>
-                                            <input type="password" class="form-control" id="contrasenaPaypal" placeholder="Contraseña">
+                                            <input type="password" class="form-control" id="contrasenaPaypal" placeholder="Contraseña" required>
                                         </div>
-                                        <button type="button" class="btn" data-bs-dismiss="modal">Finalizar</button>
+                                        <button type="submit" class="btn">Finalizar</button>
                                     </form>
                                 </div>
                             </div>
@@ -143,17 +143,21 @@
     </main>
 
     <script>
+        // Validación del formulario principal
         function validarFormulario() {
             const monto = parseFloat(document.getElementById("montoDonarForm").value);
             if (isNaN(monto) || monto < 50) {
                 alert("El monto debe ser al menos $50.");
                 return false;
             }
-            return true;
+            return true; // Permitimos el envío del formulario si la validación es correcta
         }
 
+        // Mostrar modal y evitar validación del formulario principal
         function mostrarModal() {
             const metodo = document.getElementById('metodo').value;
+
+            // Mostrar el modal correspondiente según el método seleccionado
             if (metodo === 'tarjeta') {
                 const modal = new bootstrap.Modal(document.getElementById('modalTarjeta'));
                 modal.show();
@@ -165,11 +169,53 @@
                 modal.show();
             }
         }
-    </script>
 
-    <?php
-        include("fragmentos.php");
-        echo $footer;
-    ?>
+        // Validación de los campos dentro del modal de tarjeta
+        function validarModalTarjeta() {
+            const numeroTarjeta = document.getElementById("numeroTarjeta").value.trim();
+            const titularTarjeta = document.getElementById("titularTarjeta").value.trim();
+            const codigoSeguridad = document.getElementById("codigoSeguridad").value.trim();
+
+            // Validar si todos los campos están completos
+            if (!numeroTarjeta || !titularTarjeta || !codigoSeguridad) {
+                alert("Todos los campos del pago con tarjeta son obligatorios.");
+                return false;
+            }
+
+            // Si los datos son correctos, cierra el modal, limpia el formulario y muestra un mensaje
+            alert("Pago con tarjeta registrado correctamente.");
+            limpiarFormularioModal();  // Limpiar los formularios
+
+            // Cerrar el modal correctamente usando Bootstrap
+            var modal = new bootstrap.Modal(document.getElementById('modalTarjeta'));
+            modal.hide(); // Este es el método para cerrar el modal
+
+            return false;
+        }
+
+        // Limpiar formulario dentro del modal
+        function limpiarFormularioModal() {
+            document.getElementById("formTarjeta").reset();
+            document.getElementById("formPaypal").reset();
+        }
+
+        // Validación del formulario PayPal
+        function validarModalPaypal() {
+            const usuarioPaypal = document.getElementById("usuarioPaypal").value.trim();
+            const contrasenaPaypal = document.getElementById("contrasenaPaypal").value.trim();
+
+            if (!usuarioPaypal || !contrasenaPaypal) {
+                alert("Todos los campos de PayPal son obligatorios.");
+                return false;
+            }
+
+            // Si los datos son correctos, cierra el modal, limpia el formulario y muestra un mensaje
+            alert("Pago con PayPal registrado correctamente.");
+            limpiarFormularioModal();
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalPaypal'));
+            modal.hide();
+            return false;
+        }
+    </script>
 </body>
 </html>
