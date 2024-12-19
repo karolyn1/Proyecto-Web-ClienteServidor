@@ -32,7 +32,7 @@ $evento = $result->fetch_assoc();
 // Procesar la reserva
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cantidad_tickets = intval($_POST['cantidad_tickets']);
-    $metodo_pago = $_POST['metodo_pago'];
+    $metodo_pago = $_POST['metodo'];
     $error = '';
 
     if ($cantidad_tickets <= 0) {
@@ -59,17 +59,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $insert_stmt->bind_param("iisid", $id_usuario, $id_evento, $metodo_pago, $cantidad_tickets, $total);
 
             if ($insert_stmt->execute()) {
-                $success = "Reserva realizada exitosamente.";
-                header("Location: " . $_SERVER['REQUEST_URI']); // Recarga la página actual
+                $_SESSION['success'] = "Reserva realizada exitosamente.";
+                header("Location: " . $_SERVER['REQUEST_URI']);
                 exit();
             } else {
-                $error = "Error al guardar la reserva en la base de datos.";
+                $_SESSION['error'] = "Error al guardar la reserva en la base de datos.";
             }
         } else {
-            $error = "Error al realizar la reserva.";
+            $_SESSION['error'] = "Error al realizar la reserva.";
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -82,11 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/java.js"></script>
 </head>
@@ -129,15 +129,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="p-4 rounded shadow-sm bg-white">
                         <h2 class="titulo text-center">COMPRA TUS TICKETS</h2>
 
-                        <!-- Alertas -->
-                        <?php if (isset($success)): ?>
-                            <div class="alert alert-success"><?php echo $success; ?></div>
-                        <?php elseif (isset($error)): ?>
-                            <div class="alert alert-danger"><?php echo $error; ?></div>
+             <!-- Alertas -->
+             <?php if (isset($_SESSION['success'])): ?>
+                            <div class="alert alert-success"><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></div>
+                        <?php elseif (isset($_SESSION['error'])): ?>
+                            <div class="alert alert-danger"><?php echo $_SESSION['error']; unset($_SESSION['error']); ?></div>
                         <?php endif; ?>
 
                         <!-- Formulario -->
-                        <form method="POST" class="form-agregar-animal">
+                        <form method="POST" class="form-agregar-animal" id="formComprarEvento">
                             <div class="mb-3">
                                 <label for="cantidad_tickets" class="form-label">Cantidad de Tickets</label>
                                 <input type="number" id="cantidad_tickets" name="cantidad_tickets" class="form-control"
@@ -146,7 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div class="mb-3">
                                 <label for="metodo_pago" class="form-label">Método de Pago</label>
-                                <select id="metodo_pago" name="metodo_pago" class="form-select" required>
+                                <select id="metodo" name="metodo" class="form-control" required onchange="mostrarModal()">
                                     <option value="">Seleccione...</option>
                                     <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
                                     <option value="PayPal">PayPal</option>
@@ -159,14 +159,165 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <button type="submit" class="submit-btn">COMPRAR</button>
                             </div>
                         </form>
+
+
+
+                          <!-- Modal para tarjeta -->
+            <div class="modal fade form-agregar-animal" id="modalTarjeta" tabindex="-1" aria-labelledby="modalTarjetaLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTarjetaLabel">Pago con Tarjeta</h5>
+                            <button type="button" class="close" id="closeTarjeta" aria-label="Close" disabled>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formTarjeta" novalidate>
+                                <div class="form-group">
+                                    <label for="numeroTarjeta">Número de tarjeta</label>
+                                    <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="titularTarjeta">Nombre del titular</label>
+                                    <input type="text" class="form-control" id="titularTarjeta" placeholder="Nombre del titular" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="codigoSeguridad">Código de seguridad</label>
+                                    <input type="text" class="form-control" id="codigoSeguridad" placeholder="XXX" required>
+                                </div>
+                                <button type="button" class="submit-btn" onclick="validarTarjeta()">Finalizar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para Sinpe -->
+            <div class="modal fade form-agregar-animal" id="modalSinpe" tabindex="-1" aria-labelledby="modalSinpeLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalSinpeLabel">Pago por Sinpe Móvil</h5>
+                            <button type="button" class="close" id="closeSinpe" aria-label="Close" disabled>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formSinpe" class="form-agregar-animal" novalidate>
+                                <p>Realice su Sinpe al número: <strong>70265643</strong></p>
+                                <p>Nombre del titular: <strong>Casa Natura</strong></p>
+                                <button type="button" class="submit-btn" onclick="validarSinpe()">HECHO</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para PayPal -->
+            <div class="modal fade form-agregar-animal" id="modalPaypal" tabindex="-1" aria-labelledby="modalPaypalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalPaypalLabel">Pago con PayPal</h5>
+                            <button type="button" class="close" id="closePaypal" aria-label="Close" disabled>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formPaypal" class="form-agregar-animal" novalidate>
+                                <div class="mb-3">
+                                    <label for="usuarioPaypal">Usuario de PayPal</label>
+                                    <input type="text" class="form-control" id="usuarioPaypal" placeholder="Usuario" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contrasenaPaypal">Contraseña</label>
+                                    <input type="password" class="form-control" id="contrasenaPaypal" placeholder="Contraseña" required>
+                                </div>
+                                <button type="button" class="submit-btn" onclick="validarPaypal()">Finalizar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <?php
+    include("fragmentos.php");
+    echo $footer;
+    ?>
+    <script>
+        function mostrarModal() {
+    let metodo = document.getElementById("metodo").value;
+    if (metodo === "Tarjeta de Crédito") {
+        $('#modalTarjeta').modal('show');
+    } else if (metodo === "SINPE Móvil") {
+        $('#modalSinpe').modal('show');
+    } else if (metodo === "PayPal") {
+        $('#modalPaypal').modal('show');
+    }
+}
 
-    <?php include("fragmentos.php");
-    echo $footer; ?>
+        // Validar el formulario de tarjeta
+        function validarTarjeta() {
+            let numeroTarjeta = document.getElementById("numeroTarjeta").value;
+            let titularTarjeta = document.getElementById("titularTarjeta").value;
+            let codigoSeguridad = document.getElementById("codigoSeguridad").value;
+
+            if (!numeroTarjeta || !titularTarjeta || !codigoSeguridad) {
+                alert("Por favor, complete todos los campos.");
+                return false;
+            }
+            // Habilitar el botón de cierre del modal
+            document.getElementById("closeTarjeta").removeAttribute("disabled");
+            $('#modalTarjeta').modal('hide');
+            alert('Pago completado');
+            return true;
+        }
+
+        // Validar el formulario de Sinpe
+        function validarSinpe() {
+            // Habilitar el botón de cierre del modal
+            document.getElementById("closeSinpe").removeAttribute("disabled");
+            $('#modalSinpe').modal('hide');
+            alert('Pago completado');
+            return true;
+        }
+
+        // Validar el formulario de PayPal
+        function validarPaypal() {
+            let usuarioPaypal = document.getElementById("usuarioPaypal").value;
+            let contrasenaPaypal = document.getElementById("contrasenaPaypal").value;
+
+            if (!usuarioPaypal || !contrasenaPaypal) {
+                alert("Por favor, complete todos los campos.");
+                return false;
+            }
+            // Habilitar el botón de cierre del modal
+            document.getElementById("closePaypal").removeAttribute("disabled");
+            $('#modalPaypal').modal('hide');
+            alert('Pago completado');
+            return true;
+        }
+
+        function limpiarFormulario() {
+            document.getElementById("formComprarEvento").reset(); // Limpia todos los campos del formulario
+        }
+
+        // Ejemplo de cómo usarlo en el cierre del modal:
+        var modal = document.getElementById('modal'); // Suponiendo que el ID del modal es 'modal'
+        var closeButton = document.getElementsByClassName('close')[0]; // Suponiendo que el botón de cierre tiene la clase 'close'
+
+        // Cuando se cierra el modal, limpia el formulario
+        closeButton.onclick = function() {
+            modal.style.display = "none"; // Oculta el modal
+            limpiarFormulario(); // Limpia los campos del formulario
+        }
+    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

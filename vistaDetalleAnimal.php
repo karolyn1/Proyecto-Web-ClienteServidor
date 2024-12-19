@@ -98,7 +98,7 @@
                         Apadrinarlo</a>
                 <?php else: ?>
                     <!-- Si no está logueado, mostrar un alert al hacer clic -->
-                    <a href="#" class="botonApadrinar"
+                    <a href="./login.php" class="botonApadrinar"
                         onclick="alert('Debe iniciar sesión para apadrinar a este animal.');">Quiero Apadrinarlo</a>
                 <?php endif; ?>
             </div>
