@@ -89,11 +89,12 @@
     </style>
 </head>
 <body>
-
+<nav>
     <?php 
         include("fragmentos.php");
         echo $navbar;        
     ?>
+    </nav>
 <main>
     <div class="container mt-5">
         <div class="form-olvide-contra">
@@ -143,7 +144,6 @@ if (isset($_POST['enviar'])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Redirigir a restablecer_contra.php si el correo existe
         header("Location: ./restablecer_contra.php?correo=" . urlencode($correo));
         exit;
     } else {

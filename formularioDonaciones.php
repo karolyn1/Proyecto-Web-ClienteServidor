@@ -43,14 +43,11 @@ echo $navbar;
                 Cada aporte es valioso y ayuda a mejorar la vida de estos animales.
                 ¡Gracias por ser parte del cambio!</p>
             <div class="container">
-                <form method="post" class="form-agregar-animal" id="form-donaciones">
+                <form class="form-agregar-animal" id="form-donaciones">
                     <div class="mb-3">
                         <label for="monto">Cantidad a donar</label>
-                        <input type="number" id="otra-cantidad" name="otra_cantidad" class="form-control mt-2"
+                        <input type="number" id="cantidadDonacion" name="otra_cantidad" class="form-control mt-2"
                         placeholder="Digite otra cantidad"  min="1">
-                        <!-- Campo para otra cantidad -->
-                        <input type="number" id="otra-cantidad" name="otra_cantidad" class="form-control mt-2"
-                            placeholder="Digite otra cantidad" style="display: none;" min="1">
                     </div>
                     <div class="mb-3">
                         <label for="metodo">Método de pago</label>
@@ -61,7 +58,7 @@ echo $navbar;
                             <option value="paypal">PayPal</option>
                         </select>
                     </div>
-                    <button type="submit" class="submit-btn" id="submit-button">Donar</button>
+                    <button type="submit" class="submit-btn" id="efectuarDonacion">Donar</button>
                 
 
                 <!-- Modal para tarjeta -->
