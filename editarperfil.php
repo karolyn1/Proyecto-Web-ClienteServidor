@@ -47,6 +47,8 @@ $query_donaciones = "
         END AS Frecuencia 
     FROM donaciones 
     WHERE ID_Usuario = ?
+    ORDER BY Fecha DESC
+    LIMIT 5
 ";
 $stmt_donaciones = $conn->prepare($query_donaciones);
 $stmt_donaciones->bind_param("i", $usuario_id);
@@ -110,7 +112,6 @@ $result_donaciones = $stmt_donaciones->get_result();
                                     <th>Monto</th>
                                     <th>Fecha</th>
                                     <th>Método de Pago</th>
-                                    <th>Frecuencia</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -120,7 +121,6 @@ $result_donaciones = $stmt_donaciones->get_result();
                                             <td>$<?php echo number_format($donacion['Monto'], 2); ?></td>
                                             <td><?php echo date("d-m-Y", strtotime($donacion['Fecha'])); ?></td>
                                             <td><?php echo $donacion['MetodoPago']; ?></td>
-                                            <td><?php echo $donacion['Frecuencia']; ?></td>
                                         </tr>
                                     <?php endwhile; ?>
                                 <?php else: ?>

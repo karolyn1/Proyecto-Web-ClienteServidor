@@ -2496,3 +2496,8 @@ body {
     height: 200px;
     object-fit: contain;
 }
+
+.tabla-contenedor {
+    max-height: 400px; /* Ajusta la altura máxima según tus necesidades */
+    overflow-y: auto; /* Agrega scroll vertical si el contenido excede la altura máxima */
+}

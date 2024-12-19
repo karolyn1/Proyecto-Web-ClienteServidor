@@ -22,7 +22,7 @@ $query = "
             ELSE 'Única' 
         END AS Frecuencia 
     FROM donaciones 
-    WHERE ID_Usuario = ?
+    WHERE ID_Usuario = ? ORDER BY Fecha DESC
 ";
 
 $stmt = $conn->prepare($query);
@@ -45,6 +45,8 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/java.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <?php
@@ -58,11 +60,9 @@ $result = $stmt->get_result();
     echo $opciones;
     ?>
 <h2 class="perfil-title-donaciones text-center mt-5">MIS DONACIONES</h2>
-        <div >
-            <div class="col main-content-perfil">
-                <div class="row">
-                    <div class="container ">
-                        
+    
+<div class="container tabla-contenedor mb-5">
+        
                         <br>
                         <table class="tabla text-center">
                             <thead>
@@ -70,7 +70,6 @@ $result = $stmt->get_result();
                                     <th>Monto</th>
                                     <th>Fecha</th>
                                     <th>Método de Pago</th>
-                                    <th>Frecuencia</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,7 +79,6 @@ $result = $stmt->get_result();
                                             <td>$<?php echo number_format($donacion['Monto'], 2); ?></td>
                                             <td><?php echo date("d-m-Y", strtotime($donacion['Fecha'])); ?></td>
                                             <td><?php echo $donacion['MetodoPago']; ?></td>
-                                            <td><?php echo $donacion['Frecuencia']; ?></td>
                                         </tr>
                                     <?php endwhile; ?>
                                 <?php else: ?>
@@ -91,8 +89,6 @@ $result = $stmt->get_result();
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
         </div>
     </main>
 
