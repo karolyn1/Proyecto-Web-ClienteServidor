@@ -11,6 +11,10 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     
 </head>
 <body>
@@ -30,7 +34,7 @@
                 <div class="container container-animales-agregar mt-4">
                     <h1><b>CREAR NUEVO EVENTO</b></h1>
                   
-                        <form action="actions/guardar_evento.php" method="POST" class="form-agregar-animal" enctype="multipart/form-data">
+                        <form action="actions/guardar_evento.php" method="POST" class="form-agregar-animal" id="eventoAgregar" enctype="multipart/form-data">
                         <div class="profile-pic">
                         <img id="profileImage" src="https://via.placeholder.com/100" alt="Foto de perfil">
                             <input type="file" id="imageUpload" name="imagen" accept="image/*" onchange="loadFile(event)" required>
@@ -73,7 +77,22 @@
         </div>
     </div>
     </main>
-    
+    <div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mensajeModalLabel">CasaNatura</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="mensajeModalBody">
+                        <!-- El mensaje dinámico se colocará aquí -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="submit-btn" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     <?php 
         include("sidebar.php");
         echo $footerAdmin;
