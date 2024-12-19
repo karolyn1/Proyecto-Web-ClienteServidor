@@ -54,168 +54,214 @@
                     <input type="hidden" id="idAnimalApadrinar" name="idAnimal" value="<?php echo $idAnimal; ?>">
                     <div class="mb-3">
                         <label for="monto">Monto mensual (mínimo $50)</label>
-                        <input type="number" id="montoDonarForm" name="monto" required min="50" title="El monto mínimo es $50.">
+                        <input type="number" id="cantidad" name="cantidad" class="form-control mt-2" placeholder="Digite la cantidad, monto mínimo 50" min="1" required>
                     </div>
                     <div class="mb-3">
                         <label for="metodo">Método de pago</label>
-                        <select id="metodo" name="metodo" class="form-select" required onchange="mostrarModal()">
+                        <select id="metodo" name="metodo" class="form-control" required onchange="mostrarModal()">
                             <option value="">Selecciona un método de pago</option>
                             <option value="tarjeta">Tarjeta crédito/débito</option>
                             <option value="sinpe">Sinpe móvil</option>
                             <option value="paypal">PayPal</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn" id="submit-button">Donar</button>
+                    <button type="submit" class="submit-btn" id="submit-button">Donar</button>
 
                     <!-- Modal para tarjeta -->
-                    <div class="modal fade" id="modalTarjeta" tabindex="-1" aria-labelledby="modalTarjetaLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalTarjetaLabel">Pago con Tarjeta</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal fade form-agregar-animal" id="modalTarjeta" tabindex="-1" aria-labelledby="modalTarjetaLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalTarjetaLabel">Pago con Tarjeta</h5>
+                            <button type="button" class="close" id="closeTarjeta" aria-label="Close" disabled>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formTarjeta" novalidate>
+                                <div class="form-group">
+                                    <label for="numeroTarjeta">Número de tarjeta</label>
+                                    <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX" required>
                                 </div>
-                                <div class="modal-body">
-                                    <form id="formTarjeta" onsubmit="return validarModalTarjeta()">
-                                        <div class="mb-3">
-                                            <label for="numeroTarjeta">Número de tarjeta</label>
-                                            <input type="text" class="form-control" id="numeroTarjeta" placeholder="XXXX-XXXX-XXXX-XXXX" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="titularTarjeta">Nombre del titular</label>
-                                            <input type="text" class="form-control" id="titularTarjeta" placeholder="Nombre del titular" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="codigoSeguridad">Código de seguridad</label>
-                                            <input type="text" class="form-control" id="codigoSeguridad" placeholder="XXX" required>
-                                        </div>
-                                        <button type="submit" class="btn">Finalizar</button>
-                                    </form>
+                                <div class="form-group">
+                                    <label for="titularTarjeta">Nombre del titular</label>
+                                    <input type="text" class="form-control" id="titularTarjeta" placeholder="Nombre del titular" required>
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <label for="codigoSeguridad">Código de seguridad</label>
+                                    <input type="text" class="form-control" id="codigoSeguridad" placeholder="XXX" required>
+                                </div>
+                                <button type="button" class="submit-btn" onclick="validarTarjeta()">Finalizar</button>
+                            </form>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Modal para Sinpe -->
-                    <div class="modal fade" id="modalSinpe" tabindex="-1" aria-labelledby="modalSinpeLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalSinpeLabel">Pago por Sinpe Móvil</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Realice su Sinpe al número: <strong>70265643</strong></p>
-                                    <p>Nombre del titular: <strong>Casa Natura</strong></p>
-                                    <button type="button" class="btn" data-bs-dismiss="modal">HECHO</button>
-                                </div>
-                            </div>
+            <!-- Modal para Sinpe -->
+            <div class="modal fade form-agregar-animal" id="modalSinpe" tabindex="-1" aria-labelledby="modalSinpeLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalSinpeLabel">Pago por Sinpe Móvil</h5>
+                            <button type="button" class="close" id="closeSinpe" aria-label="Close" disabled>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formSinpe" novalidate>
+                                <p>Realice su Sinpe al número: <strong>70265643</strong></p>
+                                <p>Nombre del titular: <strong>Casa Natura</strong></p>
+                                <button type="button" class="submit-btn" onclick="validarSinpe()">HECHO</button>
+                            </form>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Modal para PayPal -->
-                    <div class="modal fade" id="modalPaypal" tabindex="-1" aria-labelledby="modalPaypalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalPaypalLabel">Pago con PayPal</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- Modal para PayPal -->
+            <div class="modal fade form-agregar-animal" id="modalPaypal" tabindex="-1" aria-labelledby="modalPaypalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalPaypalLabel">Pago con PayPal</h5>
+                            <button type="button" class="close" id="closePaypal" aria-label="Close" disabled>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formPaypal" novalidate>
+                                <div class="form-group">
+                                    <label for="usuarioPaypal">Usuario de PayPal</label>
+                                    <input type="text" class="form-control" id="usuarioPaypal" placeholder="Usuario" required>
                                 </div>
-                                <div class="modal-body">
-                                    <form id="formPaypal" onsubmit="return validarModalPaypal()">
-                                        <div class="mb-3">
-                                            <label for="usuarioPaypal">Usuario de PayPal</label>
-                                            <input type="text" class="form-control" id="usuarioPaypal" placeholder="Usuario" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="contrasenaPaypal">Contraseña</label>
-                                            <input type="password" class="form-control" id="contrasenaPaypal" placeholder="Contraseña" required>
-                                        </div>
-                                        <button type="submit" class="btn">Finalizar</button>
-                                    </form>
+                                <div class="form-group">
+                                    <label for="contrasenaPaypal">Contraseña</label>
+                                    <input type="password" class="form-control" id="contrasenaPaypal" placeholder="Contraseña" required>
                                 </div>
-                            </div>
+                                <button type="button" class="submit-btn" onclick="validarPaypal()">Finalizar</button>
+                            </form>
                         </div>
                     </div>
-                </form>
+                </div>
+            </div>
+
+    <div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mensajeModalLabel">CasaNatura</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="mensajeModalBody">
+                    <!-- El mensaje dinámico se colocará aquí -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="submit-btn" data-bs-dismiss="modal">Cerrar</button>
+                </div>
             </div>
         </div>
-    </main>
+    </div>
 
-    <script>
-        // Validación del formulario principal
+</main>
+
+<script>
+        // Función para validar el formulario principal
         function validarFormulario() {
-            const monto = parseFloat(document.getElementById("montoDonarForm").value);
-            if (isNaN(monto) || monto < 50) {
-                alert("El monto debe ser al menos $50.");
+            let cantidad = document.getElementById("otra-cantidad").value;
+            let metodo = document.getElementById("metodo").value;
+            if (!cantidad || !metodo) {
+                alert("Por favor, completa todos los campos.");
                 return false;
             }
-            return true; // Permitimos el envío del formulario si la validación es correcta
+            return true;
         }
 
-        // Mostrar modal y evitar validación del formulario principal
+        // Función para validar el formulario principal
+        function validarFormulario() {
+            var cantidad = document.getElementById("cantidad").value; // Suponiendo que el campo de cantidad tiene el ID 'cantidad'
+
+            // Verificar si la cantidad es mayor o igual a 50
+            if (cantidad < 50) {
+                alert("La cantidad debe ser mayor o igual a 50.");
+                return false; // Impide el envío del formulario
+            }
+
+            return true; // Permite el envío del formulario
+    }
+
+        // Función para mostrar el modal correspondiente
         function mostrarModal() {
-            const metodo = document.getElementById('metodo').value;
-
-            // Mostrar el modal correspondiente según el método seleccionado
-            if (metodo === 'tarjeta') {
-                const modal = new bootstrap.Modal(document.getElementById('modalTarjeta'));
-                modal.show();
-            } else if (metodo === 'sinpe') {
-                const modal = new bootstrap.Modal(document.getElementById('modalSinpe'));
-                modal.show();
-            } else if (metodo === 'paypal') {
-                const modal = new bootstrap.Modal(document.getElementById('modalPaypal'));
-                modal.show();
+            let metodo = document.getElementById("metodo").value;
+            if (metodo === "tarjeta") {
+                $('#modalTarjeta').modal('show');
+            } else if (metodo === "sinpe") {
+                $('#modalSinpe').modal('show');
+            } else if (metodo === "paypal") {
+                $('#modalPaypal').modal('show');
             }
         }
 
-        // Validación de los campos dentro del modal de tarjeta
-        function validarModalTarjeta() {
-            const numeroTarjeta = document.getElementById("numeroTarjeta").value.trim();
-            const titularTarjeta = document.getElementById("titularTarjeta").value.trim();
-            const codigoSeguridad = document.getElementById("codigoSeguridad").value.trim();
+        // Validar el formulario de tarjeta
+        function validarTarjeta() {
+            let numeroTarjeta = document.getElementById("numeroTarjeta").value;
+            let titularTarjeta = document.getElementById("titularTarjeta").value;
+            let codigoSeguridad = document.getElementById("codigoSeguridad").value;
 
-            // Validar si todos los campos están completos
             if (!numeroTarjeta || !titularTarjeta || !codigoSeguridad) {
-                alert("Todos los campos del pago con tarjeta son obligatorios.");
+                alert("Por favor, complete todos los campos.");
                 return false;
             }
-
-            // Si los datos son correctos, cierra el modal, limpia el formulario y muestra un mensaje
-            alert("Pago con tarjeta registrado correctamente.");
-            limpiarFormularioModal();  // Limpiar los formularios
-
-            // Cerrar el modal correctamente usando Bootstrap
-            var modal = new bootstrap.Modal(document.getElementById('modalTarjeta'));
-            modal.hide(); // Este es el método para cerrar el modal
-
-            return false;
+            // Habilitar el botón de cierre del modal
+            document.getElementById("closeTarjeta").removeAttribute("disabled");
+            $('#modalTarjeta').modal('hide');
+            alert('Pago completado');
+            return true;
         }
 
-        // Limpiar formulario dentro del modal
-        function limpiarFormularioModal() {
-            document.getElementById("formTarjeta").reset();
-            document.getElementById("formPaypal").reset();
+        // Validar el formulario de Sinpe
+        function validarSinpe() {
+            // Habilitar el botón de cierre del modal
+            document.getElementById("closeSinpe").removeAttribute("disabled");
+            $('#modalSinpe').modal('hide');
+            alert('Pago completado');
+            return true;
         }
 
-        // Validación del formulario PayPal
-        function validarModalPaypal() {
-            const usuarioPaypal = document.getElementById("usuarioPaypal").value.trim();
-            const contrasenaPaypal = document.getElementById("contrasenaPaypal").value.trim();
+        // Validar el formulario de PayPal
+        function validarPaypal() {
+            let usuarioPaypal = document.getElementById("usuarioPaypal").value;
+            let contrasenaPaypal = document.getElementById("contrasenaPaypal").value;
 
             if (!usuarioPaypal || !contrasenaPaypal) {
-                alert("Todos los campos de PayPal son obligatorios.");
+                alert("Por favor, complete todos los campos.");
                 return false;
             }
+            // Habilitar el botón de cierre del modal
+            document.getElementById("closePaypal").removeAttribute("disabled");
+            $('#modalPaypal').modal('hide');
+            alert('Pago completado');
+            return true;
+        }
 
-            // Si los datos son correctos, cierra el modal, limpia el formulario y muestra un mensaje
-            alert("Pago con PayPal registrado correctamente.");
-            limpiarFormularioModal();
-            const modal = bootstrap.Modal.getInstance(document.getElementById('modalPaypal'));
-            modal.hide();
-            return false;
+        function limpiarFormulario() {
+            document.getElementById("form-donaciones").reset(); // Limpia todos los campos del formulario
+        }
+
+        // Ejemplo de cómo usarlo en el cierre del modal:
+        var modal = document.getElementById('modal'); // Suponiendo que el ID del modal es 'modal'
+        var closeButton = document.getElementsByClassName('close')[0]; // Suponiendo que el botón de cierre tiene la clase 'close'
+
+        // Cuando se cierra el modal, limpia el formulario
+        closeButton.onclick = function() {
+            modal.style.display = "none"; // Oculta el modal
+            limpiarFormulario(); // Limpia los campos del formulario
         }
     </script>
+
+<?php
+    include("fragmentos.php");
+    echo $footer;
+?>
 </body>
 </html>
