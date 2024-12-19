@@ -27,8 +27,8 @@ if (!empty($_POST)) {
         exit();
     } else {
         // Insertar datos en la base de datos
-        $sql = "INSERT INTO `usuario`(`Nombre`, `Apellido1`, `Apellido2`, `Correo`, `Password`, `Donador`, `Estado`) 
-                VALUES ('$nombre', '$apellido1', '$apellido2', '$correo', '$hash_password', 0, 'Activo')";
+        $sql = "INSERT INTO `usuario`(`Nombre`, `Apellido1`, `Apellido2`, `Correo`, `Password`, `Estado`) 
+                VALUES ('$nombre', '$apellido1', '$apellido2', '$correo', '$hash_password', 'Activo')";
         
         if ($conn->query($sql) === TRUE) {
             $idUsuario = $conn->insert_id;  
