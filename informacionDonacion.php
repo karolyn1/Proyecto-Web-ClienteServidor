@@ -1,7 +1,4 @@
-<?php
-    session_start();
-    include('./actions/conexion.php');
-?>
+ 
 
 <!DOCTYPE html>
 <html lang="en">
