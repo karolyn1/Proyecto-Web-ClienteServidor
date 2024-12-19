@@ -380,7 +380,7 @@ $(function () {
 
                 $("#mensajeModalBody").text(data.message);
                 $("#mensajeModal").modal('show');
-    
+
                 if (data.status === '00') {
                     $("#mensajeModal").on('hidden.bs.modal', function () {
                         row.remove();
@@ -478,11 +478,15 @@ $(function () {
             estado: $("#estadoEditar").val()
         }, function (data, status) {
             let response = JSON.parse(data);
-            alert(response.message);
-            if (response.status === '00') {  // Verifica si la actualización fue exitosa
-                // Redirigir a la página de gestión de usuarios
-                window.location.href = "./gestionUsuarios.php";
+            $("#mensajeModalBody").text(response.message);
+            $("#mensajeModal").modal('show');
+
+            if (response.status === '00') {
+                $("#mensajeModal").on('hidden.bs.modal', function () {
+                    window.location.href = "./gestionUsuarios.php";
+                });
             }
+
         }).fail(function () {
             alert("Error al procesar la solicitud.");
         });
@@ -504,11 +508,13 @@ $(function () {
                 id: userId
             }, function (data, status) {
                 let response = JSON.parse(data);
-                alert(response.message);
-
+                $("#mensajeModalBody").text(response.message);
+                $("#mensajeModal").modal('show');
 
                 if (response.status === '00') {
-                    location.reload();
+                    $("#mensajeModal").on('hidden.bs.modal', function () {
+                        location.reload();
+                    });
                 }
             }).fail(function () {
                 // En caso de error en la solicitud AJAX
@@ -714,12 +720,19 @@ $(function () {
             provincia: $direccionAdmin
         }, function (data, status) {
             let response = JSON.parse(data);
-            console.log(response);
-            alert(response.message);
-            if (response.status === '01') {
-                window.location.href = "./login.php";
-            }
 
+            $("#mensajeModalBody").text(response.message);
+            $("#mensajeModal").modal('show');
+
+            if (response.status === '01') {
+                $("#mensajeModal").on('hidden.bs.modal', function () {
+                    window.location.href = "./login.php";
+                });
+            } else if (response.status === '00') {
+                $("#mensajeModal").on('hidden.bs.modal', function () {
+                    location.reload();
+                });
+            }
         });
 
 
@@ -740,9 +753,13 @@ $(function () {
             passwordHash: $passwordHash
         }, function (data, status) {
             let response = JSON.parse(data);
-            alert(response.message);
-            if (response.status == '00') {
-                window.location.href = "./login.php";
+            $("#mensajeModalBody").text(response.message);
+            $("#mensajeModal").modal('show');
+
+            if (response.status === '00') {
+                $("#mensajeModal").on('hidden.bs.modal', function () {
+                    window.location.href = "./login.php";
+                });
             }
         });
     })
@@ -759,14 +776,14 @@ $(function () {
 
         if (!$nombre || !$nombre || !$email || !$mensaje) {
             $("#mensajeModalBody").text('Debe completar todos los campos antes de enviar.');
-                $("#mensajeModal").modal('show');
+            $("#mensajeModal").modal('show');
             return;
         } else {
             $.post("actions/contactoAcciones.php", {
                 action: 'add',
-                nombre: $nombre, 
-                apellido: $apellido, 
-                email: $email, 
+                nombre: $nombre,
+                apellido: $apellido,
+                email: $email,
                 mensaje: $mensaje
             }, function (data, status) {
                 let response = JSON.parse(data);
