@@ -39,16 +39,12 @@
         ?>
     <main>
         <div class="viewport">
-            <div class="content">
-                <nav class="navbar">
-                    <div class="container-fluid">
-                        <h2 class="titulo">Bienvenido,
+            <div ">
+         
+                <div class="container container-animales-agregar mt-4">
+                <h2 class="titulo">Bienvenido,
                             <?php echo $_SESSION['usuario_nombre'] . ' ' . $_SESSION['usuario_apellido1'] . ' ' . $_SESSION['usuario_apellido2']; ?>
                         </h2>
-
-                    </div>
-                </nav>
-                <div class="container container-animales-agregar mt-4">
                     <form action="" class="row container " id="formAdminActualizar" method="POST">
 
                         <div class="formDatos col">

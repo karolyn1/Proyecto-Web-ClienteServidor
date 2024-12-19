@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-12-2024 a las 08:27:47
+-- Tiempo de generación: 19-12-2024 a las 08:56:11
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -47,7 +47,7 @@ CREATE TABLE `animal` (
 --
 
 INSERT INTO `animal` (`ID_Animal`, `Nombre`, `Raza`, `Especie`, `Fecha_Ingreso`, `Estado_Salud`, `Fecha_Nacimiento`, `Apadrinado`, `Imagen`, `Historia`, `Necesidades`, `Estado`) VALUES
-(4, 'Sabanero', 'Equino', 'Burro Comun', '2024-12-19', 'Saludable', '2024-12-12', 1, '../imagenes/burrito.jpg', 'hs', 'h', NULL);
+(7, 'sdsd', 'sd', 'sdsd', '2024-12-20', 'sdds', '2024-12-20', 1, '../imagenes/query.jpg', 'sd', 'sd', 1);
 
 -- --------------------------------------------------------
 
@@ -71,8 +71,10 @@ CREATE TABLE `animal_usuario` (
 --
 
 INSERT INTO `animal_usuario` (`ID`, `ID_Usuario`, `ID_Animal`, `FechaApadrinamiento`, `FechaFin`, `Monto`, `Frecuencia`, `Estado`) VALUES
-(15, 2, 4, '2024-12-18', '2024-12-18', 79, 'Mensual', 0),
-(16, 2, 4, '2024-12-18', NULL, 70, 'Mensual', 1);
+(17, 1, 7, '2024-12-19', '2024-12-19', 70, 'Mensual', 0),
+(18, 4, 7, '2024-12-19', '2024-12-19', 80, 'Mensual', 0),
+(19, 4, 7, '2024-12-19', '2024-12-19', 90, '', 0),
+(20, 1, 7, '2024-12-19', NULL, 90, 'Mensual', 1);
 
 -- --------------------------------------------------------
 
@@ -124,7 +126,7 @@ CREATE TABLE `direccion` (
 
 INSERT INTO `direccion` (`ID_Direccion`, `Provincia`, `Canton`, `Distrito`, `Direccion_Exacta`, `ID_Usuario`) VALUES
 (1, 'Cartago', 'Cartago', 'Cartago', 'La Lima Cartago', 1),
-(2, 'd', 'd', 'd', 'd', 2),
+(2, 'Cartago', 'Heredia', 'd', 'd', 2),
 (3, 'f', 'f', 'f', 'f', 3),
 (4, 'fs', 'fs', 'fs', 'fs', 5);
 
@@ -262,7 +264,6 @@ CREATE TABLE `usuario` (
   `Apellido2` varchar(15) NOT NULL,
   `Correo` varchar(50) NOT NULL,
   `Telefono` int(40) DEFAULT NULL,
-  `Donador` tinyint(1) NOT NULL,
   `Estado` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -270,12 +271,12 @@ CREATE TABLE `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`ID_Usuario`, `Nombre`, `Password`, `Apellido1`, `Apellido2`, `Correo`, `Telefono`, `Donador`, `Estado`) VALUES
-(1, 'Ariana     ', '$2y$10$AcomD5YW.cE.vGnLBnydOO68HuK91I1gA550wXWsdfqU7URVl8d32', 'Fallas     ', 'Calderon     ', 'ariana@gmail.com', 72307240, 0, 'Activo'),
-(2, 'Paola       ', '$2y$10$YZ8KZt/.8mwjewkjvzB4.eObmLKfPdJL1vEnvJ.rzGwlQvvY/ebnO', 'Calderon   ', 'Romero   ', 'arianafallas1@gmail.com', 72307240, 0, 'Activo'),
-(3, 'Ariana', '$2y$10$h/k.3o8W2CxzLv3UMNK5I.nqt/U4WFAaddmwidFFPgIIGiuj8ilgK', 'Fallas', 'Calderon', 'a2@gmail.com', 72307240, 0, 'Activo'),
-(4, 'Pablo   ', '$2y$10$vYvsVJb6GupYrE7ZHNN/A.BPpgrc0EfXq99iE1BEfHF8mQC26OxeW', 'Fallas   ', 'Calderon   ', 'pfalla@gmail.com', 72307240, 0, 'Activo'),
-(5, 'fsd', '$2y$10$0kqieoDH26QoHUiYvOThCODx/larMMzr5kDEcp7Ek71n5fB8rRWoi', 'fsd', 'ffs', 'e@gmail.com', NULL, 0, 'Activo');
+INSERT INTO `usuario` (`ID_Usuario`, `Nombre`, `Password`, `Apellido1`, `Apellido2`, `Correo`, `Telefono`, `Estado`) VALUES
+(1, 'Ariana     ', '$2y$10$AcomD5YW.cE.vGnLBnydOO68HuK91I1gA550wXWsdfqU7URVl8d32', 'Fallas     ', 'Calderon     ', 'ariana@gmail.com', 72307240, 'Activo'),
+(2, 'Paola       ', '$2y$10$hKcs9UMsu86dtkvS.1CNgOJjIsyARHPBheqikhLOWlnDazR8NCQvO', 'Calderon   ', 'Romero   ', 'arianafallas1@gmail.com', 72307240, 'Activo'),
+(3, 'Ariana', '$2y$10$h/k.3o8W2CxzLv3UMNK5I.nqt/U4WFAaddmwidFFPgIIGiuj8ilgK', 'Fallas', 'Calderon', 'a2@gmail.com', 72307240, 'Activo'),
+(4, 'Pablo   ', '$2y$10$vYvsVJb6GupYrE7ZHNN/A.BPpgrc0EfXq99iE1BEfHF8mQC26OxeW', 'Fallas   ', 'Calderon   ', 'pfalla@gmail.com', 72307240, 'Activo'),
+(5, 'fsd', '$2y$10$0kqieoDH26QoHUiYvOThCODx/larMMzr5kDEcp7Ek71n5fB8rRWoi', 'fsd', 'ffs', 'e@gmail.com', NULL, 'Activo');
 
 -- --------------------------------------------------------
 
@@ -413,13 +414,13 @@ ALTER TABLE `usuario_tour`
 -- AUTO_INCREMENT de la tabla `animal`
 --
 ALTER TABLE `animal`
-  MODIFY `ID_Animal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_Animal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `animal_usuario`
 --
 ALTER TABLE `animal_usuario`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `contacto`
