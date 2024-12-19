@@ -27,24 +27,6 @@
 
         $sql = "SELECT * FROM tours ORDER BY Estado";
         $resultado = $conn->query($sql);  // Usar query() si es una consulta simple, no requiere preparación
-
-        // // Verificar si se ha solicitado eliminar un tour
-        // if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-        //     $idTour = $_GET['id'];
-
-        //     // Eliminar el tour con el id especificado
-        //     $sqlEliminar = "DELETE FROM tours WHERE ID_Tour = ?";
-        //     $stmt = $conn->prepare($sqlEliminar);
-        //     $stmt->bind_param("i", $idTour);
-        //     if ($stmt->execute()) {
-        //         echo "<script>alert('Tour eliminado con éxito'); window.location.href='gestionTours.php';</script>";
-        //     } else {
-        //         echo "<script>alert('Error al eliminar el tour'); window.location.href='gestionTours.php';</script>";
-        //     }
-        //     $stmt->close();
-        // }
-
-
        
     ?>
     <main>
@@ -64,11 +46,7 @@
         <i class="fas fa-plus icono-agregar"></i> AGREGAR TOUR
     </a>
 </div>
-<div class="buscador">
-    <div class="input-grupo">
-        <input type="text" class="campo-buscar" placeholder="Buscar Tour...">
-    </div>
-</div>
+
 </div>
                     <table class="tabla">
                         <thead>

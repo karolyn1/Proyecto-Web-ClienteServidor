@@ -52,27 +52,9 @@
                         <h2 class="titulo">Gestión de Donaciones</h2>
                     </div>
                 </nav>
-                <div class="contenedor">
-
-                    <div class="container contenedor-tabla">
-                        <div class="fila-header">
-                            <div class="botonAgregar"> <a href="reporte.php"
-                                    class="btn-agregar agregarAnimal d-flex align-items-center">
-                                    <i class="fas fa-file-alt p-1"></i> GENERAR REPORTE
-                                </a>
-                            </div>
-
-                            <div class="buscador">
-                                <div class="input-group-append">
-                                    <input type="text" class="form-control" placeholder="Buscar donación...">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-         
+               
                     <!-- Botón para generar reporte y barra de búsqueda -->
-    <div class="container">
+    <div class="container mt-5">
                     <!-- Tabla de Donaciones -->
                     <table class="tabla text-center">
                         

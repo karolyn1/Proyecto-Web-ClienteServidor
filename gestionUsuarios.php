@@ -105,11 +105,7 @@
                                 <i class="fas fa-plus icono-agregar"></i> AGREGAR USUARIO
                             </a>
                         </div>
-                        <div class="buscador">
-                            <div class="input-grupo">
-                                <input type="text" class="campo-buscar" placeholder="Buscar usuario...">
-                            </div>
-                        </div>
+                      
                     </div>
                     <table class="tabla text-center">
 

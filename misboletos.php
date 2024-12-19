@@ -70,9 +70,9 @@ $result = $stmt->get_result();
                     <?php while ($boleto = $result->fetch_assoc()): ?>
                         <div class="col-md-4">
                             <div class="card mb-3 shadow-sm">
-                                <img src="imagenes/<?php echo $boleto['Imagen']; ?>" class="card-img-top imagen-tour" alt="Imagen del Tour">
+                                <img src="imagenes/<?php echo $boleto['Imagen']; ?>" class="card-img-top" alt="Imagen del Tour">
                                 <div class="card-body">
-                                    <h5 class="card-title">Tour: <?php echo $boleto['Nombre']; ?></h5>
+                                    <h5 class="card-title text-center">Tour: <?php echo $boleto['Nombre']; ?></h5>
                                     <p class="card-text"><strong>Boleto(s) Adquirido(s):</strong> <?php echo $boleto['BoletosAdquridos']; ?></p>
                                     <p class="card-text"><strong>Total:</strong> $<?php echo number_format($boleto['Total'], 2); ?></p>
                                     <p class="card-text"><strong>Fecha del Tour:</strong> <?php echo date("d-m-Y", strtotime($boleto['Fecha'])); ?></p>

@@ -53,12 +53,7 @@
                                 <i class="fas fa-plus icono-agregar"></i> AGREGAR EVENTOS
                             </a>
                         </div>
-                        <div class="buscador">
-                            <div class="input-grupo">
-                                <input type="text" class="campo-buscar" placeholder="Buscar evento...">
-                    
-                            </div>
-                        </div>
+                      
                     </div>
                     <table class="tabla">
                             <thead>

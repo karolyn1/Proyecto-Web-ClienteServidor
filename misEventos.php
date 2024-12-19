@@ -71,7 +71,7 @@ $result = $stmt->get_result();
                             <div class="card mb-3 shadow-sm">
                                 <img src="imagenes/<?php echo $evento['Imagen']; ?>" class="card-img-top" alt="Imagen del Evento">
                                 <div class="card-body">
-                                    <h5 class="card-title">Evento: <?php echo $evento['Nombre']; ?></h5>
+                                    <h5 class="card-title text-center">Evento: <?php echo $evento['Nombre']; ?></h5>
                                     <p class="card-text"><strong>Boleto(s) Adquirido(s):</strong> <?php echo $evento['BoletosAdquiridos']; ?></p>
                                     <p class="card-text"><strong>Total:</strong> $<?php echo number_format($evento['Total'], 2); ?></p>
                                     <p class="card-text"><strong>Fecha del Evento:</strong> <?php echo date("d-m-Y", strtotime($evento['Fecha'])); ?></p>
