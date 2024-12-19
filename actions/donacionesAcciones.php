@@ -2,8 +2,7 @@
 include("conexion.php");
 session_start();
 $data = $_POST;
-$data2 = json_decode(file_get_contents("php://input"), true);
-switch ($data['action'] || $data2['action']) {
+switch ($data['action'] ) {
     case 'desactivar':
         if (isset($data["id"])) {
             $id = $_POST["id"];
@@ -20,8 +19,8 @@ switch ($data['action'] || $data2['action']) {
         }
         break;
         case 'guardar':
-            $monto = $data2['monto'];
-            $metodoPago = $data2['metodoPago'];
+            $monto = $data['monto'];
+            $metodoPago = $data['metodoPago'];
             $idUsuario = $_SESSION['usuario_id'];
             $sql = "INSERT INTO donaciones (Monto, Fecha, ID_Usuario, Estado, MetodoPago) VALUES
             ('$monto', CURDATE(),'$idUsuario', 1, '$metodoPago')";
