@@ -15,7 +15,7 @@ include("actions/conexion.php");
     }
 
     // Consulta para tours
-    $sql = "SELECT id_tour, descripcion, imagen FROM tours"; // Corrección aquí
+    $sql = "SELECT * FROM tours WHERE Estado = 1"; // Corrección aquí
     $resultado = $conn->query($sql);
 
     if (!$resultado) {
@@ -25,7 +25,7 @@ include("actions/conexion.php");
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Donacioens</title>
+    <title>Casa Natura - Tours</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -55,18 +55,20 @@ include("actions/conexion.php");
                         echo '<div class="animal-card">';
                         
                         // Verificar si el campo 'imagen' contiene un valor
-                        $imagen = htmlspecialchars($tour['imagen']);
+                        $imagen = $tour['Imagen'];
+                        
                         
                         // Verificar si la imagen existe en la carpeta 'imagenes'
                         if (!empty($imagen) && file_exists('imagenes/' . $imagen)) {
-                            echo '<img src="imagenes/' . $imagen . '" alt="Imagen del tour">';
+                            
+                            echo '<img class="imagen-tour" src="imagenes/' . $imagen . '" alt="Imagen del tour">';
                         } else {
                             // Si no existe la imagen, usar una imagen por defecto
                             echo '<img src="imagenes/default.jpg" alt="Imagen no disponible">';
                         }
 
-                        echo '<a href="tour.php?id=' . htmlspecialchars($tour['id_tour']) . '">Ver detalles del tour</a>';
-                        echo '<p>' . htmlspecialchars($tour['descripcion']) . '</p>';
+                        echo '<a href="tour.php?id=' . htmlspecialchars($tour['ID_Tour']) . '">Ver detalles del tour</a>';
+                        echo '<p>' . htmlspecialchars($tour['Descripcion']) . '</p>';
                         echo '</div>';
                     }
                 } else {

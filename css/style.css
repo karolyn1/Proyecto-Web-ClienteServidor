@@ -943,7 +943,7 @@ nav li {
     width: 100%; /* Hace que la imagen ocupe el 100% del ancho de su contenedor */
     height: auto; /* Mantiene la relación de aspecto original */
     max-height: 150px; /* Limita el tamaño máximo de la imagen */
-    object-fit: cover; /* Asegura que las imágenes se recorten bien si son más grandes */
+    object-fit: contain; /* Asegura que las imágenes se recorten bien si son más grandes */
     border-radius: 5px; /* Bordes redondeados para las imágenes */
     margin-bottom: 10px; /* Espaciado entre la imagen y el texto */
 }
@@ -997,7 +997,7 @@ nav li {
     width: 200px;
     height: 200px;
     font-family: 'Montserrat', sans-serif;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
 }
 
@@ -2489,4 +2489,10 @@ body {
     height: 100%; 
     background-color: rgba(0,0,0,0.5); 
     z-index: 1000;
+}
+
+.imagen-tour{
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
 }

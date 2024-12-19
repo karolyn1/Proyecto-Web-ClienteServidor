@@ -101,11 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="row">
                 <!-- Columna de Información del Tour -->
                 <div class="col-md-6 mb-4 mb-md-0">
-                    <div class="p-4 rounded shadow-sm bg-light">
+                    <div class="p-4 mb-3 rounded shadow-sm bg-light">
                         <!-- Imagen -->
-                        <div class="text-center mb-3">
+                        <div class="text-center m-3">
                             <img src="imagenes/<?php echo htmlspecialchars($tour['Imagen']); ?>" alt="Imagen del Tour"
-                                class="img-fluid rounded">
+                                class="imagen-tour">
                         </div>
 
                         <!-- Información -->

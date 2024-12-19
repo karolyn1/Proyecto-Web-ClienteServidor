@@ -15,7 +15,7 @@ include("actions/conexion.php");
     }
 
     // Consulta para eventos disponibles
-    $sql = "SELECT ID_Evento, Nombre, Descripcion, Imagen FROM eventos"; // Asegúrate de que la tabla se llama 'eventos'
+    $sql = "SELECT ID_Evento, Nombre, Descripcion, Imagen FROM eventos WHERE Estado = 1"; // Asegúrate de que la tabla se llama 'eventos'
     $resultado = $conn->query($sql);
 
     if (!$resultado) {
@@ -63,7 +63,7 @@ include("actions/conexion.php");
                         
                         // Verificar si la imagen existe en la carpeta 'imagenes'
                         if (!empty($imagen) && file_exists('imagenes/' . $imagen)) {
-                            echo '<img src="imagenes/' . $imagen . '" alt="Imagen del evento">';
+                            echo '<img src="imagenes/' . $imagen . '" alt="Imagen del evento" class="imagen-tour">';
                         } else {
                             // Si no existe la imagen, usar una imagen por defecto
                             echo '<img src="imagenes/default.jpg" alt="Imagen no disponible">';

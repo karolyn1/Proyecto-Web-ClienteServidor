@@ -43,7 +43,7 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-6">
-                <img src="https://via.placeholder.com/500x500.png?text=Imagen+del+Tour" alt="Imagen del Tour" class="img-fluid">
+                <img src="https://via.placeholder.com/500x500.png?text=Imagen+del+Tour" alt="Imagen del Tour" class="img-fluid imagen-tour">
             </div>
 
             <div class="container-tour-detalle col-md-6">
