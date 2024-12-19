@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-12-2024 a las 05:22:22
+-- Tiempo de generación: 19-12-2024 a las 08:27:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -155,7 +155,21 @@ INSERT INTO `donaciones` (`ID_Donacion`, `Monto`, `Fecha`, `ID_Usuario`, `Estado
 (5, 70, '2024-12-18', 2, 1, 'tarjeta'),
 (6, 70, '2024-12-18', 2, 1, 'tarjeta'),
 (7, 78, '2024-12-18', 2, 1, 'tarjeta'),
-(8, 78, '2024-12-18', 2, 1, 'tarjeta');
+(8, 78, '2024-12-18', 2, 1, 'tarjeta'),
+(9, 23, '2024-12-18', 2, 1, 'tarjeta'),
+(10, 23, '2024-12-18', 2, 1, 'tarjeta'),
+(11, 46, '2024-12-18', 2, 1, 'sinpe'),
+(12, 46, '2024-12-18', 2, 1, 'sinpe'),
+(13, 90, '2024-12-18', 2, 1, 'tarjeta'),
+(14, 90, '2024-12-18', 2, 1, 'tarjeta'),
+(15, 90, '2024-12-18', 2, 1, 'tarjeta'),
+(16, 90, '2024-12-18', 2, 1, 'tarjeta'),
+(17, 23, '2024-12-18', 2, 1, 'tarjeta'),
+(18, 78, '2024-12-18', 2, 1, 'tarjeta'),
+(19, 25, '2024-12-18', 2, 1, 'tarjeta'),
+(20, 78, '2024-12-18', 2, 1, 'tarjeta'),
+(21, 90, '2024-12-18', 2, 1, 'tarjeta'),
+(22, 23, '2024-12-18', 2, 1, 'tarjeta');
 
 -- --------------------------------------------------------
 
@@ -173,16 +187,16 @@ CREATE TABLE `eventos` (
   `Imagen` varchar(255) NOT NULL,
   `Cupos` int(11) DEFAULT NULL,
   `CuposVendidos` int(11) NOT NULL,
-  `Costo` decimal(10,2) NOT NULL
+  `Costo` decimal(10,2) NOT NULL,
+  `Estado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `eventos`
 --
 
-INSERT INTO `eventos` (`ID_Evento`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `Lugar`, `Imagen`, `Cupos`, `CuposVendidos`, `Costo`) VALUES
-(5, 'Camitada', 'hdjd', '2024-12-21', '22:16:00.000000', 'ss', 'Digrama Relacional proyecto.jpg', 22, 1, 0.00),
-(6, 'sas', 'as', '2024-12-12', '23:51:00.000000', 'sas', 'Imagen de WhatsApp 2024-12-03 a las 21.17.33_7e2e6cf0.jpg', 20, 0, 20.00);
+INSERT INTO `eventos` (`ID_Evento`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `Lugar`, `Imagen`, `Cupos`, `CuposVendidos`, `Costo`, `Estado`) VALUES
+(5, 'CCaminata', 'hdjd', '2024-12-21', '22:16:00.000000', 'ss', 'Digrama Relacional proyecto.jpg', 0, 1, 12.00, 0);
 
 -- --------------------------------------------------------
 
@@ -222,19 +236,17 @@ CREATE TABLE `tours` (
   `Precio_Boleto` decimal(10,2) NOT NULL,
   `Tickets_Disponibles` int(10) NOT NULL,
   `TicketsVendidos` int(11) NOT NULL,
-  `Imagen` varchar(255) NOT NULL
+  `Imagen` varchar(255) NOT NULL,
+  `Estado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `tours`
 --
 
-INSERT INTO `tours` (`ID_Tour`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `Precio_Boleto`, `Tickets_Disponibles`, `TicketsVendidos`, `Imagen`) VALUES
-(2, 'srg', 'gsrg', '2024-12-06', '22:15:00.000000', 45.00, 1, 31, 'Digrama Relacional proyecto.jpg'),
-(3, 's', 's', '2024-12-05', '21:23:00.000000', 21.00, 0, 23, 'burrito.jpg'),
-(4, 'd', 'd', '2024-11-27', '00:28:00.000000', 23.00, 20, 0, 'query.jpg'),
-(5, 'd', 'd', '2024-11-27', '00:28:00.000000', 23.00, 20, 0, 'query.jpg'),
-(6, 'das', 'dasd', '2024-12-19', '22:33:00.000000', 23.00, 33, 0, 'burrito.jpg');
+INSERT INTO `tours` (`ID_Tour`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `Precio_Boleto`, `Tickets_Disponibles`, `TicketsVendidos`, `Imagen`, `Estado`) VALUES
+(2, 'sdf', 'gsrg', '2024-12-06', '22:15:00.000000', 0.00, 0, 31, 'imagenes/imagen (1).png', 1),
+(3, 's', 's', '2024-12-05', '21:23:00.000000', 23.00, 20, 23, 'imagenes/query.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -260,7 +272,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`ID_Usuario`, `Nombre`, `Password`, `Apellido1`, `Apellido2`, `Correo`, `Telefono`, `Donador`, `Estado`) VALUES
 (1, 'Ariana     ', '$2y$10$AcomD5YW.cE.vGnLBnydOO68HuK91I1gA550wXWsdfqU7URVl8d32', 'Fallas     ', 'Calderon     ', 'ariana@gmail.com', 72307240, 0, 'Activo'),
-(2, 'Paola      ', '$2y$10$Scp8wmVLytjc5fwJhO7dB.oohKseUg6ylPMhmU/k3jFocY4WGQK6S', 'Calderon  ', 'Romero  ', 'arianafallas1@gmail.com', 88494643, 0, 'inactivo'),
+(2, 'Paola       ', '$2y$10$YZ8KZt/.8mwjewkjvzB4.eObmLKfPdJL1vEnvJ.rzGwlQvvY/ebnO', 'Calderon   ', 'Romero   ', 'arianafallas1@gmail.com', 72307240, 0, 'Activo'),
 (3, 'Ariana', '$2y$10$h/k.3o8W2CxzLv3UMNK5I.nqt/U4WFAaddmwidFFPgIIGiuj8ilgK', 'Fallas', 'Calderon', 'a2@gmail.com', 72307240, 0, 'Activo'),
 (4, 'Pablo   ', '$2y$10$vYvsVJb6GupYrE7ZHNN/A.BPpgrc0EfXq99iE1BEfHF8mQC26OxeW', 'Fallas   ', 'Calderon   ', 'pfalla@gmail.com', 72307240, 0, 'Activo'),
 (5, 'fsd', '$2y$10$0kqieoDH26QoHUiYvOThCODx/larMMzr5kDEcp7Ek71n5fB8rRWoi', 'fsd', 'ffs', 'e@gmail.com', NULL, 0, 'Activo');
@@ -425,13 +437,13 @@ ALTER TABLE `direccion`
 -- AUTO_INCREMENT de la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
-  MODIFY `ID_Donacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_Donacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `ID_Evento` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_Evento` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -443,7 +455,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `tours`
 --
 ALTER TABLE `tours`
-  MODIFY `ID_Tour` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ID_Tour` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`

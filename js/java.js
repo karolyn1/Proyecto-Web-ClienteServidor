@@ -729,6 +729,92 @@ $(function () {
 
     });
 
+function getCliente() {
+    $.post("actions/accionesUsuario.php", { action: 'getCliente' }, function (data, status) {
+        let response = JSON.parse(data); // Parsear la respuesta JSON
+        console.log(response);
+
+        if (response.status === '00') {
+            let user = response.users[0]; // Tomar el primer cliente/usuario
+            console.log(user);
+
+            // Asignar valores a los campos del formulario
+            $("#nombreUsuario").val(user.nombreUsuario);
+            $("#emailUsuario").val(user.emailUsuario);
+            $("#telefonoUsuario").val(user.telefonoUsuario);
+            $("#direccionUsuario").val(user.direccionUsuario);
+            $("#passwordHash").val(user.passwordUsuario);
+        } else {
+            console.error("Error en la respuesta: ", response.users);
+            alert("No se pudo obtener la información del cliente. Por favor, inténtelo de nuevo.");
+        }
+    });
+}
+
+$("#formClienteActualizar").on('submit', function (e) {
+    e.preventDefault();
+
+    let data = {
+        action: 'updateCliente',
+        nombreUsuario: $("#nombreUsuario").val(),
+        emailUsuario: $("#emailUsuario").val(),
+        telefonoUsuario: $("#telefonoUsuario").val(),
+        direccionUsuario: $("#direccionUsuario").val(),
+        passwordUsuario: $("#passwordHash").val()
+    };
+
+    $.post("actions/accionesUsuario.php", data, function (data, status) {
+        let response = JSON.parse(data);
+
+ 
+        $("#mensajeModalBody").text(response.message);
+        $("#mensajeModal").modal('show');
+
+
+        if (response.status === '01') {
+            $("#mensajeModal").on('hidden.bs.modal', function () {
+                window.location.href = "./login.php";
+            });
+        } else if (response.status === '00') {
+            $("#mensajeModal").on('hidden.bs.modal', function () {
+                location.reload();
+            });
+        }
+    });
+});
+
+$("#changePassword").on('submit', function (e) {
+    e.preventDefault();
+
+    let $nuevaContra = $("#nueva_contrasena").val();
+
+    // Validar que la nueva contraseña tenga al menos 8 caracteres
+    if ($nuevaContra.length < 8) {
+        $("#mensajeModalBody").text('La nueva contraseña debe tener al menos 8 caracteres.');
+        $("#mensajeModal").modal('show');
+        return; 
+    }
+
+    let $contraActual = $("#contrasena_actual").val();
+    let $passwordHash = $("#passwordHash").val();
+
+    $.post("actions/accionesUsuario.php", {
+        action: 'actualizarPassword',
+        contraActual: $contraActual,
+        newPassword: $nuevaContra,
+        passwordHash: $passwordHash
+    }, function (data, status) {
+        let response = JSON.parse(data);
+        $("#mensajeModalBody").text(response.message);
+        $("#mensajeModal").modal('show');
+
+        if (response.status === '00') {
+            $("#mensajeModal").on('hidden.bs.modal', function () {
+                window.location.href = "./login.php";
+            });
+        }
+    });
+});
 
     $("#finalizarApadrinamiento").on('submit', function (e) {
         e.preventDefault();
@@ -751,7 +837,41 @@ $(function () {
         );
     })
 
-
+    $("#contactoForm").on('submit', function (e) {
+        e.preventDefault();
+    
+        let $nombre = $("#nombreConsulta").val().trim();
+        let $apellido = $("#apellidoConsulta").val().trim();
+        let $email = $("#emailConsulta").val().trim();
+        let $mensaje = $("#mensajeConsulta").val().trim();
+    
+        // Validar campos vacíos
+        if (!$nombre || !$apellido || !$email || !$mensaje) {
+            $("#mensajeModalBody").text('Debe completar todos los campos antes de enviar.');
+            $("#mensajeModal").modal('show');
+            return;
+        }
+    
+        // Enviar datos al servidor
+        $.post("actions/contactoAcciones.php", {
+            action: 'add',
+            nombre: $nombre,
+            apellido: $apellido,
+            email: $email,
+            mensaje: $mensaje
+        }, function (data, status) {
+            let response = JSON.parse(data);
+            $("#mensajeModalBody").text(response.message);
+            $("#mensajeModal").modal('show');
+    
+            if (response.status === '00') {
+                $("#mensajeModal").on('hidden.bs.modal', function () {
+                    location.reload();
+                });
+            }
+        });
+    });
+    
     $("#tourAgregar").on('submit', function(e) {
         e.preventDefault();
     
@@ -787,45 +907,90 @@ $(function () {
         });
     });
     
-    // $('#tourEditar').submit(function(e) {
-    //     e.preventDefault(); // Evita el envío tradicional del formulario
     
-    //     var formData = new FormData(this); // Obtén los datos del formulario
+    $(document).on("click", "#eliminarTour", function () {
+        if (confirm("¿Deseas eliminar el tour?")) {
+            const row = $(this).closest('tr');
+            const id = row.attr("id");
+            console.log(id);
+            $.post("actions/toursAcciones.php", { action: 'eliminar', id: id }, function (data, status) {
+                let response = JSON.parse(data);
+                console.log(response);
+                $("#mensajeModalBody").text(response.message);
+                $("#mensajeModal").modal('show');
     
-    //     // Utilizar $.ajax para manejar correctamente FormData
-    //     $.ajax({
-    //         url: 'editarTour.php', // Archivo PHP que procesará la solicitud
-    //         type: 'POST', // Método HTTP
-    //         data: formData, // Datos del formulario
-    //         processData: false, // Necesario para enviar FormData correctamente
-    //         contentType: false, // Evita que jQuery establezca el encabezado "Content-Type"
-    //         success: function(data) {
-    //             try {
-    //                 let response = JSON.parse(data); // Convertir respuesta a JSON
+                if (response.status === '00') {  // Usa response.status aquí
+                    $("#mensajeModal").on('hidden.bs.modal', function () {
+                        row.remove();  // Elimina la fila de la tabla
+                        location.reload();  // Recarga la página para reflejar los cambios
     
-    //                 if (response.status === "00") {
-    //                     // Si la actualización fue exitosa
-    //                     $('#mensajeModalBody').text(response.message); // Mensaje de éxito
-    //                     $('#mensajeModal').modal('show');
-    //                 } else {
-    //                     // Si hubo un error
-    //                     $('#mensajeModalBody').text(response.message); // Mensaje de error
-    //                     $('#mensajeModal').modal('show');
-    //                 }
-    //             } catch (error) {
-    //                 console.error('Error al parsear JSON:', error);
-    //                 $('#mensajeModalBody').text("Error inesperado en la respuesta del servidor.");
-    //                 $('#mensajeModal').modal('show');
-    //             }
-    //         },
-    //         error: function(xhr, status, error) {
-    //             // Si hay un error en la solicitud
-    //             console.error('Error:', error);
-    //             $('#mensajeModalBody').text("Hubo un error al procesar la solicitud.");
-    //             $('#mensajeModal').modal('show');
-    //         }
-    //     });
-    // });
+                        if ($("#bodyTabla tr").length === 0) {
+                            $("#bodyTabla").html('<tr><td colspan="6">No hay animales disponibles</td></tr>');
+                        }
+                    });
+                }
+            });
+        }
+    });
     
+    $("#eventoAgregar").on('submit', function(e) {
+        e.preventDefault();
+    
+        var formData = new FormData(this); // Recoge los datos del formulario
+    
+        $.ajax({
+            url: 'actions/guardar_evento.php',  // El archivo PHP que maneja la inserción
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',  // Esperamos un objeto JSON como respuesta
+            success: function(data) {
+                // Muestra el mensaje en el modal
+                $('#mensajeModalBody').text(data.message);
+    
+                // Mostrar el modal de Bootstrap
+                $('#mensajeModal').modal('show');  // Abre el modal usando jQuery
+    
+                // Redirigir después de cerrar el modal
+                $('#mensajeModal').on('hidden.bs.modal', function () {
+                    if (data.status === '00') {
+                        window.location.href = './gestionEventos.php'; // Redirigir en caso de éxito
+                    } else {
+                        window.location.href = './gestionEventos.php'; // Redirigir en caso de error
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                alert('Ocurrió un error al procesar la solicitud.');
+            }
+        });
+    });
+
+    $(document).on("click", "#eliminarEventoBTN", function () {
+        if (confirm("¿Deseas eliminar el evento?")) {
+            const row = $(this).closest('tr');
+            const id = row.attr("id");
+            console.log(id);
+            $.post("actions/eventosAcciones.php", { action: 'eliminar', id: id }, function (data, status) {
+                let response = JSON.parse(data);
+                console.log(response);
+                $("#mensajeModalBody").text(response.message);
+                $("#mensajeModal").modal('show');
+    
+                if (response.status === '00') {  // Usa response.status aquí
+                    $("#mensajeModal").on('hidden.bs.modal', function () {
+                        row.remove();  // Elimina la fila de la tabla
+                        location.reload();  // Recarga la página para reflejar los cambios
+    
+                        if ($("#bodyTabla tr").length === 0) {
+                            $("#bodyTabla").html('<tr><td colspan="6">No hay animales disponibles</td></tr>');
+                        }
+                    });
+                }
+            });
+        }
+    });
 
 });

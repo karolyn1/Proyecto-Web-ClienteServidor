@@ -36,7 +36,7 @@ $usuario_id = $_SESSION['usuario_id'];
     <style>
         .card-title {
             text-align: center;
-            /* Centra el nombre del animal */
+            
         }
     </style>
 </head>
