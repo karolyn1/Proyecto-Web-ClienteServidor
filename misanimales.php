@@ -1,4 +1,17 @@
+<?php
+session_start();
+include('actions/conexion.php');
 
+// Verificar si el usuario está logueado
+if (!isset($_SESSION['usuario_id'])) {
+    alert("Debes estar logueado para acceder a esta opción");
+    header("Location: login.php");
+    exit();
+}
+
+$usuario_id = $_SESSION['usuario_id'];
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 
