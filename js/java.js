@@ -728,7 +728,7 @@ $(function () {
         }
 
     });
-// Obtener los datos del cliente/usuario
+
 function getCliente() {
     $.post("actions/accionesUsuario.php", { action: 'getCliente' }, function (data, status) {
         let response = JSON.parse(data); // Parsear la respuesta JSON
@@ -751,11 +751,9 @@ function getCliente() {
     });
 }
 
-// Actualizar los datos del cliente/usuario
 $("#formClienteActualizar").on('submit', function (e) {
     e.preventDefault();
 
-    // Capturar los datos del formulario
     let data = {
         action: 'updateCliente',
         nombreUsuario: $("#nombreUsuario").val(),
@@ -765,15 +763,14 @@ $("#formClienteActualizar").on('submit', function (e) {
         passwordUsuario: $("#passwordHash").val()
     };
 
-    // Enviar los datos al servidor
     $.post("actions/accionesUsuario.php", data, function (data, status) {
         let response = JSON.parse(data);
 
-        // Mostrar mensaje de respuesta en un modal
+ 
         $("#mensajeModalBody").text(response.message);
         $("#mensajeModal").modal('show');
 
-        // Realizar acciones según el resultado
+
         if (response.status === '01') {
             $("#mensajeModal").on('hidden.bs.modal', function () {
                 window.location.href = "./login.php";
@@ -781,6 +778,39 @@ $("#formClienteActualizar").on('submit', function (e) {
         } else if (response.status === '00') {
             $("#mensajeModal").on('hidden.bs.modal', function () {
                 location.reload();
+            });
+        }
+    });
+});
+
+$("#changePassword").on('submit', function (e) {
+    e.preventDefault();
+
+    let $nuevaContra = $("#nueva_contrasena").val();
+
+    // Validar que la nueva contraseña tenga al menos 8 caracteres
+    if ($nuevaContra.length < 8) {
+        $("#mensajeModalBody").text('La nueva contraseña debe tener al menos 8 caracteres.');
+        $("#mensajeModal").modal('show');
+        return; 
+    }
+
+    let $contraActual = $("#contrasena_actual").val();
+    let $passwordHash = $("#passwordHash").val();
+
+    $.post("actions/accionesUsuario.php", {
+        action: 'actualizarPassword',
+        contraActual: $contraActual,
+        newPassword: $nuevaContra,
+        passwordHash: $passwordHash
+    }, function (data, status) {
+        let response = JSON.parse(data);
+        $("#mensajeModalBody").text(response.message);
+        $("#mensajeModal").modal('show');
+
+        if (response.status === '00') {
+            $("#mensajeModal").on('hidden.bs.modal', function () {
+                window.location.href = "./login.php";
             });
         }
     });
