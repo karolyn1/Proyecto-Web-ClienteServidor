@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 18, 2024 at 10:33 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 19-12-2024 a las 05:22:22
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `casanatura`
+-- Base de datos: `casanatura`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `animal`
+-- Estructura de tabla para la tabla `animal`
 --
 
 CREATE TABLE `animal` (
@@ -38,20 +38,21 @@ CREATE TABLE `animal` (
   `Apadrinado` tinyint(1) NOT NULL,
   `Imagen` varchar(255) NOT NULL,
   `Historia` varchar(255) NOT NULL,
-  `Necesidades` varchar(255) NOT NULL
+  `Necesidades` varchar(255) NOT NULL,
+  `Estado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `animal`
+-- Volcado de datos para la tabla `animal`
 --
 
-INSERT INTO `animal` (`ID_Animal`, `Nombre`, `Raza`, `Especie`, `Fecha_Ingreso`, `Estado_Salud`, `Fecha_Nacimiento`, `Apadrinado`, `Imagen`, `Historia`, `Necesidades`) VALUES
-(1, 'Donkey', 'Burro Común', 'Equino', '2024-12-06', 'Saludable', '2014-12-09', 0, 'img/burrito.jpg', 'Donkey, un burro joven rescatado, fue encontrado en condiciones difíciles. Ahora recibe cuidados veterinarios, una dieta balanceada y espacio seguro. Es sociable, curioso y necesita compañía, ejercicio y un refugio adecuado. ', 'Donkey necesita un refugio adecuado, espacio para moverse libremente, una dieta equilibrada con heno y agua limpia, atención veterinaria regular, compañía de otros animales para evitar la soledad y cuidados amorosos que promuevan su bienestar.');
+INSERT INTO `animal` (`ID_Animal`, `Nombre`, `Raza`, `Especie`, `Fecha_Ingreso`, `Estado_Salud`, `Fecha_Nacimiento`, `Apadrinado`, `Imagen`, `Historia`, `Necesidades`, `Estado`) VALUES
+(4, 'Sabanero', 'Equino', 'Burro Comun', '2024-12-19', 'Saludable', '2024-12-12', 1, '../imagenes/burrito.jpg', 'hs', 'h', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `animal_usuario`
+-- Estructura de tabla para la tabla `animal_usuario`
 --
 
 CREATE TABLE `animal_usuario` (
@@ -66,19 +67,17 @@ CREATE TABLE `animal_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `animal_usuario`
+-- Volcado de datos para la tabla `animal_usuario`
 --
 
 INSERT INTO `animal_usuario` (`ID`, `ID_Usuario`, `ID_Animal`, `FechaApadrinamiento`, `FechaFin`, `Monto`, `Frecuencia`, `Estado`) VALUES
-(1, 1, 1, '2024-12-09', '2024-12-15', 20, 'Mensual', 0),
-(3, 2, 1, '2024-12-15', '2024-12-18', 80, 'Mensual', 0),
-(4, 2, 1, '2024-12-18', '2024-12-18', 80, 'Mensual', 1),
-(5, 2, 1, '2024-12-18', '2024-12-18', 60, 'Mensual', 1);
+(15, 2, 4, '2024-12-18', '2024-12-18', 79, 'Mensual', 0),
+(16, 2, 4, '2024-12-18', NULL, 70, 'Mensual', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `contacto`
+-- Estructura de tabla para la tabla `contacto`
 --
 
 CREATE TABLE `contacto` (
@@ -91,17 +90,23 @@ CREATE TABLE `contacto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `contacto`
+-- Volcado de datos para la tabla `contacto`
 --
 
 INSERT INTO `contacto` (`ID`, `Nombre`, `Apellido`, `Email`, `ID_Usuario`, `Mensaje`) VALUES
 (1, 'Paola    ', 'Calderon', 'arianafallas1@gmail.com', 2, 'sdf'),
-(2, 'Paola    ', 'Calderon', 'arianafallas1@gmail.com', 2, 'dfj');
+(2, 'Paola    ', 'Calderon', 'arianafallas1@gmail.com', 2, 'dfj'),
+(3, 'Paola    ', 'Calderon', 'arianafallas1@gmail.com', 2, 'dd'),
+(4, 'Paola    ', 'Calderon', 'arianafallas1@gmail.com', 2, 'ff'),
+(5, 'ariana', 'fallas', 'ari@gmsj.com', NULL, 'hahs'),
+(6, 'sas', 'as', 'p@gmail.com', NULL, 's'),
+(7, 'dd', 'd', 'd@gmail.com', NULL, 'eks'),
+(14, 'ariana', 'fallas', 'a@gmail.com', NULL, '1234\n');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `direccion`
+-- Estructura de tabla para la tabla `direccion`
 --
 
 CREATE TABLE `direccion` (
@@ -114,18 +119,19 @@ CREATE TABLE `direccion` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `direccion`
+-- Volcado de datos para la tabla `direccion`
 --
 
 INSERT INTO `direccion` (`ID_Direccion`, `Provincia`, `Canton`, `Distrito`, `Direccion_Exacta`, `ID_Usuario`) VALUES
 (1, 'Cartago', 'Cartago', 'Cartago', 'La Lima Cartago', 1),
 (2, 'd', 'd', 'd', 'd', 2),
-(3, 'f', 'f', 'f', 'f', 3);
+(3, 'f', 'f', 'f', 'f', 3),
+(4, 'fs', 'fs', 'fs', 'fs', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `donaciones`
+-- Estructura de tabla para la tabla `donaciones`
 --
 
 CREATE TABLE `donaciones` (
@@ -138,17 +144,23 @@ CREATE TABLE `donaciones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `donaciones`
+-- Volcado de datos para la tabla `donaciones`
 --
 
 INSERT INTO `donaciones` (`ID_Donacion`, `Monto`, `Fecha`, `ID_Usuario`, `Estado`, `MetodoPago`) VALUES
 (1, 20000, '2024-11-01', 1, 1, NULL),
-(2, 20000, '2024-12-02', 1, 1, NULL);
+(2, 20000, '2024-12-02', 1, 1, NULL),
+(3, 20, '2024-12-18', 2, 1, 'sinpe'),
+(4, 20, '2024-12-18', 2, 1, 'sinpe'),
+(5, 70, '2024-12-18', 2, 1, 'tarjeta'),
+(6, 70, '2024-12-18', 2, 1, 'tarjeta'),
+(7, 78, '2024-12-18', 2, 1, 'tarjeta'),
+(8, 78, '2024-12-18', 2, 1, 'tarjeta');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `eventos`
+-- Estructura de tabla para la tabla `eventos`
 --
 
 CREATE TABLE `eventos` (
@@ -165,16 +177,17 @@ CREATE TABLE `eventos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `eventos`
+-- Volcado de datos para la tabla `eventos`
 --
 
 INSERT INTO `eventos` (`ID_Evento`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `Lugar`, `Imagen`, `Cupos`, `CuposVendidos`, `Costo`) VALUES
-(5, 'Camitada', 'hdjd', '2024-12-21', '22:16:00.000000', 'ss', 'Digrama Relacional proyecto.jpg', 23, 0, 0.00);
+(5, 'Camitada', 'hdjd', '2024-12-21', '22:16:00.000000', 'ss', 'Digrama Relacional proyecto.jpg', 22, 1, 0.00),
+(6, 'sas', 'as', '2024-12-12', '23:51:00.000000', 'sas', 'Imagen de WhatsApp 2024-12-03 a las 21.17.33_7e2e6cf0.jpg', 20, 0, 20.00);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Estructura de tabla para la tabla `roles`
 --
 
 CREATE TABLE `roles` (
@@ -184,19 +197,20 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `roles`
+-- Volcado de datos para la tabla `roles`
 --
 
 INSERT INTO `roles` (`ID_Rol`, `Rol`, `ID_Usuario`) VALUES
 (2, 'cliente', 2),
 (3, 'admin', 3),
 (4, 'cliente', 4),
-(5, 'cliente', 1);
+(5, 'cliente', 1),
+(6, 'cliente', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tours`
+-- Estructura de tabla para la tabla `tours`
 --
 
 CREATE TABLE `tours` (
@@ -212,16 +226,20 @@ CREATE TABLE `tours` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tours`
+-- Volcado de datos para la tabla `tours`
 --
 
 INSERT INTO `tours` (`ID_Tour`, `Nombre`, `Descripcion`, `Fecha`, `Hora`, `Precio_Boleto`, `Tickets_Disponibles`, `TicketsVendidos`, `Imagen`) VALUES
-(2, 'srg', 'gsrg', '2024-12-06', '22:15:00.000000', 45.00, 32, 0, 'Digrama Relacional proyecto.jpg');
+(2, 'srg', 'gsrg', '2024-12-06', '22:15:00.000000', 45.00, 1, 31, 'Digrama Relacional proyecto.jpg'),
+(3, 's', 's', '2024-12-05', '21:23:00.000000', 21.00, 0, 23, 'burrito.jpg'),
+(4, 'd', 'd', '2024-11-27', '00:28:00.000000', 23.00, 20, 0, 'query.jpg'),
+(5, 'd', 'd', '2024-11-27', '00:28:00.000000', 23.00, 20, 0, 'query.jpg'),
+(6, 'das', 'dasd', '2024-12-19', '22:33:00.000000', 23.00, 33, 0, 'burrito.jpg');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario`
+-- Estructura de tabla para la tabla `usuario`
 --
 
 CREATE TABLE `usuario` (
@@ -237,19 +255,20 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuario`
+-- Volcado de datos para la tabla `usuario`
 --
 
 INSERT INTO `usuario` (`ID_Usuario`, `Nombre`, `Password`, `Apellido1`, `Apellido2`, `Correo`, `Telefono`, `Donador`, `Estado`) VALUES
-(1, 'Ariana    ', '$2y$10$AcomD5YW.cE.vGnLBnydOO68HuK91I1gA550wXWsdfqU7URVl8d32', 'Fallas    ', 'Calderon    ', 'ariana@gmail.com', 72307240, 0, 'Activo'),
-(2, 'Paola    ', '$2y$10$Scp8wmVLytjc5fwJhO7dB.oohKseUg6ylPMhmU/k3jFocY4WGQK6S', 'Calderon', 'Romero', 'arianafallas1@gmail.com', 88494643, 0, 'Activo'),
-(3, 'Ariana', '$2y$10$Q1fVmFUnl2Bfq9/sHOQsOeJXjhoxH6pz2qd3DLEFPX6II7//Ve/Fu', 'Fallas', 'Calderon', 'a@gmail.com', 78779, 0, 'Activo'),
-(4, 'Pablo  ', '$2y$10$vYvsVJb6GupYrE7ZHNN/A.BPpgrc0EfXq99iE1BEfHF8mQC26OxeW', 'Fallas  ', 'Calderon  ', 'pfalla@gmail.com', 72307240, 0, 'Inactivo');
+(1, 'Ariana     ', '$2y$10$AcomD5YW.cE.vGnLBnydOO68HuK91I1gA550wXWsdfqU7URVl8d32', 'Fallas     ', 'Calderon     ', 'ariana@gmail.com', 72307240, 0, 'Activo'),
+(2, 'Paola      ', '$2y$10$Scp8wmVLytjc5fwJhO7dB.oohKseUg6ylPMhmU/k3jFocY4WGQK6S', 'Calderon  ', 'Romero  ', 'arianafallas1@gmail.com', 88494643, 0, 'inactivo'),
+(3, 'Ariana', '$2y$10$h/k.3o8W2CxzLv3UMNK5I.nqt/U4WFAaddmwidFFPgIIGiuj8ilgK', 'Fallas', 'Calderon', 'a2@gmail.com', 72307240, 0, 'Activo'),
+(4, 'Pablo   ', '$2y$10$vYvsVJb6GupYrE7ZHNN/A.BPpgrc0EfXq99iE1BEfHF8mQC26OxeW', 'Fallas   ', 'Calderon   ', 'pfalla@gmail.com', 72307240, 0, 'Activo'),
+(5, 'fsd', '$2y$10$0kqieoDH26QoHUiYvOThCODx/larMMzr5kDEcp7Ek71n5fB8rRWoi', 'fsd', 'ffs', 'e@gmail.com', NULL, 0, 'Activo');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario_evento`
+-- Estructura de tabla para la tabla `usuario_evento`
 --
 
 CREATE TABLE `usuario_evento` (
@@ -261,10 +280,17 @@ CREATE TABLE `usuario_evento` (
   `Total` decimal(10,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `usuario_evento`
+--
+
+INSERT INTO `usuario_evento` (`ID_Relacion_UE`, `ID_Usuario`, `ID_Evento`, `MetodoPago`, `BoletosAdquiridos`, `Total`) VALUES
+(1, 2, 5, 'Tarjeta de Crédito', 1, 0);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuario_tour`
+-- Estructura de tabla para la tabla `usuario_tour`
 --
 
 CREATE TABLE `usuario_tour` (
@@ -277,17 +303,28 @@ CREATE TABLE `usuario_tour` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for dumped tables
+-- Volcado de datos para la tabla `usuario_tour`
+--
+
+INSERT INTO `usuario_tour` (`ID_Relacion_UT`, `ID_Usuario`, `ID_Tour`, `MetodoPago`, `BoletosAdquridos`, `Total`) VALUES
+(1, 2, 2, 'Tarjeta de Crédito', 12, 540),
+(2, 2, 2, 'Tarjeta de Crédito', 12, 540),
+(3, 2, 2, 'Tarjeta de Crédito', 7, 315),
+(4, 2, 3, 'Tarjeta de Crédito', 12, 252),
+(5, 2, 3, 'SINPE Móvil', 11, 231);
+
+--
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `animal`
+-- Indices de la tabla `animal`
 --
 ALTER TABLE `animal`
   ADD PRIMARY KEY (`ID_Animal`);
 
 --
--- Indexes for table `animal_usuario`
+-- Indices de la tabla `animal_usuario`
 --
 ALTER TABLE `animal_usuario`
   ADD PRIMARY KEY (`ID`),
@@ -295,53 +332,53 @@ ALTER TABLE `animal_usuario`
   ADD KEY `FK_USUARIO` (`ID_Usuario`);
 
 --
--- Indexes for table `contacto`
+-- Indices de la tabla `contacto`
 --
 ALTER TABLE `contacto`
   ADD PRIMARY KEY (`ID`),
   ADD KEY `FK_CONTACTO` (`ID_Usuario`);
 
 --
--- Indexes for table `direccion`
+-- Indices de la tabla `direccion`
 --
 ALTER TABLE `direccion`
   ADD PRIMARY KEY (`ID_Direccion`),
   ADD KEY `FK_U_DIRECCION` (`ID_Usuario`);
 
 --
--- Indexes for table `donaciones`
+-- Indices de la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
   ADD PRIMARY KEY (`ID_Donacion`),
   ADD KEY `FK_DONACION_USER` (`ID_Usuario`);
 
 --
--- Indexes for table `eventos`
+-- Indices de la tabla `eventos`
 --
 ALTER TABLE `eventos`
   ADD PRIMARY KEY (`ID_Evento`);
 
 --
--- Indexes for table `roles`
+-- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`ID_Rol`),
   ADD KEY `FK_ROL_USUARIO` (`ID_Usuario`);
 
 --
--- Indexes for table `tours`
+-- Indices de la tabla `tours`
 --
 ALTER TABLE `tours`
   ADD PRIMARY KEY (`ID_Tour`);
 
 --
--- Indexes for table `usuario`
+-- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`ID_Usuario`);
 
 --
--- Indexes for table `usuario_evento`
+-- Indices de la tabla `usuario_evento`
 --
 ALTER TABLE `usuario_evento`
   ADD PRIMARY KEY (`ID_Relacion_UE`),
@@ -349,7 +386,7 @@ ALTER TABLE `usuario_evento`
   ADD KEY `FK_EVENTO` (`ID_Evento`);
 
 --
--- Indexes for table `usuario_tour`
+-- Indices de la tabla `usuario_tour`
 --
 ALTER TABLE `usuario_tour`
   ADD PRIMARY KEY (`ID_Relacion_UT`),
@@ -357,119 +394,119 @@ ALTER TABLE `usuario_tour`
   ADD KEY `FK_TOUR` (`ID_Tour`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `animal`
+-- AUTO_INCREMENT de la tabla `animal`
 --
 ALTER TABLE `animal`
-  MODIFY `ID_Animal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Animal` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `animal_usuario`
+-- AUTO_INCREMENT de la tabla `animal_usuario`
 --
 ALTER TABLE `animal_usuario`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `contacto`
+-- AUTO_INCREMENT de la tabla `contacto`
 --
 ALTER TABLE `contacto`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `direccion`
+-- AUTO_INCREMENT de la tabla `direccion`
 --
 ALTER TABLE `direccion`
-  MODIFY `ID_Direccion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID_Direccion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `donaciones`
+-- AUTO_INCREMENT de la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
-  MODIFY `ID_Donacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Donacion` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `eventos`
+-- AUTO_INCREMENT de la tabla `eventos`
 --
 ALTER TABLE `eventos`
-  MODIFY `ID_Evento` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_Evento` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `ID_Rol` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID_Rol` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `tours`
+-- AUTO_INCREMENT de la tabla `tours`
 --
 ALTER TABLE `tours`
-  MODIFY `ID_Tour` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Tour` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `usuario`
+-- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID_Usuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ID_Usuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `usuario_evento`
+-- AUTO_INCREMENT de la tabla `usuario_evento`
 --
 ALTER TABLE `usuario_evento`
-  MODIFY `ID_Relacion_UE` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Relacion_UE` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `usuario_tour`
+-- AUTO_INCREMENT de la tabla `usuario_tour`
 --
 ALTER TABLE `usuario_tour`
-  MODIFY `ID_Relacion_UT` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID_Relacion_UT` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `animal_usuario`
+-- Filtros para la tabla `animal_usuario`
 --
 ALTER TABLE `animal_usuario`
-  ADD CONSTRAINT `FK_ANIMAL` FOREIGN KEY (`ID_Animal`) REFERENCES `animal` (`ID_Animal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_ANIMAL` FOREIGN KEY (`ID_Animal`) REFERENCES `animal` (`ID_Animal`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_USUARIO` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Constraints for table `contacto`
+-- Filtros para la tabla `contacto`
 --
 ALTER TABLE `contacto`
   ADD CONSTRAINT `FK_CONTACTO` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
--- Constraints for table `direccion`
+-- Filtros para la tabla `direccion`
 --
 ALTER TABLE `direccion`
   ADD CONSTRAINT `FK_U_DIRECCION` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `donaciones`
+-- Filtros para la tabla `donaciones`
 --
 ALTER TABLE `donaciones`
   ADD CONSTRAINT `FK_DONACION_USER` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `roles`
+-- Filtros para la tabla `roles`
 --
 ALTER TABLE `roles`
   ADD CONSTRAINT `FK_ROL_USUARIO` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `usuario_evento`
+-- Filtros para la tabla `usuario_evento`
 --
 ALTER TABLE `usuario_evento`
   ADD CONSTRAINT `FK_EVENTO` FOREIGN KEY (`ID_Evento`) REFERENCES `eventos` (`ID_Evento`) ON UPDATE CASCADE,
   ADD CONSTRAINT `FK_USUARIO_EVENTO` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuario` (`ID_Usuario`) ON UPDATE CASCADE;
 
 --
--- Constraints for table `usuario_tour`
+-- Filtros para la tabla `usuario_tour`
 --
 ALTER TABLE `usuario_tour`
   ADD CONSTRAINT `FK_TOUR` FOREIGN KEY (`ID_Tour`) REFERENCES `tours` (`ID_Tour`) ON UPDATE CASCADE,
