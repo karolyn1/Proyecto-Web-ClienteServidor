@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <!-- Imagen -->
                         <div class="text-center mb-3">
                             <img src="imagenes/<?php echo htmlspecialchars($evento['Imagen']); ?>"
-                                alt="Imagen del Evento" class="img-fluid rounded">
+                                alt="Imagen del Evento" class="imagen-tour">
                         </div>
 
                         <!-- Información -->

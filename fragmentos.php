@@ -84,15 +84,14 @@ $navbar .= '
             <a href="quienessomos.php">NOSOTROS</a>
             <a href="informacionDonacion.php">DONAR</a>
             <a href="listadoAnimalesDisponibles.php">APADRINAR</a>
-            <a href="#">EVENTOS</a>
-            <a href="#">TOURS</a>
-            <a href="#">CONTÁCTANOS</a>
+            <a href="eventosDisponibles.php">EVENTOS</a>
+            <a href="tourDisponible.php">TOURS</a>
+            <a href="contactenos.php">CONTÁCTANOS</a>
         </div>
         <div class="row social-media">
             <div class="col social-icons">
                 <a href="#"><img src="imagenes/face.png" alt="Facebook" /></a>
-                <a href="#"><img src="imagenes/twitter.png" alt="Twitter" /></a>
-                <a href="#"><img src="imagenes/instagram.webp" alt="Instagram" /></a>
+                <a href="#"><img src="imagenes/video.png" alt="Instagram" /></a>
             </div>
         </div>
     </div>
