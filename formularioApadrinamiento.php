@@ -66,7 +66,7 @@
                         </select>
                     </div>
                     <button type="submit" class="submit-btn" id="submit-button">Donar</button>
-
+</form>
                     <!-- Modal para tarjeta -->
             <div class="modal fade form-agregar-animal" id="modalTarjeta" tabindex="-1" aria-labelledby="modalTarjetaLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -166,16 +166,6 @@
 </main>
 
 <script>
-        // Función para validar el formulario principal
-        function validarFormulario() {
-            let cantidad = document.getElementById("montoDonarForm").value;
-            let metodo = document.getElementById("metodo").value;
-            if (!cantidad || !metodo) {
-                alert("Por favor, completa todos los campos.");
-                return false;
-            }
-            return true;
-        }
 
         // Función para validar el formulario principal
         function validarFormulario() {
