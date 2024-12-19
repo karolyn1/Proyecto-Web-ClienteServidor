@@ -823,4 +823,41 @@ $(function () {
     })
 
 
+    $("#tourAgregar").on('submit', function(e) {
+        e.preventDefault();
+    
+        var formData = new FormData(this); // Recoge los datos del formulario
+    
+        $.ajax({
+            url: 'actions/guardar_tour.php',  // El archivo PHP que maneja la inserción
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: 'json',  // Esperamos un objeto JSON como respuesta
+            success: function(data) {
+                // Muestra el mensaje en el modal
+                $('#mensajeModalBody').text(data.message);
+    
+                // Mostrar el modal de Bootstrap
+                $('#mensajeModal').modal('show');  // Abre el modal usando jQuery
+    
+                // Redirigir después de cerrar el modal
+                $('#mensajeModal').on('hidden.bs.modal', function () {
+                    if (data.status === '00') {
+                        window.location.href = './gestionTours.php'; // Redirigir en caso de éxito
+                    } else {
+                        window.location.href = './agregarTour.php'; // Redirigir en caso de error
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                alert('Ocurrió un error al procesar la solicitud.');
+            }
+        });
+    });
+    
+    
+
 });

@@ -1,5 +1,4 @@
 <?php
-
 // Verifica si el archivo de conexión existe antes de incluirlo
 $rutaConexion = realpath('conexion.php');
 if (!$rutaConexion || !file_exists($rutaConexion)) {
@@ -14,15 +13,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hora = $_POST['hora'] ?? '';
     $precio_boleto = $_POST['precio_boleto'] ?? 0;
     $tickets_disponibles = $_POST['tickets_disponibles'] ?? 0;
-    $nombre = $_POST['nombre'] ??'';
+    $nombre = $_POST['nombre'] ?? '';
 
     // Verifica si se ha subido una imagen
     if (empty($_FILES['imagen']['name'])) {
-        echo "<script>
-                alert('Por favor, sube una imagen para el tour.');
-                window.location.href = '../agregarTour.php';
-              </script>";
-        exit; // Detenemos la ejecución si no se ha subido una imagen
+        echo json_encode([  // Responder con un error JSON
+            "status" => "99",
+            "message" => "Por favor, sube una imagen para el tour."
+        ]);
+        exit;
     }
 
     // Variable para almacenar el nombre de la imagen
@@ -35,16 +34,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verifica si el archivo se sube correctamente
     if (!move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file)) {
-        echo "<script>
-                alert('Error al mover el archivo de imagen.');
-                window.location.href = '../agregarTour.php';
-              </script>";
-        exit; // Detenemos la ejecución si la imagen no se mueve correctamente
+        echo json_encode([  // Responder con un error JSON
+            "status" => "99",
+            "message" => "Error al mover el archivo de imagen."
+        ]);
+        exit;
     }
 
     // Inserta los datos en la base de datos, incluyendo la imagen
     $sql = "INSERT INTO tours (nombre, descripcion, fecha, hora, precio_boleto, tickets_disponibles, TicketsVendidos, imagen) 
-            VALUES (?,?, ?, ?, ?, ?,0, ?)";
+            VALUES (?,?, ?, ?, ?, ?, 0, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
         // Vincula los parámetros (la imagen se pasa como string)
@@ -59,27 +58,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $image_name
         );
 
-        // Ejecuta la consulta
         if ($stmt->execute()) {
-            // Redirige a la página de gestión de tours
-            echo "<script>
-                    alert('Tour registrado correctamente.');
-                    window.location.href = '../gestionTours.php';
-                  </script>";
+            // Devuelve una respuesta de éxito en formato JSON
+            echo json_encode([
+                "status" => "00",
+                "message" => "Tour registrado correctamente."
+            ]);
         } else {
             // Error al ejecutar la consulta
-            echo "<script>
-                    alert('Error al registrar el tour: " . $stmt->error . "');
-                    window.location.href = '../agregarTour.php';
-                  </script>";
+            echo json_encode([
+                "status" => "99",
+                "message" => "Error al registrar el tour: " . $stmt->error
+            ]);
         }
         $stmt->close();
     } else {
         // Error al preparar la consulta SQL
-        echo "<script>
-                alert('Error al preparar la consulta SQL.');
-                window.location.href = '../agregarTour.php';
-              </script>";
+        echo json_encode([
+            "status" => "99",
+            "message" => "Error al preparar la consulta SQL."
+        ]);
     }
 }
 
