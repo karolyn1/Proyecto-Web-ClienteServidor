@@ -11,75 +11,93 @@
         rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 
 <?php
-       include("sidebar.php");
-       include("actions/conexion.php");
-       echo $sidebarAdmin2;// Incluir archivo de conexión
+include("sidebar.php");
+include("actions/conexion.php");
+echo $sidebarAdmin2;
 
-    // Verificar si se ha recibido un ID de tour
-    if (isset($_GET['id']) && !empty($_GET['id'])) {
-        $idTour = $_GET['id'];
+// Verificar si se ha recibido un ID de tour
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    $idTour = intval($_GET['id']); // Convertir a entero para mayor seguridad
 
 
-        // Consultar los datos del tour
-        $sql = "SELECT * FROM tours WHERE ID_Tour = ?";
-        if ($stmt = $conn->prepare($sql)) {
-            $stmt->bind_param("i", $idTour);
-            $stmt->execute();
-            $resultado = $stmt->get_result();
+    // Consultar los datos del tour
+    $sql = "SELECT * FROM tours WHERE ID_Tour = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $idTour);
+    $stmt->execute();
+    $resultado = $stmt->get_result();
 
-            // Debug: Verificar si la consulta devuelve resultados
-            if ($resultado->num_rows > 0) {
-                $tour = $resultado->fetch_assoc();
-            } else {
-                echo "No se encontró ningún tour con ese ID.<br>";
-            }
-        } else {
-            echo "Error al preparar la consulta.<br>";
-        }
+    if ($resultado->num_rows > 0) {
+        $tour = $resultado->fetch_assoc();
     } else {
-        echo "ID de tour no válido.<br>";
+        echo "<script>alert('No se encontró ningún tour con ese ID.');</script>";
+        exit;
+    }
+    $stmt->close();
+} else {
+    echo "<script>alert('ID de tour no válido.');</script>";
+    exit;
+}
+
+// Procesar la edición del tour
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validar entradas
+    $nombre = isset($_POST['nombre']) ? trim($_POST['nombre']) : null;
+    $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : null;
+    $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : null;
+    $hora = isset($_POST['hora']) ? $_POST['hora'] : null;
+    $precio_boleto = isset($_POST['precio_boleto']) ? (float)$_POST['precio_boleto'] : null;
+    $tickets_disponibles = isset($_POST['tickets_disponibles']) ? (int)$_POST['tickets_disponibles'] : null;
+
+    if (!$nombre || !$descripcion || !$fecha || !$hora || !$precio_boleto || !$tickets_disponibles) {
+        echo "<script>alert('Todos los campos son obligatorios.');</script>";
+        exit;
     }
 
-    // Procesar la edición del tour
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $nombre = $_POST['nombre'];
-        $descripcion = $_POST['descripcion'];
-        $fecha = $_POST['fecha'];
-        $hora = $_POST['hora'];
-        $precio_boleto = $_POST['precio_boleto'];
-        $tickets_disponibles = $_POST['tickets_disponibles'];
-
-        // Verificar si se subió una nueva imagen
-        if ($_FILES['imagen']['error'] == 0) {
-            $imagen = $_FILES['imagen']['name'];
-            $imagen_tmp = $_FILES['imagen']['tmp_name'];
-            $ruta_imagen = "imagenes/" . $imagen;
-            move_uploaded_file($imagen_tmp, $ruta_imagen);
-            $sqlActualizar = "UPDATE tours SET nombre = ?, descripcion = ?, fecha = ?, hora = ?, precio_boleto = ?, tickets_disponibles = ?, imagen = ? WHERE id_tour = ?";
-            $stmt = $conn->prepare($sqlActualizar);
-            $stmt->bind_param("ssssdisi", $nombre, $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $ruta_imagen, $idTour);
-        } else {
-            // Si no se subió imagen, no actualizar el campo imagen
-            $sqlActualizar = "UPDATE tours SET  nombre = ?, descripcion = ?, fecha = ?, hora = ?, precio_boleto = ?, tickets_disponibles = ? WHERE id_tour = ?";
-            $stmt = $conn->prepare($sqlActualizar);
-            $stmt->bind_param("ssssdii", $nombre, $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $idTour);
-        }
-
-        if ($stmt->execute()) {
-            echo "<script>window.location.href='gestionTours.php'; alert('Tour actualizado con éxito'); </script>";
-        } else {
-            echo "<script>alert('Error al actualizar el tour');</script>";
+    // Manejar la imagen
+    $ruta_imagen = null;
+    if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
+        $imagen = $_FILES['imagen']['name'];
+        $imagen_tmp = $_FILES['imagen']['tmp_name'];
+        $ruta_imagen = "imagenes/" . basename($imagen);
+        if (!move_uploaded_file($imagen_tmp, $ruta_imagen)) {
+            echo "<script>alert('Error al subir la imagen.');</script>";
+            exit;
         }
     }
 
-    // Cerrar la conexión
+    // Construir la consulta
+    if ($ruta_imagen) {
+        $sqlActualizar = "UPDATE tours SET Nombre = ?, Descripcion = ?, Fecha = ?, Hora = ?, Precio_Boleto = ?, Tickets_Disponibles = ?, Imagen = ? WHERE ID_Tour = ?";
+        $stmt = $conn->prepare($sqlActualizar);
+        $stmt->bind_param("ssssdisi", $nombre, $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $ruta_imagen, $idTour);
+    } else {
+        $sqlActualizar = "UPDATE tours SET Nombre = ?, Descripcion = ?, Fecha = ?, Hora = ?, Precio_Boleto = ?, Tickets_Disponibles = ? WHERE ID_Tour = ?";
+        $stmt = $conn->prepare($sqlActualizar);
+        $stmt->bind_param("ssssdii", $nombre, $descripcion, $fecha, $hora, $precio_boleto, $tickets_disponibles, $idTour);
+    }
+
+    // Ejecutar y verificar
+    if ($stmt->execute()) {
+        $mensaje = "Tour actualizado con éxito.";
+        $estado = "success";
+    } else {
+        $mensaje = "Error al actualizar el tour.";
+        $estado = "error";
+    }
     $stmt->close();
     $conn->close();
+}
 ?>
+
     <main>
         <div CLASS="viewport">
             <div class="content">
@@ -93,7 +111,8 @@
 
                         <h1><b>EDITAR TOUR</b></h1>
 
-                        <form method="POST" class="form-agregar-animal" enctype="multipart/form-data">
+                        <form method="POST" id="tourEditar" class="form-agregar-animal" enctype="multipart/form-data">
+                        <input type="hidden" id="idTour" name="idTour" value="<?= isset($tour['ID_Tour']) ? $tour['ID_Tour'] : '' ?>">
                             <div class="profile-pic">
                                 <img id="profileImage" src="imagenes/<?php echo $tour['Imagen']; ?>">
                                 <input type="file" id="imagen" name="imagen"
@@ -133,8 +152,44 @@
                 </div>
             </div>
         </div>
-    </main>
+        </main>
+ 
 
+<!-- Modal para mensajes -->
+<div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mensajeModalLabel">Casa Natura</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <?= isset($mensaje) ? htmlspecialchars($mensaje) : '' ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="submit-btn" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php if (isset($mensaje)): ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const mensajeModal = new bootstrap.Modal(document.getElementById('mensajeModal'));
+        mensajeModal.show();
+        
+        // Espera a que el modal se cierre y luego redirige
+        mensajeModal._element.addEventListener('hidden.bs.modal', function () {
+            // Redirige solo si el estado es 'success'
+            <?php if ($estado == 'success'): ?>
+                window.location.href = "gestionTours.php";
+                $mensaje='';
+            <?php endif; ?>
+        });
+    });
+</script>
+<?php endif; ?>
     <?php
     include("sidebar.php");
     echo $footerAdmin; ?>
