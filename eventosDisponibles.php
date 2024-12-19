@@ -15,7 +15,7 @@ include("actions/conexion.php");
     }
 
     // Consulta para eventos disponibles
-    $sql = "SELECT ID_Evento, Nombre, Descripcion, Imagen FROM eventos WHERE Estado = 1"; // Asegúrate de que la tabla se llama 'eventos'
+    $sql = "SELECT ID_Evento, Nombre, Descripcion, Imagen FROM eventos WHERE Estado = 1 AND Cupos>0"; // Asegúrate de que la tabla se llama 'eventos'
     $resultado = $conn->query($sql);
 
     if (!$resultado) {

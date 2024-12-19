@@ -15,7 +15,7 @@ include("actions/conexion.php");
     }
 
     // Consulta para tours
-    $sql = "SELECT * FROM tours WHERE Estado = 1"; // Corrección aquí
+    $sql = "SELECT * FROM tours WHERE Estado = 1 AND Tickets_Disponibles > 0"; // Corrección aquí
     $resultado = $conn->query($sql);
 
     if (!$resultado) {
