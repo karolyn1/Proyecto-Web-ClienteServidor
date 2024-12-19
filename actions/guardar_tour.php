@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $precio_boleto = $_POST['precio_boleto'] ?? 0;
     $tickets_disponibles = $_POST['tickets_disponibles'] ?? 0;
     $nombre = $_POST['nombre'] ?? '';
+    $estado = $_POST['estado'] ??'';
 
     // Verifica si se ha subido una imagen
     if (empty($_FILES['imagen']['name'])) {
@@ -42,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Inserta los datos en la base de datos, incluyendo la imagen
-    $sql = "INSERT INTO tours (nombre, descripcion, fecha, hora, precio_boleto, tickets_disponibles, TicketsVendidos, imagen) 
-            VALUES (?,?, ?, ?, ?, ?, 0, ?)";
+    $sql = "INSERT INTO tours (nombre, descripcion, fecha, hora, precio_boleto, tickets_disponibles, TicketsVendidos, imagen, Estado) 
+            VALUES (?,?, ?, ?, ?, ?, 0, ?,1)";
 
     if ($stmt = $conn->prepare($sql)) {
         // Vincula los parámetros (la imagen se pasa como string)
