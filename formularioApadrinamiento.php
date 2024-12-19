@@ -47,14 +47,14 @@
 
     <main>
         <div class="container">
-            <h1 class="animales-apadrinar-title">Apadrinamiento</h1>
-            <p>A través de este formulario, puedes contribuir al bienestar de los animales que más lo necesitan. Selecciona la cantidad y la frecuencia de tu apadrinamiento y completa los detalles para hacer tu contribución. ¡Gracias por ser parte del cambio!</p>
+            <h1  class="animales-apadrinar-title">Apadrinamiento</h1>
+            <p class="textoFormDonar">A través de este formulario, puedes contribuir al bienestar de los animales que más lo necesitan. Selecciona la cantidad y la frecuencia de tu apadrinamiento y completa los detalles para hacer tu contribución. ¡Gracias por ser parte del cambio!</p>
             <div class="container">
-                <form id="formApadrinarAnimal" method="post" onsubmit="return validarFormulario()">
+                <form id="formApadrinarAnimal" method="post" class="form-agregar-animal">
                     <input type="hidden" id="idAnimalApadrinar" name="idAnimal" value="<?php echo $idAnimal; ?>">
                     <div class="mb-3">
                         <label for="monto">Monto mensual (mínimo $50)</label>
-                        <input type="number" id="cantidad" name="cantidad" class="form-control mt-2" placeholder="Digite la cantidad, monto mínimo 50" min="1" required>
+                        <input type="number" id="montoDonarForm" name="montoDonarForm" class="form-control mt-2" placeholder="Digite la cantidad, monto mínimo 50" min="1" required>
                     </div>
                     <div class="mb-3">
                         <label for="metodo">Método de pago</label>
@@ -168,7 +168,7 @@
 <script>
         // Función para validar el formulario principal
         function validarFormulario() {
-            let cantidad = document.getElementById("otra-cantidad").value;
+            let cantidad = document.getElementById("montoDonarForm").value;
             let metodo = document.getElementById("metodo").value;
             if (!cantidad || !metodo) {
                 alert("Por favor, completa todos los campos.");
@@ -179,7 +179,7 @@
 
         // Función para validar el formulario principal
         function validarFormulario() {
-            var cantidad = document.getElementById("cantidad").value; // Suponiendo que el campo de cantidad tiene el ID 'cantidad'
+            var cantidad = document.getElementById("montoDonarForm").value; // Suponiendo que el campo de cantidad tiene el ID 'cantidad'
 
             // Verificar si la cantidad es mayor o igual a 50
             if (cantidad < 50) {
@@ -245,7 +245,7 @@
         }
 
         function limpiarFormulario() {
-            document.getElementById("form-donaciones").reset(); // Limpia todos los campos del formulario
+            document.getElementById("formApadrinarAnimal").reset(); // Limpia todos los campos del formulario
         }
 
         // Ejemplo de cómo usarlo en el cierre del modal:

@@ -34,7 +34,7 @@ if (!isset($_SESSION['usuario_id'])) {
 
 <main>
     <div class="container">
-        <h1 class="title-formulario">APOYA CON TU DONACIÓN</h1>
+        <h1 class="animales-apadrinar-title">APOYA CON TU DONACIÓN</h1>
         <p class="textoFormDonar">A través de este formulario, puedes contribuir al bienestar de los animales que
             más lo necesitan.
             Selecciona la cantidad y la frecuencia de tu donación, elige un animal o causa que te gustaría apoyar, y
