@@ -23,8 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (move_uploaded_file($fileTmpPath, $destPath)) {
 
-            $query = "INSERT INTO animal( Nombre, Raza, Especie, Fecha_Ingreso, Estado_Salud, Fecha_Nacimiento, Historia, Necesidades, Imagen, Apadrinado) 
-            VALUES ('$nombre','$raza','$especie','$fecha_ingreso','$estado_salud','$fecha_nacimiento','$historia','$necesidades','$destPath',0)";
+            $query = "INSERT INTO animal( Nombre, Raza, Especie, Fecha_Ingreso, Estado_Salud, Fecha_Nacimiento, Historia, Necesidades, Imagen, Apadrinado, Estado) 
+            VALUES ('$nombre','$raza','$especie','$fecha_ingreso','$estado_salud','$fecha_nacimiento','$historia','$necesidades','$destPath',0, 1)";
 
             if ($conn->query($query) ==  TRUE) {
                 echo "<script>

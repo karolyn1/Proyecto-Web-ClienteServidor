@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $historia = $_POST['historiaEditar'];
         $necesidades = $_POST['necesidadesEditar'];
         $apadrinado = $_POST['apadrinadoEditar'];
-
+        $estado = $_POST['estado'];
         $uploadDir = 'img/';
         $destPath = '';
 
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $query = "UPDATE animal 
                           SET Nombre = '$nombre', Raza = '$raza', Especie = '$especie', Fecha_Ingreso = '$fecha_ingreso', 
                               Estado_Salud = '$estado_salud', Fecha_Nacimiento = '$fecha_nacimiento', Historia = '$historia', 
-                              Necesidades = '$necesidades', Imagen = '$destPath', Apadrinado = '$apadrinado' 
+                              Necesidades = '$necesidades', Imagen = '$destPath', Apadrinado = '$apadrinado, Estado = '$estado'' 
                           WHERE ID_Animal = '$ID_Animal'";
             } else {
                 echo json_encode(["status" => "99", "message" => "Error al subir la imagen."]);
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $query = "UPDATE animal 
                       SET Nombre = '$nombre', Raza = '$raza', Especie = '$especie', Fecha_Ingreso = '$fecha_ingreso', 
                           Estado_Salud = '$estado_salud', Fecha_Nacimiento = '$fecha_nacimiento', Historia = '$historia', 
-                          Necesidades = '$necesidades', Apadrinado = '$apadrinado' 
+                          Necesidades = '$necesidades', Apadrinado = '$apadrinado', Estado = '$estado'
                       WHERE ID_Animal = '$ID_Animal'";
         }
 

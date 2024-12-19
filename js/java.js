@@ -249,9 +249,8 @@ $(function () {
         console.log($idAnimal);
         let $idUsuario = $(".fila-usuario").data('id');
         let $monto = $("#montoApadrinar").val();
-        let $frecuencia = $("#frecuencia").val();
-
-        if (!$idAnimal || !$idUsuario || !$monto || !$frecuencia) {
+        
+        if (!$idAnimal || !$idUsuario || !$monto ) {
             alert("Debe completar todos los campos antes de continuar");
             return;
         } else {
@@ -259,7 +258,6 @@ $(function () {
             $.post("actions/accionesApadrinamientos.php", {
                 action: 'agregar',
                 monto: $monto,
-                frecuencia: $frecuencia,
                 idAnimal: $idAnimal,
                 idUsuario: $idUsuario
             }, function (data) {
@@ -337,7 +335,7 @@ $(function () {
             function (data, status) {
                 let response = JSON.parse(data);
                 if ($("#bodyTabla tr").length === 0) {
-                    $("#bodyTabla").html('<tr><td colspan="6">No hay animales disponibles</td></tr>');
+                    $("#bodyTabla").html('<tr><td colspan="7">No hay animales disponibles</td></tr>');
                 }
                 if (response.status === '00') {
                     console.log(response);
@@ -350,6 +348,8 @@ $(function () {
                             <td>${element.Raza}</td>
                             <td>${element.Especie}</td>
                             <td>${element.Apadrinado}</td>
+                             <td>${element.Estado}</td>
+                            
                             <td>
                                 <button class="btn-editar" id="btnEditarAnimal" data-id="${element.ID_Animal}">
                                     Editar
@@ -360,7 +360,7 @@ $(function () {
                     `;
                     });
                     console.log(respuesta);
-                    $("#bodyTabla").html(respuesta || '<tr><td colspan="6">No hay animales disponibles</td></tr>');
+                    $("#bodyTabla").html(respuesta || '<tr><td colspan="7">No hay animales disponibles</td></tr>');
                 }
             });
     }
@@ -384,9 +384,9 @@ $(function () {
                 if (data.status === '00') {
                     $("#mensajeModal").on('hidden.bs.modal', function () {
                         row.remove();
-
+                        location.reload();
                         if ($("#bodyTabla tr").length === 0) {
-                            $("#bodyTabla").html('<tr><td colspan="6">No hay animales disponibles</td></tr>');
+                            $("#bodyTabla").html('<tr><td colspan="7">No hay animales disponibles</td></tr>');
                         }
                     });
                 }

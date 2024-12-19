@@ -107,7 +107,13 @@
                                     <input type="text" id="apadrinadoEditar" name="apadrinadoEditar"
                                         value="<?php echo $animal['Apadrinado']; ?>">
                                 </div>
-
+                                <div class="mb-3">
+                                    <label for="estadoAnimal" class="form-label">Estado</label>
+                                    <select class="form-control" id="estado" name="estado" required>
+                                        <option value="1" <?= isset($animal['Estado']) && $animal['Estado'] == 1 ? 'selected' : '' ?>>Activo</option>
+                                        <option value="0" <?= isset($animal['Estado']) && $animal['Estado'] == 0 ? 'selected' : '' ?>>Inactivo</option>
+                                    </select>
+                                </div>
                             </div>
                             <button type="submit" class="submit-btn" id="editarAnimal" name="editarAnimal">GUARDAR</button>
                         </form>

@@ -71,15 +71,7 @@
                                     required>
                                 <span>Recordatorio: Debe ser mayor a $50</span>
                             </div>
-                            <div class="mb-3">
-                                <label for="especie">Frecuencia</label>
-                                <select id="frecuencia" name="frecuencia" required>
-                                    <option value="" default>Selecciona la frecuencia</option>
-                                    <option value="Mensual">Mensual</option>
-                                    <option value="Bimensual">Bimensual</option>
-                                    <option value="Trimestral">Trimestral</option>
-                                </select>
-                            </div>
+
 
                             <input type="hidden" id="apadrinado">
 

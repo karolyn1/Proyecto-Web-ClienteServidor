@@ -64,6 +64,7 @@
                                     <th>RAZA</th>
                                     <th>ESPECIE</th>
                                     <th>APADRINADO</th>
+                                    <th>ESTADO</th>
                                     <th>ACCIONES</th>
                                 </tr>
                                 <tbody id="bodyTabla">

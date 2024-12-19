@@ -101,7 +101,7 @@ switch ($data['action']) {
         }
         break;
     case 'obtenerAnimalesDisponibles':
-        $sql = "SELECT * FROM animal WHERE Apadrinado = 0";
+        $sql = "SELECT * FROM animal WHERE Apadrinado = 0 AND Estado = 1";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $animales = [];
@@ -143,11 +143,10 @@ switch ($data['action']) {
         $idAnimal = $data['idAnimal'];
         $idUsuario = $data['idUsuario'];
         $monto = $data['monto'];
-        $frecuencia = $data['frecuencia'];
-
+       
 
         $sql = "INSERT INTO animal_usuario (ID_Usuario, ID_Animal, FechaApadrinamiento, Monto, Frecuencia, Estado)
-            VALUES ('$idUsuario', '$idAnimal', CURDATE(), '$monto', '$frecuencia', 1)";
+            VALUES ('$idUsuario', '$idAnimal', CURDATE(), '$monto', 'Mensual', 1)";
         $result = $conn->query($sql);
         if ($result) {
             $actualizar = "UPDATE animal SET Apadrinado = 1 WHERE ID_Animal = '$idAnimal'";
@@ -162,10 +161,10 @@ switch ($data['action']) {
         $idUsuario = $_SESSION['usuario_id'];
         $idAnimalApadrinar = $data['id'];
         $montoDonar = $data['montoDonar'];
-        $frecuenciaDonacion = $data['frecuencia'];
+       
 
         $sql = "INSERT INTO animal_usuario (ID_Usuario, ID_Animal, FechaApadrinamiento, Monto, Frecuencia, Estado) 
-                VALUES ('$idUsuario', '$idAnimalApadrinar', CURDATE(), '$montoDonar', '$frecuenciaDonacion', 1)";
+                VALUES ('$idUsuario', '$idAnimalApadrinar', CURDATE(), '$montoDonar', 'Mensual', 1)";
 
         $result = $conn->query($sql);
         if ($result) {
