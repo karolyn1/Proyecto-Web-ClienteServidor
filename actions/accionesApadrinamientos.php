@@ -185,7 +185,7 @@ switch ($data['action']) {
             $idAnimal = $data['id'];
             $query_update = "
         UPDATE animal_usuario
-        SET FechaFin = CURDATE()
+        SET FechaFin = CURDATE(), Estado = 0
         WHERE ID_Usuario = ? AND ID_Animal = ? AND FechaFin IS NULL
     ";
             $stmt_update = $conn->prepare($query_update);

@@ -1,8 +1,8 @@
 <?php
 include("conexion.php");
 session_start();
-
-$idUsuarioSesion = $_SESSION['usuario_id'];
+if(isset($_SESSION["usuario_id"])){
+$idUsuarioSesion = $_SESSION['usuario_id'];}
 $data = $_POST;
 
 

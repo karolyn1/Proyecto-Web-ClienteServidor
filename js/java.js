@@ -5,6 +5,7 @@ $(function () {
     getPadrinos();
     getAnimalesDisponibles();
     getClientes();
+    getAdmin();
 
     //ALERTA PARA EL REGISTRO
     function mostrarAlertaCorreoExistente() {
@@ -370,23 +371,24 @@ $(function () {
 
     //ELIMINAR ANIMALES
     $(document).on("click", "#btnEliminarAnimal", function () {
-        if (confirm("¿Deseas eliminar el animal?")) {
+        if (confirm("¿Deseas eliminar el animal? Si eliminas el animal, automáticamente eliminaras los registros asociados a este.")) {
             const row = $(this).closest('tr');
             const id = row.attr("idAnimal");
 
             $.post("actions/obtenerAnimales.php", { action: 'delete', id: id }, function (response) {
                 let data = JSON.parse(response);
 
-                if (data.status === "00") {
-                    alert(data.message);
-                    row.remove();
+                $("#mensajeModalBody").text(data.message);
+                $("#mensajeModal").modal('show');
+    
+                if (data.status === '00') {
+                    $("#mensajeModal").on('hidden.bs.modal', function () {
+                        row.remove();
 
-
-                    if ($("#bodyTabla tr").length === 0) {
-                        $("#bodyTabla").html('<tr><td colspan="6">No hay animales disponibles</td></tr>');
-                    }
-                } else {
-                    alert(data.message);
+                        if ($("#bodyTabla tr").length === 0) {
+                            $("#bodyTabla").html('<tr><td colspan="6">No hay animales disponibles</td></tr>');
+                        }
+                    });
                 }
             });
         }

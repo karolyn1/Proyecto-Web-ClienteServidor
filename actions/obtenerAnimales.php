@@ -7,6 +7,15 @@ switch ($data['action']) {
     case 'delete':
         if (isset($_POST["id"])) {
             $id = $_POST["id"];
+            $getAnimal = "SELECT * FROM animal WHERE ID_Animal ='$id'";
+            $ejec=$conn->query($getAnimal);
+            if($ejec && $ejec->num_rows > 0){
+                $animal = $ejec->fetch_assoc();
+                if($animal['Apadrinado']==1){
+                    $upAnimalUsuario = "UPDATE animal_usuario SET Estado=0, FechaFin = CURDATE() WHERE ID_Animal = '$id' AND FechaFin IS NULL";
+                    $eliminar=$conn->query($upAnimalUsuario);
+                }
+            }  
             $sql = "DELETE FROM animal WHERE ID_Animal = '$id'";
             $result = $conn->query($sql);
             if ($result) {

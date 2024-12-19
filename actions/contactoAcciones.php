@@ -4,8 +4,9 @@ session_start();
 include("conexion.php");
 
 $data = $_POST;
-$idUsuario = $_SESSION['usuario_id'];
-
+if(isset($_SESSION["usuario_id"])){
+    $idUsuarioSesion = $_SESSION['usuario_id'];}
+    
 switch($data['action']){
     case 'add':
     $nombre = $data['nombre'];
@@ -13,7 +14,7 @@ switch($data['action']){
     $email = $data['email'];
     $mensaje = $data['mensaje'];
 
-    if(!empty($_SESSION['usuario_id'])){
+    if(isset($_SESSION['usuario_id'])){
         $sql = "INSERT INTO contacto (Nombre, Apellido, Email, Mensaje, ID_Usuario) 
         VALUES ('$nombre', '$apellido', '$email', '$mensaje', '$idUsuario')";
 

@@ -65,9 +65,6 @@
                             <div class="buscador">
                                 <div class="input-group-append">
                                     <input type="text" class="form-control" placeholder="Buscar donación...">
-                                    <button class="btn btn-outline-secondary" type="button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +82,7 @@
                                 <th>EMAIL</th>
                                 <th>DONACIÓN</th>
                                 <th>FECHA</th>
-                                <th>ACCIONES</th>
+                               
                             </tr>
                        
                         <tbody>
@@ -97,14 +94,7 @@
                                         <td><?php echo $row['Correo']; ?></td>
                                         <td>$<?php echo number_format($row['Monto'], 2); ?></td>
                                         <td><?php echo date('d/m/Y', strtotime($row['Fecha'])); ?></td>
-                                        <td>
-                                            <form  id="desactivarDonaciones" action="">
-                                                <input type="hidden" name="donacion_id" id="donacion_id"
-                                                    value="<?php echo $row['donacion_id']; ?>">
-                                                <button type="submit" name="desactivarDonacion" id="desactivarDonacion" class=" btnDesactivar ">
-                                                <i class="fa-solid fa-person-running"></i> <b>Desactivar</b>                                            </button>
-                                            </form>
-                                        </td>
+                                        
                                     </tr>
                                 <?php endwhile; ?>
                             <?php else: ?>
