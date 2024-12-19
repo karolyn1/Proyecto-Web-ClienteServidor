@@ -543,6 +543,12 @@ $(function () {
         $id = $("#idAnimalApadrinar").val();
         $montoDonar = $("#montoDonarForm").val();
         $frecuencia = "Mensual";
+       
+            if (!$montoDonar || $montoDonar < 50.00) {
+                alert("El monto debe ser un valor numérico mayor o igual a $50.");
+                return;
+            } else {
+               
 
         $.post("actions/accionesApadrinamientos.php", {
             action: 'apadrinar',
@@ -559,7 +565,9 @@ $(function () {
                     window.location.href = "./listadoAnimalesDisponibles.php";
                 });
             }
-        });
+        })
+        
+    };
     });
 
 
