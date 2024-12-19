@@ -26,7 +26,7 @@
             ¡Bienvenido a Casa Natura! Aquí puedes marcar la diferencia en la vida de los animales que más lo necesitan. Nuestra misión es conectar corazones con causas nobles, facilitando el patrocinio de animales rescatados. 
             Te invitamos a conocer más de nosotros, y ¿por qué no formar parte de nuestra comunidad?
             </p>
-            <button class="about-btn">Acerca de Nosotros</button>
+            <button class="about-btn"><a href="quienessomos.php">ACERCA DE NOSOTROS</a></button>
         </div>
 
         <div class="image-container">
@@ -83,8 +83,8 @@
             <img src="imagenes/img3.png" alt="Descripción de la imagen" class="img-fluid-info">
         </div>
         <div class="right-box">
-            <a href="quienessomos.php">
-                ¿Deseas conocer más <br> acerca de <br> nuestro refugio?
+            <a href="contactanos.php">
+                ¿Deseas conocer más <br> acerca de <br> nuestro refugio? Contáctanos!
                 <span class="arrow">→</span>
             </a>
         </div>
