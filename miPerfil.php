@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="es">
+< lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -27,7 +27,6 @@
         }
     </style>
 </head>
-
 <body>
     <?php
     include('fragmentos.php');
@@ -38,57 +37,134 @@
         include('fragmentos.php');
         echo $opciones;
         ?>
-        
+    <main>
+        <div class="viewport">
+            <div class="content">
+                <nav class="navbar">
+                    <div class="container-fluid">
+                        <h2 class="titulo">Bienvenido,
+                            <?php echo $_SESSION['usuario_nombre'] . ' ' . $_SESSION['usuario_apellido1'] . ' ' . $_SESSION['usuario_apellido2']; ?>
+                        </h2>
 
+                    </div>
+                </nav>
+                <div class="container container-animales-agregar mt-4">
+
+
+                    <form action="" class="row container " id="formAdminActualizar" method="POST">
+
+                        <div class="formDatos col">
+                            <h1 class="text-center"><b>DATOS PERSONALES</b></h1>
+                            <div class="mb-3"><label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombreAdmin" name="nombre"
+                                   required>
+                            </div>
+                            <div class="mb-3"><label for="apellido1">Primer Apellido</label>
+                                <input type="text" class="form-control" id="apellido1Admin" name="apellido1"
+                                    required>
+
+
+                                <div class="mb-3">
+                                    <label for="apellido2">Segundo Apellido</label>
+                                    <input type="text" class="form-control" id="apellido2Admin" name="apellido2"
+                                        required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="telefono">Teléfono</label>
+                                    <input type="text" class="form-control" id="telefonoAdmin" name="telefono"
+                                       required>
+                                </div>
+
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="emailAdmin" name="email"
+                                    required>
+                            </div>
+
+                        </div>
+
+                        <div class="formDatos col">
+                            <h1 class="text-center"><b>DIRECCION</b></h1>
+                   
+                                <div class="mb-3"><label for="nombre">Provincia</label>
+                                    <input type="text" class="form-control" id="direccionAdmin" name="nombre"
+                                         required>
+                                </div>
+                                <div class="mb-3"><label for="apellido1">Cantón</label>
+                                    <input type="text" class="form-control" id="cantonAdmin" name="apellido1"
+                                         required>
+                                </div>
+                                <div class=" mb-3">
+                                    <label for="apellido2">Distrito</label>
+                                    <input type="text" class="form-control" id="distritoAdmin" name="apellido2"
+                                         required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="telefono">Dirección Exacta</label>
+                                    <input type="text" class="form-control" id="exactaAdmin" name="exactaAdmin"
+                                         required>
+                                </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" name="guardar_perfil">Guardar Cambios</button>
+                    </form>
+
+                    <hr>
+
+                    <!-- Formulario de Cambio de Contraseña -->
+                    <h5>Cambio de Contraseña</h5>
+                    <form action="" id="changePassword" method="POST">
+                        <input type="hidden" id="passwordHash">
+                        <div class="form-group">
+                            <label for="contrasena_actual">Contraseña Actual</label>
+                            <input type="password" class="form-control" id="contrasena_actual" name="contrasena_actual"
+                                required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nueva_contrasena">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="nueva_contrasena" name="nueva_contrasena"
+                                required>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="actualizar_contrasena">Actualizar
+                            Contraseña</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mensajeModalLabel">CasaNatura</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="mensajeModalBody">
+                        <!-- El mensaje dinámico se colocará aquí -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="submit-btn" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
     </main>
 
     <?php
-    include("fragmentos.php");
-    echo $footer;
+    include("sidebar.php");
+    echo $footerAdmin;
     ?>
-<div class="container mt-4">
-    <form action="" class="row container" id="formClienteActualizar" method="POST">
-        <div class="formDatos col">
-            <h1 class="text-center"><b>DATOS DEL USUARIO</b></h1>
-            <div class="mb-3">
-                <label for="nombreUsuario">Nombre de Usuario</label>
-                <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required>
-            </div>
-            <div class="mb-3">
-                <label for="emailUsuario">Correo Electrónico</label>
-                <input type="email" class="form-control" id="emailUsuario" name="emailUsuario" required>
-            </div>
-            <div class="mb-3">
-                <label for="telefonoUsuario">Teléfono</label>
-                <input type="text" class="form-control" id="telefonoUsuario" name="telefonoUsuario" required>
-            </div>
-            <div class="mb-3">
-                <label for="direccionUsuario">Dirección</label>
-                <input type="text" class="form-control" id="direccionUsuario" name="direccionUsuario" required>
-            </div>
-            <input type="hidden" id="passwordHash">
-            <button type="submit" class="submit-btn" name="guardar_perfil">Guardar Cambios</button>
-        </div>
-    </form>
 
-    <hr>
-
-    <!-- Formulario de Cambio de Contraseña -->
-    <h5>Cambio de Contraseña</h5>
-    <form action="" id="changePassword" method="POST">
-        <input type="hidden" id="passwordHash">
-        <div class="form-group">
-            <label for="contrasena_actual">Contraseña Actual</label>
-            <input type="password" class="form-control" id="contrasena_actual" name="contrasena_actual" required>
-        </div>
-        <div class="form-group">
-            <label for="nueva_contrasena">Nueva Contraseña</label>
-            <input type="password" class="form-control" id="nueva_contrasena" name="nueva_contrasena" required>
-        </div>
-        <button type="submit" class="submit-btn" id="actualizar_contrasena">Actualizar Contraseña</button>
-    </form>
-</div>
-
-</body>
+    <!-- Scripts de jQuery, Popper.js y Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </bo>
 
 </html>
