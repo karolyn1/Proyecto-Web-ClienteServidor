@@ -684,22 +684,35 @@ $(function () {
         $contraActual = $("#contrasena_actual").val();
         $nuevaContra = $("#nueva_contrasena").val();
 
-        $.post("actions/accionesUsuario.php", {
-            action: 'actualizarPassword',
-            contraActual: $contraActual,
-            newPassword: $nuevaContra,
-            passwordHash: $passwordHash
-        }, function (data, status) {
-            let response = JSON.parse(data);
-            $("#mensajeModalBody").text(response.message);
+        if($nuevaContra.length < 8){
+            $("#mensajeModalBody").text("La contraseña debe tener mínimo 8 carácteres.");
             $("#mensajeModal").modal('show');
 
-            if (response.status === '00') {
+            
                 $("#mensajeModal").on('hidden.bs.modal', function () {
-                    window.location.href = "./login.php";
-                });
-            }
-        });
+                    location.reload();
+                
+            });
+        } else {
+            $.post("actions/accionesUsuario.php", {
+                action: 'actualizarPassword',
+                contraActual: $contraActual,
+                newPassword: $nuevaContra,
+                passwordHash: $passwordHash
+            }, function (data, status) {
+                let response = JSON.parse(data);
+                $("#mensajeModalBody").text(response.message);
+                $("#mensajeModal").modal('show');
+    
+                if (response.status === '00') {
+                    $("#mensajeModal").on('hidden.bs.modal', function () {
+                        window.location.href = "./login.php";
+                    });
+                }
+            });
+        }
+
+       
     })
     //CIERRE DEL FUNCTION
 
