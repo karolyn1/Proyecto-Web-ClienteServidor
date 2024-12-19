@@ -42,7 +42,7 @@ if (!isset($_SESSION['usuario_id'])) {
             Cada aporte es valioso y ayuda a mejorar la vida de estos animales.
             ¡Gracias por ser parte del cambio!</p>
             <div class="container">
-            <form method="post" id="form-donaciones" class="form-agregar-animal" onsubmit="return validarFormulario()">
+            <form method="post" id="formDonar" class="form-agregar-animal" >
                 <div class="mb-3">
                     <label for="monto">Cantidad a donar</label>
                     <input type="number" id="cantidad" name="cantidad" class="form-control mt-2" placeholder="Digite la cantidad" min="1" required>
@@ -160,9 +160,9 @@ if (!isset($_SESSION['usuario_id'])) {
 <script>
         // Función para validar el formulario principal
         function validarFormulario() {
-            let cantidad = document.getElementById("otra-cantidad").value;
+            let cantidad = document.getElementById("cantidad").value;
             let metodo = document.getElementById("metodo").value;
-            if (!cantidad || !metodo) {
+            if (!cantidad) {
                 alert("Por favor, completa todos los campos.");
                 return false;
             }
