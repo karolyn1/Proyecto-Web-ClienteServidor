@@ -1,19 +1,22 @@
+<?php
+// Inicia el buffer de salida para evitar errores de encabezados
+ob_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Natura - Olvide contra</title>
+    <title>Casa Natura - Restablecer Contraseña</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-        <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
     <style>
-    
-    input {
+        input {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px; 
@@ -21,7 +24,7 @@
             border-radius: 5px;
             font-size: 16px;
         }
-        .form-olvide-contra {
+        .form-restablecer-contra {
             background-color: white;
             width: 100%;
             max-width: 550px;
@@ -30,172 +33,107 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-
-        .form-olvide-contra h1 {
+        .form-restablecer-contra h1 {
             color: #FFC107;
             margin-bottom: 15px;
             font-size: 32px; 
         }
-
-        .form-olvide-contra h2 {
+        .form-restablecer-contra h2 {
             color: #333;
             margin-bottom: 25px;
             font-size: 20px;
             font-weight: normal;
         }
-
-        .form-olvide-contrar input[type="email"] {
+        .form-restablecer-contra button {
             width: 100%;
-            padding: 15px; /* Aumenta el padding */
-            margin: 15px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 18px; 
-        }
-
-        .form-olvide-contra .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
-
-        .form-olvide-contra button {
-            width: 48%;
-            padding: 12px; /* Aumenta el padding */
-            font-size: 18px; /* Tamaño de texto más grande */
+            padding: 12px; 
+            font-size: 18px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-        }
-
-        .form-olvide-contra .submit-button {
             background-color: #FFC107;
             color: white;
         }
-
-        .form-olvide-contra .submit-button:hover {
+        .form-restablecer-contra button:hover {
             background-color: #FFA000;
-        }
-
-        .form-olvide-contra .cancel-button {
-            background-color: #d9534f;
-            color: white;
-        }
-
-        .form-olvide-contra .cancel-button:hover {
-            background-color: #c9302c;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            color: white;
-            background-color: #FFC107;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-
+<nav>
     <?php 
         include("fragmentos.php");
         echo $navbar;        
     ?>
+</nav>
 <main>
-<div class="container mt-5">
-<div class="form-olvide-contra">
-        <h1>Restablecer Contraseña</h1>
-        <p>Ingresa tu nueva contraseña</p>
-        <form action="" method="POST">
-            <input type="password" name="nueva_contra" placeholder="Nueva contraseña" required>
-            <input type="password" name="confirmar_contra" placeholder="Confirma tu contraseña" required>
-
-            <button type="submit" name="cambiar">Restablecer Contraseña</button>
-        </form>
+    <div class="container mt-5">
+        <div class="form-restablecer-contra">
+            <h1>Restablecer Contraseña</h1>
+            <h2>Ingresa y confirma tu nueva contraseña</h2>
+            <form action="" method="POST">
+                <input type="password" name="nueva_contra" placeholder="Nueva contraseña (mínimo 8 caracteres)" minlength="8" required>
+                <input type="password" name="confirmar_contra" placeholder="Confirmar contraseña" minlength="8" required>
+                <button type="submit" name="restablecer">Restablecer</button>
+            </form>
+            <?php
+            if (!empty($mensaje)) {
+                echo "<p style='color: red; text-align: center;'>$mensaje</p>";
+            }
+            ?>
         </div>
     </div>
-    </div>
-    </main>
-    <div class="footer">
-        <?php 
-            include("fragmentos.php");
-            echo $footer;
-        ?>
-    </div>
-    
-    <?php
+</main>
+<div class="footer">
+    <?php 
+        echo $footer;
+    ?>
+</div>
+
+<?php
 include("actions/conexion.php"); 
-require 'vendor/autoload.php'; 
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['restablecer'])) {
+        $nueva_contra = trim($_POST['nueva_contra']);
+        $confirmar_contra = trim($_POST['confirmar_contra']);
 
-// Validar que el parámetro 'correo' existe
-if (!isset($_GET['correo'])) {
-    echo "<p style='color: red; text-align: center;'>Acceso no autorizado.</p>";
-    exit;
-}
-
-$correo = urldecode($_GET['correo']); 
-
-if (isset($_POST['cambiar'])) {
-    $nueva_contra = trim($_POST['nueva_contra']);
-    $confirmar_contra = trim($_POST['confirmar_contra']);
-
-    
-    if ($nueva_contra !== $confirmar_contra) {
-        echo "<p style='color: red; text-align: center;'>Las contraseñas no coinciden.</p>";
-    } else {
-        
-        $hashedPassword = password_hash($nueva_contra, PASSWORD_BCRYPT);
-
-        
-        $stmt = $conn->prepare("UPDATE usuarios SET password = ? WHERE correo = ?");
-        $stmt->bind_param("ss", $hashedPassword, $correo);
-        $stmt->execute();
-
-        if ($stmt->affected_rows > 0) {
-            
-            $mail = new PHPMailer(true);
-            try {
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = 'nicoleobregon198@gmail.com'; // Tu correo de envío
-                $mail->Password = 'wlwj zmui oukh ukms'; // Contraseña de aplicación
-                $mail->SMTPSecure = 'tls';
-                $mail->Port = 587;
-
-                $mail->setFrom('nicoleobregon198@gmail.com', 'Casa Natura');
-                $mail->addAddress($correo);
-                $mail->isHTML(true);
-                $mail->Subject = 'Confirmación de Cambio de Contraseña - Casa Natura';
-                $mail->Body = "
-                    <p>Hola,</p>
-                    <p>Tu contraseña ha sido restablecida correctamente.</p>
-                    <p>Si no realizaste este cambio, por favor contáctanos de inmediato.</p>
-                ";
-
-                $mail->send();
-                
-                header("Location: login.php");
-                exit;
-            } catch (Exception $e) {
-                echo "<p style='color: red; text-align: center;'>Error al enviar el correo: {$mail->ErrorInfo}</p>";
-            }
+        // Validar que las contraseñas coincidan
+        if ($nueva_contra !== $confirmar_contra) {
+            $mensaje = "Las contraseñas no coinciden. Inténtalo de nuevo.";
+        } elseif (strlen($nueva_contra) < 8) {
+            // Validar la longitud mínima de la contraseña
+            $mensaje = "La contraseña debe tener al menos 8 caracteres.";
         } else {
-            echo "<p style='color: red; text-align: center;'>Error al actualizar la contraseña.</p>";
+            // Encriptar la contraseña
+            $hash_contra = password_hash($nueva_contra, PASSWORD_DEFAULT);
+            
+            // Validar que el correo esté presente en la URL
+            if (!isset($_GET['correo'])) {
+                die("El correo no está presente en la URL.");
+            }
+            $correo = $_GET['correo'];
+
+            // Preparar la consulta para actualizar la contraseña
+            $stmt = $conn->prepare("UPDATE usuario SET Password = ? WHERE Correo = ?");
+            $stmt->bind_param("ss", $hash_contra, $correo);
+
+            if ($stmt->execute()) {
+                ob_end_clean(); // Limpiar el buffer antes de redirigir
+                header("Location: http://localhost/Proyecto-Web-ClienteServidor/login.php");
+                exit;
+            } else {
+                $mensaje = "Error al restablecer la contraseña. Por favor, inténtalo más tarde.";
+            }
+
+            $stmt->close();
         }
-        $stmt->close();
     }
 }
-
 $conn->close();
+
+// Finalizar el buffer si no se redirige
+ob_end_flush();
 ?>
 </body>
 </html>
