@@ -49,8 +49,6 @@
                     </div>
                 </nav>
                 <div class="container container-animales-agregar mt-4">
-
-
                     <form action="" class="row container " id="formAdminActualizar" method="POST">
 
                         <div class="formDatos col">
@@ -62,8 +60,6 @@
                             <div class="mb-3"><label for="apellido1">Primer Apellido</label>
                                 <input type="text" class="form-control" id="apellido1Admin" name="apellido1"
                                     required>
-
-
                                 <div class="mb-3">
                                     <label for="apellido2">Segundo Apellido</label>
                                     <input type="text" class="form-control" id="apellido2Admin" name="apellido2"

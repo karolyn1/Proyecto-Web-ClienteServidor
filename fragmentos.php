@@ -149,11 +149,12 @@ $navbar .= '
         </a>
     </div>
     <div class="cardMenu">
-        <a href="miPerfil.php">
-            <div class="icon">🤝</div>
-            <p>EDITAR</p>
-        </a>
-    </div>
+    <a href="miPerfil.php">
+        <div class="icon"><i class="fas fa-pencil-alt"></i></div>
+        <p>EDITAR</p>
+    </a>
+</div>
+
     
 </div>';
     ?>
