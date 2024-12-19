@@ -69,8 +69,6 @@
                                     <select id="frecuenciaEditar" name="frecuencia" required>
                                         <option value="" disabled <?php echo empty($apadrinamiento['Frecuencia']) ? 'selected' : ''; ?>>Selecciona la frecuencia</option>
                                         <option value="Mensual" <?php echo $apadrinamiento['Frecuencia'] == 'Mensual' ? 'selected' : ''; ?>>Mensual</option>
-                                        <option value="Bimensual" <?php echo $apadrinamiento['Frecuencia'] == 'Bimensual' ? 'selected' : ''; ?>>Bimensual</option>
-                                        <option value="Trimestral" <?php echo $apadrinamiento['Frecuencia']== 'Trimestral' ? 'selected' : ''; ?>>Trimestral</option>
                                     </select>
                                 </div>
                                 

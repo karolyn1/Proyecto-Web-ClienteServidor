@@ -143,8 +143,8 @@ $(function () {
         $cuota = $("#MontoEditar").val();
         $frecuencia = $("#frecuenciaEditar").val();
 
-        if ($cuota === 0 && $frecuencia === '') {
-            alert("Por favor completa los datos antes de guardar");
+        if ($cuota <=50.00 || $frecuencia === '') {
+            alert("El monto a donar debe ser mayor a o igual a $50");
         } else {
             $.post("actions/accionesApadrinamientos.php", {
                 action: 'editar',
@@ -248,33 +248,42 @@ $(function () {
         let $idAnimal = $(".fila-animal").data('id');
         console.log($idAnimal);
         let $idUsuario = $(".fila-usuario").data('id');
-        let $monto = $("#montoApadrinar").val();
-        
+        let $monto = parseFloat($("#montoApadrinar").val()); // Asegúrate de que sea un número
+
+        // Validaciones
+       
         if (!$idAnimal || !$idUsuario || !$monto ) {
             alert("Debe completar todos los campos antes de continuar");
             return;
         } else {
 
-            $.post("actions/accionesApadrinamientos.php", {
-                action: 'agregar',
-                monto: $monto,
-                idAnimal: $idAnimal,
-                idUsuario: $idUsuario
-            }, function (data) {
-                let response;
-                try {
-                    response = JSON.parse(data);
-                } catch (error) {
-                    console.error("Error al parsear JSON:", error);
-                    alert("Hubo un problema con la respuesta del servidor.");
-                    return;
-                }
-
-                alert(response.message);
-                if (response.status === '00') {
-                    window.location.href = './gestionPadrinos.php';
-                }
-            });
+            if (!$monto || isNaN($monto) || $monto < 50) {
+                alert("El monto debe ser un valor numérico mayor o igual a $50.");
+                return;
+            } else {
+                $.post("actions/accionesApadrinamientos.php", {
+                    action: 'agregar',
+                    monto: $monto,
+                    idAnimal: $idAnimal,
+                    idUsuario: $idUsuario
+                }, function (data) {
+                    let response;
+                    try {
+                        response = JSON.parse(data);
+                    } catch (error) {
+                        console.error("Error al parsear JSON:", error);
+                        alert("Hubo un problema con la respuesta del servidor.");
+                        return;
+                    }
+    
+                    alert(response.message);
+                    if (response.status === '00') {
+                        window.location.href = './gestionPadrinos.php';
+                    }
+                });
+            }
+            
+           
         }
 
     });

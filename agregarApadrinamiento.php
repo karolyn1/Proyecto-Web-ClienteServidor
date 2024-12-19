@@ -66,9 +66,9 @@
                             </div>
                             <div class="mb-3">
                                 <label for="nombre">Monto</label>
-                                <input type="number" id="montoApadrinar" name=
-                                "montoApadrinar" placeholder="Monto de apadrinamiento"
-                                    required>
+                                <input type="number" id="montoApadrinar" name="montoApadrinar" 
+       placeholder="Monto de apadrinamiento" min="50" required>
+
                                 <span>Recordatorio: Debe ser mayor a $50</span>
                             </div>
 
