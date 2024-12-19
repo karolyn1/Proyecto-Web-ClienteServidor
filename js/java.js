@@ -837,7 +837,41 @@ $("#changePassword").on('submit', function (e) {
         );
     })
 
-
+    $("#contactoForm").on('submit', function (e) {
+        e.preventDefault();
+    
+        let $nombre = $("#nombreConsulta").val().trim();
+        let $apellido = $("#apellidoConsulta").val().trim();
+        let $email = $("#emailConsulta").val().trim();
+        let $mensaje = $("#mensajeConsulta").val().trim();
+    
+        // Validar campos vacíos
+        if (!$nombre || !$apellido || !$email || !$mensaje) {
+            $("#mensajeModalBody").text('Debe completar todos los campos antes de enviar.');
+            $("#mensajeModal").modal('show');
+            return;
+        }
+    
+        // Enviar datos al servidor
+        $.post("actions/contactoAcciones.php", {
+            action: 'add',
+            nombre: $nombre,
+            apellido: $apellido,
+            email: $email,
+            mensaje: $mensaje
+        }, function (data, status) {
+            let response = JSON.parse(data);
+            $("#mensajeModalBody").text(response.message);
+            $("#mensajeModal").modal('show');
+    
+            if (response.status === '00') {
+                $("#mensajeModal").on('hidden.bs.modal', function () {
+                    location.reload();
+                });
+            }
+        });
+    });
+    
     $("#tourAgregar").on('submit', function(e) {
         e.preventDefault();
     
