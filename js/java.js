@@ -5,7 +5,7 @@ $(function () {
     getPadrinos();
     getAnimalesDisponibles();
     getClientes();
-    getAdmin();
+
     //ALERTA PARA EL REGISTRO
     function mostrarAlertaCorreoExistente() {
         alert("El correo ya está registrado.");
@@ -194,36 +194,36 @@ $(function () {
         $.post("actions/accionesApadrinamientos.php", {
             action: 'obtenerUsuariosDisponibles',
         },
-        function (data) {
-            let response;
-            try {
-                response = JSON.parse(data);
-            } catch (error) {
-                console.error("Error al parsear JSON:", error);
-                alert("Hubo un problema al obtener los datos.");
-                return;
-            }
-    
-            if (response.status === '00') {
-                console.log(response);
-                let respuesta = '';
-                response.usuarios.forEach((element) => {
-                    respuesta += `
+            function (data) {
+                let response;
+                try {
+                    response = JSON.parse(data);
+                } catch (error) {
+                    console.error("Error al parsear JSON:", error);
+                    alert("Hubo un problema al obtener los datos.");
+                    return;
+                }
+
+                if (response.status === '00') {
+                    console.log(response);
+                    let respuesta = '';
+                    response.usuarios.forEach((element) => {
+                        respuesta += `
                         <tr id="usuarioSeleccionado" class="fila-usuario" data-id="${element.id}">
                             <td>${element.id}</td>
                             <td>${element.nombre}</td>
                            
                         </tr>
                     `;
-                });
-    
-                $("#usuariosDisponibles").html(respuesta || '<tr><td colspan="3">No hay usuarios disponibles</td></tr>');
-            } else {
-                $("#usuariosDisponibles").html('<tr><td colspan="3">No hay usuarios disponibles</td></tr>');
-            }
-        });
+                    });
+
+                    $("#usuariosDisponibles").html(respuesta || '<tr><td colspan="3">No hay usuarios disponibles</td></tr>');
+                } else {
+                    $("#usuariosDisponibles").html('<tr><td colspan="3">No hay usuarios disponibles</td></tr>');
+                }
+            });
     }
-    
+
 
     $(document).on('click', '.fila-usuario', function () {
         let selectedId = $(this).data('id');
@@ -240,16 +240,16 @@ $(function () {
         $("#animalSeleccionado").data('id', selectedId);
         alert("Animal seleccionado con ID: " + selectedId);
     });
-    
-    $(document).on('click',"#guardarPadrino", function (e) {
+
+    $(document).on('click', "#guardarPadrino", function (e) {
         e.preventDefault();
-        
+
         let $idAnimal = $(".fila-animal").data('id');
         console.log($idAnimal);
         let $idUsuario = $(".fila-usuario").data('id');
         let $monto = $("#montoApadrinar").val();
         let $frecuencia = $("#frecuencia").val();
-    
+
         if (!$idAnimal || !$idUsuario || !$monto || !$frecuencia) {
             alert("Debe completar todos los campos antes de continuar");
             return;
@@ -270,16 +270,16 @@ $(function () {
                     alert("Hubo un problema con la respuesta del servidor.");
                     return;
                 }
-        
+
                 alert(response.message);
                 if (response.status === '00') {
                     window.location.href = './gestionPadrinos.php';
                 }
             });
         }
-    
+
     });
-    
+
 
 
     //----------------------------------------------------------------
@@ -583,10 +583,10 @@ $(function () {
     });
 
     //APADRINAR ANIMAL - CLIENTE
-    $("#formApadrinarAnimal").on('submit', function(e){
+    $("#formApadrinarAnimal").on('submit', function (e) {
         e.preventDefault();
 
-        $id= $("#idAnimalApadrinar").val();
+        $id = $("#idAnimalApadrinar").val();
         $montoDonar = $("#montoDonarForm").val();
         $frecuencia = "Mensual";
 
@@ -595,11 +595,15 @@ $(function () {
             id: $id,
             montoDonar: $montoDonar,
             frecuencia: $frecuencia
-        }, function(data, status){
+        }, function (data, status) {
             let response = JSON.parse(data);
-            alert(response.message);
-            if(response.status=='00'){
-                window.location.href = "./listadoAnimalesDisponibles.php";
+            $("#mensajeModalBody").text(response.message);
+            $("#mensajeModal").modal('show');
+
+            if (response.status === '00') {
+                $("#mensajeModal").on('hidden.bs.modal', function () {
+                    window.location.href = "./listadoAnimalesDisponibles.php";
+                });
             }
         });
     });
@@ -650,52 +654,49 @@ $(function () {
 
     //MOSTRAR EL ADMIN
     function getAdmin() {
-        
+
         $.post("actions/accionesUsuario.php", {
-            action: 'getUsuario' 
+            action: 'getUsuario'
         }, function (data, status) {
-            try {
-                let response = JSON.parse(data); // Parsear la respuesta JSON
-                console.log(response);
-    
-                if (response.status == '00') {
-                    let user = response.users[0]; // Asumimos que data contiene un array con un solo usuario
-                    console.log(user);
-                    // Asignar valores a los campos correspondientes
-                    $("#nombreAdmin").val(user.Nombre);
-                    $("#apellido1Admin").val(user.Apellido1);
-                    $("#apellido2Admin").val(user.Apellido2);
-                    $("#telefonoAdmin").val(user.Telefono);
-                    $("#emailAdmin").val(user.Correo);
-                    $("#direccionAdmin").val(user.Provincia);
-                    $("#cantonAdmin").val(user.Canton);
-                    $("#distritoAdmin").val(user.Distrito);
-                    $("#exactaAdmin").val(user.Direccion);
-                    $("#passwordHash").val(user.Password);
-                } else {
-                    console.error("Error en la respuesta: ", response.users);
-                    alert("No se pudo obtener la información del administrador. Por favor, inténtelo de nuevo.");
-                }
-            } catch (error) {
-                console.error("Error al procesar la respuesta: ", error);
-                alert("Ocurrió un error al intentar obtener los datos del administrador.");
+
+            let response = JSON.parse(data); // Parsear la respuesta JSON
+            console.log(response);
+
+            if (response.status == '00') {
+                let user = response.users[0]; // Asumimos que data contiene un array con un solo usuario
+                console.log(user);
+                // Asignar valores a los campos correspondientes
+                $("#nombreAdmin").val(user.Nombre);
+                $("#apellido1Admin").val(user.Apellido1);
+                $("#apellido2Admin").val(user.Apellido2);
+                $("#telefonoAdmin").val(user.Telefono);
+                $("#emailAdmin").val(user.Correo);
+                $("#direccionAdmin").val(user.Provincia);
+                $("#cantonAdmin").val(user.Canton);
+                $("#distritoAdmin").val(user.Distrito);
+                $("#exactaAdmin").val(user.Direccion);
+                $("#passwordHash").val(user.Password);
+            } else {
+                console.error("Error en la respuesta: ", response.users);
+                alert("No se pudo obtener la información del administrador. Por favor, inténtelo de nuevo.");
             }
+
         })
     };
 
 
-    $("#formAdminActualizar").on('submit', function(e){
+    $("#formAdminActualizar").on('submit', function (e) {
         e.preventDefault();
 
         $nombreAdmin = $("#nombreAdmin").val();
         $apellido1Admin = $("#apellido1Admin").val();
-        $apellido2admin =  $("#apellido2Admin").val();
-        $telefonoAdmin =  $("#telefonoAdmin").val();
-        $emailAdmin =  $("#emailAdmin").val();
-        $direccionAdmin =  $("#direccionAdmin").val();
-        $cantonAdmin =  $("#cantonAdmin").val();
-        $distritoAdmin =  $("#distritoAdmin").val();
-        $exactaAdmin =  $("#exactaAdmin").val();
+        $apellido2admin = $("#apellido2Admin").val();
+        $telefonoAdmin = $("#telefonoAdmin").val();
+        $emailAdmin = $("#emailAdmin").val();
+        $direccionAdmin = $("#direccionAdmin").val();
+        $cantonAdmin = $("#cantonAdmin").val();
+        $distritoAdmin = $("#distritoAdmin").val();
+        $exactaAdmin = $("#exactaAdmin").val();
 
 
         $.post("actions/accionesUsuario.php", {
@@ -709,11 +710,11 @@ $(function () {
             canton: $cantonAdmin,
             distrito: $distritoAdmin,
             provincia: $direccionAdmin
-        }, function(data, status){
-          let response = JSON.parse(data);
-          console.log(response);
+        }, function (data, status) {
+            let response = JSON.parse(data);
+            console.log(response);
             alert(response.message);
-            if(response.status === '01'){
+            if (response.status === '01') {
                 window.location.href = "./login.php";
             }
 
@@ -724,28 +725,28 @@ $(function () {
 
 
 
-    $("#changePassword").on('submit', function(e){
+    $("#changePassword").on('submit', function (e) {
         e.preventDefault();
         $passwordHash = $("#passwordHash").val();
         $contraActual = $("#contrasena_actual").val();
-        $nuevaContra =  $("#nueva_contrasena").val();
+        $nuevaContra = $("#nueva_contrasena").val();
 
         $.post("actions/accionesUsuario.php", {
             action: 'actualizarPassword',
             contraActual: $contraActual,
             newPassword: $nuevaContra,
             passwordHash: $passwordHash
-        }, function(data, status){
+        }, function (data, status) {
             let response = JSON.parse(data);
             alert(response.message);
-            if(response.status=='00'){
+            if (response.status == '00') {
                 window.location.href = "./login.php";
             }
         });
     })
     //CIERRE DEL FUNCTION
 
-    $("#contact-form").on('submit', function(e){
+    $("#contactoForm").on('submit', function (e) {
 
         e.preventDefault();
         $nombre = $("#nombreConsulta").val();
@@ -755,26 +756,51 @@ $(function () {
 
 
         if (!$nombre || !$nombre || !$email || !$mensaje) {
-            alert('Debe completar todos los campos antes de enviar.');
+            $("#mensajeModalBody").text('Debe completar todos los campos antes de enviar.');
+                $("#mensajeModal").modal('show');
             return;
         } else {
             $.post("actions/contactoAcciones.php", {
                 action: 'add',
-                nombre:  $nombre, apellido:  $apellido, email: $email, mensaje:   $mensaje 
-            }, function(data,status){
+                nombre: $nombre, 
+                apellido: $apellido, 
+                email: $email, 
+                mensaje: $mensaje
+            }, function (data, status) {
                 let response = JSON.parse(data);
-                console.log(response);
-                alert(response.message);
-                if(response.status=='00'){
-                    $mensaje = $("#mensajeConsulta").val("");
+                $("#mensajeModalBody").text(response.message);
+                $("#mensajeModal").modal('show');
 
+                if (response.status === '00') {
+                    $("#mensajeModal").on('hidden.bs.modal', function () {
+                        location.reload();
+                    });
                 }
             });
         }
-        
+
+    });
 
 
+    $("#finalizarApadrinamiento").on('submit', function (e) {
+        e.preventDefault();
+        $idAnimal = $("#idAnimalFinalizar").val();
+        $.post("actions/accionesApadrinamientos.php", {
+            action: 'desactivarApadrinamiento',
+            id: $idAnimal
+        }, function (data, status) {
+            let response = JSON.parse(data);
 
+            $("#mensajeModalBody").text(response.message);
+            $("#mensajeModal").modal('show');
+
+            if (response.status === '00') {
+                $("#mensajeModal").on('hidden.bs.modal', function () {
+                    location.reload();
+                });
+            }
+        }
+        );
     })
 
 

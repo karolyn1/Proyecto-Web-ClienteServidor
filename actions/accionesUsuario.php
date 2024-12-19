@@ -224,6 +224,7 @@ switch ($data['action']) {
                 break;
             
             case 'getUsuario':
+                if(isset($_SESSION['usuario_id'])){
                 $id = $_SESSION['usuario_id'];
                 $sql = "SELECT a.Apellido1, a.Nombre, a.Apellido2, a.Correo, a.Telefono, b.Direccion_Exacta, b.Provincia, b.Canton, b.Distrito, a.Password
                         FROM usuario a
@@ -257,6 +258,7 @@ switch ($data['action']) {
             "users" => "No se encontró información para el usuario especificado."
         ]);
     }
+}
     break;
     case 'actualizarPassword':
         $contraActual = $data['contraActual'];

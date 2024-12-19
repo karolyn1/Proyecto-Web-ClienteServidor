@@ -51,7 +51,7 @@
                     cuidado médico, y bienestar general. Cada patrocinio ayuda a mejorar la calidad de vida de estos
                     animales y les da una segunda oportunidad.</p>
                 <div class="link-container">
-                    <a href="#" class="section-link">Contáctenos</a>
+                    <a href="contactenos.php" class="section-link">Contáctenos</a>
                 </div>
             </div>
             <div class="col-md-3 text-center">
@@ -60,7 +60,7 @@
                     mantenimiento de nuestras instalaciones. Aceptamos donaciones de dinero, alimentos, medicinas, y
                     juguetes para los animales.</p>
                 <div class="link-container">
-                    <a href="#" class="section-link">Ver apartado de Donaciones</a>
+                    <a href="informacionDonacion.php" class="section-link">Ver apartado de Donaciones</a>
                 </div>
             </div>
             <div class="col-md-3 text-center">
@@ -68,7 +68,7 @@
                 <p>Ofrecemos tours guiados en el refugio para que puedas conocer a los animales y ver el impacto de tu
                     apoyo. Los fondos recaudados en cada tour se destinan a cubrir las necesidades del refugio.</p>
                 <div class="link-container">
-                    <a href="#" class="section-link">Ver apartado de Tours</a>
+                    <a href="tourDisponible.php" class="section-link">Ver apartado de Tours</a>
                 </div>
             </div>
         </div>

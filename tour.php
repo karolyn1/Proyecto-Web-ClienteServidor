@@ -59,6 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($insert_stmt->execute()) {
                 $success = "Reserva realizada exitosamente.";
+                header("Location: " . $_SERVER['REQUEST_URI']); 
+                exit();
             } else {
                 $error = "Error al guardar la reserva en la base de datos.";
             }

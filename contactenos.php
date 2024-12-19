@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
     <script src="./js/jquery-3.7.1.min.js"></script>
     <script src="./js/java.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <header>
@@ -34,7 +36,7 @@
             <img src="imagenes/logo.png" alt="Casa Natura Logo" class="logo-mascot">
         </div>
         <div class="contact-form">
-        <form id="contact-form  form-agregar-animal" action="#">
+        <form id="contactoForm" class="form-agregar-animal" action="#">
             <h3 class="contacto-title-form">¿TIENES ALGUNA DUDA?</h3>
 
             <!-- Campo Nombre -->
@@ -50,7 +52,7 @@
             <small class="error-message" style="color: red; display: none;">Por favor, ingresa un correo válido.</small>
 
             <!-- Campo Mensaje -->
-            <textarea id="mensajeConsulta" name="mensaje" placeholder="Mensaje" required></textarea>
+            <textarea id="mensajeConsulta" name="mensaje" placeholder="Mensaje"></textarea>
             <small class="error-message" style="color: red; display: none;">Por favor, escribe un mensaje.</small>
 
             <button type="submit" class="about-btn">ENVIAR</button>
@@ -72,6 +74,23 @@
             <iframe src="https://maps.google.com/maps?q=San%20Jose%20Costa%20Rica&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
         </div>
     </section>
+
+    <div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="mensajeModalLabel">CasaNatura</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="mensajeModalBody">
+                        <!-- El mensaje dinámico se colocará aquí -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="submit-btn" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer>
         <?php 

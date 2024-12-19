@@ -47,20 +47,22 @@ $result = $stmt->get_result();
     <title>Casa Natura</title><link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 </head>
-
-<?php
+<body>
+    <nav>
+    <?php
     include('fragmentos.php');
     echo $navbar;
     include('./actions/conexion.php');
     ?>
+    </nav>
+
     <main>
     <?php
     include('fragmentos.php');
     echo $opciones;
     ?>
-    <main>
         <div class="container mt-4">
-            <h1 class="titulo">MIS BOLETOS</h1>
+            <h1 class="perfil-title-donaciones text-center mt-5">MIS BOLETOS</h1>
             <p class="text-center text-muted">Aquí se muestran los tours que has adquirido.</p>
 
             <div class="row">

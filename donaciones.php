@@ -43,6 +43,8 @@ $result = $stmt->get_result();
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css" >
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
 </head>
 <body>
     <?php
@@ -55,12 +57,12 @@ $result = $stmt->get_result();
     include('fragmentos.php');
     echo $opciones;
     ?>
-
-        <div class="dashboard-container">
+<h2 class="perfil-title-donaciones text-center mt-5">MIS DONACIONES</h2>
+        <div >
             <div class="col main-content-perfil">
-                <div class="row m-5 card-container">
-                    <div class="container contenedor-tabla">
-                        <h2 class="perfil-title-donaciones text-center">MIS DONACIONES</h2>
+                <div class="row">
+                    <div class="container ">
+                        
                         <br>
                         <table class="tabla text-center">
                             <thead>

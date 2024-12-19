@@ -60,6 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($insert_stmt->execute()) {
                 $success = "Reserva realizada exitosamente.";
+                header("Location: " . $_SERVER['REQUEST_URI']); // Recarga la página actual
+                exit();
             } else {
                 $error = "Error al guardar la reserva en la base de datos.";
             }
@@ -74,18 +76,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserva de Evento</title>
+    <title>CasaNatura - Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="./js/jquery-3.7.1.min.js"></script>
+    <script src="./js/java.js"></script>
 </head>
 
 <body>
     <nav>
-        <?php include("fragmentos.php"); echo $navbar; ?>
+        <?php include("fragmentos.php");
+        echo $navbar; ?>
     </nav>
 
     <main>
@@ -96,8 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="p-4 rounded shadow-sm bg-light">
                         <!-- Imagen -->
                         <div class="text-center mb-3">
-                            <img src="imagenes/<?php echo htmlspecialchars($evento['Imagen']); ?>" alt="Imagen del Evento"
-                                class="img-fluid rounded">
+                            <img src="imagenes/<?php echo htmlspecialchars($evento['Imagen']); ?>"
+                                alt="Imagen del Evento" class="img-fluid rounded">
                         </div>
 
                         <!-- Información -->
@@ -118,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Columna del Formulario -->
                 <div class="col-md-6">
                     <div class="p-4 rounded shadow-sm bg-white">
-                        <h2 class="titulo text-center mb-4">COMPRA TUS TICKETS</h2>
+                        <h2 class="titulo text-center">COMPRA TUS TICKETS</h2>
 
                         <!-- Alertas -->
                         <?php if (isset($success)): ?>
@@ -128,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endif; ?>
 
                         <!-- Formulario -->
-                        <form method="POST" class="form-agregar-evento">
+                        <form method="POST" class="form-agregar-animal">
                             <div class="mb-3">
                                 <label for="cantidad_tickets" class="form-label">Cantidad de Tickets</label>
                                 <input type="number" id="cantidad_tickets" name="cantidad_tickets" class="form-control"
@@ -156,7 +165,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </main>
 
-    <?php include("fragmentos.php"); echo $footer; ?>
+    <?php include("fragmentos.php");
+    echo $footer; ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

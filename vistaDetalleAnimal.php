@@ -66,7 +66,9 @@
                     alt="Imagen de <?php echo htmlspecialchars($animal['Nombre']); ?>">
                 <div class="title">
                     <h1><?php echo htmlspecialchars($animal['Nombre']); ?></h1>
-                    <p><?php echo htmlspecialchars($animal['Especie']) . ", " . htmlspecialchars($animal['Fecha_Nacimiento']); ?>
+                    <p>Especie: <?php echo htmlspecialchars($animal['Especie']) ?>
+                    </p>
+                    <p>Fecha de Nacimiento: <?php echo htmlspecialchars($animal['Fecha_Nacimiento']) ?>
                     </p>
                 </div>
             </div>

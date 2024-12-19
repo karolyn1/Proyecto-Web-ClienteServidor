@@ -61,7 +61,7 @@ $result = $stmt->get_result();
     echo $opciones;
     ?>
         <div class="container mt-4">
-            <h1 class="titulo">MIS EVENTOS</h1>
+            <h1 class="perfil-title-donaciones text-center mt-5">MIS EVENTOS</h1>
             <p class="text-center text-muted">Aquí se muestran los eventos que has adquirido.</p>
 
             <div class="row">
