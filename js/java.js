@@ -559,8 +559,8 @@ $(function () {
         console.log("hola");
    
         // Capturar los datos del formulario
-        $monto = $("#montoDonacion").val();
-        $metodoPago = $("#metodoPago").val();
+        $monto = $("#cantidad").val();
+        $metodoPago = $("#metodo").val();
    
         // Validar campos antes de enviar
         if (!$monto || !$metodoPago) {

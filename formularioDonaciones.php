@@ -159,23 +159,14 @@ if (!isset($_SESSION['usuario_id'])) {
 
 <script>
         // Función para validar el formulario principal
-        function validarFormulario() {
-            let cantidad = document.getElementById("cantidad").value;
-            let metodo = document.getElementById("metodo").value;
-            if (!cantidad) {
-                alert("Por favor, completa todos los campos.");
-                return false;
-            }
-            return true;
-        }
 
         // Función para validar el formulario principal
         function validarFormulario() {
             var cantidad = document.getElementById("cantidad").value; // Suponiendo que el campo de cantidad tiene el ID 'cantidad'
 
             // Verificar si la cantidad es mayor o igual a 50
-            if (cantidad < 50) {
-                alert("La cantidad debe ser mayor o igual a 50.");
+            if (cantidad > 5) {
+                alert("La cantidad debe ser mayor o igual a $5.");
                 return false; // Impide el envío del formulario
             }
 
