@@ -728,7 +728,63 @@ $(function () {
         }
 
     });
+// Obtener los datos del cliente/usuario
+function getCliente() {
+    $.post("actions/accionesUsuario.php", { action: 'getCliente' }, function (data, status) {
+        let response = JSON.parse(data); // Parsear la respuesta JSON
+        console.log(response);
 
+        if (response.status === '00') {
+            let user = response.users[0]; // Tomar el primer cliente/usuario
+            console.log(user);
+
+            // Asignar valores a los campos del formulario
+            $("#nombreUsuario").val(user.nombreUsuario);
+            $("#emailUsuario").val(user.emailUsuario);
+            $("#telefonoUsuario").val(user.telefonoUsuario);
+            $("#direccionUsuario").val(user.direccionUsuario);
+            $("#passwordHash").val(user.passwordUsuario);
+        } else {
+            console.error("Error en la respuesta: ", response.users);
+            alert("No se pudo obtener la información del cliente. Por favor, inténtelo de nuevo.");
+        }
+    });
+}
+
+// Actualizar los datos del cliente/usuario
+$("#formClienteActualizar").on('submit', function (e) {
+    e.preventDefault();
+
+    // Capturar los datos del formulario
+    let data = {
+        action: 'updateCliente',
+        nombreUsuario: $("#nombreUsuario").val(),
+        emailUsuario: $("#emailUsuario").val(),
+        telefonoUsuario: $("#telefonoUsuario").val(),
+        direccionUsuario: $("#direccionUsuario").val(),
+        passwordUsuario: $("#passwordHash").val()
+    };
+
+    // Enviar los datos al servidor
+    $.post("actions/accionesUsuario.php", data, function (data, status) {
+        let response = JSON.parse(data);
+
+        // Mostrar mensaje de respuesta en un modal
+        $("#mensajeModalBody").text(response.message);
+        $("#mensajeModal").modal('show');
+
+        // Realizar acciones según el resultado
+        if (response.status === '01') {
+            $("#mensajeModal").on('hidden.bs.modal', function () {
+                window.location.href = "./login.php";
+            });
+        } else if (response.status === '00') {
+            $("#mensajeModal").on('hidden.bs.modal', function () {
+                location.reload();
+            });
+        }
+    });
+});
 
     $("#finalizarApadrinamiento").on('submit', function (e) {
         e.preventDefault();
