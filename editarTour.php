@@ -60,10 +60,6 @@
         $tickets_disponibles = isset($_POST['tickets_disponibles']) ? (int) $_POST['tickets_disponibles'] : null;
         $estado = isset($_POST['estadoTour']) ? (int) $_POST['estadoTour'] : null;
 
-        if (!$nombre || !$descripcion || !$fecha || !$hora || !$precio_boleto || !$tickets_disponibles) {
-            echo "<script>alert('Todos los campos son obligatorios.');</script>";
-            exit;
-        }
 
         // Manejar la imagen
         $ruta_imagen = null;

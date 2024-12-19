@@ -904,4 +904,29 @@ $("#formClienteActualizar").on('submit', function (e) {
         });
     });
 
+    $(document).on("click", "#eliminarEventoBTN", function () {
+        if (confirm("¿Deseas eliminar el evento?")) {
+            const row = $(this).closest('tr');
+            const id = row.attr("id");
+            console.log(id);
+            $.post("actions/eventosAcciones.php", { action: 'eliminar', id: id }, function (data, status) {
+                let response = JSON.parse(data);
+                console.log(response);
+                $("#mensajeModalBody").text(response.message);
+                $("#mensajeModal").modal('show');
+    
+                if (response.status === '00') {  // Usa response.status aquí
+                    $("#mensajeModal").on('hidden.bs.modal', function () {
+                        row.remove();  // Elimina la fila de la tabla
+                        location.reload();  // Recarga la página para reflejar los cambios
+    
+                        if ($("#bodyTabla tr").length === 0) {
+                            $("#bodyTabla").html('<tr><td colspan="6">No hay animales disponibles</td></tr>');
+                        }
+                    });
+                }
+            });
+        }
+    });
+
 });
