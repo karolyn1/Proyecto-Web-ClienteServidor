@@ -526,69 +526,6 @@ $(function () {
 
 
 
-    // VALIDACIONES DEL FORMULARIO DE DONACIONES
-    document.addEventListener('DOMContentLoaded', () => {
-        const form = document.getElementById('form-donaciones');
-        const submitButton = document.getElementById('submit-button');
-
-        form.addEventListener('submit', (e) => {
-            let valid = true;
-
-            // Deshabilitar el botón de envío al comenzar la validación
-            submitButton.disabled = true;
-
-            // Validar el campo nombre
-            const nombre = document.getElementById('nombre');
-            if (nombre.value.trim() === '') {
-                alert('Por favor ingresa tu nombre completo.');
-                valid = false;
-            }
-
-            // Validar el campo apellido1
-            const apellido1 = document.getElementById('apellido1');
-            if (apellido1.value.trim() === '') {
-                alert('Por favor ingresa tu primer apellido.');
-                valid = false;
-            }
-
-            // Validar el campo apellido2
-            const apellido2 = document.getElementById('apellido2');
-            if (apellido2.value.trim() === '') {
-                alert('Por favor ingresa tu segundo apellido.');
-                valid = false;
-            }
-
-            // Validar correo electrónico
-            const correo = document.getElementById('correo');
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(correo.value)) {
-                alert('Por favor ingresa un correo electrónico válido.');
-                valid = false;
-            }
-
-            // Validar teléfono
-            const telefono = document.getElementById('telefono');
-            const phoneRegex = /^\d{8,15}$/; // Ejemplo: 8-15 dígitos
-            if (!phoneRegex.test(telefono.value)) {
-                alert('Por favor ingresa un número de teléfono válido.');
-                valid = false;
-            }
-
-            // Validar campo "Otra cantidad" si está visible
-            const otraCantidad = document.getElementById('otra-cantidad');
-            if (otraCantidad.offsetHeight > 0 && otraCantidad.value <= 0) {
-                alert('Por favor ingresa una cantidad válida.');
-                valid = false;
-            }
-
-            if (!valid) {
-                e.preventDefault(); // Prevenir envío si hay errores
-            } else {
-                // Si es válido, se puede proceder con el envío del formulario
-                submitButton.disabled = false;
-            }
-        });
-    });
 
     //APADRINAR ANIMAL - CLIENTE
     $("#formApadrinarAnimal").on('submit', function (e) {
@@ -617,43 +554,35 @@ $(function () {
     });
 
 
-    $("#form-donaciones").on("submit", function (e) {
-        e.preventDefault(); // Evitar el envío predeterminado del formulario
-
+    $("#formDonar").on("submit", function (event) {
+        event.preventDefault(); // Prevenir el envío del formulario
+        console.log("hola");
+   
         // Capturar los datos del formulario
-        let monto = $("#otra-cantidad").val();
-        let metodoPago = $("#metodo").val();
-
+        $monto = $("#montoDonacion").val();
+        $metodoPago = $("#metodoPago").val();
+   
         // Validar campos antes de enviar
-        if (!monto || !metodoPago) {
+        if (!$monto || !$metodoPago) {
             alert("Por favor, completa todos los campos.");
             return;
         }
+   
+        // Enviar datos por POST
+        $.post("actions/donacionesAcciones.php", {
+            action: 'guardar',
+            monto: $monto,
+            metodoPago: $metodoPago
+        }, function(data, status){
+            let response = JSON.parse(data);    
+            $("#mensajeModalBody").text(response.message);
+            $("#mensajeModal").modal('show');
 
-        // Enviar datos al servidor con $.ajax
-        $.ajax({
-            url: "actions/donacionesAcciones.php", // Ruta al archivo PHP
-            type: "POST", // Método HTTP
-            dataType: "json", // Especificar que se espera una respuesta JSON
-            contentType: "application/json; charset=utf-8", // Indicar que se envían datos JSON
-            data2: JSON.stringify({
-                action: 'guardar', // Acción que se ejecutará en PHP
-                monto: monto,
-                metodoPago: metodoPago,
-            }),
-            success: function (response) {
-                // Manejar la respuesta del servidor
-                if (response.status === "00") {
-                    // Mostrar modal de éxito
-                    $('#donationModal').modal('show');
-                } else {
-                    // Mostrar mensaje de error
-                    alert(response.message);
-                }
-            },
-            error: function (xhr, status, error) {
-                alert("Ocurrió un error al procesar tu donación. Intenta nuevamente.");
-            },
+            if (response.status === '00') {
+                $("#mensajeModal").on('hidden.bs.modal', function () {
+                    location.reload();
+                });
+            }
         });
     });
 
@@ -858,6 +787,45 @@ $(function () {
         });
     });
     
+    // $('#tourEditar').submit(function(e) {
+    //     e.preventDefault(); // Evita el envío tradicional del formulario
+    
+    //     var formData = new FormData(this); // Obtén los datos del formulario
+    
+    //     // Utilizar $.ajax para manejar correctamente FormData
+    //     $.ajax({
+    //         url: 'editarTour.php', // Archivo PHP que procesará la solicitud
+    //         type: 'POST', // Método HTTP
+    //         data: formData, // Datos del formulario
+    //         processData: false, // Necesario para enviar FormData correctamente
+    //         contentType: false, // Evita que jQuery establezca el encabezado "Content-Type"
+    //         success: function(data) {
+    //             try {
+    //                 let response = JSON.parse(data); // Convertir respuesta a JSON
+    
+    //                 if (response.status === "00") {
+    //                     // Si la actualización fue exitosa
+    //                     $('#mensajeModalBody').text(response.message); // Mensaje de éxito
+    //                     $('#mensajeModal').modal('show');
+    //                 } else {
+    //                     // Si hubo un error
+    //                     $('#mensajeModalBody').text(response.message); // Mensaje de error
+    //                     $('#mensajeModal').modal('show');
+    //                 }
+    //             } catch (error) {
+    //                 console.error('Error al parsear JSON:', error);
+    //                 $('#mensajeModalBody').text("Error inesperado en la respuesta del servidor.");
+    //                 $('#mensajeModal').modal('show');
+    //             }
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Si hay un error en la solicitud
+    //             console.error('Error:', error);
+    //             $('#mensajeModalBody').text("Hubo un error al procesar la solicitud.");
+    //             $('#mensajeModal').modal('show');
+    //         }
+    //     });
+    // });
     
 
 });

@@ -152,7 +152,7 @@ if (isset($_POST['cambiar'])) {
         echo "<p style='color: red; text-align: center;'>Las contraseñas no coinciden.</p>";
     } else {
         
-        $hashedPassword = password_hash($nueva_contra, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($nueva_contra, PASSWORD_BCRYPT);
 
         
         $stmt = $conn->prepare("UPDATE usuarios SET password = ? WHERE correo = ?");

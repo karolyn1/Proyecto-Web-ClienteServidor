@@ -15,12 +15,12 @@ switch ($data['action']) {
         $Correo = mysqli_real_escape_string($conn, $data['correo']);
         $Nombre = mysqli_real_escape_string($conn, $data['nombre']);
         $Rol = mysqli_real_escape_string($conn, $data['rol']);
-        $Estado = 'Activo'; // El estado lo puedes establecer directamente
+        $Estado = 'Activo';
         $Password = mysqli_real_escape_string($conn, $data['password']);
         $Password = password_hash($Password, PASSWORD_DEFAULT); // Hashea la contraseña para mayor seguridad
         $consultar = "SELECT * FROM usuario";
         $ejecutarConsulta = $conn->query($consultar);
-
+        $correoExistente = $ejecutarConsulta->fetch_assoc();
         if ($ejecutarConsulta->num_rows > 0) {
             echo json_encode(["status" => "99", "message" => "Ya existe un usuario con el correo indicado"]);
         } else {
