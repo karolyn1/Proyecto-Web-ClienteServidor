@@ -63,64 +63,173 @@ if (!$result_animales) {
     </nav>
 
 
-<main>
+    <main>
+<div class="container">
+    <h1 class="animales-apadrinar-title">Apadrinamiento</h1>
+    <p>A través de este formulario, puedes contribuir al bienestar de los animales que más lo necesitan. Selecciona la cantidad y la frecuencia de tu apadrinamiento y completa los detalles para hacer tu contribución. ¡Gracias por ser parte del cambio!</p>
     <div class="container">
-        <h1 class="animales-apadrinar-title">Apadrinamiento</h1>
-        <p>A través de este formulario, puedes contribuir al bienestar de los animales que más lo necesitan. Selecciona la cantidad y la frecuencia de tu apadrinamiento y completa los detalles para hacer tu contribución. ¡Gracias por ser parte del cambio!</p>
-        <div class="container">
-            <form action="" id="formApadrinarAnimal" method="post" onsubmit="return validarFormulario()">
-            <input type="hidden" id="idAnimalApadrinar" name="idAnimal" value=<?php echo $idAnimal;?>>
-                <div class="mb-3">
-                    <label for="monto">Monto mensual (mínimo $50)</label>
-                    <input type="number" id="montoDonarForm" name="monto" required min="50" title="El monto mínimo es $50.">
-                </div>
-                <div class="mb-3">
-                    <label for="metodo">Método de pago</label>
-                    <select id="metodo" name="metodo" required>
-                        <option value="tarjeta">Tarjeta crédito/débito</option>
-                        <option value="sinpe">Sinpe móvil</option>
-                        <option value="paypal">PayPal</option>
-                    </select>
-                </div>
-                <button type="submit" class="submit-btn">Apadrinar</button>
-            </form>
-        </div>
-    </div>
-
-    <div class="modal fade" id="mensajeModal" tabindex="-1" aria-labelledby="mensajeModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="mensajeModalLabel">CasaNatura</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="mensajeModalBody">
-                        <!-- El mensaje dinámico se colocará aquí -->
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="submit-btn" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                </div>
+        <form id="formApadrinarAnimal" method="post" onsubmit="return validarFormulario()">
+            <input type="hidden" id="idAnimalApadrinar" name="idAnimal" value="<?php echo $idAnimal; ?>">
+            <div class="mb-3">
+                <label for="monto">Monto mensual (mínimo $50)</label>
+                <input type="number" id="montoDonarForm" name="monto" required min="50" title="El monto mínimo es $50.">
             </div>
-        </div>
-</main>
+            <div class="mb-3">
+                <label for="metodo">Método de pago</label>
+                <select id="metodo" name="metodo" class="form-control" required onchange="mostrarModal()">
+                    <option value="">Selecciona un método de pago</option>
+                    <option value="tarjeta">Tarjeta crédito/débito</option>
+                    <option value="sinpe">Sinpe móvil</option>
+                    <option value="paypal">PayPal</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn" id="submit-button">Donar</button>
+    
 
-    <?php
-        include("fragmentos.php");
-        echo $footer;
-    ?>
+            <!-- Modal para tarjeta -->
+            <div class="modal fade form-agregar-animal" id="modalTarjeta" tabindex="-1" role="dialog"
+                            aria-labelledby="modalTarjetaLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalTarjetaLabel">Pago con Tarjeta</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="numeroTarjeta">Número de tarjeta</label>
+                                                <input type="text" class="form-control" id="numeroTarjeta"
+                                                    placeholder="XXXX-XXXX-XXXX-XXXX">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="titularTarjeta">Nombre del titular</label>
+                                                <input type="text" class="form-control" id="titularTarjeta"
+                                                    placeholder="Nombre del titular">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="codigoSeguridad">Código de seguridad</label>
+                                                <input type="text" class="form-control" id="codigoSeguridad" placeholder="XXX">
+                                            </div>
+                                            <button type="button" class="submit-btn" data-dismiss="modal">Finalizar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-    <script>
-         function validarFormulario() {
-            const monto = parseFloat(document.getElementById("montoDonarForm").value);
+                <!-- Modal para Sinpe -->
+                <div class="modal fade form-agregar-animal" id="modalSinpe" tabindex="-1" role="dialog"
+                    aria-labelledby="modalSinpeLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalSinpeLabel">Pago por Sinpe Móvil</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body form-agregar-animal">
+                                <p>Realice su Sinpe al número: <strong>70265643</strong></p>
+                                <p>Nombre del titular: <strong>Casa Natura</strong></p>
+                                <button type="button" class="submit-btn" data-dismiss="modal">HECHO</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            if (isNaN(monto) || monto < 50) {
-                alert("El monto debe ser al menos $50.");
+                <!-- Modal para PayPal -->
+                <div class="modal fade form-agregar-animal" id="modalPaypal" tabindex="-1" role="dialog"
+                    aria-labelledby="modalPaypalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalPaypalLabel">Pago con PayPal</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="usuarioPaypal">Usuario de PayPal</label>
+                                        <input type="text" class="form-control" id="usuarioPaypal"
+                                            placeholder="Usuario">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contrasenaPaypal">Contraseña</label>
+                                        <input type="password" class="form-control" id="contrasenaPaypal"
+                                            placeholder="Contraseña">
+                                    </div>
+                                    <button type="button" class="submit-btn" data-dismiss="modal">Finalizar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal de confirmación de donación -->
+                <div class="modal fade form-agregar-animal" id="donationModal" tabindex="-1"
+                    aria-labelledby="donationModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="donationModalLabel">¡Gracias por tu donación!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Tu donación se ha realizado correctamente. ¡Agradecemos tu apoyo!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    </form>
+
+
+<?php
+    include("fragmentos.php");
+    echo $footer;
+?>
+
+<script>
+    function validarFormulario() {
+        const monto = parseFloat(document.getElementById("montoDonarForm").value);
+        if (isNaN(monto) || monto < 50) {
+            alert("El monto debe ser al menos $50.");
+            return false;
+        }
+        return true;
+    }
+
+</script>
+
+<script>
+        function validarFormulario() {
+            const metodo = document.getElementById("metodo").value;
+            if (!metodo) {
+                alert("Por favor, selecciona un método de pago.");
                 return false;
             }
-
             return true;
         }
+
+        function mostrarModal() {
+        var metodo = document.getElementById('metodo').value;
+        if (metodo === 'tarjeta') {
+            $('#modalTarjeta').modal('show');
+        } else if (metodo === 'sinpe') {
+            $('#modalSinpe').modal('show');
+        } else if (metodo === 'paypal') {
+            $('#modalPaypal').modal('show');
+        }
+    }
     </script>
 </body>
 </html>
