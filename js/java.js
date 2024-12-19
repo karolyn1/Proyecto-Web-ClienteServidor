@@ -787,39 +787,45 @@ $(function () {
         });
     });
     
-    $('#tourEditar').submit(function(e) {
-        e.preventDefault();  // Evita el envío tradicional del formulario
+    // $('#tourEditar').submit(function(e) {
+    //     e.preventDefault(); // Evita el envío tradicional del formulario
     
-        var formData = new FormData(this);  // Obtén los datos del formulario
+    //     var formData = new FormData(this); // Obtén los datos del formulario
     
-        $.ajax({
-            url: 'editarTour.php',  // Aquí va la URL del mismo archivo
-            type: 'POST',
-            data: formData,
-            processData: false,
-            contentType: false,
-            dataType: 'json',  // Asegúrate de esperar una respuesta en JSON
-            success: function(response) {
-                console.log(response);  // Muestra la respuesta en la consola
+    //     // Utilizar $.ajax para manejar correctamente FormData
+    //     $.ajax({
+    //         url: 'editarTour.php', // Archivo PHP que procesará la solicitud
+    //         type: 'POST', // Método HTTP
+    //         data: formData, // Datos del formulario
+    //         processData: false, // Necesario para enviar FormData correctamente
+    //         contentType: false, // Evita que jQuery establezca el encabezado "Content-Type"
+    //         success: function(data) {
+    //             try {
+    //                 let response = JSON.parse(data); // Convertir respuesta a JSON
     
-                if (response.status === "00") {
-                    // Si la actualización fue exitosa
-                    $('#mensajeModalBody').text(response.message);  // Muestra el mensaje de éxito
-                    $('#mensajeModal').modal('show');
-                } else {
-                    // Si hubo un error
-                    $('#mensajeModalBody').text(response.message);  // Muestra el mensaje de error
-                    $('#mensajeModal').modal('show');
-                }
-            },
-            error: function(xhr, status, error) {
-                // Si hay un error en la solicitud
-                console.error('Error:', error);
-                $('#mensajeModalBody').text("Hubo un error al procesar la solicitud.");
-                $('#mensajeModal').modal('show');
-            }
-        });
-    });
+    //                 if (response.status === "00") {
+    //                     // Si la actualización fue exitosa
+    //                     $('#mensajeModalBody').text(response.message); // Mensaje de éxito
+    //                     $('#mensajeModal').modal('show');
+    //                 } else {
+    //                     // Si hubo un error
+    //                     $('#mensajeModalBody').text(response.message); // Mensaje de error
+    //                     $('#mensajeModal').modal('show');
+    //                 }
+    //             } catch (error) {
+    //                 console.error('Error al parsear JSON:', error);
+    //                 $('#mensajeModalBody').text("Error inesperado en la respuesta del servidor.");
+    //                 $('#mensajeModal').modal('show');
+    //             }
+    //         },
+    //         error: function(xhr, status, error) {
+    //             // Si hay un error en la solicitud
+    //             console.error('Error:', error);
+    //             $('#mensajeModalBody').text("Hubo un error al procesar la solicitud.");
+    //             $('#mensajeModal').modal('show');
+    //         }
+    //     });
+    // });
     
 
 });

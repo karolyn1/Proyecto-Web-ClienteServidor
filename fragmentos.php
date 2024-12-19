@@ -148,6 +148,12 @@ $navbar .= '
             <p>MIS EVENTOS</p>
         </a>
     </div>
+    <div class="cardMenu">
+        <a href="miPerfil.php">
+            <div class="icon">🤝</div>
+            <p>EDITAR</p>
+        </a>
+    </div>
     
 </div>';
     ?>
