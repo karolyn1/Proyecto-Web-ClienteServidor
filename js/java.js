@@ -867,9 +867,9 @@ $("#changePassword").on('submit', function (e) {
         );
     })
 
-    $("#contactoForm").on('submit', function (e) {
+    $(document).on('click', '#enviarConsulta', function (e) {
         e.preventDefault();
-    
+        console.log('hola');
         let $nombre = $("#nombreConsulta").val().trim();
         let $apellido = $("#apellidoConsulta").val().trim();
         let $email = $("#emailConsulta").val().trim();
