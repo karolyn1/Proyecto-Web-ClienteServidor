@@ -18,7 +18,7 @@ switch ($data['action']) {
         $Estado = 'Activo';
         $Password = mysqli_real_escape_string($conn, $data['password']);
         $Password = password_hash($Password, PASSWORD_DEFAULT); // Hashea la contraseña para mayor seguridad
-        $consultar = "SELECT * FROM usuario";
+        $consultar = "SELECT * FROM usuario WHERE Correo = '$Correo'";
         $ejecutarConsulta = $conn->query($consultar);
         $correoExistente = $ejecutarConsulta->fetch_assoc();
         if ($ejecutarConsulta->num_rows > 0) {
