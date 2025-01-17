@@ -27,6 +27,9 @@
 
         $sql = "SELECT * FROM tours ORDER BY Estado";
         $resultado = $conn->query($sql);  // Usar query() si es una consulta simple, no requiere preparación
+
+
+
        
     ?>
     <main>
@@ -46,7 +49,11 @@
         <i class="fas fa-plus icono-agregar"></i> AGREGAR TOUR
     </a>
 </div>
-
+<div class="buscador">
+    <div class="input-grupo">
+        <input type="text" class="campo-buscar" placeholder="Buscar Tour...">
+    </div>
+</div>
 </div>
                     <table class="tabla">
                         <thead>
